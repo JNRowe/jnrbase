@@ -1,0 +1,9 @@
+*.html
+*.py[co]
+
+build/
+dist/
+jnrbase.egg-info/
+
+.coverage
+.noseids
