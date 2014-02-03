@@ -38,6 +38,7 @@ setup(
     url='https://github.com/JNRowe/jnrbase',
     license='GPL-3',
     keywords='library support utility',
+    py_modules=['ca_certs_locater', ],
     packages=['jnrbase', ],
     install_requires=install_requires,
     zip_safe=False,
