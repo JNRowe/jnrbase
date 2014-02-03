@@ -18,6 +18,8 @@
 #
 
 import imp
+import glob
+import os
 
 from setuptools import setup
 
@@ -26,7 +28,30 @@ from setuptools import setup
 ver_file = open('jnrbase/_version.py')
 _version = imp.load_module('_version', ver_file, ver_file.name,
                            ('.py', ver_file.mode, imp.PY_SOURCE))
-install_requires = map(str.strip, open('extra/requirements.txt').readlines())
+
+
+def parse_requires(file):
+    deps = []
+    req_file = open(file)
+    entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
+    for dep in entries:
+        if not dep or dep.startswith('#'):
+            continue
+        dep = dep
+        if dep.startswith('-r '):
+            deps.extend(parse_requires(dep.split()[1]))
+        else:
+            deps.append(dep)
+    return deps
+
+
+install_requires = []  # extra/requirements-base.txt
+
+extras_require = {}
+for file in glob.glob('extra/requirements-*.txt'):
+    suffix = os.path.splitext(file)[0].split('-')[1]
+    if not suffix in ['doc', 'test']:
+        extras_require[suffix] = parse_requires(file)
 
 setup(
     name='jnrbase',
@@ -41,6 +66,7 @@ setup(
     py_modules=['ca_certs_locater', ],
     packages=['jnrbase', ],
     install_requires=install_requires,
+    extras_require=extras_require,
     zip_safe=False,
     classifiers=[
         'Development Status :: 3 - Alpha',

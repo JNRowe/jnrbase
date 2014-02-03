@@ -1,2 +1,2 @@
-blessings
-httplib2
+-r requirements-colour.txt
+-r requirements-net.txt
