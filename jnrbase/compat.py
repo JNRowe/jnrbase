@@ -24,9 +24,14 @@ PY2 = version_info[0] == 2
 if PY2:
     basestring = basestring
     text = unicode
+
+    import codecs
+    open = codecs.open
 else:
     basestring = str
     text = str
+
+    open = open
 
 if PY2:
     def mangle_repr_type(klass):
