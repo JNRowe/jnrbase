@@ -5,13 +5,14 @@ jnrbase - Common utility functionality
    :target: http://travis-ci.org/JNRowe/jnrbase
    :alt: Test state on master
 
-.. image:: https://pypip.in/v/jnrbase/badge.png
-   :target: https://crate.io/packages/jnrbase/
-   :alt: Current PyPI release
+..
+    .. image:: https://pypip.in/v/jnrbase/badge.png
+    :target: https://crate.io/packages/jnrbase/
+    :alt: Current PyPI release
 
-.. image:: https://pypip.in/d/jnrbase/badge.png
-   :target: https://crate.io/packages/jnrbase/
-   :alt: Number of downloads from PyPI
+    .. image:: https://pypip.in/d/jnrbase/badge.png
+    :target: https://crate.io/packages/jnrbase/
+    :alt: Number of downloads from PyPI
 
 ``jnrbase`` is a collection of common utility libraries that are used in various
 Open Source projects that I (JNRowe) work on.  Feel free to use it, and
