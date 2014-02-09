@@ -17,7 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from datetime import (datetime, timedelta)
+
 from expecter import expect
+from nose2.tools import params
 
 from jnrbase import template
 
@@ -32,3 +35,19 @@ def test_filter_decorator():
     def test():
         return ''
     expect(template.FILTERS['test']) == test
+
+
+@params(
+    ('regexp', ('test', 't', 'T'), {}, 'TesT'),
+    ('colourise', ('test', 'green'), {}, u'\x1b[38;5;2mtest\x1b[m\x1b(B'),
+    ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
+     u'f\x1b[39;49;00m \x1b[39;49;00m=\x1b[39;49;00m '
+     u'\x1b[39;49;00m\x1b[34mlambda\x1b[39;49;00m:\x1b[39;49;00m '
+     u'\x1b[39;49;00m\x1b[36mTrue\x1b[39;49;00m\n'),
+    ('html2text', ('<b>test</b>', ), {}, '**test**'),
+    ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
+     'yesterday'),
+)
+def test_custom_filter(filter, args, kwargs, expected):
+    env = template.setup('jnrbase')
+    expect(env.filters[filter](*args, **kwargs)) == expected

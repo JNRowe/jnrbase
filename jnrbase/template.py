@@ -17,11 +17,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import re
+import sys
+
 from os import path
 
+import html2text as html2
 import jinja2
 
+from pygments import highlight as pyg_highlight
+from pygments.formatters import get_formatter_by_name
+from pygments.lexers import get_lexer_by_name
+
 from . import xdg_basedir
+from .colourise import TERMINAL
+from .human_time import human_timestamp
 
 
 FILTERS = {}
@@ -38,6 +48,95 @@ def jinja_filter(func):
     FILTERS[func.__name__] = func
 
     return func
+
+
+@jinja_filter
+def regexp(string, pattern, repl, count=0, flags=0):
+    """Jinja filter for regexp replacements.
+
+    See :func:`re.sub` for documentation.
+
+    :rtype: `str`
+    :return: Text with substitutions applied
+
+    """
+    if sys.version_info[:2] >= (2, 7):
+        return re.sub(pattern, repl, string, count, flags)
+    else:
+        # regexps are cached, so this uglier path is no better than the 2.7
+        # one.  Once 2.6 support disappears, so can this
+        match = re.compile(pattern, flags=flags)
+        return match.sub(repl, string, count)
+
+
+@jinja_filter
+def colourise(text, formatting):
+    """Colourise text using blessings.
+
+    Returns text untouched if colour output is not enabled
+
+    :see: ``blessings``
+
+    :param str text: Text to colourise
+    :param str formatting: Formatting to apply to text
+    :rtype: ``str``
+    :return: Colourised text, when possible
+
+    """
+    return getattr(TERMINAL, formatting.replace(' ', '_'))(text)
+
+
+@jinja_filter
+def highlight(text, lexer='diff', formatter='terminal'):
+    """Highlight text highlighted using pygments.
+
+    Returns text untouched if colour output is not enabled
+
+    :param str text: Text to highlight
+    :param str lexer: Jinja lexer to use
+    :param str formatter: Jinja formatter to use
+    :rtype: ``str``
+    :return: Syntax highlighted output, when possible
+
+    """
+    if TERMINAL.is_a_tty:
+        lexer = get_lexer_by_name(lexer)
+        formatter = get_formatter_by_name(formatter)
+        return pyg_highlight(text, lexer, formatter)
+    else:
+        return text
+
+
+@jinja_filter
+def html2text(html, width=80, ascii_replacements=False):
+    """HTML to plain text renderer.
+
+    :param str text: Text to process
+    :param int width: Paragraph width
+    :param bool ascii_replacements: Use psuedo-ascii replacements for Unicode
+    :rtype: ``str``
+    :return: Rendered text
+
+    """
+    html2.BODY_WIDTH = width
+    html2.UNICODE_SNOB = ascii_replacements
+    return html2.html2text(html).strip()
+
+
+@jinja_filter
+def relative_time(timestamp):
+    """Format a relative time.
+
+    :see: `human_time.human_timestamp`
+
+    :param datetime.datetime timestamp: Event to generate relative timestamp
+        against
+    :rtype: ``str``
+    :return: Human readable date and time offset
+
+    """
+
+    return human_timestamp(timestamp)
 
 
 def setup(pkg):
