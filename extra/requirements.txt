@@ -1,2 +1,3 @@
 -r requirements-colour.txt
 -r requirements-net.txt
+-r requirements-template.txt
