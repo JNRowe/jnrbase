@@ -23,3 +23,10 @@ class TodoError(NotImplementedError):
     """Test not yet implemented"""
 
     pass
+
+
+class TerminalTypeError(EnvironmentError):
+
+    """Unsupported terminal type for tests"""
+
+    pass

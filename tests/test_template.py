@@ -18,11 +18,14 @@
 #
 
 from datetime import (datetime, timedelta)
+from os import getenv
 
 from expecter import expect
 from nose2.tools import params
 
 from jnrbase import template
+
+from tests.utils import TerminalTypeError
 
 
 def test_setup():
@@ -39,7 +42,6 @@ def test_filter_decorator():
 
 @params(
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
-    ('colourise', ('test', 'green'), {}, u'\x1b[38;5;2mtest\x1b[m\x1b(B'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
      u'f\x1b[39;49;00m \x1b[39;49;00m=\x1b[39;49;00m '
      u'\x1b[39;49;00m\x1b[34mlambda\x1b[39;49;00m:\x1b[39;49;00m '
@@ -51,3 +53,18 @@ def test_filter_decorator():
 def test_custom_filter(filter, args, kwargs, expected):
     env = template.setup('jnrbase')
     expect(env.filters[filter](*args, **kwargs)) == expected
+
+
+@params(
+    ('colourise', ('test', 'green'), {}, u'\x1b[32m', u'\x1b[38;5;2m'),
+)
+def test_custom_filter_term_dependent(filter, args, kwargs, linux_result,
+                                      rxvt_result):
+    env = template.setup('jnrbase')
+    output = env.filters[filter](*args, **kwargs)
+    if getenv('TERM') == 'linux':
+        expect(output).contains(linux_result)
+    elif getenv('TERM').startswith('rxvt'):
+        expect(output).contains(rxvt_result)
+    else:
+        raise TerminalTypeError(getenv('TERM'))
