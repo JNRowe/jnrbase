@@ -19,11 +19,7 @@
 
 from os import (environ, path)
 
-try:
-    # For Python 3
-    from configparser import ConfigParser
-except ImportError:
-    from ConfigParser import SafeConfigParser as ConfigParser  # NOQA
+import configobj
 
 from .compat import open
 from .xdg_basedir import get_configs
@@ -36,9 +32,10 @@ def read_configs(pkg, name='config', local=True):
         if path.exists(localrc):
             configs.append(localrc)
 
-    cfg = ConfigParser()
+    lines = []
     for file in configs:
-        cfg.readfp(open(file, encoding='utf-8'))
+        lines.extend(open(file, encoding='utf-8').readlines())
+    cfg = configobj.ConfigObj(lines)
     cfg.configs = configs
 
     if 'NO_COLOUR' in environ:
