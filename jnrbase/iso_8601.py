@@ -51,7 +51,6 @@ def parse_delta(string):
     :param str string: Duration string to parse
     :rtype: :obj:`datetime.timedelta`
     :return: Parsed delta object
-
     """
     if not string:
         return datetime.timedelta(0)
@@ -74,7 +73,6 @@ def format_delta(timedelta_):
     :param datetime.timedelta timedelta_: Duration to process
     :rtype: :obj:`str`
     :return: ISO-8601 representation of duration
-
     """
     if timedelta_ == datetime.timedelta(0):
         return ''
@@ -94,7 +92,6 @@ def parse_datetime(string):
     :param str string: Datetime string to parse
     :rtype: :obj:`datetime.datetime`
     :return: Parsed datetime object
-
     """
     if not string:
         datetime_ = datetime.utcnow()
@@ -110,7 +107,6 @@ def format_datetime(datetime_):
     :param datetime.datetime datetime_: Datetime to process
     :rtype: str
     :return: ISO-8601 compatible string
-
     """
     # Can't call isoformat method as it uses the +00:00 form
     return datetime_.strftime('%Y-%m-%dT%H:%M:%SZ')

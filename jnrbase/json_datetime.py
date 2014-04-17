@@ -36,7 +36,6 @@ class DatetimeEncoder(json.JSONEncoder):
         ``obj`` is not a ``datetime`` instance.
 
         :param obj: Object to encode
-
         """
         if isinstance(obj, datetime.datetime):
             return format_datetime(obj)
@@ -50,7 +49,6 @@ def json_to_datetime(obj):
     :see: `json.JSONDecoder`
 
     :param obj: Object to decode
-
     """
     for k, v in obj.items():
         try:

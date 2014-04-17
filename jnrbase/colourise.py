@@ -32,7 +32,6 @@ def _colourise(text, colour):
     :param str colour: Colour to display text in
     :rtype: :obj:`str`
     :return str: Colourised text, if possible
-
     """
     return getattr(TERMINAL, colour.replace(' ', '_'))(text)
 
@@ -43,7 +42,6 @@ def info(text):
     :param str text: Text to format
     :rtype: ``str``
     :return: Bright blue text, if possible
-
     """
     return _colourise(text, 'bright blue')
 
@@ -54,7 +52,6 @@ def fail(text):
     :param str text: Text to format
     :rtype: :obj:`str`
     :return: Bright red text, if possible
-
     """
     return _colourise(text, 'bright red')
 
@@ -65,7 +62,6 @@ def success(text):
     :param str text: Text to format
     :rtype: :obj:`str`
     :return: Bright green text, if possible
-
     """
     return _colourise(text, 'bright green')
 
@@ -76,6 +72,5 @@ def warn(text):
     :param str text: Text to format
     :rtype: ``str``
     :return: Bright yellow text, if possible
-
     """
     return _colourise(text, 'bright yellow')

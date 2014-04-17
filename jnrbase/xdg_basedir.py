@@ -36,7 +36,6 @@ def user_cache(pkg):
 
     :param str pkg: Package name
     :rtype: ``str``
-
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = path.expanduser('~/Library/Caches')
@@ -51,7 +50,6 @@ def user_config(pkg):
 
     :param str pkg: Package name
     :rtype: ``str``
-
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = path.expanduser('~/Library/Preferences')
@@ -66,7 +64,6 @@ def user_data(pkg):
 
     :param str pkg: Package name
     :rtype: ``str``
-
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Application Support'
@@ -82,7 +79,6 @@ def get_configs(pkg, name='config'):
     :param str pkg: Package name
     :param name name: Configuration file name
     :rtype: ``list`` of ``str``
-
     """
     dirs = [user_config(pkg), ]
     dirs.extend(path.join(d, pkg)
@@ -101,7 +97,6 @@ def get_data(pkg, name):
     :param str pkg: Package name
     :param name name: Data file name
     :rtype: ``str``
-
     """
     dirs = [user_data(pkg), ]
     dirs.extend(path.join(d, pkg)
@@ -119,7 +114,6 @@ def get_data_dirs(pkg):
 
     :param str pkg: Package name
     :rtype: ``list`` of ``str``
-
     """
     dirs = [user_data(pkg), ]
     dirs.extend(path.join(d, pkg)

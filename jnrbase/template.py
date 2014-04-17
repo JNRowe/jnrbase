@@ -43,7 +43,6 @@ def jinja_filter(func):
     :param func func: Function to add to Jinja environment
     :rtype: ``func``
     :returns: Unmodified function
-
     """
     FILTERS[func.__name__] = func
 
@@ -58,7 +57,6 @@ def regexp(string, pattern, repl, count=0, flags=0):
 
     :rtype: `str`
     :return: Text with substitutions applied
-
     """
     if sys.version_info[:2] >= (2, 7):
         return re.sub(pattern, repl, string, count, flags)
@@ -81,7 +79,6 @@ def colourise(text, formatting):
     :param str formatting: Formatting to apply to text
     :rtype: ``str``
     :return: Colourised text, when possible
-
     """
     return getattr(TERMINAL, formatting.replace(' ', '_'))(text)
 
@@ -97,7 +94,6 @@ def highlight(text, lexer='diff', formatter='terminal'):
     :param str formatter: Jinja formatter to use
     :rtype: ``str``
     :return: Syntax highlighted output, when possible
-
     """
     if TERMINAL.is_a_tty:
         lexer = get_lexer_by_name(lexer)
@@ -116,7 +112,6 @@ def html2text(html, width=80, ascii_replacements=False):
     :param bool ascii_replacements: Use psuedo-ascii replacements for Unicode
     :rtype: ``str``
     :return: Rendered text
-
     """
     html2.BODY_WIDTH = width
     html2.UNICODE_SNOB = ascii_replacements
@@ -133,7 +128,6 @@ def relative_time(timestamp):
         against
     :rtype: ``str``
     :return: Human readable date and time offset
-
     """
 
     return human_timestamp(timestamp)

@@ -28,7 +28,6 @@ def human_timestamp(timestamp):
         against
     :rtype: ``str``
     :return: Human readable date and time offset
-
     """
 
     numstr = '. a two three four five six seven eight nine ten'.split()
@@ -69,7 +68,6 @@ def parse_timedelta(delta):
     """Parse human readable frequency.
 
     :param str delta: Frequency to parse
-
     """
     match = re.match('^(\d+(?:|\.\d+)) *([hdwmy])$', delta, re.IGNORECASE)
     if not match:
