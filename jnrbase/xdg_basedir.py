@@ -38,11 +38,12 @@ def user_cache(pkg):
     :rtype: ``str``
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
-        user_dir = path.expanduser('~/Library/Caches')
+        user_dir = '~/Library/Caches'
     else:
         user_dir = getenv('XDG_CACHE_HOME',
-                          path.join(getenv('HOME', '/'), '.cache'))
-    return path.join(user_dir, pkg)
+                          path.sep.join([getenv('HOME', ''), '.cache']))
+
+    return path.expanduser(path.sep.join([user_dir, pkg]))
 
 
 def user_config(pkg):
@@ -52,11 +53,11 @@ def user_config(pkg):
     :rtype: ``str``
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
-        user_dir = path.expanduser('~/Library/Preferences')
+        user_dir = '~/Library/Preferences'
     else:
         user_dir = getenv('XDG_CONFIG_HOME',
-                          path.join(getenv('HOME', '/'), '.config'))
-    return path.join(user_dir, pkg)
+                          path.sep.join([getenv('HOME', ''), '.config']))
+    return path.expanduser(path.sep.join([user_dir, pkg]))
 
 
 def user_data(pkg):
@@ -68,9 +69,9 @@ def user_data(pkg):
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Application Support'
     else:
-        user_dir = getenv('XDG_DATA_HOME', path.join(getenv('HOME', '/'),
-                          '.local/share'))
-    return path.join(user_dir, pkg)
+        user_dir = getenv('XDG_DATA_HOME',
+                          path.sep.join([getenv('HOME', ''), '.local/share']))
+    return path.expanduser(path.sep.join([user_dir, pkg]))
 
 
 def get_configs(pkg, name='config'):
@@ -81,7 +82,7 @@ def get_configs(pkg, name='config'):
     :rtype: ``list`` of ``str``
     """
     dirs = [user_config(pkg), ]
-    dirs.extend(path.join(d, pkg)
+    dirs.extend(path.expanduser(path.sep.join([d, pkg]))
                 for d in getenv('XDG_CONFIG_DIRS', '/etc/xdg').split(':'))
     configs = []
     for dir in reversed(dirs):
@@ -99,7 +100,7 @@ def get_data(pkg, name):
     :rtype: ``str``
     """
     dirs = [user_data(pkg), ]
-    dirs.extend(path.join(d, pkg)
+    dirs.extend(path.expanduser(path.sep.join([d, pkg]))
                 for d in getenv('XDG_DATA_DIRS',
                                 '/usr/local/share/:/usr/share/').split(':'))
     for dir in dirs:
@@ -116,7 +117,7 @@ def get_data_dirs(pkg):
     :rtype: ``list`` of ``str``
     """
     dirs = [user_data(pkg), ]
-    dirs.extend(path.join(d, pkg)
+    dirs.extend(path.expanduser(path.sep.join([d, pkg]))
                 for d in getenv('XDG_DATA_DIRS',
                                 '/usr/local/share/:/usr/share/').split(':'))
     return [dir for dir in dirs if path.isdir(dir)]

@@ -28,7 +28,7 @@ from jnrbase import xdg_basedir
 @patch('jnrbase.xdg_basedir.getenv')
 def test_cache_no_args(getenv):
     getenv.return_value = '~/.xdg/cache'
-    expect(xdg_basedir.user_cache('jnrbase')) == '~/.xdg/cache/jnrbase'
+    expect(xdg_basedir.user_cache('jnrbase')).contains('/.xdg/cache/jnrbase')
 
 
 @patch('jnrbase.xdg_basedir.getenv')
@@ -40,7 +40,7 @@ def test_cache_no_home(getenv):
 @patch('jnrbase.xdg_basedir.getenv')
 def test_config_no_args(getenv):
     getenv.return_value = '~/.xdg/config'
-    expect(xdg_basedir.user_config('jnrbase')) == '~/.xdg/config/jnrbase'
+    expect(xdg_basedir.user_config('jnrbase')).contains('/.xdg/config/jnrbase')
 
 
 @patch('jnrbase.xdg_basedir.getenv')
@@ -52,7 +52,7 @@ def test_config_no_home(getenv):
 @patch('jnrbase.xdg_basedir.getenv')
 def test_data_no_args(getenv):
     getenv.return_value = '~/.xdg/local'
-    expect(xdg_basedir.user_data('jnrbase')) == '~/.xdg/local/jnrbase'
+    expect(xdg_basedir.user_data('jnrbase')).contains('/.xdg/local/jnrbase')
 
 
 @patch('jnrbase.xdg_basedir.getenv')
@@ -64,8 +64,8 @@ def test_data_no_home(getenv):
 @patch('jnrbase.xdg_basedir.sys')
 def test_osx_paths(sys):
     sys.platform = 'darwin'
-    expect(xdg_basedir.user_data('jnrbase')) == \
-        '~/Library/Application Support/jnrbase'
+    expect(xdg_basedir.user_data('jnrbase')).contains(
+        '/Library/Application Support/jnrbase')
 
 
 @patch('jnrbase.xdg_basedir.path', wraps=path)
