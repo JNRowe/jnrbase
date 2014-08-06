@@ -27,11 +27,18 @@ if PY2:
 
     import codecs
     open = codecs.open
+
+    try:
+        from cStringIO import StringIO
+    except ImportError:
+        from StringIO import StringIO
 else:
     basestring = str
     text = str
 
     open = open
+
+    from io import StringIO
 
 if PY2:
     def mangle_repr_type(klass):
