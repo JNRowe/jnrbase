@@ -21,7 +21,7 @@ from expecter import expect
 from mock import patch
 
 from jnrbase.compat import StringIO
-from jnrbase.debug import (enter, exit)
+from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap)
 
 
 @patch('sys.stdout', new_callable=StringIO)
@@ -68,3 +68,28 @@ def test_exit_with_failure(stdout):
     with expect.raises(ValueError):
         f(4, 3)
     expect(stdout.getvalue()) == 'custom message\n'
+
+
+@patch('sys.stdout', new_callable=StringIO)
+def test_DebugPrint(stdout):
+    DebugPrint.enable()
+    try:
+        print "boom"
+        result = stdout.getvalue()
+        expect(result).contains('test_debug.py:')
+        expect(result).contains('] boom\n')
+    finally:
+        DebugPrint.disable()
+
+
+@patch('sys.stdout', new_callable=StringIO)
+def test_DebugPrint_decorator(stdout):
+    @noisy_wrap
+    def f(x):
+        print "%x" % x
+        print x
+    f(20)
+    result = stdout.getvalue()
+    expect(result).contains('test_debug.py:')
+    expect(result).contains('] 14\n')
+    expect(result).contains('] 20\n')

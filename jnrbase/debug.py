@@ -18,6 +18,48 @@
 #
 
 
+import inspect
+import os
+import sys
+
+_orig_stdout = sys.stdout
+
+
+class DebugPrint(object):
+    """Verbose print wrapper for debugging"""
+    def __init__(self, fh):
+        self.fh = fh
+
+    def write(self, text):
+        if text == os.linesep:
+            self.fh.write(text)
+        else:
+            outer = inspect.currentframe().f_back
+            filename = outer.f_code.co_filename.split(os.sep)[-1]
+            lineno = outer.f_lineno
+            self.fh.write("[%15s:%03d] %s" % (filename[-15:], lineno, text))
+
+    @staticmethod
+    def enable():
+        if not isinstance(sys.stdout, DebugPrint):
+            sys.stdout = DebugPrint(sys.stdout)
+
+    @staticmethod
+    def disable():
+        sys.stdout = _orig_stdout
+
+
+def noisy_wrap(f):
+    """Decorator to enable DebugPrint for a given function"""
+    def wrapper(*args, **kwargs):
+        DebugPrint.enable()
+        try:
+            f(*args, **kwargs)
+        finally:
+            DebugPrint.disable()
+    return wrapper
+
+
 def enter(msg=None):
     """Decorator to display a message when entering a function
 
