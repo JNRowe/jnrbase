@@ -17,24 +17,25 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from time import sleep
-
 from expecter import expect
+from hiro import Timeline
 from mock import patch
 
 from jnrbase.compat import StringIO
 from jnrbase.timer import Timer
 
 
-def test_timer():
+@Timeline()
+def test_timer(timeline):
     with Timer() as t:
-        sleep(1)
-    expect(t.elapsed) > 1
+        timeline.forward(3600)
+    expect(t.elapsed) >= 3600
 
 
 @patch('sys.stdout', new_callable=StringIO)
-def test_verbose_timer(stdout):
+@Timeline()
+def test_verbose_timer(stdout, timeline):
     with Timer(verbose=True) as t:
-        sleep(0.2)
-    expect(t.elapsed) > 0.2
-    expect(stdout.getvalue()).contains('Elapsed: ')
+        timeline.forward(3600)
+    expect(t.elapsed) >= 3600
+    expect(stdout.getvalue()).contains('Elapsed: 36')
