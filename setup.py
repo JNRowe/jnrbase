@@ -29,20 +29,11 @@ ver_file = open('jnrbase/_version.py')
 _version = imp.load_module('_version', ver_file, ver_file.name,
                            ('.py', ver_file.mode, imp.PY_SOURCE))
 
-
-def parse_requires(file):
-    deps = []
-    req_file = open(file)
-    entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
-    for dep in entries:
-        if not dep or dep.startswith('#'):
-            continue
-        dep = dep
-        if dep.startswith('-r '):
-            deps.extend(parse_requires(dep.split()[1]))
-        else:
-            deps.append(dep)
-    return deps
+# Hack to import pip_support file without importing jnrbase/__init__.py, its
+# purpose is to allow import without requiring dependencies at this point.
+pip_file = open('jnrbase/pip_support.py')
+pip_support = imp.load_module('pip_support', pip_file, pip_file.name,
+                              ('.py', pip_file.mode, imp.PY_SOURCE))
 
 
 install_requires = []  # extra/requirements-base.txt
@@ -51,7 +42,7 @@ extras_require = {}
 for file in glob.glob('extra/requirements-*.txt'):
     suffix = os.path.splitext(file)[0].split('-')[1]
     if not suffix in ['doc', 'test']:
-        extras_require[suffix] = parse_requires(file)
+        extras_require[suffix] = pip_support.parse_requires(file)
 
 setup(
     name='jnrbase',

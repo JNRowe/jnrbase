@@ -1,0 +1,2 @@
+httplib2
+-r tests/data/pip/include.txt

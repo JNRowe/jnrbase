@@ -13,3 +13,4 @@ include ca_certs_locater.py
 include tests/*.py
 
 recursive-include doc *.rst
+recursive-include tests/data/pip *.txt
