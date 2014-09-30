@@ -21,7 +21,6 @@ from os import path
 
 from io import StringIO
 
-from expecter import expect
 from mock import patch
 
 from jnrbase.compat import (open, text)
@@ -37,23 +36,23 @@ def test_config_loading(config_path, basedir_path, open):
     basedir_path.exists.return_value = True
     with patch.dict('os.environ', {'XDG_CONFIG_DIRS': 'test1:test2'}):
         cfg = read_configs('jnrbase')
-        expect(len(cfg.configs)) == 4
-        expect(cfg.configs[-1]).contains('/.jnrbaserc')
+        assert len(cfg.configs) == 4
+        assert '/.jnrbaserc' in cfg.configs[-1]
 
 
 @patch('jnrbase.config.path', wraps=path)
 def test_config_loading_missing_files(path):
     path.exists.return_value = False
-    expect(read_configs('jnrbase').configs) == []
+    assert read_configs('jnrbase').configs == []
 
 
 def test_no_colour_from_env():
     with patch.dict('os.environ', {'NO_COLOUR': 'set'}):
         cfg = read_configs('jnrbase')
-    expect(cfg.colour) == False  # NOQA
+    assert cfg.colour is False
 
 
 def test_colour_default():
     with patch.dict('os.environ', clear=True):
         cfg = read_configs('jnrbase')
-    expect(cfg.colour) == True  # NOQA
+    assert cfg.colour is True

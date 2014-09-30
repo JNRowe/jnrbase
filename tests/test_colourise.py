@@ -19,7 +19,6 @@
 
 from os import getenv
 
-from expecter import expect
 from pytest import mark
 
 from jnrbase import colourise
@@ -42,6 +41,6 @@ TERM = getenv('TERM')
 ])
 def test_colouriser(f, linux_result, rxvt_result):
     if TERM == 'linux':
-        expect(f('test')).contains(linux_result)
+        assert linux_result in f('test')
     elif TERM.startswith('rxvt'):
-        expect(f('test')).contains(rxvt_result)
+        assert rxvt_result in f('test')

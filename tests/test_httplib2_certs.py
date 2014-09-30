@@ -19,9 +19,8 @@
 
 import warnings
 
-from expecter import expect
 from mock import patch
-from pytest import mark
+from pytest import (mark, raises)
 
 from jnrbase import httplib2_certs
 
@@ -30,7 +29,7 @@ from jnrbase import httplib2_certs
 def test_upstream_import(exists):
     exists.return_value = True
     import ca_certs_locater
-    expect(ca_certs_locater.get()) == '/etc/ssl/certs/ca-certificates.crt'
+    assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
 @patch('jnrbase.httplib2_certs.path.exists')
@@ -39,15 +38,15 @@ def test_bundled(exists):
     with warnings.catch_warnings(record=True) as warns:
         warnings.simplefilter("always")
         httplib2_certs.find_certs()
-        expect(warns[0].category) == RuntimeWarning
-        expect(str(warns[0].message)).contains('falling back')
+        assert warns[0].category == RuntimeWarning
+        assert 'falling back' in str(warns[0].message)
 
 
 @patch('jnrbase.httplib2_certs.path.exists')
 def test_bundled_fail(exists):
     httplib2_certs.ALLOW_FALLBACK = False
     exists.return_value = False
-    with expect.raises(RuntimeError):
+    with raises(RuntimeError):
         httplib2_certs.find_certs()
     httplib2_certs.ALLOW_FALLBACK = True
 
@@ -59,11 +58,11 @@ def test_bundled_fail(exists):
 @patch('jnrbase.httplib2_certs.path.exists')
 def test_distros(file, exists):
     exists.side_effect = lambda s: s == file
-    expect(httplib2_certs.find_certs()) == file
+    assert httplib2_certs.find_certs() == file
 
 
 @patch('jnrbase.httplib2_certs.path.exists')
 def test_curl_bundle(exists):
     exists.side_effect = lambda s: s == 'silly_platform_user'
     with patch.dict('os.environ', {'CURL_CA_BUNDLE': 'silly_platform_user'}):
-        expect(httplib2_certs.find_certs()) == 'silly_platform_user'
+        assert httplib2_certs.find_certs() == 'silly_platform_user'

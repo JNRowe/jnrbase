@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
 from pytest import mark
 
 from jnrbase import i18n
@@ -27,4 +26,3 @@ from jnrbase import i18n
 def test_translation_config():
     from jnrbase import _version
     i18n.setup(_version)
-    expect('') == ''

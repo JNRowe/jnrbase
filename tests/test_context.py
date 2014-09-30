@@ -19,7 +19,7 @@
 
 from os import getcwd
 
-from expecter import expect
+from pytest import raises
 
 from jnrbase import context
 
@@ -27,11 +27,11 @@ from jnrbase import context
 def test_chdir():
     orig = getcwd()
     with context.chdir('tests'):
-        expect(getcwd) != orig
-    expect(getcwd()) == orig
+        assert getcwd != orig
+    assert getcwd() == orig
 
 
 def test_chdir_missing():
-    with expect.raises(OSError):
+    with raises(OSError):
         with context.chdir('missing_dir'):
             pass

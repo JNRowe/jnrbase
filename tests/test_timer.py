@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
 from hiro import Timeline
 from mock import patch
 
@@ -29,7 +28,7 @@ from jnrbase.timer import Timer
 def test_timer(timeline):
     with Timer() as t:
         timeline.forward(3600)
-    expect(t.elapsed) >= 3600
+    assert t.elapsed >= 3600
 
 
 @patch('sys.stdout', new_callable=StringIO)
@@ -37,5 +36,5 @@ def test_timer(timeline):
 def test_verbose_timer(stdout, timeline):
     with Timer(verbose=True) as t:
         timeline.forward(3600)
-    expect(t.elapsed) >= 3600
-    expect(stdout.getvalue()).contains('Elapsed: 36')
+    assert t.elapsed >= 3600
+    assert 'Elapsed: 36' in stdout.getvalue()

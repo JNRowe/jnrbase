@@ -20,7 +20,6 @@
 from datetime import (datetime, timedelta)
 from os import getenv
 
-from expecter import expect
 from blessings import Terminal
 from pytest import mark
 
@@ -34,14 +33,14 @@ template.TERMINAL.is_a_tty = True
 
 def test_setup():
     env = template.setup('jnrbase')
-    expect(env.filters).contains('safe')
+    assert 'safe' in env.filters
 
 
 def test_filter_decorator():
     @template.jinja_filter
     def test():
         return ''
-    expect(template.FILTERS['test']) == test
+    assert template.FILTERS['test'] == test
 
 
 @mark.parametrize('filter,args,kwargs,expected', [
@@ -56,7 +55,7 @@ def test_filter_decorator():
 ])
 def test_custom_filter(filter, args, kwargs, expected):
     env = template.setup('jnrbase')
-    expect(env.filters[filter](*args, **kwargs)) == expected
+    assert env.filters[filter](*args, **kwargs) == expected
 
 
 TERM = getenv('TERM')
@@ -72,6 +71,6 @@ def test_custom_filter_term_dependent(filter, args, kwargs, linux_result,
     env = template.setup('jnrbase')
     output = env.filters[filter](*args, **kwargs)
     if TERM == 'linux':
-        expect(output).contains(linux_result)
+        assert linux_result in output
     elif TERM.startswith('rxvt'):
-        expect(output).contains(rxvt_result)
+        assert rxvt_result in output
