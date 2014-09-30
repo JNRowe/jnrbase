@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""test_context - Test path context handlers support"""
+"""test_debug - Test debug support"""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify

@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""test_xdg_basedir - Test XDG basedir support"""
+"""test_config - Test configuration support"""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
