@@ -18,9 +18,7 @@
 #
 
 from hiro import Timeline
-from mock import patch
 
-from jnrbase.compat import StringIO
 from jnrbase.timer import Timer
 
 
@@ -31,10 +29,10 @@ def test_timer(timeline):
     assert t.elapsed >= 3600
 
 
-@patch('sys.stdout', new_callable=StringIO)
-@Timeline()
-def test_verbose_timer(stdout, timeline):
-    with Timer(verbose=True) as t:
-        timeline.forward(3600)
+def test_verbose_timer(capsys):
+    with Timeline() as timeline:
+        with Timer(verbose=True) as t:
+            timeline.forward(3600)
     assert t.elapsed >= 3600
-    assert 'Elapsed: 36' in stdout.getvalue()
+    out, _ = capsys.readouterr()
+    assert 'Elapsed: 36' in out

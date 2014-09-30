@@ -17,42 +17,34 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from os import path
-
 from io import StringIO
 
-from mock import patch
-
-from jnrbase.compat import (open, text)
-from jnrbase.config import read_configs
+from jnrbase.compat import text
+from jnrbase import config
 
 
-@patch('jnrbase.config.open', wraps=open)
-@patch('jnrbase.xdg_basedir.path', wraps=path)
-@patch('jnrbase.config.path', wraps=path)
-def test_config_loading(config_path, basedir_path, open):
-    open.return_value = StringIO(text(''))
-    config_path.exists.return_value = True
-    basedir_path.exists.return_value = True
-    with patch.dict('os.environ', {'XDG_CONFIG_DIRS': 'test1:test2'}):
-        cfg = read_configs('jnrbase')
-        assert len(cfg.configs) == 4
-        assert '/.jnrbaserc' in cfg.configs[-1]
+def test_config_loading(monkeypatch):
+    monkeypatch.setattr('jnrbase.xdg_basedir.path.exists', lambda s: True)
+    monkeypatch.setattr(config.path, 'exists', lambda s: True)
+    monkeypatch.setattr(config, 'open', lambda s, encoding: StringIO(text('')))
+    monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
+    cfg = config.read_configs('jnrbase')
+    assert len(cfg.configs) == 4
+    assert '/.jnrbaserc' in cfg.configs[-1]
 
 
-@patch('jnrbase.config.path', wraps=path)
-def test_config_loading_missing_files(path):
-    path.exists.return_value = False
-    assert read_configs('jnrbase').configs == []
+def test_config_loading_missing_files(monkeypatch):
+    monkeypatch.setattr(config.path, 'exists', lambda s: False)
+    assert config.read_configs('jnrbase').configs == []
 
 
-def test_no_colour_from_env():
-    with patch.dict('os.environ', {'NO_COLOUR': 'set'}):
-        cfg = read_configs('jnrbase')
+def test_no_colour_from_env(monkeypatch):
+    monkeypatch.setenv('NO_COLOUR', 'set')
+    cfg = config.read_configs('jnrbase')
     assert cfg.colour is False
 
 
-def test_colour_default():
-    with patch.dict('os.environ', clear=True):
-        cfg = read_configs('jnrbase')
+def test_colour_default(monkeypatch):
+    monkeypatch.setattr('os.environ', {})
+    cfg = config.read_configs('jnrbase')
     assert cfg.colour is True

@@ -19,22 +19,19 @@
 
 import warnings
 
-from mock import patch
 from pytest import (mark, raises)
 
 from jnrbase import httplib2_certs
 
 
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_upstream_import(exists):
-    exists.return_value = True
+def test_upstream_import(monkeypatch):
+    monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: True)
     import ca_certs_locater
     assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_bundled(exists):
-    exists.return_value = False
+def test_bundled(monkeypatch):
+    monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: False)
     with warnings.catch_warnings(record=True) as warns:
         warnings.simplefilter("always")
         httplib2_certs.find_certs()
@@ -42,10 +39,9 @@ def test_bundled(exists):
         assert 'falling back' in str(warns[0].message)
 
 
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_bundled_fail(exists):
+def test_bundled_fail(monkeypatch):
+    monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: False)
     httplib2_certs.ALLOW_FALLBACK = False
-    exists.return_value = False
     with raises(RuntimeError):
         httplib2_certs.find_certs()
     httplib2_certs.ALLOW_FALLBACK = True
@@ -55,14 +51,13 @@ def test_bundled_fail(exists):
     '/etc/ssl/certs/ca-certificates.crt',
     '/etc/pki/tls/certs/ca-bundle.crt',
 ])
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_distros(file, exists):
-    exists.side_effect = lambda s: s == file
+def test_distros(monkeypatch, file):
+    monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: s == file)
     assert httplib2_certs.find_certs() == file
 
 
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_curl_bundle(exists):
-    exists.side_effect = lambda s: s == 'silly_platform_user'
-    with patch.dict('os.environ', {'CURL_CA_BUNDLE': 'silly_platform_user'}):
-        assert httplib2_certs.find_certs() == 'silly_platform_user'
+def test_curl_bundle(monkeypatch):
+    monkeypatch.setattr(httplib2_certs.path, 'exists',
+                        lambda s: s == 'silly_platform_user')
+    monkeypatch.setenv('CURL_CA_BUNDLE', 'silly_platform_user')
+    assert httplib2_certs.find_certs() == 'silly_platform_user'
