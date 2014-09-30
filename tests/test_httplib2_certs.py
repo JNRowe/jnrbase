@@ -16,9 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-import warnings
-
-from pytest import mark, raises
+from pytest import mark, raises, warns
 
 from jnrbase import httplib2_certs
 
@@ -37,11 +35,9 @@ def test_unbundled_package_import(monkeypatch):
 
 def test_bundled(monkeypatch):
     monkeypatch.setattr('os.path.exists', lambda s: False)
-    with warnings.catch_warnings(record=True) as warns:
-        warnings.simplefilter('always')
+    with warns(RuntimeWarning) as record:
         httplib2_certs.find_certs()
-        assert warns[0].category == RuntimeWarning
-        assert 'falling back' in str(warns[0])
+    assert 'falling back' in record[0].message.args[0]
 
 
 def test_bundled_fail(monkeypatch):
