@@ -17,8 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import warnings
-
 from pytest import (mark, raises)
 
 from jnrbase import httplib2_certs
@@ -30,13 +28,11 @@ def test_upstream_import(monkeypatch):
     assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
-def test_bundled(monkeypatch):
+def test_bundled(monkeypatch, recwarn):
     monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: False)
-    with warnings.catch_warnings(record=True) as warns:
-        warnings.simplefilter("always")
-        httplib2_certs.find_certs()
-        assert warns[0].category == RuntimeWarning
-        assert 'falling back' in str(warns[0].message)
+    httplib2_certs.find_certs()
+    warn = recwarn.pop(RuntimeWarning)
+    assert 'falling back' in str(warn.message)
 
 
 def test_bundled_fail(monkeypatch):
