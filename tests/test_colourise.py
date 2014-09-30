@@ -20,7 +20,6 @@ from pytest import mark
 
 from jnrbase import colourise
 
-from .utils import patch
 
 @mark.parametrize('f,expected', [
     (colourise.info, u'\x1b[34m\x1b[1m'),
@@ -32,6 +31,6 @@ def test_colouriser(f, expected):
     assert expected in f('test')
 
 
-@patch.object(colourise, 'COLOUR', False)
-def test_disabled_colouriser():
+def test_disabled_colouriser(monkeypatch):
+    monkeypatch.setattr(colourise, 'COLOUR', False)
     assert colourise.info('test') == 'test'

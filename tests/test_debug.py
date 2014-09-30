@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from contextlib import redirect_stdout
-from io import StringIO
 from operator import add
 
 from pytest import mark, raises
@@ -25,91 +23,83 @@ from pytest import mark, raises
 from jnrbase import debug as debug_mod
 from jnrbase.debug import DebugPrint, enter, exit, noisy_wrap, sys
 
-from .utils import patch
 
 @mark.parametrize('ftype', [
     enter,
     exit,
 ])
-def test_decorator_no_message(ftype):
+def test_decorator_no_message(ftype, capsys):
     @ftype
     def func(x, y):
         return x + y
-    with StringIO() as f, redirect_stdout(f):
-        assert func(4, 3) == 7
-        assert "{}ing 'func'({!r})".format(ftype.__name__.capitalize(),
-                                           func.__closure__[0].cell_contents) \
-            in f.getvalue()
+    assert func(4, 3) == 7
+    assert "{}ing 'func'({!r})".format(ftype.__name__.capitalize(),
+                                       func.__closure__[0].cell_contents) \
+        in capsys.readouterr()[0]
 
 
 @mark.parametrize('ftype', [
     enter,
     exit,
 ])
-def test_decorator_with_message(ftype):
-    with StringIO() as f, redirect_stdout(f):
-        assert ftype('custom message')(add)(4, 3) == 7
-        assert 'custom message' in f.getvalue()
+def test_decorator_with_message(ftype, capsys):
+    assert ftype('custom message')(add)(4, 3) == 7
+    assert 'custom message' in capsys.readouterr()[0]
 
 
 @mark.parametrize('ftype', [
     enter,
     exit,
 ])
-def test_decorator_with_failure(ftype):
+def test_decorator_with_failure(ftype, capsys):
     @ftype('custom message')
     def func(x, y):
         raise ValueError('boom')
-    with StringIO() as f, redirect_stdout(f):
-        with raises(ValueError):
-            func(4, 3)
-        assert f.getvalue() == 'custom message\n'
+    with raises(ValueError):
+        func(4, 3)
+    assert capsys.readouterr()[0] == 'custom message\n'
 
 
-def test_DebugPrint():
-    with StringIO() as f, redirect_stdout(f):
-        DebugPrint.enable()
-        try:
-            print('boom')
-            out = f.getvalue()
-            assert 'test_debug.py:' in out
-            assert '] boom\n' in out
-        finally:
-            DebugPrint.disable()
-
-
-@patch.object(debug_mod.inspect, 'currentframe', lambda: None)
-def test_DebugPrint_no_stack_frame():
-    with StringIO() as f, redirect_stdout(f):
-        DebugPrint.enable()
-        try:
-            print('boom')
-            assert 'unknown:000] boom\n' in f.getvalue()
-        finally:
-            DebugPrint.disable()
-
-
-def test_DebugPrint_double_toggle():
-    with StringIO() as f, redirect_stdout(f):
-        DebugPrint.enable()
-        sys.stdout.first = True
-        try:
-            DebugPrint.enable()
-            assert sys.stdout.first
-        finally:
-            DebugPrint.disable()
-        assert hasattr(sys.stdout, 'first') is False
+def test_DebugPrint(capsys):
+    DebugPrint.enable()
+    try:
+        print('boom')
+        out, _ = capsys.readouterr()
+        assert 'test_debug.py:' in out
+        assert '] boom\n' in out
+    finally:
         DebugPrint.disable()
 
 
-def test_DebugPrint_decorator():
+def test_DebugPrint_no_stack_frame(capsys, monkeypatch):
+    monkeypatch.setattr(debug_mod.inspect, 'currentframe', lambda: None)
+    DebugPrint.enable()
+    try:
+        print('boom')
+        assert 'unknown:000] boom\n' in capsys.readouterr()[0]
+    finally:
+        DebugPrint.disable()
+
+
+def test_DebugPrint_double_toggle():
+    DebugPrint.enable()
+    sys.stdout.first = True
+    try:
+        DebugPrint.enable()
+        assert sys.stdout.first
+    finally:
+        DebugPrint.disable()
+    assert not hasattr(sys.stdout, 'first')
+    DebugPrint.disable()
+
+
+def test_DebugPrint_decorator(capsys):
     @noisy_wrap
     def func(x):
         print(hex(x))
         print(x)
-    with StringIO() as f, redirect_stdout(f):
-        func(20)
-        out = f.getvalue()
+    func(20)
+    out, _ = capsys.readouterr()
     assert 'test_debug.py:' in out
     assert '] 0x14\n' in out
     assert '] 20\n' in out

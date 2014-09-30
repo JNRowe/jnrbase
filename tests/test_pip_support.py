@@ -22,8 +22,6 @@ from pytest import mark, raises
 
 from jnrbase import pip_support
 
-from .utils import patch
-
 
 DATA_DIR = path.join(path.dirname(__file__), 'data', 'pip')
 
@@ -55,10 +53,9 @@ def test_abs_include():
     ((3, 3, 6), ['contextlib2>=0.5.4', ]),
     ((3, 5, 0), []),
 ])
-def test_parse_markers(version, expected):
-    with patch.object(pip_support, 'version_info', version):
-        assert pip_support.parse_requires(data_file('markers.txt')) \
-            == expected
+def test_parse_markers(version, expected, monkeypatch):
+    monkeypatch.setattr(pip_support, 'version_info', version)
+    assert pip_support.parse_requires(data_file('markers.txt')) == expected
 
 
 def test_invalid_markers():

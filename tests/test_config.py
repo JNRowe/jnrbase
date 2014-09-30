@@ -23,17 +23,16 @@ from pytest import mark
 from jnrbase import config
 from jnrbase.context import chdir
 
-from .utils import mock_path_exists, patch, patch_env
 
 @mark.parametrize('local,count', [
     (True, 4),
     (False, 3),
 ])
-@mock_path_exists()
-@patch.object(config, 'open', lambda s, encoding: StringIO(''))
-def test_config_loading(local, count):
-    with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
-        cfg = config.read_configs('jnrbase', local=local)
+def test_config_loading(local, count, monkeypatch):
+    monkeypatch.setattr('os.path.exists', lambda s: True)
+    monkeypatch.setattr('builtins.open', lambda s, encoding: StringIO(''))
+    monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
+    cfg = config.read_configs('jnrbase', local=local)
     assert len(cfg.configs) == count
     if local:
         assert '/.jnrbaserc' in cfg.configs[-1]
@@ -41,24 +40,25 @@ def test_config_loading(local, count):
         assert '/.jnrbaserc' not in cfg.configs
 
 
-@mock_path_exists(False)
-def test_config_loading_missing_files():
+def test_config_loading_missing_files(monkeypatch):
+    monkeypatch.setattr('os.path.exists', lambda s: False)
     assert config.read_configs('jnrbase').configs == []
 
 
-def test_no_colour_from_env():
-    with patch_env({'NO_COLOUR': 'set'}):
-        cfg = config.read_configs('jnrbase')
+def test_no_colour_from_env(monkeypatch):
+    monkeypatch.setenv('NO_COLOUR', 'set')
+    cfg = config.read_configs('jnrbase')
     assert not cfg.colour
 
 
-def test_colour_default():
-    with patch_env(clear=True):
-        cfg = config.read_configs('jnrbase')
+def test_colour_default(monkeypatch):
+    monkeypatch.setattr('os.environ', {})
+    cfg = config.read_configs('jnrbase')
     assert cfg.colour
 
 
-def test_colour_from_config():
-    with chdir('tests/data/config'), patch_env(clear=True):
+def test_colour_from_config(monkeypatch):
+    monkeypatch.setattr('os.environ', {})
+    with chdir('tests/data/config'):
         cfg = config.read_configs('jnrbase', local=True)
     assert not cfg.colour

@@ -16,46 +16,27 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from contextlib import redirect_stdout
-from io import StringIO
 from os import getenv
-from subprocess import run
-from tempfile import TemporaryFile
 from shutil import which
 
 from pytest import mark
 
-from jnrbase import pager as pager_mod
 from jnrbase.pager import pager
-
-from .utils import patch, patch_env
-
-
-def stored_run(f):
-    return lambda *args, **kwargs: run(*args, stdout=f, **kwargs)
 
 
 @mark.skipif(not which('cat'), reason='Requires cat')
-def test_pager():
-    with TemporaryFile() as f:
-        with patch.object(pager_mod, 'run', new=stored_run(f)):
-            pager('paging through cat', pager='cat')
-        f.seek(0)
-        data = f.read()
-        data = data.decode()
-    assert data == 'paging through cat'
+def test_pager(monkeypatch, capfd):
+    pager('paging through cat', pager='cat')
+    assert capfd.readouterr()[0] == 'paging through cat'
 
 
 @mark.skipif(not which('less'), reason='Requires less')
-def test_default_less_config():
-    with TemporaryFile() as f:
-        with patch.object(pager_mod, 'run', new=stored_run(f)), \
-             patch_env(clear=True):
-            pager('pager forcibly disabled')
-            assert getenv('LESS') == 'FRSX'
+def test_default_less_config(monkeypatch):
+    monkeypatch.setattr('os.environ', {})
+    pager('pager forcibly disabled')
+    assert getenv('LESS') == 'FRSX'
 
 
-def test_disable_pager():
-    with StringIO() as f, redirect_stdout(f):
-        pager('pager forcibly disabled', pager=None)
-        assert f.getvalue() == 'pager forcibly disabled\n'
+def test_disable_pager(capsys):
+    pager('pager forcibly disabled', pager=None)
+    assert capsys.readouterr()[0] == 'pager forcibly disabled\n'

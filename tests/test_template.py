@@ -16,15 +16,11 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
-
 from datetime import datetime, timedelta
 
 from pytest import mark
 
 from jnrbase import template
-
-from .utils import patch
 
 
 def test_setup():
@@ -48,7 +44,8 @@ def test_filter_decorator():
     ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
      'yesterday'),
 ])
-def test_custom_filter(filter, args, kwargs, expected):
+def test_custom_filter(filter_, args, kwargs, expected, monkeypatch):
+    monkeypatch.setattr('sys.stdout.isatty', lambda: True)
     env = template.setup('jnrbase')
     assert env.filters[filter_](*args, **kwargs) == expected
 
@@ -58,8 +55,6 @@ def test_custom_filter(filter, args, kwargs, expected):
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
      'f = lambda: True'),
 ])
-@patch.object(sys, 'stdout')
-def test_custom_filter_fallthrough(filter, args, kwargs, expected, stdout):
-    stdout.isatty.side_effect = lambda: False
+def test_custom_filter_fallthrough(filter_, args, kwargs, expected):
     env = template.setup('jnrbase')
     assert env.filters[filter_](*args, **kwargs) == expected
