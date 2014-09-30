@@ -21,7 +21,7 @@ import warnings
 
 from expecter import expect
 from mock import patch
-from nose2.tools import params
+from pytest import mark
 
 from jnrbase import httplib2_certs
 
@@ -52,10 +52,10 @@ def test_bundled_fail(exists):
     httplib2_certs.ALLOW_FALLBACK = True
 
 
-@params(
+@mark.parametrize('file', [
     '/etc/ssl/certs/ca-certificates.crt',
     '/etc/pki/tls/certs/ca-bundle.crt',
-)
+])
 @patch('jnrbase.httplib2_certs.path.exists')
 def test_distros(file, exists):
     exists.side_effect = lambda s: s == file

@@ -18,12 +18,13 @@
 #
 
 from expecter import expect
+from pytest import mark
 
 from jnrbase import i18n
 
 
+@mark.xfail(reason='Unclear what a reasonable way to test this is')  # FIXME
 def test_translation_config():
-    # FIXME: Unclear what a reasonable way to test this is
     from jnrbase import _version
     i18n.setup(_version)
     expect('') == ''

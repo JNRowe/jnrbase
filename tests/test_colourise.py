@@ -20,27 +20,28 @@
 from os import getenv
 
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from jnrbase import colourise
-
-from tests.utils import TerminalTypeError
 
 # We only test forced styling output of blessings, as blessings handles the
 # sys.stdout.isatty() flipping
 colourise.TERMINAL = colourise.blessings.Terminal(force_styling=True)
 
 
-@params(
+TERM = getenv('TERM')
+
+
+@mark.skipif(TERM != 'linux' and not TERM.startswith('rxvt'),
+             reason='Unsupported terminal type for tests')
+@mark.parametrize('f,linux_result,rxvt_result', [
     (colourise.info, u'\x1b[312m', u'\x1b[38;5;12m'),
     (colourise.fail, u'\x1b[39m', u'\x1b[38;5;9m'),
     (colourise.success, u'\x1b[310m', u'\x1b[38;5;10m'),
     (colourise.warn, u'\x1b[311m', u'\x1b[38;5;11m'),
-)
+])
 def test_colouriser(f, linux_result, rxvt_result):
-    if getenv('TERM') == 'linux':
+    if TERM == 'linux':
         expect(f('test')).contains(linux_result)
-    elif getenv('TERM').startswith('rxvt'):
+    elif TERM.startswith('rxvt'):
         expect(f('test')).contains(rxvt_result)
-    else:
-        raise TerminalTypeError(getenv('TERM'))

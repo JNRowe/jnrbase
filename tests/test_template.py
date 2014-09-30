@@ -21,11 +21,15 @@ from datetime import (datetime, timedelta)
 from os import getenv
 
 from expecter import expect
-from nose2.tools import params
+from blessings import Terminal
+from pytest import mark
 
 from jnrbase import template
 
-from tests.utils import TerminalTypeError
+# We only test forced styling output of blessings, as blessings handles the
+# sys.stdout.isatty() flipping
+template.TERMINAL = Terminal(force_styling=True)
+template.TERMINAL.is_a_tty = True
 
 
 def test_setup():
@@ -40,7 +44,7 @@ def test_filter_decorator():
     expect(template.FILTERS['test']) == test
 
 
-@params(
+@mark.parametrize('filter,args,kwargs,expected', [
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
      u'f\x1b[39;49;00m \x1b[39;49;00m=\x1b[39;49;00m '
@@ -49,22 +53,25 @@ def test_filter_decorator():
     ('html2text', ('<b>test</b>', ), {}, '**test**'),
     ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
      'yesterday'),
-)
+])
 def test_custom_filter(filter, args, kwargs, expected):
     env = template.setup('jnrbase')
     expect(env.filters[filter](*args, **kwargs)) == expected
 
 
-@params(
+TERM = getenv('TERM')
+
+
+@mark.skipif(TERM != 'linux' and not TERM.startswith('rxvt'),
+             reason='Unsupported terminal type for tests')
+@mark.parametrize('filter,args,kwargs,linux_result,rxvt_result', [
     ('colourise', ('test', 'green'), {}, u'\x1b[32m', u'\x1b[38;5;2m'),
-)
+])
 def test_custom_filter_term_dependent(filter, args, kwargs, linux_result,
                                       rxvt_result):
     env = template.setup('jnrbase')
     output = env.filters[filter](*args, **kwargs)
-    if getenv('TERM') == 'linux':
+    if TERM == 'linux':
         expect(output).contains(linux_result)
-    elif getenv('TERM').startswith('rxvt'):
+    elif TERM.startswith('rxvt'):
         expect(output).contains(rxvt_result)
-    else:
-        raise TerminalTypeError(getenv('TERM'))

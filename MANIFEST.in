@@ -7,7 +7,6 @@ include doc/conf.py
 include doc/wordlist.txt
 include extra/doap.rdf
 include extra/requirements*.txt
-include nose2.cfg
 include ca_certs_locater.py
 
 include tests/*.py
