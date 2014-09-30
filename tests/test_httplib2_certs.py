@@ -18,8 +18,7 @@
 
 import warnings
 
-from expecter import expect
-from pytest import mark
+from pytest import mark, raises
 
 from jnrbase import httplib2_certs
 
@@ -29,13 +28,13 @@ from .utils import mock_path_exists, mock_platform, patch, patch_env
 @mock_path_exists()
 def test_upstream_import():
     import ca_certs_locater
-    expect(ca_certs_locater.get()) == '/etc/ssl/certs/ca-certificates.crt'
+    assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
 def test_unbundled_package_import():
     with patch.object(httplib2_certs.httplib2, 'CA_CERTS',
                       '/fixed_by_distributor/certs.crt'):
-        expect(httplib2_certs.find_certs()) == '/fixed_by_distributor'
+        assert httplib2_certs.find_certs() == '/fixed_by_distributor'
 
 
 @mock_path_exists(False)
@@ -43,21 +42,21 @@ def test_bundled():
     with warnings.catch_warnings(record=True) as warns:
         warnings.simplefilter('always')
         httplib2_certs.find_certs()
-        expect(warns[0].category) == RuntimeWarning
-        expect(str(warns[0])).contains('falling back')
+        assert warns[0].category == RuntimeWarning
+        assert 'falling back' in str(warns[0])
 
 
 @mock_path_exists(False)
 def test_bundled_fail():
     with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False), \
-         expect.raises(RuntimeError):
+         raises(RuntimeError, message='No system certs detected!'):
         httplib2_certs.find_certs()
 
 
 @mock_platform('freebsd')
 @mock_path_exists()
 def test_freebsd_paths():
-    expect(httplib2_certs.find_certs()) \
+    assert httplib2_certs.find_certs() \
         == '/usr/local/share/certs/ca-root-nss.crt'
 
 
@@ -65,7 +64,7 @@ def test_freebsd_paths():
 @mock_path_exists(False)
 def test_freebsd_no_installed_certs():
     with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False), \
-         expect.raises(RuntimeError):
+         raises(RuntimeError, message='No system certs detected!'):
         httplib2_certs.find_certs()
 
 
@@ -75,10 +74,10 @@ def test_freebsd_no_installed_certs():
 ])
 def test_distros(file):
     with patch.object(httplib2_certs.path, 'exists', lambda s: s == file):
-        expect(httplib2_certs.find_certs()) == file
+        assert httplib2_certs.find_certs() == file
 
 
 @mock_path_exists({'silly_platform_user': True})
 def test_curl_bundle():
     with patch_env({'CURL_CA_BUNDLE': 'silly_platform_user'}):
-        expect(httplib2_certs.find_certs()) == 'silly_platform_user'
+        assert httplib2_certs.find_certs() == 'silly_platform_user'

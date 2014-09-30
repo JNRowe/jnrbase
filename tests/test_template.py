@@ -20,7 +20,6 @@ import sys
 
 from datetime import datetime, timedelta
 
-from expecter import expect
 from pytest import mark
 
 from jnrbase import template
@@ -30,14 +29,14 @@ from .utils import patch
 
 def test_setup():
     env = template.setup('jnrbase')
-    expect(env.filters).contains('safe')
+    assert 'safe' in env.filters
 
 
 def test_filter_decorator():
     @template.jinja_filter
     def test():
         return ''
-    expect(template.FILTERS['test']) == test
+    assert template.FILTERS['test'] == test
 
 
 @mark.parametrize('filter_,args,kwargs,expected', [
@@ -51,7 +50,7 @@ def test_filter_decorator():
 ])
 def test_custom_filter(filter, args, kwargs, expected):
     env = template.setup('jnrbase')
-    expect(env.filters[filter](*args, **kwargs)) == expected
+    assert env.filters[filter_](*args, **kwargs) == expected
 
 
 @mark.parametrize('filter_,args,kwargs,expected', [
@@ -63,4 +62,4 @@ def test_custom_filter(filter, args, kwargs, expected):
 def test_custom_filter_fallthrough(filter, args, kwargs, expected, stdout):
     stdout.isatty.side_effect = lambda: False
     env = template.setup('jnrbase')
-    expect(env.filters[filter](*args, **kwargs)) == expected
+    assert env.filters[filter_](*args, **kwargs) == expected

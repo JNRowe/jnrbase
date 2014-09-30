@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from expecter import expect
+from pytest import raises
 
 from jnrbase import xdg_basedir
 
@@ -25,83 +25,77 @@ from .utils import mock_path_exists, mock_platform, patch_env
 
 def test_cache_no_args():
     with patch_env({'XDG_CACHE_HOME': '~/.xdg/cache'}):
-        expect(xdg_basedir.user_cache('jnrbase')).contains(
-            '/.xdg/cache/jnrbase'
-        )
+        assert '/.xdg/cache/jnrbase' in xdg_basedir.user_cache('jnrbase')
 
 
 def test_cache_no_home():
     with patch_env(clear=True):
-        expect(xdg_basedir.user_cache('jnrbase')) == '/.cache/jnrbase'
+        assert xdg_basedir.user_cache('jnrbase') == '/.cache/jnrbase'
 
 
 @mock_platform()
 def test_cache_macos():
-    expect(xdg_basedir.user_cache('jnrbase')).contains('/Caches')
+    assert '/Caches' in xdg_basedir.user_cache('jnrbase')
 
 
 def test_config_no_args():
     with patch_env({'XDG_CONFIG_HOME': '~/.xdg/config'}):
-        expect(xdg_basedir.user_config('jnrbase')).contains(
-            '/.xdg/config/jnrbase'
-        )
+        assert '/.xdg/config/jnrbase' in xdg_basedir.user_config('jnrbase')
 
 
 def test_config_no_home():
     with patch_env(clear=True):
-        expect(xdg_basedir.user_config('jnrbase')) == '/.config/jnrbase'
+        assert xdg_basedir.user_data('jnrbase') == '/.local/share/jnrbase'
 
 
 def test_data_no_args():
     with patch_env({'XDG_DATA_HOME': '~/.xdg/local'}):
-        expect(xdg_basedir.user_data('jnrbase')).contains(
-            '/.xdg/local/jnrbase'
-        )
+        assert '/.xdg/local/jnrbase' in xdg_basedir.user_data('jnrbase')
 
 
 def test_data_no_home():
     with patch_env(clear=True):
-        expect(xdg_basedir.user_data('jnrbase')) == '/.local/share/jnrbase'
+        assert xdg_basedir.user_data('jnrbase') == '/.local/share/jnrbase'
 
 
 @mock_platform()
 def test_macos_paths():
-    expect(xdg_basedir.user_data('jnrbase')).contains(
-        '/Library/Application Support/jnrbase'
-    )
+    assert '/Library/Application Support/jnrbase' \
+        in xdg_basedir.user_data('jnrbase')
 
 
 @mock_path_exists(False)
 def test_get_configs_all_missing():
-    expect(xdg_basedir.get_configs('jnrbase')) == []
+    assert xdg_basedir.get_configs('jnrbase') == []
 
 
 @mock_path_exists()
 def test_get_configs():
-    expect(len(xdg_basedir.get_configs('jnrbase'))) == 2
+    assert len(xdg_basedir.get_configs('jnrbase')) == 2
 
 
 @mock_path_exists()
 def test_get_configs_custom_dirs():
     with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
-        expect(len(xdg_basedir.get_configs('jnrbase'))) == 3
+        assert len(xdg_basedir.get_configs('jnrbase')) == 3
 
 
 @mock_platform()
 @mock_path_exists()
 def test_get_configs_macos():
-    expect(xdg_basedir.get_configs('jnrbase')[-1]).contains('/Library/')
+    assert '/Library/' in xdg_basedir.get_configs('jnrbase')[-1]
 
 
 @mock_path_exists([True, False])
 def test_get_data():
     with patch_env({'XDG_DATA_HOME': '~/.xdg/local',
                     'XDG_DATA_DIRS': '/usr/share:test2'}):
-        expect(xdg_basedir.get_data('jnrbase', 'photo.jpg')) == \
-               '/usr/share/jnrbase/photo.jpg'
+        assert xdg_basedir.get_data('jnrbase', 'photo.jpg') \
+            == '/usr/share/jnrbase/photo.jpg'
 
 
 @mock_path_exists(False)
 def test_get_data_no_files():
     with expect.raises(FileNotFoundError):
+    with raises(FileNotFoundError, match='No data file'):
         xdg_basedir.get_data('jnrbase', 'photo.jpg')

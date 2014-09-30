@@ -18,8 +18,7 @@
 
 from os import path
 
-from expecter import expect
-from pytest import mark
+from pytest import mark, raises
 
 from jnrbase import pip_support
 
@@ -34,21 +33,21 @@ def data_file(fname):
 
 
 def test_empty_parse():
-    expect(pip_support.parse_requires(data_file('empty.txt'))) == []
+    assert pip_support.parse_requires(data_file('empty.txt')) == []
 
 
 def test_comment_skipping():
-    expect(pip_support.parse_requires(data_file('comments.txt'))) \
+    assert pip_support.parse_requires(data_file('comments.txt')) \
         == ['httplib2', 'lxml']
 
 
 def test_include():
-    expect(pip_support.parse_requires(data_file('base.txt'))) \
+    assert pip_support.parse_requires(data_file('base.txt')) \
         == ['httplib2', 'lxml']
 
 
 def test_abs_include():
-    expect(pip_support.parse_requires(data_file('base_abs.txt'))) \
+    assert pip_support.parse_requires(data_file('base_abs.txt')) \
         == ['httplib2', 'lxml']
 
 
@@ -58,10 +57,10 @@ def test_abs_include():
 ])
 def test_parse_markers(version, expected):
     with patch.object(pip_support, 'version_info', version):
-        expect(pip_support.parse_requires(data_file('markers.txt'))) \
+        assert pip_support.parse_requires(data_file('markers.txt')) \
             == expected
 
 
 def test_invalid_markers():
-    with expect.raises(ValueError):
+    with raises(ValueError, match='Invalid marker'):
         pip_support.parse_requires(data_file('invalid_markers.txt'))

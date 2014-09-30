@@ -23,7 +23,6 @@ from subprocess import run
 from tempfile import TemporaryFile
 from shutil import which
 
-from expecter import expect
 from pytest import mark
 
 from jnrbase import pager as pager_mod
@@ -44,7 +43,7 @@ def test_pager():
         f.seek(0)
         data = f.read()
         data = data.decode()
-    expect(data) == 'paging through cat'
+    assert data == 'paging through cat'
 
 
 @mark.skipif(not which('less'), reason='Requires less')
@@ -53,10 +52,10 @@ def test_default_less_config():
         with patch.object(pager_mod, 'run', new=stored_run(f)), \
              patch_env(clear=True):
             pager('pager forcibly disabled')
-            expect(getenv('LESS')) == 'FRSX'
+            assert getenv('LESS') == 'FRSX'
 
 
 def test_disable_pager():
     with StringIO() as f, redirect_stdout(f):
         pager('pager forcibly disabled', pager=None)
-        expect(f.getvalue()) == 'pager forcibly disabled\n'
+        assert f.getvalue() == 'pager forcibly disabled\n'

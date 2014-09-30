@@ -19,7 +19,6 @@
 from contextlib import redirect_stdout
 from io import StringIO
 
-from expecter import expect
 from hiro import Timeline
 
 from jnrbase.timer import Timing
@@ -29,12 +28,12 @@ from jnrbase.timer import Timing
 def test_timing(timeline):
     with Timing() as t:
         timeline.forward(3600)
-    expect(t.elapsed) >= 3600
+    assert t.elapsed >= 3600
 
 
 def test_verbose_timing():
     with StringIO() as f, redirect_stdout(f):
         with Timeline() as timeline, Timing(verbose=True) as t:
             timeline.forward(3600)
-        expect(t.elapsed) >= 3600
-        expect(f.getvalue()).contains('Elapsed: 36')
+        assert t.elapsed >= 3600
+        assert 'Elapsed: 36' in f.getvalue()

@@ -20,8 +20,7 @@ from contextlib import redirect_stdout
 from io import StringIO
 from operator import add
 
-from expecter import expect
-from pytest import mark
+from pytest import mark, raises
 
 from jnrbase import debug as debug_mod
 from jnrbase.debug import DebugPrint, enter, exit, noisy_wrap, sys
@@ -37,10 +36,10 @@ def test_decorator_no_message(ftype):
     def func(x, y):
         return x + y
     with StringIO() as f, redirect_stdout(f):
-        expect(func(4, 3)) == 7
-        expect(f.getvalue()).contains(
-            "{}ing 'func'({!r})".format(ftype.__name__.capitalize(),
-                                        func.__closure__[0].cell_contents))
+        assert func(4, 3) == 7
+        assert "{}ing 'func'({!r})".format(ftype.__name__.capitalize(),
+                                           func.__closure__[0].cell_contents) \
+            in f.getvalue()
 
 
 @mark.parametrize('ftype', [
@@ -49,8 +48,8 @@ def test_decorator_no_message(ftype):
 ])
 def test_decorator_with_message(ftype):
     with StringIO() as f, redirect_stdout(f):
-        expect(ftype('custom message')(add)(4, 3)) == 7
-        expect(f.getvalue()).contains('custom message\n')
+        assert ftype('custom message')(add)(4, 3) == 7
+        assert 'custom message' in f.getvalue()
 
 
 @mark.parametrize('ftype', [
@@ -62,9 +61,9 @@ def test_decorator_with_failure(ftype):
     def func(x, y):
         raise ValueError('boom')
     with StringIO() as f, redirect_stdout(f):
-        with expect.raises(ValueError):
+        with raises(ValueError):
             func(4, 3)
-        expect(f.getvalue()) == 'custom message\n'
+        assert f.getvalue() == 'custom message\n'
 
 
 def test_DebugPrint():
@@ -73,8 +72,8 @@ def test_DebugPrint():
         try:
             print('boom')
             out = f.getvalue()
-            expect(out).contains('test_debug.py:')
-            expect(out).contains('] boom\n')
+            assert 'test_debug.py:' in out
+            assert '] boom\n' in out
         finally:
             DebugPrint.disable()
 
@@ -85,7 +84,7 @@ def test_DebugPrint_no_stack_frame():
         DebugPrint.enable()
         try:
             print('boom')
-            expect(f.getvalue()).contains('unknown:000] boom\n')
+            assert 'unknown:000] boom\n' in f.getvalue()
         finally:
             DebugPrint.disable()
 
@@ -96,10 +95,10 @@ def test_DebugPrint_double_toggle():
         sys.stdout.first = True
         try:
             DebugPrint.enable()
-            expect(sys.stdout.first) == True  # NOQA: E712
+            assert sys.stdout.first
         finally:
             DebugPrint.disable()
-        expect(hasattr(sys.stdout, 'first')) == False  # NOQA: E712
+        assert hasattr(sys.stdout, 'first') is False
         DebugPrint.disable()
 
 
@@ -111,6 +110,6 @@ def test_DebugPrint_decorator():
     with StringIO() as f, redirect_stdout(f):
         func(20)
         out = f.getvalue()
-    expect(out).contains('test_debug.py:')
-    expect(out).contains('] 0x14\n')
-    expect(out).contains('] 20\n')
+    assert 'test_debug.py:' in out
+    assert '] 0x14\n' in out
+    assert '] 20\n' in out

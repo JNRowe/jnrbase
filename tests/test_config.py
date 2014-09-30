@@ -18,7 +18,6 @@
 
 from io import StringIO
 
-from expecter import expect
 from pytest import mark
 
 from jnrbase import config
@@ -35,31 +34,31 @@ from .utils import mock_path_exists, patch, patch_env
 def test_config_loading(local, count):
     with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
         cfg = config.read_configs('jnrbase', local=local)
-    expect(len(cfg.configs)) == count
+    assert len(cfg.configs) == count
     if local:
-        expect(cfg.configs[-1]).contains('/.jnrbaserc')
+        assert '/.jnrbaserc' in cfg.configs[-1]
     else:
-        expect(cfg.configs).does_not_contain('/.jnrbaserc')
+        assert '/.jnrbaserc' not in cfg.configs
 
 
 @mock_path_exists(False)
 def test_config_loading_missing_files():
-    expect(config.read_configs('jnrbase').configs) == []
+    assert config.read_configs('jnrbase').configs == []
 
 
 def test_no_colour_from_env():
     with patch_env({'NO_COLOUR': 'set'}):
         cfg = config.read_configs('jnrbase')
-    expect(cfg.colour) == False  # NOQA: E712
+    assert not cfg.colour
 
 
 def test_colour_default():
     with patch_env(clear=True):
         cfg = config.read_configs('jnrbase')
-    expect(cfg.colour) == True  # NOQA: E712
+    assert cfg.colour
 
 
 def test_colour_from_config():
     with chdir('tests/data/config'), patch_env(clear=True):
         cfg = config.read_configs('jnrbase', local=True)
-    expect(cfg.colour) == False  # NOQA: E712
+    assert not cfg.colour

@@ -23,8 +23,7 @@ from subprocess import CalledProcessError
 from tarfile import open as open_tar
 from tempfile import TemporaryDirectory
 
-from expecter import expect
-from pytest import mark
+from pytest import mark, raises
 
 from jnrbase.git import find_tag
 
@@ -49,20 +48,21 @@ def tarball_data(tar_name):
 
 
 def test_empty_repo():
-    with tarball_data('empty') as tree, expect.raises(CalledProcessError):
+    with tarball_data('empty') as tree, \
+            raises(CalledProcessError, match='status 128'):
         find_tag(git_dir=tree)
 
 
 def test_semver_repo():
     with tarball_data('semver') as tree:
-        expect(find_tag(git_dir=tree)) == 'v2.3.4'
+        assert find_tag(git_dir=tree) == 'v2.3.4'
 
 
 def test_non_strict():
     with tarball_data('empty') as tree:
-        expect(find_tag(strict=None, git_dir=tree)) == 'db3ed35e8734'
+        assert find_tag(strict=None, git_dir=tree) == 'db3ed35e8734'
 
 
 def test_custom_match():
     with tarball_data('funky_names') as tree:
-        expect(find_tag('prefix[0-9]*', git_dir=tree)) == 'prefix9.8.7.6'
+        assert find_tag('prefix[0-9]*', git_dir=tree) == 'prefix9.8.7.6'

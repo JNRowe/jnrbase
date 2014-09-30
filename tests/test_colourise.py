@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from expecter import expect
 from pytest import mark
 
 from jnrbase import colourise
@@ -30,9 +29,9 @@ from .utils import patch
     (colourise.warn, u'\x1b[33m\x1b[1m'),
 ])
 def test_colouriser(f, expected):
-    expect(f('test')).contains(expected)
+    assert expected in f('test')
 
 
 @patch.object(colourise, 'COLOUR', False)
 def test_disabled_colouriser():
-    expect(colourise.info('test')) == 'test'
+    assert colourise.info('test') == 'test'

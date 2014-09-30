@@ -18,7 +18,6 @@
 
 from datetime import datetime, timedelta, timezone
 
-from expecter import expect
 from pytest import mark
 
 from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
@@ -35,9 +34,9 @@ def test_parse_datetime(string, expected):
     if expected is None:
         now = datetime.now(timezone.utc)
         # Ugly, but patching a built-in is uglier
-        expect(parse_datetime(string) - now) < timedelta(seconds=3)
+        assert (parse_datetime(string) - now) < timedelta(seconds=3)
     else:
-        expect(parse_datetime(string)) == expected
+        assert parse_datetime(string) == expected
 
 
 @mark.parametrize('string,expected', [
@@ -49,9 +48,10 @@ def test_parse_datetime_naive(string, expected):
     if expected is None:
         now = datetime.utcnow()
         # Ugly, but patching a built-in is uglier
-        expect(parse_datetime(string, naive=True) - now) < timedelta(seconds=3)
+        assert (parse_datetime(string, naive=True) - now) \
+            < timedelta(seconds=3)
     else:
-        expect(parse_datetime(string, naive=True)) == expected
+        assert parse_datetime(string, naive=True) == expected
 
 
 @mark.parametrize('dt,expected', [
@@ -59,7 +59,7 @@ def test_parse_datetime_naive(string, expected):
     (datetime(2011, 5, 4, 9, 15, tzinfo=timezone.utc), '2011-05-04T09:15:00Z'),
 ])
 def test_format_datetime(dt, expected):
-    expect(format_datetime(dt)) == expected
+    assert format_datetime(dt) == expected
 
 
 @mark.parametrize('string,expected', [
@@ -75,7 +75,7 @@ def test_format_datetime(dt, expected):
     ('P3D', timedelta(days=3)),
 ])
 def test_parse_duration(string, expected):
-    expect(parse_delta(string)) == expected
+    assert parse_delta(string) == expected
 
 
 @mark.parametrize('delta,expected', [
@@ -91,8 +91,8 @@ def test_parse_duration(string, expected):
     (timedelta(hours=4, seconds=21), 'PT04H21S'),
 ])
 def test_format_duration(delta, expected):
-    expect(format_delta(delta)) == expected
+    assert format_delta(delta) == expected
 
 
 def test_parse_null_duration():
-    expect(parse_delta('')) == timedelta()
+    assert parse_delta('') == timedelta()
