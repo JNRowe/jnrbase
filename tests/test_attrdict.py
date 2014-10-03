@@ -55,6 +55,19 @@ class AttrDictTest(TestCase):
         expect(self.ad).does_not_contain('carrots')
 
 
+class InvalidKeyTest(TestCase):
+    def setUp(self):
+        self.ad = AttrDict(carrots=3, snacks=0)
+
+    def test_invalid_key_set(self):
+        with expect.raises(AttributeError, "unhashable type: 'dict'"):
+            self.ad.__setattr__({True: False}, None)
+
+    def test_invalid_key_delete(self):
+        with expect.raises(AttributeError, "unhashable type: 'dict'"):
+            self.ad.__delattr__({True: False})
+
+
 class TestROAttrDict(AttrDictTest):
     def setUp(self):
         self.ad = ROAttrDict(carrots=3, snacks=0)

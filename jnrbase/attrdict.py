@@ -51,8 +51,8 @@ class AttrDict(dict):
         """
         try:
             self[key] = value
-        except:
-            raise AttributeError(key)
+        except Exception as err:
+            raise AttributeError(err.message)
 
     def __delattr__(self, key):
         """Support item deletion via dot notation
@@ -61,8 +61,8 @@ class AttrDict(dict):
         """
         try:
             del self[key]
-        except KeyError:
-            raise AttributeError(key)
+        except TypeError as err:
+            raise AttributeError(err.message)
 
 
 class ROAttrDict(AttrDict):
