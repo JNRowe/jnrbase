@@ -17,53 +17,40 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import warnings
-
-from expecter import expect
-from mock import patch
-from nose2.tools import params
+from pytest import (mark, raises)
 
 from jnrbase import httplib2_certs
 
 
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_upstream_import(exists):
-    exists.return_value = True
+def test_upstream_import(path_exists_force):
     import ca_certs_locater
-    expect(ca_certs_locater.get()) == '/etc/ssl/certs/ca-certificates.crt'
+    assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_bundled(exists):
-    exists.return_value = False
-    with warnings.catch_warnings(record=True) as warns:
-        warnings.simplefilter("always")
-        httplib2_certs.find_certs()
-        expect(warns[0].category) == RuntimeWarning
-        expect(str(warns[0].message)).contains('falling back')
+def test_bundled(path_exists_force, recwarn, exists_result=False):
+    httplib2_certs.find_certs()
+    warn = recwarn.pop(RuntimeWarning)
+    assert 'falling back' in str(warn.message)
 
 
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_bundled_fail(exists):
+def test_bundled_fail(path_exists_force, exists_result=False):
     httplib2_certs.ALLOW_FALLBACK = False
-    exists.return_value = False
-    with expect.raises(RuntimeError):
+    with raises(RuntimeError):
         httplib2_certs.find_certs()
     httplib2_certs.ALLOW_FALLBACK = True
 
 
-@params(
+@mark.parametrize('file', [
     '/etc/ssl/certs/ca-certificates.crt',
     '/etc/pki/tls/certs/ca-bundle.crt',
-)
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_distros(file, exists):
-    exists.side_effect = lambda s: s == file
-    expect(httplib2_certs.find_certs()) == file
+])
+def test_distros(monkeypatch, file):
+    monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: s == file)
+    assert httplib2_certs.find_certs() == file
 
 
-@patch('jnrbase.httplib2_certs.path.exists')
-def test_curl_bundle(exists):
-    exists.side_effect = lambda s: s == 'silly_platform_user'
-    with patch.dict('os.environ', {'CURL_CA_BUNDLE': 'silly_platform_user'}):
-        expect(httplib2_certs.find_certs()) == 'silly_platform_user'
+def test_curl_bundle(monkeypatch):
+    monkeypatch.setattr(httplib2_certs.path, 'exists',
+                        lambda s: s == 'silly_platform_user')
+    monkeypatch.setenv('CURL_CA_BUNDLE', 'silly_platform_user')
+    assert httplib2_certs.find_certs() == 'silly_platform_user'

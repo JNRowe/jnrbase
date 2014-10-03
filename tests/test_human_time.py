@@ -19,13 +19,12 @@
 
 import datetime
 
-from expecter import expect
-from nose2.tools import params
+from pytest import (mark, raises)
 
 from jnrbase.human_time import (human_timestamp, parse_timedelta)
 
 
-@params(
+@mark.parametrize('delta,result', [
     ({'days': 365, }, 'last year'),
     ({'days': 70, }, 'about two months ago'),
     ({'days': 30, }, 'last month'),
@@ -36,23 +35,24 @@ from jnrbase.human_time import (human_timestamp, parse_timedelta)
     ({'hours': 1, }, 'about an hour ago'),
     ({'minutes': 6, }, 'about six minutes ago'),
     ({'seconds': 12, }, 'about 12 seconds ago'),
-)
+])
 def test_human_timestamp(delta, result):
     dt = datetime.datetime.utcnow() - datetime.timedelta(**delta)
-    expect(human_timestamp(dt)) == result
+    assert human_timestamp(dt) == result
 
 
-@params(
+@mark.parametrize('string,dt', [
     ('3h', datetime.timedelta(0, 10800)),
     ('1d', datetime.timedelta(1)),
     ('1 d', datetime.timedelta(1)),
     ('0.5 y', datetime.timedelta(182, 43200)),
     ('0.5 Y', datetime.timedelta(182, 43200)),
-)
+])
 def test_parse_timedelta(string, dt):
-    expect(parse_timedelta(string)) == dt
+    assert parse_timedelta(string) == dt
 
 
 def test_parse_invalid_timedelta():
-    with expect.raises(ValueError, "Invalid 'frequency' value"):
+    with raises(ValueError) as err:
         parse_timedelta('1 k')
+    assert err.value.message == "Invalid 'frequency' value"

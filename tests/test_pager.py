@@ -17,8 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from tests.utils import TodoError
+from pytest import mark
 
 
+@mark.xfail(reason='Unclear what a reasonable way to test this is')  # FIXME
 def test_pager():
-    raise TodoError('Unclear what a reasonable way to test this is')  # FIXME
+    pass

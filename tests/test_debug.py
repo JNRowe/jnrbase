@@ -17,79 +17,75 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from expecter import expect
-from mock import patch
+from pytest import raises
 
-from jnrbase.compat import StringIO
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap)
 
 
-@patch('sys.stdout', new_callable=StringIO)
-def test_enter_no_arg(stdout):
+def test_enter_no_arg(capsys):
     @enter
     def f(x, y):
         return x + y
-    expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains('Entering <function f at ')
+    assert f(4, 3) == 7
+    out, _ = capsys.readouterr()
+    assert 'Entering <function f at ' in out
 
 
-@patch('sys.stdout', new_callable=StringIO)
-def test_enter_with_message(stdout):
+def test_enter_with_message(capsys):
     @enter('custom message')
     def f(x, y):
         return x + y
-    expect(f(4, 3)) == 7
-    expect(stdout.getvalue()) == 'custom message\n'
+    assert f(4, 3) == 7
+    out, _ = capsys.readouterr()
+    assert 'custom message\n' in out
 
 
-@patch('sys.stdout', new_callable=StringIO)
-def test_exit_no_arg(stdout):
+def test_exit_no_arg(capsys):
     @exit
     def f(x, y):
         return x + y
-    expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains('Entering <function f at ')
+    assert f(4, 3) == 7
+    out, _ = capsys.readouterr()
+    assert 'Entering <function f at ' in out
 
 
-@patch('sys.stdout', new_callable=StringIO)
-def test_exit_with_message(stdout):
+def test_exit_with_message(capsys):
     @exit('custom message')
     def f(x, y):
         return x + y
-    expect(f(4, 3)) == 7
-    expect(stdout.getvalue()) == 'custom message\n'
+    assert f(4, 3) == 7
+    out, _ = capsys.readouterr()
+    assert 'custom message\n' in out
 
 
-@patch('sys.stdout', new_callable=StringIO)
-def test_exit_with_failure(stdout):
+def test_exit_with_failure(capsys):
     @exit('custom message')
     def f(x, y):
         raise ValueError('boom')
-    with expect.raises(ValueError):
+    with raises(ValueError):
         f(4, 3)
-    expect(stdout.getvalue()) == 'custom message\n'
+    out, _ = capsys.readouterr()
+    assert out == 'custom message\n'
 
 
-@patch('sys.stdout', new_callable=StringIO)
-def test_DebugPrint(stdout):
+def test_DebugPrint(capsys):
     DebugPrint.enable()
     try:
         print "boom"
-        result = stdout.getvalue()
-        expect(result).contains('test_debug.py:')
-        expect(result).contains('] boom\n')
+        out, _ = capsys.readouterr()
+        assert 'test_debug.py:' in out
+        assert '] boom\n' in out
     finally:
         DebugPrint.disable()
 
 
-@patch('sys.stdout', new_callable=StringIO)
-def test_DebugPrint_decorator(stdout):
+def test_DebugPrint_decorator(capsys):
     @noisy_wrap
     def f(x):
         print "%x" % x
         print x
     f(20)
-    result = stdout.getvalue()
-    expect(result).contains('test_debug.py:')
-    expect(result).contains('] 14\n')
-    expect(result).contains('] 20\n')
+    out, _ = capsys.readouterr()
+    assert 'test_debug.py:' in out
+    assert '] 14\n' in out
+    assert '] 20\n' in out

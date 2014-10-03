@@ -17,90 +17,62 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from os import path
-
-from expecter import expect
-from mock import patch
-
 from jnrbase import xdg_basedir
 
 
-@patch('jnrbase.xdg_basedir.getenv')
-def test_cache_no_args(getenv):
-    getenv.return_value = '~/.xdg/cache'
-    expect(xdg_basedir.user_cache('jnrbase')).contains('/.xdg/cache/jnrbase')
+def test_cache_no_args(getenv_give_default, getenv_result='~/.xdg/cache'):
+    assert '/.xdg/cache/jnrbase' in xdg_basedir.user_cache('jnrbase')
 
 
-@patch('jnrbase.xdg_basedir.getenv')
-def test_cache_no_home(getenv):
-    getenv.side_effect = lambda k, v: v
-    expect(xdg_basedir.user_cache('jnrbase')) == '/.cache/jnrbase'
+def test_cache_no_home(getenv_give_default):
+    assert xdg_basedir.user_cache('jnrbase') == '/.cache/jnrbase'
 
 
-@patch('jnrbase.xdg_basedir.getenv')
-def test_config_no_args(getenv):
-    getenv.return_value = '~/.xdg/config'
-    expect(xdg_basedir.user_config('jnrbase')).contains('/.xdg/config/jnrbase')
+def test_config_no_args(getenv_give_default, getenv_result='~/.xdg/config'):
+    assert '/.xdg/config/jnrbase' in xdg_basedir.user_config('jnrbase')
 
 
-@patch('jnrbase.xdg_basedir.getenv')
-def test_config_no_home(getenv):
-    getenv.side_effect = lambda k, v: v
-    expect(xdg_basedir.user_config('jnrbase')) == '/.config/jnrbase'
+def test_config_no_home(getenv_give_default):
+    assert xdg_basedir.user_config('jnrbase') == '/.config/jnrbase'
 
 
-@patch('jnrbase.xdg_basedir.getenv')
-def test_data_no_args(getenv):
-    getenv.return_value = '~/.xdg/local'
-    expect(xdg_basedir.user_data('jnrbase')).contains('/.xdg/local/jnrbase')
+def test_data_no_args(getenv_give_default, getenv_result='~/.xdg/local'):
+    assert '/.xdg/local/jnrbase' in xdg_basedir.user_data('jnrbase')
 
 
-@patch('jnrbase.xdg_basedir.getenv')
-def test_data_no_home(getenv):
-    getenv.side_effect = lambda k, v: v
-    expect(xdg_basedir.user_data('jnrbase')) == '/.local/share/jnrbase'
+def test_data_no_home(getenv_give_default):
+    assert xdg_basedir.user_data('jnrbase') == '/.local/share/jnrbase'
 
 
-@patch('jnrbase.xdg_basedir.sys')
-def test_osx_paths(sys):
-    sys.platform = 'darwin'
-    expect(xdg_basedir.user_data('jnrbase')).contains(
-        '/Library/Application Support/jnrbase')
+def test_osx_paths(monkeypatch):
+    monkeypatch.setattr(xdg_basedir.sys, 'platform', 'darwin')
+    assert '/Library/Application Support/jnrbase' in \
+        xdg_basedir.user_data('jnrbase')
 
 
-@patch('jnrbase.xdg_basedir.path', wraps=path)
-def test_get_configs_all_missing(path):
-    path.exists.return_value = False
-    expect(xdg_basedir.get_configs('jnrbase')) == []
+def test_get_configs_all_missing(path_exists_force, exists_result=False):
+    assert xdg_basedir.get_configs('jnrbase') == []
 
 
-@patch('jnrbase.xdg_basedir.path', wraps=path)
-def test_get_configs(path):
-    path.exists.return_value = True
-    expect(len(xdg_basedir.get_configs('jnrbase'))) == 2
+def test_get_configs(path_exists_force):
+    assert len(xdg_basedir.get_configs('jnrbase')) == 2
 
 
-@patch('jnrbase.xdg_basedir.path', wraps=path)
-def test_get_configs_custom_dirs(path):
-    path.exists.return_value = True
-    with patch.dict('os.environ', {'XDG_CONFIG_DIRS': 'test1:test2'}):
-        expect(len(xdg_basedir.get_configs('jnrbase'))) == 3
+def test_get_configs_custom_dirs(monkeypatch, path_exists_force):
+    monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
+    assert len(xdg_basedir.get_configs('jnrbase')) == 3
 
 
-@patch('jnrbase.xdg_basedir.sys')
-@patch('jnrbase.xdg_basedir.path', wraps=path)
-def test_get_configs_osx(path, sys):
-    sys.platform = 'darwin'
-    path.exists.return_value = True
-    expect(xdg_basedir.get_configs('jnrbase')[-1]).contains('/Library/')
+def test_get_configs_osx(monkeypatch, path_exists_force):
+    monkeypatch.setattr(xdg_basedir.sys, 'platform', 'darwin')
+    assert '/Library/' in xdg_basedir.get_configs('jnrbase')[-1]
 
 
-@patch('jnrbase.xdg_basedir.path', wraps=path)
-def test_get_data(path):
-    path.exists.side_effect = [False, True]
-    with patch.dict('os.environ', {
-        'XDG_DATA_HOME': '~/.xdg/local',
-        'XDG_DATA_DIRS': '/usr/share:test2',
-    }):
-        expect(xdg_basedir.get_data('jnrbase', 'photo.jpg')) == \
-            '/usr/share/jnrbase/photo.jpg'
+def test_get_data(monkeypatch):
+    path_results = [True, False]
+    monkeypatch.setattr(xdg_basedir.path, 'exists',
+                        lambda s: path_results.pop())
+    monkeypatch.setenv('XDG_DATA_HOME', '~/.xdg/local')
+    monkeypatch.setenv('XDG_DATA_DIRS', '/usr/share:test2')
+    assert xdg_basedir.get_data('jnrbase', 'photo.jpg') == \
+        '/usr/share/jnrbase/photo.jpg'
