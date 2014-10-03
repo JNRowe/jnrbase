@@ -55,14 +55,14 @@ class AttrDictTest(TestCase):
         expect(self.ad).does_not_contain('carrots')
 
 
-class TestROAttrDict(TestCase):
+class TestROAttrDict(AttrDictTest):
     def setUp(self):
         self.ad = ROAttrDict(carrots=3, snacks=0)
 
-    def test_error_on_set(self):
+    def test___setattr__(self):
         with expect.raises(AttributeError):
             self.ad.carrots = 1
 
-    def test_error_on_delete(self):
+    def test___delattr__(self):
         with expect.raises(AttributeError):
             del self.ad.carrots
