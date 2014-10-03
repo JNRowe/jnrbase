@@ -17,10 +17,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from functools import partial
+
 from jnrbase import xdg_basedir
 
+from .utils import func_attr
 
-def test_cache_no_args(getenv_give_default, getenv_result='~/.xdg/cache'):
+
+exists_result = partial(func_attr, 'exists_result')
+getenv_result = partial(func_attr, 'getenv_result')
+
+
+@getenv_result('~/.xdg/cache')
+def test_cache_no_args(getenv_give_default):
     assert '/.xdg/cache/jnrbase' in xdg_basedir.user_cache('jnrbase')
 
 
@@ -28,7 +37,8 @@ def test_cache_no_home(getenv_give_default):
     assert xdg_basedir.user_cache('jnrbase') == '/.cache/jnrbase'
 
 
-def test_config_no_args(getenv_give_default, getenv_result='~/.xdg/config'):
+@getenv_result('~/.xdg/config')
+def test_config_no_args(getenv_give_default):
     assert '/.xdg/config/jnrbase' in xdg_basedir.user_config('jnrbase')
 
 
@@ -36,7 +46,8 @@ def test_config_no_home(getenv_give_default):
     assert xdg_basedir.user_config('jnrbase') == '/.config/jnrbase'
 
 
-def test_data_no_args(getenv_give_default, getenv_result='~/.xdg/local'):
+@getenv_result('~/.xdg/local')
+def test_data_no_args(getenv_give_default):
     assert '/.xdg/local/jnrbase' in xdg_basedir.user_data('jnrbase')
 
 
@@ -50,7 +61,8 @@ def test_osx_paths(monkeypatch):
         xdg_basedir.user_data('jnrbase')
 
 
-def test_get_configs_all_missing(path_exists_force, exists_result=False):
+@exists_result(False)
+def test_get_configs_all_missing(path_exists_force):
     assert xdg_basedir.get_configs('jnrbase') == []
 
 

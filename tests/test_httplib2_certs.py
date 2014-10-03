@@ -21,19 +21,26 @@ from pytest import (mark, raises)
 
 from jnrbase import httplib2_certs
 
+from .utils import func_attr
+
+
+exists_result = lambda x: func_attr('exists_result', x)
+
 
 def test_upstream_import(path_exists_force):
     import ca_certs_locater
     assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
-def test_bundled(path_exists_force, recwarn, exists_result=False):
+@exists_result(False)
+def test_bundled(path_exists_force, recwarn):
     httplib2_certs.find_certs()
     warn = recwarn.pop(RuntimeWarning)
     assert 'falling back' in str(warn.message)
 
 
-def test_bundled_fail(path_exists_force, exists_result=False):
+@exists_result(False)
+def test_bundled_fail(path_exists_force):
     httplib2_certs.ALLOW_FALLBACK = False
     with raises(RuntimeError):
         httplib2_certs.find_certs()
