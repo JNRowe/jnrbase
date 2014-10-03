@@ -20,33 +20,27 @@
 from jnrbase import xdg_basedir
 
 
-def test_cache_no_args(monkeypatch):
-    monkeypatch.setattr(xdg_basedir, 'getenv', lambda k, d: '~/.xdg/cache')
+def test_cache_no_args(getenv_give_default, getenv_result='~/.xdg/cache'):
     assert '/.xdg/cache/jnrbase' in xdg_basedir.user_cache('jnrbase')
 
 
-def test_cache_no_home(monkeypatch):
-    monkeypatch.setattr(xdg_basedir, 'getenv', lambda k, d: d)
+def test_cache_no_home(getenv_give_default):
     assert xdg_basedir.user_cache('jnrbase') == '/.cache/jnrbase'
 
 
-def test_config_no_args(monkeypatch):
-    monkeypatch.setattr(xdg_basedir, 'getenv', lambda k, d: '~/.xdg/config')
+def test_config_no_args(getenv_give_default, getenv_result='~/.xdg/config'):
     assert '/.xdg/config/jnrbase' in xdg_basedir.user_config('jnrbase')
 
 
-def test_config_no_home(monkeypatch):
-    monkeypatch.setattr(xdg_basedir, 'getenv', lambda k, d: d)
+def test_config_no_home(getenv_give_default):
     assert xdg_basedir.user_config('jnrbase') == '/.config/jnrbase'
 
 
-def test_data_no_args(monkeypatch):
-    monkeypatch.setattr(xdg_basedir, 'getenv', lambda k, d: '~/.xdg/local')
+def test_data_no_args(getenv_give_default, getenv_result='~/.xdg/local'):
     assert '/.xdg/local/jnrbase' in xdg_basedir.user_data('jnrbase')
 
 
-def test_data_no_home(monkeypatch):
-    monkeypatch.setattr(xdg_basedir, 'getenv', lambda k, d: d)
+def test_data_no_home(getenv_give_default):
     assert xdg_basedir.user_data('jnrbase') == '/.local/share/jnrbase'
 
 
@@ -56,25 +50,21 @@ def test_osx_paths(monkeypatch):
         xdg_basedir.user_data('jnrbase')
 
 
-def test_get_configs_all_missing(monkeypatch):
-    monkeypatch.setattr(xdg_basedir.path, 'exists', lambda s: False)
+def test_get_configs_all_missing(path_exists_force, exists_result=False):
     assert xdg_basedir.get_configs('jnrbase') == []
 
 
-def test_get_configs(monkeypatch):
-    monkeypatch.setattr(xdg_basedir.path, 'exists', lambda s: True)
+def test_get_configs(path_exists_force):
     assert len(xdg_basedir.get_configs('jnrbase')) == 2
 
 
-def test_get_configs_custom_dirs(monkeypatch):
-    monkeypatch.setattr(xdg_basedir.path, 'exists', lambda s: True)
+def test_get_configs_custom_dirs(monkeypatch, path_exists_force):
     monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
     assert len(xdg_basedir.get_configs('jnrbase')) == 3
 
 
-def test_get_configs_osx(monkeypatch):
+def test_get_configs_osx(monkeypatch, path_exists_force):
     monkeypatch.setattr(xdg_basedir.sys, 'platform', 'darwin')
-    monkeypatch.setattr(xdg_basedir.path, 'exists', lambda s: True)
     assert '/Library/' in xdg_basedir.get_configs('jnrbase')[-1]
 
 
