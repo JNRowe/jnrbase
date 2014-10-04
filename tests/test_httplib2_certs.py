@@ -52,6 +52,12 @@ def test_bundled_fail(path_exists_force):
     httplib2_certs.ALLOW_FALLBACK = True
 
 
+def test_freebsd_paths(monkeypatch, path_exists_force):
+    monkeypatch.setattr('sys.platform', 'freebsd')
+    assert httplib2_certs.find_certs() \
+        == '/usr/local/share/certs/ca-root-nss.crt'
+
+
 @mark.parametrize('file', [
     '/etc/ssl/certs/ca-certificates.crt',
     '/etc/pki/tls/certs/ca-bundle.crt',
