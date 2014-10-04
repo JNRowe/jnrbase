@@ -58,6 +58,12 @@ def test_custom_filter(filter, args, kwargs, expected):
     assert env.filters[filter](*args, **kwargs) == expected
 
 
+def test_python26_style_flagless_sub(monkeypatch):
+    monkeypatch.setattr('sys.version_info', (2, 6, 0))
+    env = template.setup('jnrbase')
+    assert env.filters['regexp']('test', 't', 'T') == 'TesT'
+
+
 TERM = getenv('TERM')
 
 
