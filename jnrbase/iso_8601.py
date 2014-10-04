@@ -20,6 +20,8 @@
 import datetime
 import re
 
+import ciso8601
+
 from . import compat
 
 
@@ -94,10 +96,11 @@ def parse_datetime(string):
     :return: Parsed datetime object
     """
     if not string:
-        datetime_ = datetime.datetime.utcnow()
+        datetime_ = datetime.datetime.utcnow().replace(tzinfo=utc)
     else:
-        datetime_ = datetime.datetime.strptime(string, '%Y-%m-%dT%H:%M:%SZ')
-    datetime_ = datetime_.replace(tzinfo=utc)
+        datetime_ = ciso8601.parse_datetime(string)
+        if not datetime_:
+            raise ValueError('Unable to parse timestamp %r' % string)
     return datetime_
 
 
