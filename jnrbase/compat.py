@@ -30,7 +30,7 @@ if PY2:
 
     try:
         from cStringIO import StringIO
-    except ImportError:
+    except ImportError:  # pragma: no cover
         from StringIO import StringIO
 else:
     basestring = str
