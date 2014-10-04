@@ -38,5 +38,6 @@ def pager(text, pager='less'):
             pager.communicate(text)
         else:
             pager.communicate(text.encode())
+        pager.wait()
     else:
         print(text)
