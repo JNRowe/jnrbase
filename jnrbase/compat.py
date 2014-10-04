@@ -21,7 +21,7 @@ from sys import version_info
 
 PY2 = version_info[0] == 2
 
-if PY2:
+if PY2:  # pragma: Python 2
     basestring = basestring
     text = unicode
 
@@ -32,7 +32,7 @@ if PY2:
         from cStringIO import StringIO
     except ImportError:  # pragma: no cover
         from StringIO import StringIO
-else:
+else:  # pragma: Python 3
     basestring = str
     text = str
 
@@ -40,7 +40,7 @@ else:
 
     from io import StringIO
 
-if PY2:
+if PY2:  # pragma: Python 2
     def mangle_repr_type(klass):
         klass.__repr_unicode__ = klass.__repr__
 
@@ -48,5 +48,5 @@ if PY2:
             return self.__repr_unicode__().encode('utf-8')
         klass.__repr__ = wrapper
         return klass
-else:
+else:  # pragma: Python 3
     mangle_repr_type = lambda x: x
