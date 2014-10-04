@@ -19,13 +19,18 @@
 
 from datetime import datetime
 
+from pytest import raises
+
 from jnrbase import json_datetime
 from jnrbase.iso_8601 import utc
 
 
 def test_json_no_datetime():
-    data = {'test': True}
-    assert json_datetime.dumps(data, indent=None) == '{"test": true}'
+    class Test:
+        pass
+    data = {'test': Test()}
+    with raises(TypeError):
+        json_datetime.dumps(data, indent=None)
 
 
 def test_json_datetime():
@@ -38,6 +43,11 @@ def test_deep_json_datetime():
     data = {'test': [{'test2': datetime(2014, 2, 3, 18, 12, tzinfo=utc)}, ]}
     assert json_datetime.dumps(data, indent=None) == \
         '{"test": [{"test2": "2014-02-03T18:12:00Z"}]}'
+
+
+def test_json_load_no_datetime():
+    data = '{"test": "not a datetime"}'
+    assert json_datetime.loads(data) == {'test': 'not a datetime'}
 
 
 def test_roundtrip():
