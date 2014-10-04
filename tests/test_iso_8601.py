@@ -18,11 +18,23 @@
 #
 
 from datetime import (datetime, timedelta)
+from unittest import TestCase
 
 from pytest import mark
 
 from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
                               parse_delta, utc)
+
+
+class UtcTest(TestCase):
+    def test__repr__(self):
+        assert repr(utc) == 'UTC()'
+
+    def test_offset(self):
+        assert str(utc.utcoffset(None)) == '0:00:00'
+
+    def test_name(self):
+        assert utc.tzname(None) == 'UTC'
 
 
 @mark.parametrize('string,expected', [
