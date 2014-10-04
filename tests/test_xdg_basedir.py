@@ -39,6 +39,11 @@ def test_cache_no_home(getenv_give_default):
     assert xdg_basedir.user_cache('jnrbase') == '/.cache/jnrbase'
 
 
+def test_cache_osx(monkeypatch):
+    monkeypatch.setattr(xdg_basedir.sys, 'platform', 'darwin')
+    assert '/Caches' in xdg_basedir.user_cache('jnrbase')
+
+
 @getenv_result('~/.xdg/config')
 def test_config_no_args(getenv_give_default):
     assert '/.xdg/config/jnrbase' in xdg_basedir.user_config('jnrbase')
