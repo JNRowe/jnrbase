@@ -28,9 +28,15 @@ from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
 @mark.parametrize('string,expected', [
     ('2011-05-04T08:00:00Z', datetime(2011, 5, 4, 8, 0, tzinfo=utc)),
     ('2011-05-04T09:15:00Z', datetime(2011, 5, 4, 9, 15, tzinfo=utc)),
+    ('', None),
 ])
 def test_parse_datetime(string, expected):
-    assert parse_datetime(string) == expected
+    if expected is None:
+        now = datetime.utcnow().replace(tzinfo=utc)
+        # Ugly, but patching a built-in is uglier
+        assert parse_datetime(string) - now < timedelta(seconds=3)
+    else:
+        assert parse_datetime(string) == expected
 
 
 @mark.parametrize('dt,expected', [
