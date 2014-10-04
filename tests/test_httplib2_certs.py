@@ -32,6 +32,11 @@ def test_upstream_import(path_exists_force):
     assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
+def test_unbundled_package_import(monkeypatch):
+    monkeypatch.setattr('httplib2.CA_CERTS', '/fixed_by_distributor/certs.crt')
+    assert httplib2_certs.find_certs() == '/fixed_by_distributor'
+
+
 @exists_result(False)
 def test_bundled(path_exists_force, recwarn):
     httplib2_certs.find_certs()
