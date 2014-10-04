@@ -39,7 +39,7 @@ def parse_requires(file):
     req_file = open(file)
     entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
     for dep in entries:
-        if not dep or dep.startswith('#'):
+        if not dep:
             continue
         dep = dep
         if dep.startswith('-r '):
