@@ -19,6 +19,8 @@
 
 from functools import partial
 
+from pytest import raises
+
 from jnrbase import xdg_basedir
 
 from .utils import func_attr
@@ -88,3 +90,9 @@ def test_get_data(monkeypatch):
     monkeypatch.setenv('XDG_DATA_DIRS', '/usr/share:test2')
     assert xdg_basedir.get_data('jnrbase', 'photo.jpg') == \
         '/usr/share/jnrbase/photo.jpg'
+
+@exists_result(False)
+def test_get_data_no_files(monkeypatch):
+    with raises(IOError) as err:
+        xdg_basedir.get_data('jnrbase', 'photo.jpg')
+    assert 'No data file' in err.value.message
