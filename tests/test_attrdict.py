@@ -25,7 +25,7 @@ from jnrbase.attrdict import (AttrDict, ROAttrDict)
 
 
 class AttrDictTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = AttrDict(carrots=3, snacks=0)
 
     def test_base(self):
@@ -56,7 +56,7 @@ class AttrDictTest(TestCase):
 
 
 class InvalidKeyTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = AttrDict(carrots=3, snacks=0)
 
     def test_invalid_key_set(self):
@@ -71,7 +71,7 @@ class InvalidKeyTest(TestCase):
 
 
 class TestROAttrDict(AttrDictTest):
-    def setUp(self):
+    def setup_method(self):
         self.ad = ROAttrDict(carrots=3, snacks=0)
 
     def test___setattr__(self):
