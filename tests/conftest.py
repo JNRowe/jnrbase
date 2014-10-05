@@ -17,42 +17,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from inspect import getargspec
-
 from pytest import fixture
 
 
 @fixture
-def getenv_give_default(request, monkeypatch, scope='session'):
+def getenv_give_default(request, monkeypatch):
     """Force result of module's ``getenv`` function
 
     This fixture returns the ``getenv`` fallback by default, but a custom value
-    can be specified by setting the ``getenv_result`` kwarg for a test.
+    can be specified by setting the ``getenv_result`` attribute on a test
+    function.
     """
-    args = getargspec(request.function)
-    result = None
-    if args.defaults:
-        defs = {k: v for k, v in zip(reversed(args.args),
-                                     reversed(args.defaults))}
-        result = lambda k, d: defs.get('getenv_result')
-    if not result:
-        result = lambda k, d: d
+    result = lambda k, d: getattr(request.function, 'getenv_result', d)
     tmod = 'jnrbase.%s' % request.module.__name__.replace('tests.test_', '')
     monkeypatch.setattr('.'.join([tmod, 'getenv']), result)
 
 
 @fixture
-def path_exists_force(request, monkeypatch, scope='session'):
+def path_exists_force(request, monkeypatch):
     """Force result of module's ``path.exists`` function
 
     This fixture returns ``True`` by default, but a custom value can be
-    specified by setting the ``exists_result`` kwarg for a test.
+    specified by setting the ``exists_result`` attribute on a test function.
     """
-    args = getargspec(request.function)
-    result = True
-    if args.defaults:
-        defs = {k: v for k, v in zip(reversed(args.args),
-                                     reversed(args.defaults))}
-        result = defs.get('exists_result', result)
+    result = getattr(request.function, 'exists_result', True)
     tmod = 'jnrbase.%s' % request.module.__name__.replace('tests.test_', '')
     monkeypatch.setattr('.'.join([tmod, 'path', 'exists']), lambda s: result)

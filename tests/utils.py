@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""pager - pager pipe support"""
+"""utils - Utility functions for tests"""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -17,27 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
 
-from subprocess import (PIPE, Popen)
+def func_attr(name, value):
+    """Decorator to set an attribute on a function
 
-from jnrbase.compat import PY2
-
-
-def pager(text, pager='less'):
-    """Pass output through pager.
-
-    :param str text: Text to page
-    :param bool pager: Pager to use
+    :param str name: Attribute name to set
+    :param value: Value to set attribute to
     """
-    if pager:
-        if 'less' in pager and 'LESS' not in os.environ:
-            os.environ['LESS'] = 'FRSX'
-        pager = Popen([pager, ], stdin=PIPE)
-        if PY2: # pragma: Python 2
-            pager.communicate(text)
-        else:  # pragma: Python 3
-            pager.communicate(text.encode())
-        pager.wait()
-    else:
-        print(text)
+    def decorator(f):
+        setattr(f, name, value)
+        return f
+    return decorator

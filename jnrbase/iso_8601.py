@@ -29,7 +29,7 @@ class UTC(datetime.tzinfo):
     """UTC timezone object."""
 
     def __repr__(self):
-        return 'UTC()'
+        return '%s()' % (self.__class__.__name__)
 
     # pylint: disable-msg=W0613
     def utcoffset(self, datetime_):
@@ -94,10 +94,10 @@ def parse_datetime(string):
     :return: Parsed datetime object
     """
     if not string:
-        datetime_ = datetime.utcnow()
+        datetime_ = datetime.datetime.utcnow()
     else:
         datetime_ = datetime.datetime.strptime(string, '%Y-%m-%dT%H:%M:%SZ')
-        datetime_ = datetime_.replace(tzinfo=utc)
+    datetime_ = datetime_.replace(tzinfo=utc)
     return datetime_
 
 

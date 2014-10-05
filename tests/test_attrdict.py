@@ -25,8 +25,8 @@ from jnrbase.attrdict import (AttrDict, ROAttrDict)
 
 
 class AttrDictTest(TestCase):
-    def setUp(self):
-        self.ad = AttrDict(carrots=3, snacks=0)
+    def setup_method(self, method):
+        self.ad = globals()[self.__class__.__name__[:-4]](carrots=3, snacks=0)
 
     def test_base(self):
         assert isinstance(self.ad, dict)
@@ -56,7 +56,7 @@ class AttrDictTest(TestCase):
 
 
 class InvalidKeyTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = AttrDict(carrots=3, snacks=0)
 
     def test_invalid_key_set(self):
@@ -70,10 +70,7 @@ class InvalidKeyTest(TestCase):
         assert 'unhashable type: ' in err.value.message
 
 
-class TestROAttrDict(AttrDictTest):
-    def setUp(self):
-        self.ad = ROAttrDict(carrots=3, snacks=0)
-
+class ROAttrDictTest(AttrDictTest):
     def test___setattr__(self):
         with raises(AttributeError):
             self.ad.carrots = 1

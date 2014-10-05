@@ -17,9 +17,36 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pytest import mark
+from os import getenv
+
+from jnrbase.pager import pager
 
 
-@mark.xfail(reason='Unclear what a reasonable way to test this is')  # FIXME
-def test_pager():
-    pass
+def test_pager(capfd):
+    pager('paging through cat', 'cat')
+    out, _ = capfd.readouterr()
+    assert out == 'paging through cat'
+
+
+def test_default_less_config(monkeypatch):
+    monkeypatch.delenv('LESS', False)
+
+    class FakePopen:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def communicate(self, *args):
+            pass
+
+        def wait(self):
+            pass
+
+    monkeypatch.setattr('jnrbase.pager.Popen', FakePopen)
+    pager('pager forcibly disabled')
+    assert getenv('LESS') == 'FRSX'
+
+
+def test_disable_pager(capsys):
+    pager('pager forcibly disabled', None)
+    out, _ = capsys.readouterr()
+    assert out == 'pager forcibly disabled\n'

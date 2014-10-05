@@ -21,23 +21,41 @@ from pytest import (mark, raises)
 
 from jnrbase import httplib2_certs
 
+from .utils import func_attr
+
+
+exists_result = lambda x: func_attr('exists_result', x)
+
 
 def test_upstream_import(path_exists_force):
     import ca_certs_locater
     assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
-def test_bundled(path_exists_force, recwarn, exists_result=False):
+def test_unbundled_package_import(monkeypatch):
+    monkeypatch.setattr('httplib2.CA_CERTS', '/fixed_by_distributor/certs.crt')
+    assert httplib2_certs.find_certs() == '/fixed_by_distributor'
+
+
+@exists_result(False)
+def test_bundled(path_exists_force, recwarn):
     httplib2_certs.find_certs()
     warn = recwarn.pop(RuntimeWarning)
     assert 'falling back' in str(warn.message)
 
 
-def test_bundled_fail(path_exists_force, exists_result=False):
+@exists_result(False)
+def test_bundled_fail(path_exists_force):
     httplib2_certs.ALLOW_FALLBACK = False
     with raises(RuntimeError):
         httplib2_certs.find_certs()
     httplib2_certs.ALLOW_FALLBACK = True
+
+
+def test_freebsd_paths(monkeypatch, path_exists_force):
+    monkeypatch.setattr('sys.platform', 'freebsd')
+    assert httplib2_certs.find_certs() \
+        == '/usr/local/share/certs/ca-root-nss.crt'
 
 
 @mark.parametrize('file', [

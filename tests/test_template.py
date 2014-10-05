@@ -43,7 +43,7 @@ def test_filter_decorator():
     assert template.FILTERS['test'] == test
 
 
-@mark.parametrize('filter,args,kwargs,expected', [
+@mark.parametrize('filter, args, kwargs, expected', [
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
      u'f\x1b[39;49;00m \x1b[39;49;00m=\x1b[39;49;00m '
@@ -58,12 +58,18 @@ def test_custom_filter(filter, args, kwargs, expected):
     assert env.filters[filter](*args, **kwargs) == expected
 
 
+def test_python26_style_flagless_sub(monkeypatch):
+    monkeypatch.setattr('sys.version_info', (2, 6, 0))
+    env = template.setup('jnrbase')
+    assert env.filters['regexp']('test', 't', 'T') == 'TesT'
+
+
 TERM = getenv('TERM')
 
 
 @mark.skipif(TERM != 'linux' and not TERM.startswith('rxvt'),
              reason='Unsupported terminal type for tests')
-@mark.parametrize('filter,args,kwargs,linux_result,rxvt_result', [
+@mark.parametrize('filter, args, kwargs, linux_result, rxvt_result', [
     ('colourise', ('test', 'green'), {}, u'\x1b[32m', u'\x1b[38;5;2m'),
 ])
 def test_custom_filter_term_dependent(filter, args, kwargs, linux_result,

@@ -20,6 +20,7 @@
 from io import StringIO
 
 from jnrbase.compat import text
+from jnrbase.context import chdir
 from jnrbase import config
 
 
@@ -48,3 +49,10 @@ def test_colour_default(monkeypatch):
     monkeypatch.setattr('os.environ', {})
     cfg = config.read_configs('jnrbase')
     assert cfg.colour is True
+
+
+def test_colour_from_config(monkeypatch):
+    with chdir('tests/data/config'):
+        monkeypatch.setattr('os.environ', {})
+        cfg = config.read_configs('jnrbase', local=True)
+        assert cfg.colour is False

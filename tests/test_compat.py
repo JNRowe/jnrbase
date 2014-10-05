@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""pager - pager pipe support"""
+"""test_i18n - Test i18n setup functions"""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -17,27 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
-from subprocess import (PIPE, Popen)
-
-from jnrbase.compat import PY2
+from jnrbase import compat
 
 
-def pager(text, pager='less'):
-    """Pass output through pager.
-
-    :param str text: Text to page
-    :param bool pager: Pager to use
-    """
-    if pager:
-        if 'less' in pager and 'LESS' not in os.environ:
-            os.environ['LESS'] = 'FRSX'
-        pager = Popen([pager, ], stdin=PIPE)
-        if PY2: # pragma: Python 2
-            pager.communicate(text)
-        else:  # pragma: Python 3
-            pager.communicate(text.encode())
-        pager.wait()
-    else:
-        print(text)
+def test_mangle_repr_type():
+    @compat.mangle_repr_type
+    class Test(object):
+        def __repr__(self):
+            return compat.text("test")
+    # This works on Python 2 or 3 by design
+    assert isinstance(repr(Test()), str)
