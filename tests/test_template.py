@@ -18,17 +18,10 @@
 #
 
 from datetime import (datetime, timedelta)
-from os import getenv
 
-from blessings import Terminal
 from pytest import mark
 
 from jnrbase import template
-
-# We only test forced styling output of blessings, as blessings handles the
-# sys.stdout.isatty() flipping
-template.TERMINAL = Terminal(force_styling=True)
-template.TERMINAL.is_a_tty = True
 
 
 def test_setup():
@@ -44,6 +37,7 @@ def test_filter_decorator():
 
 
 @mark.parametrize('filter,args,kwargs,expected', [
+    ('colourise', ('test', 'green'), {}, u'\x1b[32mtest\x1b[0m'),
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
      u'f\x1b[39;49;00m \x1b[39;49;00m=\x1b[39;49;00m '
@@ -53,24 +47,7 @@ def test_filter_decorator():
     ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
      'yesterday'),
 ])
-def test_custom_filter(filter, args, kwargs, expected):
+def test_custom_filter(filter, args, kwargs, expected, monkeypatch):
+    monkeypatch.setattr('sys.stdout.isatty', lambda: True)
     env = template.setup('jnrbase')
     assert env.filters[filter](*args, **kwargs) == expected
-
-
-TERM = getenv('TERM')
-
-
-@mark.skipif(TERM != 'linux' and not TERM.startswith('rxvt'),
-             reason='Unsupported terminal type for tests')
-@mark.parametrize('filter,args,kwargs,linux_result,rxvt_result', [
-    ('colourise', ('test', 'green'), {}, u'\x1b[32m', u'\x1b[38;5;2m'),
-])
-def test_custom_filter_term_dependent(filter, args, kwargs, linux_result,
-                                      rxvt_result):
-    env = template.setup('jnrbase')
-    output = env.filters[filter](*args, **kwargs)
-    if TERM == 'linux':
-        assert linux_result in output
-    elif TERM.startswith('rxvt'):
-        assert rxvt_result in output

@@ -18,11 +18,13 @@
 #
 
 # The colouring we use here is hopefully quite self-explanatory, and is in
-# common use in for example git
+# common use in, for example, git
 
-import blessings
+from click import (echo, style)
 
-TERMINAL = blessings.Terminal()
+
+#: Global flag to disable *all* colourisation
+COLOUR = True
 
 
 def _colourise(text, colour):
@@ -33,44 +35,87 @@ def _colourise(text, colour):
     :rtype: :obj:`str`
     :return str: Colourised text, if possible
     """
-    return getattr(TERMINAL, colour.replace(' ', '_'))(text)
+    if COLOUR:
+        return style(text, fg=colour, bold=True)
+    else:
+        return text
 
 
 def info(text):
-    """Pretty print an informational message.
+    """Format an informational message.
 
     :param str text: Text to format
     :rtype: ``str``
     :return: Bright blue text, if possible
     """
-    return _colourise(text, 'bright blue')
+    return _colourise(text, 'blue')
 
 
 def fail(text):
-    """Pretty print a failure message.
+    """Format a failure message.
 
     :param str text: Text to format
     :rtype: :obj:`str`
     :return: Bright red text, if possible
     """
-    return _colourise(text, 'bright red')
+    return _colourise(text, 'red')
 
 
 def success(text):
-    """Pretty print a success message.
+    """Format a success message.
 
     :param str text: Text to format
     :rtype: :obj:`str`
     :return: Bright green text, if possible
     """
-    return _colourise(text, 'bright green')
+    return _colourise(text, 'green')
 
 
 def warn(text):
-    """Pretty print a warning message.
+    """Format a warning message.
 
     :param str text: Text to format
     :rtype: ``str``
     :return: Bright yellow text, if possible
     """
-    return _colourise(text, 'bright yellow')
+    return _colourise(text, 'yellow')
+
+
+def pinfo(text):  # pragma: no cover
+    """Pretty print an inprintional message.
+
+    :param str text: Text to print
+    :rtype: ``str``
+    :return: Bright blue text, if possible
+    """
+    echo(info(text))
+
+
+def pfail(text):  # pragma: no cover
+    """Pretty print a failure message.
+
+    :param str text: Text to print
+    :rtype: :obj:`str`
+    :return: Bright red text, if possible
+    """
+    echo(fail(text))
+
+
+def psuccess(text):  # pragma: no cover
+    """Pretty print a success message.
+
+    :param str text: Text to print
+    :rtype: :obj:`str`
+    :return: Bright green text, if possible
+    """
+    echo(success(text))
+
+
+def pwarn(text):  # pragma: no cover
+    """Pretty print a warning message.
+
+    :param str text: Text to print
+    :rtype: ``str``
+    :return: Bright yellow text, if possible
+    """
+    echo(warn(text))

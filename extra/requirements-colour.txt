@@ -1,1 +1,1 @@
-blessings
+click>=3.0
