@@ -25,12 +25,12 @@ from os import path
 import html2text as html2
 import jinja2
 
+from click import style
 from pygments import highlight as pyg_highlight
 from pygments.formatters import get_formatter_by_name
 from pygments.lexers import get_lexer_by_name
 
 from . import xdg_basedir
-from .colourise import TERMINAL
 from .human_time import human_timestamp
 
 
@@ -68,19 +68,21 @@ def regexp(string, pattern, repl, count=0, flags=0):
 
 
 @jinja_filter
-def colourise(text, formatting):
-    """Colourise text using blessings.
+def colourise(text, *args, **kwargs):
+    """Colourise text using click's style function.
 
     Returns text untouched if colour output is not enabled
 
-    :see: ``blessings``
+    :see: ``click.style`` for parameters
 
     :param str text: Text to colourise
-    :param str formatting: Formatting to apply to text
     :rtype: ``str``
     :return: Colourised text, when possible
     """
-    return getattr(TERMINAL, formatting.replace(' ', '_'))(text)
+    if sys.stdout.isatty():
+        return style(text, *args, **kwargs)
+    else:
+        return text
 
 
 @jinja_filter
@@ -95,7 +97,7 @@ def highlight(text, lexer='diff', formatter='terminal'):
     :rtype: ``str``
     :return: Syntax highlighted output, when possible
     """
-    if TERMINAL.is_a_tty:
+    if sys.stdout.isatty():
         lexer = get_lexer_by_name(lexer)
         formatter = get_formatter_by_name(formatter)
         return pyg_highlight(text, lexer, formatter)
