@@ -17,12 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pytest import mark
-
 from jnrbase import i18n
 
+# This needs a *real* test suite, but its usage necessitates bundling a heap of
+# test data and patching practically everything to make it work.
 
-@mark.xfail(reason='Unclear what a reasonable way to test this is')  # FIXME
+
 def test_translation_config():
-    from jnrbase import _version
-    i18n.setup(_version)
+    _, N_ = i18n.setup(i18n)
+    assert _.func_name == 'gettext'
+    assert N_.func_name == 'ngettext'
