@@ -24,7 +24,7 @@ from pytest import (mark, raises)
 from jnrbase.human_time import (human_timestamp, parse_timedelta)
 
 
-@mark.parametrize('delta,result', [
+@mark.parametrize('delta, result', [
     ({'days': 365, }, 'last year'),
     ({'days': 70, }, 'about two months ago'),
     ({'days': 30, }, 'last month'),
@@ -41,7 +41,7 @@ def test_human_timestamp(delta, result):
     assert human_timestamp(dt) == result
 
 
-@mark.parametrize('string,dt', [
+@mark.parametrize('string, dt', [
     ('3h', datetime.timedelta(0, 10800)),
     ('1d', datetime.timedelta(1)),
     ('1 d', datetime.timedelta(1)),

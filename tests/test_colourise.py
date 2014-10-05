@@ -33,7 +33,7 @@ TERM = getenv('TERM')
 
 @mark.skipif(TERM != 'linux' and not TERM.startswith('rxvt'),
              reason='Unsupported terminal type for tests')
-@mark.parametrize('f,linux_result,rxvt_result', [
+@mark.parametrize('f, linux_result, rxvt_result', [
     (colourise.info, u'\x1b[312m', u'\x1b[38;5;12m'),
     (colourise.fail, u'\x1b[39m', u'\x1b[38;5;9m'),
     (colourise.success, u'\x1b[310m', u'\x1b[38;5;10m'),
