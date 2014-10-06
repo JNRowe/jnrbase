@@ -47,11 +47,10 @@ def test_bundled(path_exists_force, recwarn):
 
 
 @exists_result(False)
-def test_bundled_fail(path_exists_force):
-    httplib2_certs.ALLOW_FALLBACK = False
+def test_bundled_fail(path_exists_force, monkeypatch):
+    monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
     with raises(RuntimeError):
         httplib2_certs.find_certs()
-    httplib2_certs.ALLOW_FALLBACK = True
 
 
 def test_freebsd_paths(monkeypatch, path_exists_force):
