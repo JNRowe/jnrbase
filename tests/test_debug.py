@@ -19,7 +19,7 @@
 
 from pytest import raises
 
-from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap)
+from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
 
 
 def test_enter_no_arg(capsys):
@@ -77,6 +77,17 @@ def test_DebugPrint(capsys):
         assert '] boom\n' in out
     finally:
         DebugPrint.disable()
+
+
+def test_DebugPrint_double_enable():
+    DebugPrint.enable()
+    sys.stdout.first = True
+    try:
+        DebugPrint.enable()
+        assert sys.stdout.first is True
+    finally:
+        DebugPrint.disable()
+
 
 
 def test_DebugPrint_decorator(capsys):
