@@ -53,6 +53,16 @@ def test_custom_filter(filter, args, kwargs, expected, monkeypatch):
     assert env.filters[filter](*args, **kwargs) == expected
 
 
+@mark.parametrize('filter, args, kwargs, expected', [
+    ('colourise', ('test', 'green'), {}, 'test'),
+    ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
+     'f = lambda: True'),
+])
+def test_custom_filter_fallthrough(filter, args, kwargs, expected):
+    env = template.setup('jnrbase')
+    assert env.filters[filter](*args, **kwargs) == expected
+
+
 def test_python26_style_flagless_sub(monkeypatch):
     monkeypatch.setattr('sys.version_info', (2, 6, 0))
     env = template.setup('jnrbase')

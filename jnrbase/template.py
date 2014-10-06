@@ -101,7 +101,7 @@ def highlight(text, lexer='diff', formatter='terminal'):
         lexer = get_lexer_by_name(lexer)
         formatter = get_formatter_by_name(formatter)
         return pyg_highlight(text, lexer, formatter)
-    else:  # pragma: no cover
+    else:
         return text
 
 
