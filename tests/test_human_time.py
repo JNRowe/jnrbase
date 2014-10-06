@@ -41,6 +41,13 @@ def test_human_timestamp(delta, result):
     assert human_timestamp(dt) == result
 
 
+def test_human_timestamp_invalid_delta():
+    dt = datetime.datetime.utcnow() - datetime.timedelta(milliseconds=5)
+    with raises(ValueError) as err:
+        human_timestamp(dt)
+    assert "Timestamp invalid: " in err.value.message
+
+
 @mark.parametrize('string, dt', [
     ('3h', datetime.timedelta(0, 10800)),
     ('1d', datetime.timedelta(1)),

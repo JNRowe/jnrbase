@@ -50,6 +50,8 @@ def human_timestamp(timestamp):
         if i:
             name = match_names[matches.index(scale)]
             break
+    else:
+        raise ValueError('Timestamp invalid: %r' % timestamp)
 
     if i == 1 and name in ('year', 'month', 'week'):
         result = 'last %s' % name
