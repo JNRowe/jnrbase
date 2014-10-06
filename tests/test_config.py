@@ -20,6 +20,8 @@
 from functools import partial
 from io import StringIO
 
+from pytest import mark
+
 from jnrbase.compat import text
 from jnrbase.context import chdir
 from jnrbase import config
@@ -29,14 +31,21 @@ from .utils import func_attr
 exists_result = partial(func_attr, 'exists_result')
 
 
+@mark.parametrize('local, count', [
+    (True, 4),
+    (False, 3),
+])
 @exists_result(True)
-def test_config_loading(monkeypatch):
+def test_config_loading(local, count, monkeypatch):
     monkeypatch.setattr('jnrbase.xdg_basedir.path.exists', lambda s: True)
     monkeypatch.setattr(config, 'open', lambda s, encoding: StringIO(text('')))
     monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
-    cfg = config.read_configs('jnrbase')
-    assert len(cfg.configs) == 4
-    assert '/.jnrbaserc' in cfg.configs[-1]
+    cfg = config.read_configs('jnrbase', local=local)
+    assert len(cfg.configs) == count
+    if local:
+        assert '/.jnrbaserc' in cfg.configs[-1]
+    else:
+        assert '/.jnrbaserc' not in cfg.configs
 
 
 @exists_result(False)
