@@ -49,14 +49,17 @@ def find_certs():
     :return: Path to SSL certificates
     :raise RuntimeError: When no suitable certificates are found
     """
-    bundle_path = path.realpath(path.dirname(httplib2.CA_CERTS))
-    if not bundle_path.startswith(path.realpath(path.dirname(httplib2.__file__))):
-        return bundle_path
+    bundle = path.realpath(path.dirname(httplib2.CA_CERTS))
+    # Some distros symlink the bundled path location to the system certs
+    if not bundle.startswith(path.realpath(path.dirname(httplib2.__file__))):
+        return bundle
     for platform, files in PLATFORM_FILES.items():
         if sys.platform.startswith(platform):
             for cert_file in files:
                 if path.exists(cert_file):
                     return cert_file
+    # An apparently common environment setting for OSX users to workaround the
+    # lack of "standard" certs installation
     if path.exists(getenv('CURL_CA_BUNDLE', '')):
         return getenv('CURL_CA_BUNDLE')
     if ALLOW_FALLBACK:
