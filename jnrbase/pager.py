@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""pager - pager pipe support"""
+"""pager - pager pipe support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,7 @@ def pager(text, pager='less'):
         if 'less' in pager and 'LESS' not in os.environ:
             os.environ['LESS'] = 'FRSX'
         pager = Popen([pager, ], stdin=PIPE)
-        if PY2: # pragma: Python 2
+        if PY2:  # pragma: Python 2
             pager.communicate(text)
         else:  # pragma: Python 3
             pager.communicate(text.encode())

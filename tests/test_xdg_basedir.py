@@ -96,6 +96,7 @@ def test_get_data(monkeypatch):
     assert xdg_basedir.get_data('jnrbase', 'photo.jpg') == \
         '/usr/share/jnrbase/photo.jpg'
 
+
 @exists_result(False)
 def test_get_data_no_files(monkeypatch):
     with raises(IOError) as err:

@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""json_datetime - JSON datetime support"""
+"""json_datetime - JSON datetime support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify

@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""human_time - Handle human readable date formats"""
+"""human_time - Handle human readable date formats."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,6 @@ def human_timestamp(timestamp):
     :rtype: ``str``
     :return: Human readable date and time offset
     """
-
     numstr = '. a two three four five six seven eight nine ten'.split()
 
     matches = [

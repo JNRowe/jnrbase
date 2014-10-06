@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""config - Configuration loading support"""
+"""config - Configuration loading support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,14 @@ from .xdg_basedir import get_configs
 
 
 def read_configs(pkg, name='config', local=True):
+    """Process configuration file stack.
+
+    :param str pkg: Package name to use as base for config files
+    :param str name: File name to search for within config directories
+    :param bool local: Whether to include config files from current directory
+    :rtype: ``configobj.ConfigObj``
+    :return: Parsed configuration files
+    """
     configs = get_configs(pkg, name)
     if local:
         localrc = path.abspath('.%src' % pkg)

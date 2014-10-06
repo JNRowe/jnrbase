@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""iso_8601 - ISO-8601 support"""
+"""iso_8601 - ISO-8601 support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify

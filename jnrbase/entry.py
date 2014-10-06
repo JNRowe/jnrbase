@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""entry - Simple, lazy, module executing support"""
+"""entry - Simple, lazy, module executing support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 
 
 def entry_point(f):
-    """Execute function when module is run directly
+    """Execute function when module is run directly.
 
     :param func f: Function to run
     """

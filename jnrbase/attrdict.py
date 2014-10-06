@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""attrdict - Dictionary with attribute access"""
+"""attrdict - Dictionary with attribute access."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@ class AttrDict(dict):
     """
 
     def __contains__(self, key):
-        """Check for item membership
+        """Check for item membership.
 
         :param object key: Key to test for
         :rtype: :obj:`bool`
@@ -34,7 +34,7 @@ class AttrDict(dict):
         return hasattr(self, key) or super(AttrDict, self).__contains__(key)
 
     def __getattr__(self, key):
-        """Support item access via dot notation
+        """Support item access via dot notation.
 
         :param object key: Key to fetch
         """
@@ -44,7 +44,7 @@ class AttrDict(dict):
             raise AttributeError(key)
 
     def __setattr__(self, key, value):
-        """Support item assignment via dot notation
+        """Support item assignment via dot notation.
 
         :param object key: Key to set value for
         :param object value: Value to set key to
@@ -55,7 +55,7 @@ class AttrDict(dict):
             raise AttributeError(err.message)
 
     def __delattr__(self, key):
-        """Support item deletion via dot notation
+        """Support item deletion via dot notation.
 
         :param object key: Key to delete
         """
@@ -66,11 +66,16 @@ class AttrDict(dict):
 
 
 class ROAttrDict(AttrDict):
+
     """Read-only dictionary with attribute access.
 
     .. seealso:: :obj:`AttrDict`
     """
 
     def __setitem__(self, *args):
+        """Handle attempt to modify read-only dictionary.
+
+        :raise AttributeError: On modification attempt
+        """
         raise AttributeError('%r is read-only' % self.__class__.__name__)
     __delattr__ = __delitem__ = __setattr__ = __setitem__

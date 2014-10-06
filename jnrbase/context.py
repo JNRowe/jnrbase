@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""path_context - Path context handlers support"""
+"""path_context - Path context handlers support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -23,6 +23,10 @@ import os
 
 @contextlib.contextmanager
 def chdir(path):
+    """Context handler to temporarily switch directories.
+
+    :param str path: Directory to change to
+    """
     old = os.getcwd()
     try:
         os.chdir(path)

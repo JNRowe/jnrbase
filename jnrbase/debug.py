@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""debug - Miscellaneous debugging support"""
+"""debug - Miscellaneous debugging support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -26,11 +26,21 @@ _orig_stdout = sys.stdout
 
 
 class DebugPrint(object):
-    """Verbose print wrapper for debugging"""
+
+    """Verbose print wrapper for debugging."""
+
     def __init__(self, fh):
+        """Configure new DebugPrint handler.
+
+        :param file fh: File handler to override
+        """
         self.fh = fh
 
     def write(self, text):
+        """Write text to the debug stream.
+
+        :param str text: Text to write
+        """
         if text == os.linesep:
             self.fh.write(text)
         else:
@@ -41,16 +51,18 @@ class DebugPrint(object):
 
     @staticmethod
     def enable():
+        """Patch sys.stdout to use DebugPrint."""
         if not isinstance(sys.stdout, DebugPrint):
             sys.stdout = DebugPrint(sys.stdout)
 
     @staticmethod
     def disable():
+        """Re-attach sys.stdout to its previous file handle."""
         sys.stdout = _orig_stdout
 
 
 def noisy_wrap(f):
-    """Decorator to enable DebugPrint for a given function"""
+    """Decorator to enable DebugPrint for a given function."""
     def wrapper(*args, **kwargs):
         DebugPrint.enable()
         try:
@@ -61,7 +73,7 @@ def noisy_wrap(f):
 
 
 def enter(msg=None):
-    """Decorator to display a message when entering a function
+    """Decorator to display a message when entering a function.
 
     :param str msg: Message to display
     :rtype: `function`
@@ -80,7 +92,7 @@ def enter(msg=None):
 
 
 def exit(msg=None):
-    """Decorator to display a message when exiting a function
+    """Decorator to display a message when exiting a function.
 
     :param str msg: Message to display
     :rtype: `function`

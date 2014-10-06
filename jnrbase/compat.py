@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""compat - Python 2/3 compatibility support"""
+"""compat - Python 2/3 compatibility support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -42,6 +42,12 @@ else:  # pragma: Python 3
 
 if PY2:  # pragma: Python 2
     def mangle_repr_type(klass):
+        """Encode Unicode __repr__ as strings for Python 2.
+
+        :see: `object.__repr__`
+
+        :param class klass: Class to patch ``__repr__`` on
+        """
         klass.__repr_unicode__ = klass.__repr__
 
         def wrapper(self):

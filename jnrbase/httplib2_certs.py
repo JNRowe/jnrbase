@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""httplib2_certs - httplib2 system certs finder"""
+"""httplib2_certs - httplib2 system certs finder."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -25,11 +25,24 @@ from os import (getenv, path)
 import httplib2
 
 
-#: Allow fallback to bundled httplib2 certs.  Set to False when packaging
+#: Allow fallback to bundled httplib2 certs.  *Packagers*: Set this to False
 ALLOW_FALLBACK = True
 
 
 def find_certs():
+    """Find suitable certificates for httplib2.
+
+    .. note::
+        The default behaviour is to fall back to the bundled certificates when
+        no system certificates can be found.  If you're packaging ``jnrbase``
+        *please* set ``ALLOW_FALLBACK`` to ``False`` to disable this very much
+        unwanted behaviour, but please maintain the option so that downstream
+        users can inspect the configuration easily.
+
+    :rtype: ``str``
+    :return: Path to SSL certificates
+    :raise RuntimeError: When no suitable certificates are found
+    """
     bundle_path = path.realpath(path.dirname(httplib2.CA_CERTS))
     if not bundle_path.startswith(path.realpath(path.dirname(httplib2.__file__))):
         return bundle_path

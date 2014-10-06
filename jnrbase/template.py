@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""template - Jinja templating support"""
+"""template - Jinja templating support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -131,11 +131,16 @@ def relative_time(timestamp):
     :rtype: ``str``
     :return: Human readable date and time offset
     """
-
     return human_timestamp(timestamp)
 
 
 def setup(pkg):
+    """Configure Jinja environment.
+
+    :param str pkg: Package name to use as base for templates searches
+    :rtype: ``jinja2.Environment
+    :returns: Jinja environment
+    """
     dirs = [path.join(dir, 'templates')
             for dir in xdg_basedir.get_data_dirs(pkg)]
 

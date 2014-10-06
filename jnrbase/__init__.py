@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""jnrbase - Common utility functionality"""
+"""jnrbase - Common utility functionality."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify

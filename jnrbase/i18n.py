@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""i18n - Configure internationalisation support"""
+"""i18n - Configure internationalisation support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -23,6 +23,12 @@ from os import path
 
 
 def setup(pkg):
+    """Configure gettext for given package.
+
+    :param module pkg: Package to use as location for gettext files
+    :rtype: 2-tuple of functions
+    :return: Gettext functions for singular and plural translations
+    """
     package_locale = path.join(path.realpath(path.dirname(pkg.__file__)),
                                'locale')
     gettext.install(pkg, package_locale)

@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""timer - Function timing support"""
+"""timer - Function timing support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -21,12 +21,14 @@ import time
 
 
 class Timer(object):
-    """Timing context manager
+
+    """Timing context manager.
 
     :param bool verbose: Print elapsed time
     :rtype: float
     :return: Elapsed time
     """
+
     def __init__(self, verbose=False):
         self.verbose = verbose
 

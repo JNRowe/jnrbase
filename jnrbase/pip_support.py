@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""pip_support - pip workarounds support"""
+"""pip_support - pip workarounds support."""
 # Copyright © 2014  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,7 @@ from os import path
 
 
 def parse_requires(file):
-    """Parse pip-style requirements files
+    """Parse pip-style requirements files.
 
     This is a *very* naïve parser, but very few packages make any use of the
     more advanced features.  Support for other features will only be added when
