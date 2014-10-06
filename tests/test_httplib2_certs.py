@@ -17,6 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from functools import partial
+
 from pytest import (mark, raises)
 
 from jnrbase import httplib2_certs
@@ -24,7 +26,7 @@ from jnrbase import httplib2_certs
 from .utils import func_attr
 
 
-exists_result = lambda x: func_attr('exists_result', x)
+exists_result = partial(func_attr, 'exists_result')
 
 
 def test_upstream_import(path_exists_force):
@@ -45,17 +47,24 @@ def test_bundled(path_exists_force, recwarn):
 
 
 @exists_result(False)
-def test_bundled_fail(path_exists_force):
-    httplib2_certs.ALLOW_FALLBACK = False
+def test_bundled_fail(path_exists_force, monkeypatch):
+    monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
     with raises(RuntimeError):
         httplib2_certs.find_certs()
-    httplib2_certs.ALLOW_FALLBACK = True
 
 
 def test_freebsd_paths(monkeypatch, path_exists_force):
     monkeypatch.setattr('sys.platform', 'freebsd')
     assert httplib2_certs.find_certs() \
         == '/usr/local/share/certs/ca-root-nss.crt'
+
+
+@exists_result(False)
+def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
+    monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
+    monkeypatch.setattr('sys.platform', 'freebsd')
+    with raises(RuntimeError):
+        httplib2_certs.find_certs()
 
 
 @mark.parametrize('file', [
