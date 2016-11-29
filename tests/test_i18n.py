@@ -17,6 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from expecter import expect
+
 from jnrbase import i18n
 
 # This needs a *real* test suite, but its usage necessitates bundling a heap of
@@ -25,5 +27,5 @@ from jnrbase import i18n
 
 def test_translation_config():
     _, N_ = i18n.setup(i18n)
-    assert _.func_name == 'gettext'
-    assert N_.func_name == 'ngettext'
+    expect(_.func_name) == 'gettext'
+    expect(N_.func_name) == 'ngettext'

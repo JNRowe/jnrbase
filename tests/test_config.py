@@ -20,6 +20,7 @@
 from functools import partial
 from io import StringIO
 
+from expecter import expect
 from pytest import mark
 
 from jnrbase.compat import text
@@ -41,32 +42,32 @@ def test_config_loading(local, count, monkeypatch):
     monkeypatch.setattr(config, 'open', lambda s, encoding: StringIO(text('')))
     monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
     cfg = config.read_configs('jnrbase', local=local)
-    assert len(cfg.configs) == count
+    expect(len(cfg.configs)) == count
     if local:
-        assert '/.jnrbaserc' in cfg.configs[-1]
+        expect(cfg.configs[-1]).contains('/.jnrbaserc')
     else:
-        assert '/.jnrbaserc' not in cfg.configs
+        expect(cfg.configs).does_not_contain('/.jnrbaserc')
 
 
 @exists_result(False)
 def test_config_loading_missing_files(monkeypatch):
-    assert config.read_configs('jnrbase').configs == []
+    expect(config.read_configs('jnrbase').configs) == []
 
 
 def test_no_colour_from_env(monkeypatch):
     monkeypatch.setenv('NO_COLOUR', 'set')
     cfg = config.read_configs('jnrbase')
-    assert cfg.colour is False
+    expect(cfg.colour) is False
 
 
 def test_colour_default(monkeypatch):
     monkeypatch.setattr('os.environ', {})
     cfg = config.read_configs('jnrbase')
-    assert cfg.colour is True
+    expect(cfg.colour) is True
 
 
 def test_colour_from_config(monkeypatch):
     with chdir('tests/data/config'):
         monkeypatch.setattr('os.environ', {})
         cfg = config.read_configs('jnrbase', local=True)
-        assert cfg.colour is False
+        expect(cfg.colour) is False

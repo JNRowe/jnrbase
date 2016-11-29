@@ -19,13 +19,15 @@
 
 from os import getenv
 
+from expecter import expect
+
 from jnrbase.pager import pager
 
 
 def test_pager(capfd):
     pager('paging through cat', 'cat')
     out, _ = capfd.readouterr()
-    assert out == 'paging through cat'
+    expect(out) == 'paging through cat'
 
 
 def test_default_less_config(monkeypatch):
@@ -43,10 +45,10 @@ def test_default_less_config(monkeypatch):
 
     monkeypatch.setattr('jnrbase.pager.Popen', FakePopen)
     pager('pager forcibly disabled')
-    assert getenv('LESS') == 'FRSX'
+    expect(getenv('LESS')) == 'FRSX'
 
 
 def test_disable_pager(capsys):
     pager('pager forcibly disabled', None)
     out, _ = capsys.readouterr()
-    assert out == 'pager forcibly disabled\n'
+    expect(out) == 'pager forcibly disabled\n'

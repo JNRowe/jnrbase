@@ -19,7 +19,8 @@
 
 import datetime
 
-from pytest import (mark, raises)
+from expecter import expect
+from pytest import mark
 
 from jnrbase.human_time import (human_timestamp, parse_timedelta)
 
@@ -38,14 +39,13 @@ from jnrbase.human_time import (human_timestamp, parse_timedelta)
 ])
 def test_human_timestamp(delta, result):
     dt = datetime.datetime.utcnow() - datetime.timedelta(**delta)
-    assert human_timestamp(dt) == result
+    expect(human_timestamp(dt)) == result
 
 
 def test_human_timestamp_invalid_delta():
     dt = datetime.datetime.utcnow() - datetime.timedelta(milliseconds=5)
-    with raises(ValueError) as err:
+    with expect.raises(ValueError):
         human_timestamp(dt)
-    assert "Timestamp invalid: " in err.value.message
 
 
 @mark.parametrize('string, dt', [
@@ -56,10 +56,9 @@ def test_human_timestamp_invalid_delta():
     ('0.5 Y', datetime.timedelta(182, 43200)),
 ])
 def test_parse_timedelta(string, dt):
-    assert parse_timedelta(string) == dt
+    expect(parse_timedelta(string)) == dt
 
 
 def test_parse_invalid_timedelta():
-    with raises(ValueError) as err:
+    with expect.raises(ValueError):
         parse_timedelta('1 k')
-    assert err.value.message == "Invalid 'frequency' value"

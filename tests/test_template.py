@@ -19,6 +19,7 @@
 
 from datetime import (datetime, timedelta)
 
+from expecter import expect
 from pytest import mark
 
 from jnrbase import template
@@ -26,14 +27,14 @@ from jnrbase import template
 
 def test_setup():
     env = template.setup('jnrbase')
-    assert 'safe' in env.filters
+    expect(env.filters).contains('safe')
 
 
 def test_filter_decorator():
     @template.jinja_filter
     def test():
         return ''
-    assert template.FILTERS['test'] == test
+    expect(template.FILTERS['test']) == test
 
 
 @mark.parametrize('filter, args, kwargs, expected', [
@@ -48,7 +49,7 @@ def test_filter_decorator():
 def test_custom_filter(filter, args, kwargs, expected, monkeypatch):
     monkeypatch.setattr('sys.stdout.isatty', lambda: True)
     env = template.setup('jnrbase')
-    assert env.filters[filter](*args, **kwargs) == expected
+    expect(env.filters[filter](*args, **kwargs)) == expected
 
 
 @mark.parametrize('filter, args, kwargs, expected', [
@@ -58,10 +59,10 @@ def test_custom_filter(filter, args, kwargs, expected, monkeypatch):
 ])
 def test_custom_filter_fallthrough(filter, args, kwargs, expected):
     env = template.setup('jnrbase')
-    assert env.filters[filter](*args, **kwargs) == expected
+    expect(env.filters[filter](*args, **kwargs)) == expected
 
 
 def test_python26_style_flagless_sub(monkeypatch):
     monkeypatch.setattr('sys.version_info', (2, 6, 0))
     env = template.setup('jnrbase')
-    assert env.filters['regexp']('test', 't', 'T') == 'TesT'
+    expect(env.filters['regexp']('test', 't', 'T')) == 'TesT'

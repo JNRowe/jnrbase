@@ -22,7 +22,8 @@ from os import path
 from subprocess import CalledProcessError
 from tarfile import open as open_tar
 
-from pytest import (fixture, raises)
+from expecter import expect
+from pytest import fixture
 
 from jnrbase.git import find_tag
 
@@ -53,20 +54,20 @@ def tarball_data(request, tmpdir):
 
 @tar_name('empty')
 def test_empty_repo(tarball_data):
-    with raises(CalledProcessError):
+    with expect.raises(CalledProcessError):
         find_tag(git_dir=tarball_data)
 
 
 @tar_name('semver')
 def test_semver_repo(tarball_data):
-    assert find_tag(git_dir=tarball_data) == 'v2.3.4'
+    expect(find_tag(git_dir=tarball_data)) == 'v2.3.4'
 
 
 @tar_name('empty')
 def test_non_strict(tarball_data):
-    assert find_tag(strict=None, git_dir=tarball_data) == 'db3ed35e'
+    expect(find_tag(strict=None, git_dir=tarball_data)) == 'db3ed35e'
 
 
 @tar_name('funky_names')
 def test_custom_match(tarball_data):
-    assert find_tag('prefix[0-9]*', git_dir=tarball_data) == 'prefix9.8.7.6'
+    expect(find_tag('prefix[0-9]*', git_dir=tarball_data)) == 'prefix9.8.7.6'

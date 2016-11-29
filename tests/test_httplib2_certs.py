@@ -19,7 +19,8 @@
 
 from functools import partial
 
-from pytest import (mark, raises)
+from expecter import expect
+from pytest import mark
 
 from jnrbase import httplib2_certs
 
@@ -31,31 +32,31 @@ exists_result = partial(func_attr, 'exists_result')
 
 def test_upstream_import(path_exists_force):
     import ca_certs_locater
-    assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
+    expect(ca_certs_locater.get()) == '/etc/ssl/certs/ca-certificates.crt'
 
 
 def test_unbundled_package_import(monkeypatch):
     monkeypatch.setattr('httplib2.CA_CERTS', '/fixed_by_distributor/certs.crt')
-    assert httplib2_certs.find_certs() == '/fixed_by_distributor'
+    expect(httplib2_certs.find_certs()) == '/fixed_by_distributor'
 
 
 @exists_result(False)
 def test_bundled(path_exists_force, recwarn):
     httplib2_certs.find_certs()
     warn = recwarn.pop(RuntimeWarning)
-    assert 'falling back' in str(warn.message)
+    expect(str(warn.message)).contains('falling back')
 
 
 @exists_result(False)
 def test_bundled_fail(path_exists_force, monkeypatch):
     monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
-    with raises(RuntimeError):
+    with expect.raises(RuntimeError):
         httplib2_certs.find_certs()
 
 
 def test_freebsd_paths(monkeypatch, path_exists_force):
     monkeypatch.setattr('sys.platform', 'freebsd')
-    assert httplib2_certs.find_certs() \
+    expect(httplib2_certs.find_certs()) \
         == '/usr/local/share/certs/ca-root-nss.crt'
 
 
@@ -63,7 +64,7 @@ def test_freebsd_paths(monkeypatch, path_exists_force):
 def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
     monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
     monkeypatch.setattr('sys.platform', 'freebsd')
-    with raises(RuntimeError):
+    with expect.raises(RuntimeError):
         httplib2_certs.find_certs()
 
 
@@ -73,11 +74,11 @@ def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
 ])
 def test_distros(monkeypatch, file):
     monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: s == file)
-    assert httplib2_certs.find_certs() == file
+    expect(httplib2_certs.find_certs()) == file
 
 
 def test_curl_bundle(monkeypatch):
     monkeypatch.setattr(httplib2_certs.path, 'exists',
                         lambda s: s == 'silly_platform_user')
     monkeypatch.setenv('CURL_CA_BUNDLE', 'silly_platform_user')
-    assert httplib2_certs.find_certs() == 'silly_platform_user'
+    expect(httplib2_certs.find_certs()) == 'silly_platform_user'

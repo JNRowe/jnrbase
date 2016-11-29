@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from expecter import expect
 from pytest import mark
 
 from jnrbase import colourise
@@ -29,9 +30,9 @@ from jnrbase import colourise
     (colourise.warn, u'\x1b[33m\x1b[1m'),
 ])
 def test_colouriser(f, expected):
-    assert expected in f('test')
+    expect(f('test')).contains(expected)
 
 
 def test_disabled_colouriser(monkeypatch):
     monkeypatch.setattr(colourise, 'COLOUR', False)
-    assert colourise.info('test') == 'test'
+    expect(colourise.info('test')) == 'test'

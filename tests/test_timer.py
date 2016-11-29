@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from expecter import expect
 from hiro import Timeline
 
 from jnrbase.timer import Timer
@@ -26,13 +27,13 @@ from jnrbase.timer import Timer
 def test_timer(timeline):
     with Timer() as t:
         timeline.forward(3600)
-    assert t.elapsed >= 3600
+    expect(t.elapsed) >= 3600
 
 
 def test_verbose_timer(capsys):
     with Timeline() as timeline:
         with Timer(verbose=True) as t:
             timeline.forward(3600)
-    assert t.elapsed >= 3600
+    expect(t.elapsed) >= 3600
     out, _ = capsys.readouterr()
-    assert 'Elapsed: 36' in out
+    expect(out).contains('Elapsed: 36')

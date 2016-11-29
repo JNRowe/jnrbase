@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pytest import raises
+from expecter import expect
 
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
 
@@ -26,46 +26,46 @@ def test_enter_no_arg(capsys):
     @enter
     def f(x, y):
         return x + y
-    assert f(4, 3) == 7
+    expect(f(4, 3)) == 7
     out, _ = capsys.readouterr()
-    assert 'Entering <function f at ' in out
+    expect(out).contains('Entering <function f at ')
 
 
 def test_enter_with_message(capsys):
     @enter('custom message')
     def f(x, y):
         return x + y
-    assert f(4, 3) == 7
+    expect(f(4, 3)) == 7
     out, _ = capsys.readouterr()
-    assert 'custom message\n' in out
+    expect(out).contains('custom message\n')
 
 
 def test_exit_no_arg(capsys):
     @exit
     def f(x, y):
         return x + y
-    assert f(4, 3) == 7
+    expect(f(4, 3)) == 7
     out, _ = capsys.readouterr()
-    assert 'Entering <function f at ' in out
+    expect(out).contains('Entering <function f at ')
 
 
 def test_exit_with_message(capsys):
     @exit('custom message')
     def f(x, y):
         return x + y
-    assert f(4, 3) == 7
+    expect(f(4, 3)) == 7
     out, _ = capsys.readouterr()
-    assert 'custom message\n' in out
+    expect(out).contains('custom message\n')
 
 
 def test_exit_with_failure(capsys):
     @exit('custom message')
     def f(x, y):
         raise ValueError('boom')
-    with raises(ValueError):
+    with expect.raises(ValueError):
         f(4, 3)
     out, _ = capsys.readouterr()
-    assert out == 'custom message\n'
+    expect(out) == 'custom message\n'
 
 
 def test_DebugPrint(capsys):
@@ -73,8 +73,8 @@ def test_DebugPrint(capsys):
     try:
         print "boom"
         out, _ = capsys.readouterr()
-        assert 'test_debug.py:' in out
-        assert '] boom\n' in out
+        expect(out).contains('test_debug.py:')
+        expect(out).contains('] boom\n')
     finally:
         DebugPrint.disable()
 
@@ -84,7 +84,7 @@ def test_DebugPrint_double_enable():
     sys.stdout.first = True
     try:
         DebugPrint.enable()
-        assert sys.stdout.first is True
+        expect(sys.stdout.first) is True
     finally:
         DebugPrint.disable()
 
@@ -97,6 +97,6 @@ def test_DebugPrint_decorator(capsys):
         print x
     f(20)
     out, _ = capsys.readouterr()
-    assert 'test_debug.py:' in out
-    assert '] 14\n' in out
-    assert '] 20\n' in out
+    expect(out).contains('test_debug.py:')
+    expect(out).contains('] 14\n')
+    expect(out).contains('] 20\n')

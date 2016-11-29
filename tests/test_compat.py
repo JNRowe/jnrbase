@@ -17,6 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from expecter import expect
+
 from jnrbase import compat
 
 
@@ -26,4 +28,4 @@ def test_mangle_repr_type():
         def __repr__(self):
             return compat.text("test")
     # This works on Python 2 or 3 by design
-    assert isinstance(repr(Test()), str)
+    expect(repr(Test())).isinstance(str)
