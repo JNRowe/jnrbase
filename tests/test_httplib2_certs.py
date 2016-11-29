@@ -17,6 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import warnings
+
 from functools import partial
 
 from expecter import expect
@@ -41,10 +43,12 @@ def test_unbundled_package_import(monkeypatch):
 
 
 @exists_result(False)
-def test_bundled(path_exists_force, recwarn):
-    httplib2_certs.find_certs()
-    warn = recwarn.pop(RuntimeWarning)
-    expect(str(warn.message)).contains('falling back')
+def test_bundled(path_exists_force):
+    with warnings.catch_warnings(record=True) as warns:
+        warnings.simplefilter("always")
+        httplib2_certs.find_certs()
+        expect(warns[0].category) == RuntimeWarning
+        expect(str(warns[0].message)).contains('falling back')
 
 
 @exists_result(False)
