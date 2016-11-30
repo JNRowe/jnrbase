@@ -15,3 +15,17 @@ template
 .. autofunction:: relative_time
 
 .. autofunction:: setup
+
+Examples
+--------
+
+.. testsetup::
+
+    from jnrbase.template import (FILTERS, regexp)
+
+.. doctest::
+
+    >>> FILTERS['regexp']('hello', 'l', 'L')
+    'heLLo'
+    >>> regexp('hello', 'l', 'L')
+    'heLLo'
