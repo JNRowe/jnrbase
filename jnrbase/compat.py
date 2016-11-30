@@ -38,7 +38,7 @@ else:  # pragma: Python 3
 
     open = open
 
-    from io import StringIO
+    from io import StringIO  # NOQA
 
 if PY2:  # pragma: Python 2
     def mangle_repr_type(klass):

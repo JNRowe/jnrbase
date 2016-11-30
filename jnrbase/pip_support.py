@@ -44,7 +44,7 @@ def parse_requires(file):
         dep = dep
         if dep.startswith('-r '):
             include = dep.split()[1]
-            if not '/' in include:
+            if '/' not in include:
                 include = path.join(path.dirname(file), include)
             deps.extend(parse_requires(include))
         else:

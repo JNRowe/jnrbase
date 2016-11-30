@@ -42,7 +42,7 @@ install_requires = []  # extra/requirements-base.txt
 extras_require = {}
 for file in glob.glob('extra/requirements-*.txt'):
     suffix = os.path.splitext(file)[0].split('-')[1]
-    if not suffix in ['doc', 'test']:
+    if suffix not in ['doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)
 
 setup(
