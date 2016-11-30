@@ -25,7 +25,7 @@ from jnrbase.context import chdir
 def find_tag(matcher='v[0-9]*', strict=True, git_dir='.'):
     """Find closest tag for a git repository.
 
-    ..note:: This defaults to `Semantic Version`_ tag matching.
+    .. note:: This defaults to `Semantic Version`_ tag matching.
 
     Args:
         matcher (str): Glob-style tag pattern to match

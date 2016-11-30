@@ -32,7 +32,7 @@ ALLOW_DARWIN = True
 
 
 def user_cache(pkg):
-    """Return a cache location honouring $XDG_CACHE_HOME.
+    """Return a cache location honouring :envvar:`XDG_CACHE_HOME`.
 
     Args:
         pkg (str): Package name
@@ -49,7 +49,7 @@ def user_cache(pkg):
 
 
 def user_config(pkg):
-    """Return a config location honouring $XDG_CONFIG_HOME.
+    """Return a config location honouring :envvar:`XDG_CONFIG_HOME`.
 
     Args:
         pkg (str): Package name
@@ -65,7 +65,7 @@ def user_config(pkg):
 
 
 def user_data(pkg):
-    """Return a data location honouring $XDG_DATA_HOME.
+    """Return a data location honouring :envvar:`XDG_DATA_HOME`.
 
     Args:
         pkg (str): Package name

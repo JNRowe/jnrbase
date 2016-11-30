@@ -89,7 +89,7 @@ def colourise(text, *args, **kwargs):
 
 @jinja_filter
 def highlight(text, lexer='diff', formatter='terminal'):
-    """Highlight text highlighted using pygments.
+    """Highlight text highlighted using ``pygments``.
 
     Returns text untouched if colour output is not enabled
 
@@ -140,7 +140,7 @@ def relative_time(timestamp):
 
 
 def setup(pkg):
-    """Configure Jinja environment.
+    """Configure a new Jinja environment with our filters.
 
     Args:
         pkg (str): Package name to use as base for templates searches

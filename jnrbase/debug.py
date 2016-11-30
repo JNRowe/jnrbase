@@ -33,7 +33,7 @@ class DebugPrint(object):
         """Configure new DebugPrint handler.
 
         Args:
-            fh (file): File handler to override
+            fh (file): File handle to override
         """
         self.fh = fh
 
@@ -53,13 +53,13 @@ class DebugPrint(object):
 
     @staticmethod
     def enable():
-        """Patch sys.stdout to use DebugPrint."""
+        """Patch ``sys.stdout`` to use ``DebugPrint``."""
         if not isinstance(sys.stdout, DebugPrint):
             sys.stdout = DebugPrint(sys.stdout)
 
     @staticmethod
     def disable():
-        """Re-attach sys.stdout to its previous file handle."""
+        """Re-attach ``sys.stdout`` to its previous file handle."""
         sys.stdout = _orig_stdout
 
 

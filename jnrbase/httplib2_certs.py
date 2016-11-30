@@ -25,7 +25,9 @@ from os import (getenv, path)
 import httplib2
 
 
-#: Allow fallback to bundled httplib2 certs.  *Packagers*: Set this to False
+#: Allow fallback to bundled httplib2 certs.
+#:
+#: *Packagers*: Set this to ``False``
 ALLOW_FALLBACK = True
 
 PLATFORM_FILES = {
@@ -36,7 +38,7 @@ PLATFORM_FILES = {
 
 
 def find_certs():
-    """Find suitable certificates for httplib2.
+    """Find suitable certificates for ``httplib2``.
 
     .. note::
         The default behaviour is to fall back to the bundled certificates when
@@ -45,7 +47,7 @@ def find_certs():
         unwanted behaviour, but please maintain the option so that downstream
         users can inspect the configuration easily.
 
-    Raturns:
+    Returns:
         str: Path to SSL certificates
     Raises:
         RuntimeError: When no suitable certificates are found
