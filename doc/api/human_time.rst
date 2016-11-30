@@ -3,4 +3,6 @@
 human_time
 ==========
 
-.. todo:: Add contents
+.. autofunction:: human_timestamp
+
+.. autofunction:: parse_timedelta

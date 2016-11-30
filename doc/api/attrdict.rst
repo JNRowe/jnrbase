@@ -3,4 +3,4 @@
 attrdict
 ========
 
-.. todo:: Add contents
+.. autoclass:: AttrDict

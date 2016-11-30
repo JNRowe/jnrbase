@@ -3,4 +3,4 @@
 git
 ===
 
-.. todo:: Add contents
+.. autofunction:: find_tag

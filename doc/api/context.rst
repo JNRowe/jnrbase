@@ -3,4 +3,4 @@
 context
 =======
 
-.. todo:: Add contents
+.. autofunction:: chdir(path)

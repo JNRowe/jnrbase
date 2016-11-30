@@ -3,4 +3,12 @@
 iso_8601
 ========
 
-.. todo:: Add contents
+.. autoclass:: UTC
+
+.. autodata:: utc
+
+.. autofunction:: parse_delta
+.. autofunction:: format_delta
+
+.. autofunction:: parse_datetime
+.. autofunction:: format_datetime

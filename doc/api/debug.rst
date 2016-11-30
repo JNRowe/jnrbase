@@ -3,4 +3,9 @@
 debug
 =====
 
-.. todo:: Add contents
+.. autoclass:: DebugPrint
+
+.. autofunction:: noisy_wrap
+
+.. autofunction:: enter
+.. autofunction:: exit

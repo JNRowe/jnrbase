@@ -3,4 +3,5 @@
 config
 ======
 
-.. todo:: Add contents
+
+.. autofunction:: read_configs

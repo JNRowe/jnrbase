@@ -3,4 +3,4 @@
 i18n
 ====
 
-.. todo:: Add contents
+.. autofunction:: setup

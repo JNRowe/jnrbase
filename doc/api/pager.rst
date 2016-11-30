@@ -3,4 +3,4 @@
 pager
 =====
 
-.. todo:: Add contents
+.. autofunction:: pager

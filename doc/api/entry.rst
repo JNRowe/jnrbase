@@ -3,4 +3,4 @@
 entry
 =====
 
-.. todo:: Add contents
+.. autofunction:: entry_point

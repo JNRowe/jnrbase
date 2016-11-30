@@ -3,4 +3,9 @@
 httplib2_certs
 ==============
 
-.. todo:: Add contents
+.. autodata:: ALLOW_FALLBACK
+
+.. autodata:: PLATFORM_FILES
+   :annotation: = {<sys.platform>: [<file>, ], ...}
+
+.. autofunction:: find_certs

@@ -3,4 +3,4 @@
 pip_support
 ===========
 
-.. todo:: Add contents
+.. autofunction:: parse_requires

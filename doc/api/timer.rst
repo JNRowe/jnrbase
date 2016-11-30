@@ -3,4 +3,4 @@
 timer
 =====
 
-.. todo:: Add contents
+.. autoclass:: Timer
