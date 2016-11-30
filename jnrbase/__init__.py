@@ -6,7 +6,7 @@ This is a collection of common utility libraries that are used in various Open
 Source projects that I (JNRowe) work on.  Feel free to use it, and especially
 improve it, in your projects!
 """
-# Copyright © 2014  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,4 +26,4 @@ from . import _version
 
 __version__ = _version.dotted
 __date__ = _version.date
-__copyright__ = 'Copyright (C) 2014  James Rowe <jnrowe@gmail.com>'
+__copyright__ = 'Copyright (C) 2014-2016  James Rowe <jnrowe@gmail.com>'
