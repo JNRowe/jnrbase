@@ -50,7 +50,7 @@ def test_bundled():
         warnings.simplefilter("always")
         httplib2_certs.find_certs()
         expect(warns[0].category) == RuntimeWarning
-        expect(str(warns[0].message)).contains('falling back')
+        expect(str(warns[0])).contains('falling back')
 
 
 @patch.object(path, 'exists', lambda s: False)
