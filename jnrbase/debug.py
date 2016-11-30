@@ -87,7 +87,7 @@ def enter(msg=None):
             if msg:
                 print(msg)
             else:
-                print("Entering %r" % f)
+                print("Entering %r(%r)" % (f.func_name, f))
             return f(*args, **kwargs)
         return wrapper
     if callable(msg):
@@ -111,7 +111,7 @@ def exit(msg=None):
                 if msg:
                     print(msg)
                 else:
-                    print("Entering %r" % f)
+                    print("Exiting %r(%r)" % (f.func_name, f))
         return wrapper
     if callable(msg):
         return exit()(msg)

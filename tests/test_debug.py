@@ -34,7 +34,7 @@ def test_enter_no_arg(stdout):
     def f(x, y):
         return x + y
     expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains('Entering <function f at ')
+    expect(stdout.getvalue()).contains("Entering 'f'(<function f at ")
 
 
 @patch('sys.stdout', new_callable=StringIO)
@@ -52,7 +52,7 @@ def test_exit_no_arg(stdout):
     def f(x, y):
         return x + y
     expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains('Entering <function f at ')
+    expect(stdout.getvalue()).contains("Exiting 'f'(<function f at ")
 
 
 @patch('sys.stdout', new_callable=StringIO)
