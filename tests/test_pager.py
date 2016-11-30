@@ -19,15 +19,31 @@
 
 from os import getenv
 
+from subprocess import Popen
+from tempfile import TemporaryFile
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+
 from expecter import expect
 
+from jnrbase.compat import StringIO
 from jnrbase.pager import pager
+from jnrbase import pager as pager_mod
 
 
-def test_pager(capfd):
-    pager('paging through cat', 'cat')
-    out, _ = capfd.readouterr()
-    expect(out) == 'paging through cat'
+def stored_popen(f):
+    return lambda *args, **kwargs: Popen(*args, stdout=f, **kwargs)
+
+
+def test_pager():
+    with TemporaryFile() as f:
+        with patch.object(pager_mod, 'Popen', new=stored_popen(f)):
+            pager('paging through cat', 'cat')
+        f.seek(0)
+        data = f.read()
+    expect(data) == 'paging through cat'
 
 
 def test_default_less_config(monkeypatch):
@@ -48,7 +64,7 @@ def test_default_less_config(monkeypatch):
     expect(getenv('LESS')) == 'FRSX'
 
 
-def test_disable_pager(capsys):
+@patch('sys.stdout', new_callable=StringIO)
+def test_disable_pager(stdout):
     pager('pager forcibly disabled', None)
-    out, _ = capsys.readouterr()
-    expect(out) == 'pager forcibly disabled\n'
+    expect(stdout.getvalue()) == 'pager forcibly disabled\n'
