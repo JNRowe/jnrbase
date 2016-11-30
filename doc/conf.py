@@ -53,9 +53,6 @@ version = '.'.join(map(str, jnrbase._version.tuple[:2]))
 release = jnrbase._version.dotted
 
 pygments_style = 'sphinx'
-html_theme_options = {
-    'externalrefs': True,
-}
 try:
     html_last_updated_fmt = check_output(['git', 'log',
                                           "--pretty=format:'%ad [%h]'",
