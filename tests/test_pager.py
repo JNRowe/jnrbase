@@ -31,11 +31,14 @@ from jnrbase.compat import StringIO
 from jnrbase.pager import pager
 from jnrbase import pager as pager_mod
 
+from .utils import requires_exec
+
 
 def stored_popen(f):
     return lambda *args, **kwargs: Popen(*args, stdout=f, **kwargs)
 
 
+@requires_exec('cat')
 def test_pager():
     with TemporaryFile() as f:
         with patch.object(pager_mod, 'Popen', new=stored_popen(f)):
@@ -45,6 +48,7 @@ def test_pager():
     expect(data) == 'paging through cat'
 
 
+@requires_exec('less')
 def test_default_less_config():
     with TemporaryFile() as f:
         with patch.object(pager_mod, 'Popen', new=stored_popen(f)):

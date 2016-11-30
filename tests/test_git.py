@@ -28,6 +28,10 @@ from expecter import expect
 
 from jnrbase.git import find_tag
 
+from .utils import requires_exec
+
+requires_git = requires_exec('git')
+
 
 @contextmanager
 def tarball_data(tar_name):
@@ -48,22 +52,26 @@ def tarball_data(tar_name):
         rmtree(temp_dir)
 
 
+@requires_git
 def test_empty_repo():
     with tarball_data('empty') as tree:
         with expect.raises(CalledProcessError):
             find_tag(git_dir=tree)
 
 
+@requires_git
 def test_semver_repo():
     with tarball_data('semver') as tree:
         expect(find_tag(git_dir=tree)) == 'v2.3.4'
 
 
+@requires_git
 def test_non_strict():
     with tarball_data('empty') as tree:
         expect(find_tag(strict=None, git_dir=tree)) == 'db3ed35e'
 
 
+@requires_git
 def test_custom_match():
     with tarball_data('funky_names') as tree:
         expect(find_tag('prefix[0-9]*', git_dir=tree)) == 'prefix9.8.7.6'
