@@ -34,11 +34,14 @@ from . import xdg_basedir
 from .human_time import human_timestamp
 
 
+#: Collection of custom filters to add to Jinja environment
 FILTERS = {}
 
 
 def jinja_filter(func):
     """Simple decorator to add a new filter to Jinja environment.
+
+    See also: :obj:`FILTERS`
 
     Args:
         func (func): Function to add to Jinja environment

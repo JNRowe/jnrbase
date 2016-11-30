@@ -30,6 +30,7 @@ import httplib2
 #: *Packagers*: Set this to ``False``
 ALLOW_FALLBACK = True
 
+#: Default certificate locations for platforms
 PLATFORM_FILES = {
     'linux': ['/etc/ssl/certs/ca-certificates.crt',
               '/etc/pki/tls/certs/ca-bundle.crt'],
