@@ -3,6 +3,9 @@
 API documentation
 =================
 
+:mod:`jnrbase` comprises of the following modules, some of which may require
+external dependencies to function.
+
 .. toctree::
    :maxdepth: 2
 
