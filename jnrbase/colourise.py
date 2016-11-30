@@ -42,17 +42,6 @@ def _colourise(text, colour):
         return text
 
 
-def info(text):
-    """Format an informational message.
-
-    Args:
-        text (str): Text to format
-    Returns:
-        str: Bright blue text, if possible
-    """
-    return _colourise(text, 'blue')
-
-
 def fail(text):
     """Format a failure message.
 
@@ -62,6 +51,17 @@ def fail(text):
         str: Bright red text, if possible
     """
     return _colourise(text, 'red')
+
+
+def info(text):
+    """Format an informational message.
+
+    Args:
+        text (str): Text to format
+    Returns:
+        str: Bright blue text, if possible
+    """
+    return _colourise(text, 'blue')
 
 
 def success(text):
@@ -86,17 +86,6 @@ def warn(text):
     return _colourise(text, 'yellow')
 
 
-def pinfo(text):  # pragma: no cover
-    """Pretty print an inprintional message.
-
-    Args:
-        text (str): Text to print
-    Returns:
-        str: Bright blue text, if possible
-    """
-    echo(info(text))
-
-
 def pfail(text):  # pragma: no cover
     """Pretty print a failure message.
 
@@ -106,6 +95,17 @@ def pfail(text):  # pragma: no cover
         str: Bright red text, if possible
     """
     echo(fail(text))
+
+
+def pinfo(text):  # pragma: no cover
+    """Pretty print an informational message.
+
+    Args:
+        text (str): Text to print
+    Returns:
+        str: Bright blue text, if possible
+    """
+    echo(info(text))
 
 
 def psuccess(text):  # pragma: no cover
