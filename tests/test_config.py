@@ -26,17 +26,17 @@ except ImportError:
     from mock import patch
 
 from expecter import expect
-from pytest import mark
+from nose2.tools import params
 
 from jnrbase.compat import text
 from jnrbase.context import chdir
 from jnrbase import config
 
 
-@mark.parametrize('local, count', [
+@params(
     (True, 4),
     (False, 3),
-])
+)
 @patch.object(path, 'exists', lambda s: True)
 @patch.object(config, 'open', lambda s, encoding: StringIO(text('')))
 def test_config_loading(local, count):

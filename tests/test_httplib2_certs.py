@@ -27,7 +27,7 @@ except ImportError:
     from mock import patch
 
 from expecter import expect
-from pytest import mark
+from nose2.tools import params
 
 from jnrbase import httplib2_certs
 
@@ -75,10 +75,10 @@ def test_freebsd_no_installed_certs():
                 httplib2_certs.find_certs()
 
 
-@mark.parametrize('file', [
+@params(
     '/etc/ssl/certs/ca-certificates.crt',
     '/etc/pki/tls/certs/ca-bundle.crt',
-])
+)
 def test_distros(file):
     with patch.object(httplib2_certs.path, 'exists', lambda s: s == file):
         expect(httplib2_certs.find_certs()) == file

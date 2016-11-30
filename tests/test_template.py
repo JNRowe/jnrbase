@@ -27,7 +27,7 @@ except ImportError:
     from mock import patch
 
 from expecter import expect
-from pytest import mark
+from nose2.tools import params
 
 from jnrbase import template
 
@@ -44,7 +44,7 @@ def test_filter_decorator():
     expect(template.FILTERS['test']) == test
 
 
-@mark.parametrize('filter, args, kwargs, expected', [
+@params(
     ('colourise', ('test', 'green'), {}, u'\x1b[32mtest\x1b[0m'),
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
@@ -52,17 +52,17 @@ def test_filter_decorator():
     ('html2text', ('<b>test</b>', ), {}, '**test**'),
     ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
      'yesterday'),
-])
+)
 def test_custom_filter(filter, args, kwargs, expected):
     env = template.setup('jnrbase')
     expect(env.filters[filter](*args, **kwargs)) == expected
 
 
-@mark.parametrize('filter, args, kwargs, expected', [
+@params(
     ('colourise', ('test', 'green'), {}, 'test'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
      'f = lambda: True'),
-])
+)
 @patch.object(sys, 'stdout')
 def test_custom_filter_fallthrough(filter, args, kwargs, expected, stdout):
     stdout.isatty.side_effect = lambda: False
