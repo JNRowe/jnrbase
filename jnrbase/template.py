@@ -51,24 +51,6 @@ def jinja_filter(func):
 
 
 @jinja_filter
-def regexp(string, pattern, repl, count=0, flags=0):
-    """Jinja filter for regexp replacements.
-
-    See :func:`re.sub` for documentation.
-
-    Returns:
-        str: Text with substitutions applied
-    """
-    if sys.version_info[:2] >= (2, 7):
-        return re.sub(pattern, repl, string, count, flags)
-    else:
-        # regexps are cached, so this uglier path is no better than the 2.7
-        # one.  Once 2.6 support disappears, so can this
-        match = re.compile(pattern, flags=flags)
-        return match.sub(repl, string, count)
-
-
-@jinja_filter
 def colourise(text, *args, **kwargs):
     """Colourise text using click's style function.
 
@@ -122,6 +104,24 @@ def html2text(html, width=80, ascii_replacements=False):
     html2.BODY_WIDTH = width
     html2.UNICODE_SNOB = ascii_replacements
     return html2.html2text(html).strip()
+
+
+@jinja_filter
+def regexp(string, pattern, repl, count=0, flags=0):
+    """Jinja filter for regexp replacements.
+
+    See :func:`re.sub` for documentation.
+
+    Returns:
+        str: Text with substitutions applied
+    """
+    if sys.version_info[:2] >= (2, 7):
+        return re.sub(pattern, repl, string, count, flags)
+    else:
+        # regexps are cached, so this uglier path is no better than the 2.7
+        # one.  Once 2.6 support disappears, so can this
+        match = re.compile(pattern, flags=flags)
+        return match.sub(repl, string, count)
 
 
 @jinja_filter
