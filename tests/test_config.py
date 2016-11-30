@@ -17,56 +17,57 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from functools import partial
 from io import StringIO
+from os import path
 
-from pytest import mark
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+
+from expecter import expect
+from nose2.tools import params
 
 from jnrbase.compat import text
 from jnrbase.context import chdir
 from jnrbase import config
 
-from .utils import func_attr
 
-exists_result = partial(func_attr, 'exists_result')
-
-
-@mark.parametrize('local, count', [
+@params(
     (True, 4),
     (False, 3),
-])
-@exists_result(True)
-def test_config_loading(local, count, monkeypatch):
-    monkeypatch.setattr('jnrbase.xdg_basedir.path.exists', lambda s: True)
-    monkeypatch.setattr(config, 'open', lambda s, encoding: StringIO(text('')))
-    monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
-    cfg = config.read_configs('jnrbase', local=local)
-    assert len(cfg.configs) == count
+)
+@patch.object(path, 'exists', lambda s: True)
+@patch.object(config, 'open', lambda s, encoding: StringIO(text('')))
+def test_config_loading(local, count):
+    with patch.dict('os.environ', {'XDG_CONFIG_DIRS': 'test1:test2'}):
+        cfg = config.read_configs('jnrbase', local=local)
+    expect(len(cfg.configs)) == count
     if local:
-        assert '/.jnrbaserc' in cfg.configs[-1]
+        expect(cfg.configs[-1]).contains('/.jnrbaserc')
     else:
-        assert '/.jnrbaserc' not in cfg.configs
+        expect(cfg.configs).does_not_contain('/.jnrbaserc')
 
 
-@exists_result(False)
-def test_config_loading_missing_files(monkeypatch):
-    assert config.read_configs('jnrbase').configs == []
+@patch.object(path, 'exists', lambda s: False)
+def test_config_loading_missing_files():
+    expect(config.read_configs('jnrbase').configs) == []
 
 
-def test_no_colour_from_env(monkeypatch):
-    monkeypatch.setenv('NO_COLOUR', 'set')
-    cfg = config.read_configs('jnrbase')
-    assert cfg.colour is False
+def test_no_colour_from_env():
+    with patch.dict('os.environ', {'NO_COLOUR': 'set'}):
+        cfg = config.read_configs('jnrbase')
+    expect(cfg.colour) is False
 
 
-def test_colour_default(monkeypatch):
-    monkeypatch.setattr('os.environ', {})
-    cfg = config.read_configs('jnrbase')
-    assert cfg.colour is True
+def test_colour_default():
+    with patch.dict('os.environ', clear=True):
+        cfg = config.read_configs('jnrbase')
+    expect(cfg.colour) is True
 
 
-def test_colour_from_config(monkeypatch):
+def test_colour_from_config():
     with chdir('tests/data/config'):
-        monkeypatch.setattr('os.environ', {})
-        cfg = config.read_configs('jnrbase', local=True)
-        assert cfg.colour is False
+        with patch.dict('os.environ', clear=True):
+            cfg = config.read_configs('jnrbase', local=True)
+    expect(cfg.colour) is False

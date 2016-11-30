@@ -1,4 +1,4 @@
 -r requirements.txt
+expecter>=0.2.2
 hiro>=0.1.7
-pytest>=2.5.2
-pytest-cov>=1.6
+nose2[coverage_plugin]>=0.5.0

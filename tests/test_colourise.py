@@ -17,21 +17,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pytest import mark
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+
+from expecter import expect
+from nose2.tools import params
 
 from jnrbase import colourise
 
 
-@mark.parametrize('f,expected', [
+@params(
     (colourise.info, u'\x1b[34m\x1b[1m'),
     (colourise.fail, u'\x1b[31m\x1b[1m'),
     (colourise.success, u'\x1b[32m\x1b[1m'),
     (colourise.warn, u'\x1b[33m\x1b[1m'),
-])
+)
 def test_colouriser(f, expected):
-    assert expected in f('test')
+    expect(f('test')).contains(expected)
 
 
-def test_disabled_colouriser(monkeypatch):
-    monkeypatch.setattr(colourise, 'COLOUR', False)
-    assert colourise.info('test') == 'test'
+@patch.object(colourise, 'COLOUR', False)
+def test_disabled_colouriser():
+    expect(colourise.info('test')) == 'test'

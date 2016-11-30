@@ -17,26 +17,34 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import sys
+
 from datetime import (datetime, timedelta)
 
-from pytest import mark
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+
+from expecter import expect
+from nose2.tools import params
 
 from jnrbase import template
 
 
 def test_setup():
     env = template.setup('jnrbase')
-    assert 'safe' in env.filters
+    expect(env.filters).contains('safe')
 
 
 def test_filter_decorator():
     @template.jinja_filter
     def test():
         return ''
-    assert template.FILTERS['test'] == test
+    expect(template.FILTERS['test']) == test
 
 
-@mark.parametrize('filter, args, kwargs, expected', [
+@params(
     ('colourise', ('test', 'green'), {}, u'\x1b[32mtest\x1b[0m'),
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
@@ -44,24 +52,25 @@ def test_filter_decorator():
     ('html2text', ('<b>test</b>', ), {}, '**test**'),
     ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
      'yesterday'),
-])
-def test_custom_filter(filter, args, kwargs, expected, monkeypatch):
-    monkeypatch.setattr('sys.stdout.isatty', lambda: True)
+)
+def test_custom_filter(filter, args, kwargs, expected):
     env = template.setup('jnrbase')
-    assert env.filters[filter](*args, **kwargs) == expected
+    expect(env.filters[filter](*args, **kwargs)) == expected
 
 
-@mark.parametrize('filter, args, kwargs, expected', [
+@params(
     ('colourise', ('test', 'green'), {}, 'test'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
      'f = lambda: True'),
-])
-def test_custom_filter_fallthrough(filter, args, kwargs, expected):
+)
+@patch.object(sys, 'stdout')
+def test_custom_filter_fallthrough(filter, args, kwargs, expected, stdout):
+    stdout.isatty.side_effect = lambda: False
     env = template.setup('jnrbase')
-    assert env.filters[filter](*args, **kwargs) == expected
+    expect(env.filters[filter](*args, **kwargs)) == expected
 
 
-def test_python26_style_flagless_sub(monkeypatch):
-    monkeypatch.setattr('sys.version_info', (2, 6, 0))
+@patch.object(sys, 'version_info', (2, 6, 0))
+def test_python26_style_flagless_sub():
     env = template.setup('jnrbase')
-    assert env.filters['regexp']('test', 't', 'T') == 'TesT'
+    expect(env.filters['regexp']('test', 't', 'T')) == 'TesT'
