@@ -78,7 +78,7 @@ def test_exit_with_failure(stdout):
 def test_DebugPrint(stdout):
     DebugPrint.enable()
     try:
-        print "boom"
+        print("boom")
         out = stdout.getvalue()
         expect(out).contains('test_debug.py:')
         expect(out).contains('] boom\n')
@@ -100,8 +100,8 @@ def test_DebugPrint_double_enable():
 def test_DebugPrint_decorator(stdout):
     @noisy_wrap
     def f(x):
-        print "%x" % x
-        print x
+        print("%x" % x)
+        print(x)
     f(20)
     out = stdout.getvalue()
     expect(out).contains('test_debug.py:')
