@@ -102,7 +102,7 @@ def get_data(pkg, name):
 
     Args:
         pkg (str): Package name
-        name (str): Configuration file name
+        name (str): Data file name
     Returns:
         str
     """
