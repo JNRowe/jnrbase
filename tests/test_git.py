@@ -68,7 +68,7 @@ def test_semver_repo():
 @requires_git
 def test_non_strict():
     with tarball_data('empty') as tree:
-        expect(find_tag(strict=None, git_dir=tree)) == 'db3ed35e'
+        expect(find_tag(strict=None, git_dir=tree)) == 'db3ed35e8734'
 
 
 @requires_git
