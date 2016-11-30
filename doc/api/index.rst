@@ -6,17 +6,21 @@ API documentation
 .. toctree::
    :maxdepth: 2
 
-
-.. todo::
-
-  * jnrbase/colourise
-  * jnrbase/compat
-  * jnrbase/config
-  * jnrbase/context
-  * jnrbase/httplib2_certs
-  * jnrbase/human_time
-  * jnrbase/i18n
-  * jnrbase/iso_8601
-  * jnrbase/json_datetime
-  * jnrbase/pager
-  * jnrbase/xdg_basedir
+   attrdict
+   colourise
+   compat
+   config
+   context
+   debug
+   entry
+   git
+   httplib2_certs
+   human_time
+   i18n
+   iso_8601
+   json_datetime
+   pager
+   pip_support
+   template
+   timer
+   xdg_basedir
