@@ -24,11 +24,8 @@ import sys
 from os import (getenv, path)
 
 
-#: Allow OSX directory structure
+#: Allow macOS directory structure
 ALLOW_DARWIN = True
-
-# See https://developer.apple.com/library/ios/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/MacOSXDirectories/MacOSXDirectories.html
-# for the Apple directory documentation
 
 
 def user_cache(pkg):

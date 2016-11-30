@@ -65,8 +65,8 @@ def find_certs():
             for cert_file in files:
                 if path.exists(cert_file):
                     return cert_file
-    # An apparently common environment setting for OSX users to workaround the
-    # lack of "standard" certs installation
+    # An apparently common environment setting for macOS users to workaround
+    # the lack of "standard" certs installation
     if path.exists(getenv('CURL_CA_BUNDLE', '')):
         return getenv('CURL_CA_BUNDLE')
     if ALLOW_FALLBACK:

@@ -41,7 +41,7 @@ def test_cache_no_home():
         expect(xdg_basedir.user_cache('jnrbase')) == '/.cache/jnrbase'
 
 
-def test_cache_osx():
+def test_cache_macos():
     with patch.object(xdg_basedir.sys, 'platform', 'darwin'):
         expect(xdg_basedir.user_cache('jnrbase')).contains('/Caches')
 
@@ -70,7 +70,7 @@ def test_data_no_home():
         expect(xdg_basedir.user_data('jnrbase')) == '/.local/share/jnrbase'
 
 
-def test_osx_paths():
+def test_macos_paths():
     with patch.object(xdg_basedir.sys, 'platform', 'darwin'):
         expect(xdg_basedir.user_data('jnrbase')).contains(
             '/Library/Application Support/jnrbase'
@@ -94,7 +94,7 @@ def test_get_configs_custom_dirs():
 
 
 @patch.object(os.path, 'exists', lambda s: True)
-def test_get_configs_osx():
+def test_get_configs_macos():
     with patch.object(xdg_basedir.sys, 'platform', 'darwin'):
         expect(xdg_basedir.get_configs('jnrbase')[-1]).contains('/Library/')
 
