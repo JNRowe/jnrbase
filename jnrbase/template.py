@@ -96,6 +96,8 @@ def highlight(text, lexer='diff', formatter='terminal'):
 
     Returns text untouched if colour output is not enabled
 
+    See: :pypi:`Pygments`
+
     Args:
         text (str): Text to highlight
         lexer (str): Jinja lexer to use
@@ -114,6 +116,8 @@ def highlight(text, lexer='diff', formatter='terminal'):
 @jinja_filter
 def html2text(html, width=80, ascii_replacements=False):
     """HTML to plain text renderer.
+
+    See: :pypi:`html2text`
 
     Args:
         text (str): Text to process

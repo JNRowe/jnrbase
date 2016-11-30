@@ -49,6 +49,8 @@ def find_certs():
         unwanted behaviour, but please maintain the option so that downstream
         users can inspect the configuration easily.
 
+    See: :pypi:`httplib2`
+
     Returns:
         str: Path to SSL certificates
     Raises:
