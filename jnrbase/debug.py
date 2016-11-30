@@ -22,6 +22,8 @@ import inspect
 import os
 import sys
 
+from functools import wraps
+
 _orig_stdout = sys.stdout
 
 
@@ -83,6 +85,7 @@ def enter(msg=None):
         function
     """
     def decorator(f):
+        @wraps(f)
         def wrapper(*args, **kwargs):
             if msg:
                 print(msg)
@@ -104,6 +107,7 @@ def exit(msg=None):
         function
     """
     def decorator(f):
+        @wraps(f)
         def wrapper(*args, **kwargs):
             try:
                 return f(*args, **kwargs)
