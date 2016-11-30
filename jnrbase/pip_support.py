@@ -31,9 +31,10 @@ def parse_requires(file):
     more advanced features.  Support for other features will only be added when
     packages in the wild depend on them.
 
-    :param str file: Base file to pass
-    :rtype: list
-    :return: Parsed dependencies
+    Args:
+        file (str): Base file to pass
+    Returns:
+        list: Parsed dependencies
     """
     deps = []
     req_file = open(file)

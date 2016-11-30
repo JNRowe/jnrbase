@@ -24,9 +24,10 @@ class Timer(object):
 
     """Timing context manager.
 
-    :param bool verbose: Print elapsed time
-    :rtype: float
-    :return: Elapsed time
+    Args:
+        verbose (bool): Print elapsed time
+    Returns:
+        float: Elapsed time
     """
 
     def __init__(self, verbose=False):

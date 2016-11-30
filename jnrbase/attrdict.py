@@ -22,21 +22,25 @@ class AttrDict(dict):
 
     """Dictionary with attribute access.
 
-    .. seealso:: :obj:`dict`
+    See also:
+        :obj:`dict`
     """
 
     def __contains__(self, key):
         """Check for item membership.
 
-        :param object key: Key to test for
-        :rtype: :obj:`bool`
+        Args:
+            key (object): Key to test for
+        Returns:
+            bool: True, if item in AttrDict
         """
         return hasattr(self, key) or super(AttrDict, self).__contains__(key)
 
     def __getattr__(self, key):
         """Support item access via dot notation.
 
-        :param object key: Key to fetch
+        Args:
+            key (object): Key to fetch
         """
         try:
             return self[key]
@@ -46,8 +50,9 @@ class AttrDict(dict):
     def __setattr__(self, key, value):
         """Support item assignment via dot notation.
 
-        :param object key: Key to set value for
-        :param object value: Value to set key to
+        Args:
+            key (object): Key to set value for
+            value (object): Value to set key to
         """
         try:
             self[key] = value
@@ -57,7 +62,8 @@ class AttrDict(dict):
     def __delattr__(self, key):
         """Support item deletion via dot notation.
 
-        :param object key: Key to delete
+        Args:
+            key (object): Key to delete
         """
         try:
             del self[key]
@@ -69,13 +75,15 @@ class ROAttrDict(AttrDict):
 
     """Read-only dictionary with attribute access.
 
-    .. seealso:: :obj:`AttrDict`
+    See also:
+        :obj:`AttrDict`
     """
 
     def __setitem__(self, *args):
         """Handle attempt to modify read-only dictionary.
 
-        :raise AttributeError: On modification attempt
+        Raises:
+            AttributeError: On modification attempt
         """
         raise AttributeError('%r is read-only' % self.__class__.__name__)
     __delattr__ = __delitem__ = __setattr__ = __setitem__

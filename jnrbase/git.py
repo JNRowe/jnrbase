@@ -27,11 +27,12 @@ def find_tag(matcher='v[0-9]*', strict=True, git_dir='.'):
 
     ..note:: This defaults to `Semantic Version`_ tag matching.
 
-    :param str matcher: Glob-style tag pattern to match
-    :param bool strict: Allow commit-ish, if no tag found
-    :param str git_dir: Repository to search
-    :rtype: str
-    :return: Matching tag name
+    Args:
+        matcher (str): Glob-style tag pattern to match
+        strict (bool): Allow commit-ish, if no tag found
+        git_dir (str): Repository to search
+    Returns:
+        Matching tag name
 
     .. _Semantic Version: http://semver.org/
     """

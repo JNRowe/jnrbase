@@ -27,8 +27,9 @@ from jnrbase.compat import PY2
 def pager(text, pager='less'):
     """Pass output through pager.
 
-    :param str text: Text to page
-    :param bool pager: Pager to use
+    Args:
+        text (str): Text to page
+        pager (bool): Pager to use
     """
     if pager:
         if 'less' in pager and 'LESS' not in os.environ:

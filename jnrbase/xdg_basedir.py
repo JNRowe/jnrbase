@@ -34,8 +34,10 @@ ALLOW_DARWIN = True
 def user_cache(pkg):
     """Return a cache location honouring $XDG_CACHE_HOME.
 
-    :param str pkg: Package name
-    :rtype: ``str``
+    Args:
+        pkg (str): Package name
+    Returns:
+        str
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Caches'
@@ -49,8 +51,10 @@ def user_cache(pkg):
 def user_config(pkg):
     """Return a config location honouring $XDG_CONFIG_HOME.
 
-    :param str pkg: Package name
-    :rtype: ``str``
+    Args:
+        pkg (str): Package name
+    Returns:
+        str
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Preferences'
@@ -63,8 +67,10 @@ def user_config(pkg):
 def user_data(pkg):
     """Return a data location honouring $XDG_DATA_HOME.
 
-    :param str pkg: Package name
-    :rtype: ``str``
+    Args:
+        pkg (str): Package name
+    Returns:
+        str
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Application Support'
@@ -77,9 +83,11 @@ def user_data(pkg):
 def get_configs(pkg, name='config'):
     """Return all configs for given package.
 
-    :param str pkg: Package name
-    :param name name: Configuration file name
-    :rtype: ``list`` of ``str``
+    Args:
+        pkg (str): Package name
+        name (str): Configuration file name
+    Returns:
+        list of str
     """
     dirs = [user_config(pkg), ]
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))
@@ -95,9 +103,11 @@ def get_configs(pkg, name='config'):
 def get_data(pkg, name):
     """Return top-most data file for given package.
 
-    :param str pkg: Package name
-    :param name name: Data file name
-    :rtype: ``str``
+    Args:
+        pkg (str): Package name
+        name (str): Configuration file name
+    Returns:
+        str
     """
     dirs = [user_data(pkg), ]
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))
@@ -113,8 +123,10 @@ def get_data(pkg, name):
 def get_data_dirs(pkg):
     """Return all data directories for given package.
 
-    :param str pkg: Package name
-    :rtype: ``list`` of ``str``
+    Args:
+        pkg (str): Package name
+    Returns:
+        str
     """
     dirs = [user_data(pkg), ]
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))

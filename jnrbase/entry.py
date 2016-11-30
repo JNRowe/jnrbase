@@ -21,7 +21,8 @@
 def entry_point(f):
     """Execute function when module is run directly.
 
-    :param func f: Function to run
+    Args:
+        f (func): Function to run
     """
     if f.__module__ == '__main__':
         import sys

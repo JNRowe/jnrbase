@@ -28,11 +28,12 @@ from .xdg_basedir import get_configs
 def read_configs(pkg, name='config', local=True):
     """Process configuration file stack.
 
-    :param str pkg: Package name to use as base for config files
-    :param str name: File name to search for within config directories
-    :param bool local: Whether to include config files from current directory
-    :rtype: ``configobj.ConfigObj``
-    :return: Parsed configuration files
+    Args:
+        pkg (str): Package name to use as base for config files
+        name (str): File name to search for within config directories
+        local (bool): Whether to include config files from current directory
+    Returns:
+        configobj.ConfigObj: Parsed configuration files
     """
     configs = get_configs(pkg, name)
     if local:

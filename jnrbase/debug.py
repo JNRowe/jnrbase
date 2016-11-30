@@ -32,14 +32,16 @@ class DebugPrint(object):
     def __init__(self, fh):
         """Configure new DebugPrint handler.
 
-        :param file fh: File handler to override
+        Args:
+            fh (file): File handler to override
         """
         self.fh = fh
 
     def write(self, text):
         """Write text to the debug stream.
 
-        :param str text: Text to write
+        Args:
+            text (str): Text to write
         """
         if text == os.linesep:
             self.fh.write(text)
@@ -75,8 +77,10 @@ def noisy_wrap(f):
 def enter(msg=None):
     """Decorator to display a message when entering a function.
 
-    :param str msg: Message to display
-    :rtype: `function`
+    Args:
+        msg (str): Message to display
+    Returns:
+        function
     """
     def decorator(f):
         def wrapper(*args, **kwargs):
@@ -94,8 +98,10 @@ def enter(msg=None):
 def exit(msg=None):
     """Decorator to display a message when exiting a function.
 
-    :param str msg: Message to display
-    :rtype: `function`
+    Args:
+        msg (str): Message to display
+    Returns:
+        function
     """
     def decorator(f):
         def wrapper(*args, **kwargs):

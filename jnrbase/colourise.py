@@ -30,10 +30,11 @@ COLOUR = True
 def _colourise(text, colour):
     """Colour text, if possible.
 
-    :param str text: Text to colourise
-    :param str colour: Colour to display text in
-    :rtype: :obj:`str`
-    :return str: Colourised text, if possible
+    Args:
+        text (str): Text to colourise
+        colour (str): Colour to display text in
+    Returns:
+        str: Colourised text, if possible
     """
     if COLOUR:
         return style(text, fg=colour, bold=True)
@@ -44,9 +45,10 @@ def _colourise(text, colour):
 def info(text):
     """Format an informational message.
 
-    :param str text: Text to format
-    :rtype: ``str``
-    :return: Bright blue text, if possible
+    Args:
+        text (str): Text to format
+    Returns:
+        str: Bright blue text, if possible
     """
     return _colourise(text, 'blue')
 
@@ -54,9 +56,10 @@ def info(text):
 def fail(text):
     """Format a failure message.
 
-    :param str text: Text to format
-    :rtype: :obj:`str`
-    :return: Bright red text, if possible
+    Args:
+        text (str): Text to format
+    Returns:
+        str: Bright red text, if possible
     """
     return _colourise(text, 'red')
 
@@ -64,9 +67,10 @@ def fail(text):
 def success(text):
     """Format a success message.
 
-    :param str text: Text to format
-    :rtype: :obj:`str`
-    :return: Bright green text, if possible
+    Args:
+        text (str): Text to format
+    Returns:
+        str: Bright green text, if possible
     """
     return _colourise(text, 'green')
 
@@ -74,9 +78,10 @@ def success(text):
 def warn(text):
     """Format a warning message.
 
-    :param str text: Text to format
-    :rtype: ``str``
-    :return: Bright yellow text, if possible
+    Args:
+        text (str): Text to format
+    Returns:
+        str: Bright yellow text, if possible
     """
     return _colourise(text, 'yellow')
 
@@ -84,9 +89,10 @@ def warn(text):
 def pinfo(text):  # pragma: no cover
     """Pretty print an inprintional message.
 
-    :param str text: Text to print
-    :rtype: ``str``
-    :return: Bright blue text, if possible
+    Args:
+        text (str): Text to print
+    Returns:
+        str: Bright blue text, if possible
     """
     echo(info(text))
 
@@ -94,9 +100,10 @@ def pinfo(text):  # pragma: no cover
 def pfail(text):  # pragma: no cover
     """Pretty print a failure message.
 
-    :param str text: Text to print
-    :rtype: :obj:`str`
-    :return: Bright red text, if possible
+    Args:
+        text (str): Text to print
+    Returns:
+        str: Bright red text, if possible
     """
     echo(fail(text))
 
@@ -104,9 +111,10 @@ def pfail(text):  # pragma: no cover
 def psuccess(text):  # pragma: no cover
     """Pretty print a success message.
 
-    :param str text: Text to print
-    :rtype: :obj:`str`
-    :return: Bright green text, if possible
+    Args:
+        text (str): Text to print
+    Returns:
+        str: Bright green text, if possible
     """
     echo(success(text))
 
@@ -114,8 +122,9 @@ def psuccess(text):  # pragma: no cover
 def pwarn(text):  # pragma: no cover
     """Pretty print a warning message.
 
-    :param str text: Text to print
-    :rtype: ``str``
-    :return: Bright yellow text, if possible
+    Args:
+        text (str): Text to print
+    Returns:
+        str: Bright yellow text, if possible
     """
     echo(warn(text))

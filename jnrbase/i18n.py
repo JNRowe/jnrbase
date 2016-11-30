@@ -25,9 +25,11 @@ from os import path
 def setup(pkg):
     """Configure gettext for given package.
 
-    :param module pkg: Package to use as location for gettext files
-    :rtype: 2-tuple of functions
-    :return: Gettext functions for singular and plural translations
+    Args:
+        pkg (module): Package to use as location for gettext files
+    Returns:
+        2-tuple of functions: Gettext functions for singular and plural
+            translations
     """
     package_locale = path.join(path.realpath(path.dirname(pkg.__file__)),
                                'locale')

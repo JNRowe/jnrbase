@@ -35,7 +35,8 @@ class DatetimeEncoder(json.JSONEncoder):
         This simply falls through to :meth:`~json.JSONEncoder.default` if
         ``obj`` is not a ``datetime`` instance.
 
-        :param obj: Object to encode
+        Args:
+            obj: Object to encode
         """
         if isinstance(obj, datetime.datetime):
             return format_datetime(obj)
@@ -46,9 +47,10 @@ class DatetimeEncoder(json.JSONEncoder):
 def json_to_datetime(obj):
     """Parse ISO-8601 values from JSON databases.
 
-    :see: `json.JSONDecoder`
+    See :class:`json.JSONDecoder`
 
-    :param obj: Object to decode
+    Args:
+        obj: Object to decode
     """
     for k, v in obj.items():
         try:

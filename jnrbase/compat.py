@@ -44,9 +44,10 @@ if PY2:  # pragma: Python 2
     def mangle_repr_type(klass):
         """Encode Unicode __repr__ as strings for Python 2.
 
-        :see: `object.__repr__`
+        See :func:`object.__repr__`
 
-        :param class klass: Class to patch ``__repr__`` on
+        Args:
+            klass (class): Class to patch ``__repr__`` on
         """
         klass.__repr_unicode__ = klass.__repr__
 

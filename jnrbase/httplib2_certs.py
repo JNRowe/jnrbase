@@ -45,9 +45,10 @@ def find_certs():
         unwanted behaviour, but please maintain the option so that downstream
         users can inspect the configuration easily.
 
-    :rtype: ``str``
-    :return: Path to SSL certificates
-    :raise RuntimeError: When no suitable certificates are found
+    Raturns:
+        str: Path to SSL certificates
+    Raises:
+        RuntimeError: When no suitable certificates are found
     """
     bundle = path.realpath(path.dirname(httplib2.CA_CERTS))
     # Some distros symlink the bundled path location to the system certs

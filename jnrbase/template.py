@@ -40,9 +40,10 @@ FILTERS = {}
 def jinja_filter(func):
     """Simple decorator to add a new filter to Jinja environment.
 
-    :param func func: Function to add to Jinja environment
-    :rtype: ``func``
-    :returns: Unmodified function
+    Args:
+        func (func): Function to add to Jinja environment
+    Returns:
+        func: Unmodified function
     """
     FILTERS[func.__name__] = func
 
@@ -55,8 +56,8 @@ def regexp(string, pattern, repl, count=0, flags=0):
 
     See :func:`re.sub` for documentation.
 
-    :rtype: `str`
-    :return: Text with substitutions applied
+    Returns:
+        str: Text with substitutions applied
     """
     if sys.version_info[:2] >= (2, 7):
         return re.sub(pattern, repl, string, count, flags)
@@ -73,11 +74,12 @@ def colourise(text, *args, **kwargs):
 
     Returns text untouched if colour output is not enabled
 
-    :see: ``click.style`` for parameters
+    See :func:`click.style` for parameters
 
-    :param str text: Text to colourise
-    :rtype: ``str``
-    :return: Colourised text, when possible
+    Args:
+        text (str): Text to colourise
+    Returns:
+        str: Colourised text, when possible
     """
     if sys.stdout.isatty():
         return style(text, *args, **kwargs)
@@ -91,11 +93,12 @@ def highlight(text, lexer='diff', formatter='terminal'):
 
     Returns text untouched if colour output is not enabled
 
-    :param str text: Text to highlight
-    :param str lexer: Jinja lexer to use
-    :param str formatter: Jinja formatter to use
-    :rtype: ``str``
-    :return: Syntax highlighted output, when possible
+    Args:
+        text (str): Text to highlight
+        lexer (str): Jinja lexer to use
+        formatter (str): Jinja formatter to use
+    Returns:
+        str: Syntax highlighted output, when possible
     """
     if sys.stdout.isatty():
         lexer = get_lexer_by_name(lexer)
@@ -109,11 +112,12 @@ def highlight(text, lexer='diff', formatter='terminal'):
 def html2text(html, width=80, ascii_replacements=False):
     """HTML to plain text renderer.
 
-    :param str text: Text to process
-    :param int width: Paragraph width
-    :param bool ascii_replacements: Use psuedo-ascii replacements for Unicode
-    :rtype: ``str``
-    :return: Rendered text
+    Args:
+        text (str): Text to process
+        width (int): Paragraph width
+        ascii_replacements (bool): Use psuedo-ascii replacements for Unicode
+    Returns:
+        str: Rendered text
     """
     html2.BODY_WIDTH = width
     html2.UNICODE_SNOB = ascii_replacements
@@ -124,12 +128,13 @@ def html2text(html, width=80, ascii_replacements=False):
 def relative_time(timestamp):
     """Format a relative time.
 
-    :see: `human_time.human_timestamp`
+    See :func:`human_time.human_timestamp`
 
-    :param datetime.datetime timestamp: Event to generate relative timestamp
-        against
-    :rtype: ``str``
-    :return: Human readable date and time offset
+    Args:
+        timestamp (datetime.datetime): Event to generate relative timestamp
+            against
+    Returns:
+        str: Human readable date and time offset
     """
     return human_timestamp(timestamp)
 
@@ -137,9 +142,10 @@ def relative_time(timestamp):
 def setup(pkg):
     """Configure Jinja environment.
 
-    :param str pkg: Package name to use as base for templates searches
-    :rtype: ``jinja2.Environment
-    :returns: Jinja environment
+    Args:
+        pkg (str): Package name to use as base for templates searches
+    Returns:
+        jinja2.Environment: Jinja environment
     """
     dirs = [path.join(dir, 'templates')
             for dir in xdg_basedir.get_data_dirs(pkg)]

@@ -24,10 +24,11 @@ import re
 def human_timestamp(timestamp):
     """Format a relative time.
 
-    :param datetime.datetime timestamp: Event to generate relative timestamp
-        against
-    :rtype: ``str``
-    :return: Human readable date and time offset
+    Args:
+        timestamp (datetime.datetime): Event to generate relative timestamp
+            against
+    Returns:
+        str: Human readable date and time offset
     """
     numstr = '. a two three four five six seven eight nine ten'.split()
 
@@ -68,7 +69,8 @@ def human_timestamp(timestamp):
 def parse_timedelta(delta):
     """Parse human readable frequency.
 
-    :param str delta: Frequency to parse
+    Args:
+        delta (str): Frequency to parse
     """
     match = re.match('^(\d+(?:|\.\d+)) *([hdwmy])$', delta, re.IGNORECASE)
     if not match:

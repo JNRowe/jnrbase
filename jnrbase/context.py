@@ -25,7 +25,8 @@ import os
 def chdir(path):
     """Context handler to temporarily switch directories.
 
-    :param str path: Directory to change to
+    Args:
+        path (str): Directory to change to
     """
     old = os.getcwd()
     try:
