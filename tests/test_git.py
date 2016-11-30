@@ -17,57 +17,53 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from functools import partial
+from contextlib import contextmanager
 from os import path
+from shutil import rmtree
 from subprocess import CalledProcessError
 from tarfile import open as open_tar
+from tempfile import mkdtemp
 
 from expecter import expect
-from pytest import fixture
 
 from jnrbase.git import find_tag
 
-from .utils import func_attr
 
-
-DATA_DIR = path.join(path.dirname(path.abspath(__file__)), 'data', 'git')
-
-
-tar_name = partial(func_attr, 'tar_name')
-
-
-@fixture
-def tarball_data(request, tmpdir):
+@contextmanager
+def tarball_data(tar_name):
     """Extract a tarball for test usage
 
-    This fixture extracts a tarball using the basename from a function's
-    ``tar__name`` attribute, and returns the path to the
-    extracted files.
+    This fixture extracts a tarball, and returns the path to the extracted
+    files.
 
     :see: `tar_name`
     """
-    fname = request.function.tar_name
-    tar = open_tar(path.join(DATA_DIR, fname + '.tar'))
-    tar.extractall(str(tmpdir))
-    return str(tmpdir.join(fname))
+    data_dir = path.join(path.dirname(path.abspath(__file__)), 'data', 'git')
+    tar = open_tar(path.join(data_dir, tar_name + '.tar'))
+    try:
+        temp_dir = mkdtemp()
+        tar.extractall(temp_dir)
+        yield str(path.join(temp_dir, tar_name))
+    finally:
+        rmtree(temp_dir)
 
 
-@tar_name('empty')
-def test_empty_repo(tarball_data):
-    with expect.raises(CalledProcessError):
-        find_tag(git_dir=tarball_data)
+def test_empty_repo():
+    with tarball_data('empty') as tree:
+        with expect.raises(CalledProcessError):
+            find_tag(git_dir=tree)
 
 
-@tar_name('semver')
-def test_semver_repo(tarball_data):
-    expect(find_tag(git_dir=tarball_data)) == 'v2.3.4'
+def test_semver_repo():
+    with tarball_data('semver') as tree:
+        expect(find_tag(git_dir=tree)) == 'v2.3.4'
 
 
-@tar_name('empty')
-def test_non_strict(tarball_data):
-    expect(find_tag(strict=None, git_dir=tarball_data)) == 'db3ed35e'
+def test_non_strict():
+    with tarball_data('empty') as tree:
+        expect(find_tag(strict=None, git_dir=tree)) == 'db3ed35e'
 
 
-@tar_name('funky_names')
-def test_custom_match(tarball_data):
-    expect(find_tag('prefix[0-9]*', git_dir=tarball_data)) == 'prefix9.8.7.6'
+def test_custom_match():
+    with tarball_data('funky_names') as tree:
+        expect(find_tag('prefix[0-9]*', git_dir=tree)) == 'prefix9.8.7.6'

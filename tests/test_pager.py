@@ -18,7 +18,6 @@
 #
 
 from os import getenv
-
 from subprocess import Popen
 from tempfile import TemporaryFile
 try:
@@ -46,22 +45,12 @@ def test_pager():
     expect(data) == 'paging through cat'
 
 
-def test_default_less_config(monkeypatch):
-    monkeypatch.delenv('LESS', False)
-
-    class FakePopen:
-        def __init__(self, *args, **kwargs):
-            pass
-
-        def communicate(self, *args):
-            pass
-
-        def wait(self):
-            pass
-
-    monkeypatch.setattr('jnrbase.pager.Popen', FakePopen)
-    pager('pager forcibly disabled')
-    expect(getenv('LESS')) == 'FRSX'
+def test_default_less_config():
+    with TemporaryFile() as f:
+        with patch.object(pager_mod, 'Popen', new=stored_popen(f)):
+            with patch.dict(pager_mod.os.environ, clear=True):
+                pager('pager forcibly disabled')
+                expect(getenv('LESS')) == 'FRSX'
 
 
 @patch('sys.stdout', new_callable=StringIO)

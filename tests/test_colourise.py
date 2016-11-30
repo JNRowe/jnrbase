@@ -17,6 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+
 from expecter import expect
 from pytest import mark
 
@@ -33,6 +38,6 @@ def test_colouriser(f, expected):
     expect(f('test')).contains(expected)
 
 
-def test_disabled_colouriser(monkeypatch):
-    monkeypatch.setattr(colourise, 'COLOUR', False)
+@patch.object(colourise, 'COLOUR', False)
+def test_disabled_colouriser():
     expect(colourise.info('test')) == 'test'
