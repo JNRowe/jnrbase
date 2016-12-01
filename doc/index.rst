@@ -22,6 +22,7 @@ Contents
    faq
    alternatives
    release
+   thaw
    api/index
    todo
 
