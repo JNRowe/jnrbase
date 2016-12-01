@@ -26,8 +26,6 @@ class Timer(object):
 
     Args:
         verbose (bool): Print elapsed time
-    Returns:
-        float: Elapsed time
     """
 
     def __init__(self, verbose=False):

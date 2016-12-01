@@ -1,0 +1,6 @@
+.. currentmodule:: jnrbase.i18n
+
+i18n
+====
+
+.. autofunction:: setup

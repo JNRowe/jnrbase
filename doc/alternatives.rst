@@ -15,4 +15,3 @@ coming from.
 .. todo::
 
    Transfer text from #338916
-

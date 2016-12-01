@@ -20,7 +20,7 @@
 import datetime
 import json
 
-from functools import partial
+from functools import (partial, wraps)
 
 from jnrbase.iso_8601 import (format_datetime, parse_datetime)
 
@@ -60,7 +60,7 @@ def json_to_datetime(obj):
     return obj
 
 
-dump = partial(json.dump, indent=4, cls=DatetimeEncoder)
-dumps = partial(json.dumps, indent=4, cls=DatetimeEncoder)
-load = partial(json.load, object_hook=json_to_datetime)
-loads = partial(json.loads, object_hook=json_to_datetime)
+dump = wraps(json.dump)(partial(json.dump, indent=4, cls=DatetimeEncoder))
+dumps = wraps(json.dumps)(partial(json.dumps, indent=4, cls=DatetimeEncoder))
+load = wraps(json.load)(partial(json.load, object_hook=json_to_datetime))
+loads = wraps(json.loads)(partial(json.loads, object_hook=json_to_datetime))

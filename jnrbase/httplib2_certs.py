@@ -25,9 +25,12 @@ from os import (getenv, path)
 import httplib2
 
 
-#: Allow fallback to bundled httplib2 certs.  *Packagers*: Set this to False
+#: Allow fallback to bundled httplib2 certs.
+#:
+#: *Packagers*: Set this to ``False``
 ALLOW_FALLBACK = True
 
+#: Default certificate locations for platforms
 PLATFORM_FILES = {
     'linux': ['/etc/ssl/certs/ca-certificates.crt',
               '/etc/pki/tls/certs/ca-bundle.crt'],
@@ -36,16 +39,19 @@ PLATFORM_FILES = {
 
 
 def find_certs():
-    """Find suitable certificates for httplib2.
+    """Find suitable certificates for ``httplib2``.
 
-    .. note::
+    .. warning::
+
         The default behaviour is to fall back to the bundled certificates when
         no system certificates can be found.  If you're packaging ``jnrbase``
         *please* set ``ALLOW_FALLBACK`` to ``False`` to disable this very much
         unwanted behaviour, but please maintain the option so that downstream
         users can inspect the configuration easily.
 
-    Raturns:
+    See: :pypi:`httplib2`
+
+    Returns:
         str: Path to SSL certificates
     Raises:
         RuntimeError: When no suitable certificates are found
@@ -59,8 +65,8 @@ def find_certs():
             for cert_file in files:
                 if path.exists(cert_file):
                     return cert_file
-    # An apparently common environment setting for OSX users to workaround the
-    # lack of "standard" certs installation
+    # An apparently common environment setting for macOS users to workaround
+    # the lack of "standard" certs installation
     if path.exists(getenv('CURL_CA_BUNDLE', '')):
         return getenv('CURL_CA_BUNDLE')
     if ALLOW_FALLBACK:

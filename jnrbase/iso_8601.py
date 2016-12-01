@@ -44,6 +44,8 @@ class UTC(datetime.tzinfo):
         return 'UTC'
     # pylint: enable-msg=W0613
 
+
+#: Instantiated :class:`UTC` object for direct use
 utc = UTC()
 
 

@@ -1,0 +1,35 @@
+.. currentmodule:: jnrbase.iso_8601
+
+iso_8601
+========
+
+.. autoclass:: UTC
+
+.. autodata:: utc
+
+.. autofunction:: parse_delta
+.. autofunction:: format_delta
+
+.. autofunction:: parse_datetime
+.. autofunction:: format_datetime
+
+Examples
+--------
+
+.. testsetup::
+
+    from jnrbase.iso_8601 import (format_datetime, format_delta, parse_delta,
+                                  parse_datetime)
+
+.. doctest::
+
+    >>> delta = 'PT02H07M43S'
+    >>> parse_delta(delta)
+    datetime.timedelta(0, 7663)
+    >>> format_delta(parse_delta(delta)) == delta
+    True
+    >>> timestamp = '2016-12-01T13:02:26Z'
+    >>> parse_datetime(timestamp)
+    datetime.datetime(2016, 12, 1, 13, 2, 26, tzinfo=<UTC>)
+    >>> format_datetime(parse_datetime(timestamp)) == timestamp
+    True

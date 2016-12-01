@@ -42,7 +42,7 @@ else:  # pragma: Python 3
 
 if PY2:  # pragma: Python 2
     def mangle_repr_type(klass):
-        """Encode Unicode __repr__ as strings for Python 2.
+        """Encode Unicode ``__repr__`` as strings for Python 2.
 
         See :func:`object.__repr__`
 

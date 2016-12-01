@@ -34,11 +34,14 @@ from . import xdg_basedir
 from .human_time import human_timestamp
 
 
+#: Collection of custom filters to add to Jinja environment
 FILTERS = {}
 
 
 def jinja_filter(func):
     """Simple decorator to add a new filter to Jinja environment.
+
+    See also: :obj:`FILTERS`
 
     Args:
         func (func): Function to add to Jinja environment
@@ -71,9 +74,11 @@ def colourise(text, *args, **kwargs):
 
 @jinja_filter
 def highlight(text, lexer='diff', formatter='terminal'):
-    """Highlight text highlighted using pygments.
+    """Highlight text highlighted using ``pygments``.
 
     Returns text untouched if colour output is not enabled
+
+    See: :pypi:`Pygments`
 
     Args:
         text (str): Text to highlight
@@ -93,6 +98,8 @@ def highlight(text, lexer='diff', formatter='terminal'):
 @jinja_filter
 def html2text(html, width=80, ascii_replacements=False):
     """HTML to plain text renderer.
+
+    See: :pypi:`html2text`
 
     Args:
         text (str): Text to process
@@ -140,7 +147,7 @@ def relative_time(timestamp):
 
 
 def setup(pkg):
-    """Configure Jinja environment.
+    """Configure a new Jinja environment with our filters.
 
     Args:
         pkg (str): Package name to use as base for templates searches

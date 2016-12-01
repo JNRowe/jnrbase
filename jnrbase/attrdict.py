@@ -22,8 +22,7 @@ class AttrDict(dict):
 
     """Dictionary with attribute access.
 
-    See also:
-        :obj:`dict`
+    See also: :obj:`dict`
     """
 
     def __contains__(self, key):
@@ -75,8 +74,7 @@ class ROAttrDict(AttrDict):
 
     """Read-only dictionary with attribute access.
 
-    See also:
-        :obj:`AttrDict`
+    See also: :obj:`AttrDict`
     """
 
     def __setitem__(self, *args):
