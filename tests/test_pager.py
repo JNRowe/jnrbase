@@ -27,11 +27,10 @@ except ImportError:
 
 from expecter import expect
 
-from jnrbase.compat import StringIO
 from jnrbase.pager import pager
 from jnrbase import pager as pager_mod
 
-from .utils import requires_exec
+from .utils import (mock_stdout, requires_exec)
 
 
 def stored_popen(f):
@@ -57,7 +56,7 @@ def test_default_less_config():
                 expect(getenv('LESS')) == 'FRSX'
 
 
-@patch('sys.stdout', new_callable=StringIO)
+@mock_stdout
 def test_disable_pager(stdout):
     pager('pager forcibly disabled', None)
     expect(stdout.getvalue()) == 'pager forcibly disabled\n'

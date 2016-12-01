@@ -17,16 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
-
 from expecter import expect
 from hiro import Timeline
 
-from jnrbase.compat import StringIO
 from jnrbase.timer import Timer
+
+from .utils import mock_stdout
 
 
 @Timeline()
@@ -36,7 +32,7 @@ def test_timer(timeline):
     expect(t.elapsed) >= 3600
 
 
-@patch('sys.stdout', new_callable=StringIO)
+@mock_stdout
 def test_verbose_timer(stdout):
     with Timeline() as timeline:
         with Timer(verbose=True) as t:

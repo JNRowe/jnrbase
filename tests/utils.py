@@ -17,6 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+
+from jnrbase.compat import StringIO
+
 
 def func_attr(name, value):
     """Decorator to set an attribute on a function
@@ -34,3 +41,7 @@ def func_attr(name, value):
 def requires_exec(command=True):
     """Mark test as requiring external process"""
     return func_attr('requires_exec', command)
+
+
+def mock_stdout(f):
+    return patch('sys.stdout', new_callable=StringIO)(f)

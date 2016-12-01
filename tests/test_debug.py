@@ -17,18 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
-
 from expecter import expect
 
-from jnrbase.compat import StringIO
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
 
+from .utils import mock_stdout
 
-@patch('sys.stdout', new_callable=StringIO)
+
+@mock_stdout
 def test_enter_no_arg(stdout):
     @enter
     def f(x, y):
@@ -37,7 +33,7 @@ def test_enter_no_arg(stdout):
     expect(stdout.getvalue()).contains("Entering 'f'(<function f at ")
 
 
-@patch('sys.stdout', new_callable=StringIO)
+@mock_stdout
 def test_enter_with_message(stdout):
     @enter('custom message')
     def f(x, y):
@@ -46,7 +42,7 @@ def test_enter_with_message(stdout):
     expect(stdout.getvalue()).contains('custom message\n')
 
 
-@patch('sys.stdout', new_callable=StringIO)
+@mock_stdout
 def test_exit_no_arg(stdout):
     @exit
     def f(x, y):
@@ -55,7 +51,7 @@ def test_exit_no_arg(stdout):
     expect(stdout.getvalue()).contains("Exiting 'f'(<function f at ")
 
 
-@patch('sys.stdout', new_callable=StringIO)
+@mock_stdout
 def test_exit_with_message(stdout):
     @exit('custom message')
     def f(x, y):
@@ -64,7 +60,7 @@ def test_exit_with_message(stdout):
     expect(stdout.getvalue()).contains('custom message\n')
 
 
-@patch('sys.stdout', new_callable=StringIO)
+@mock_stdout
 def test_exit_with_failure(stdout):
     @exit('custom message')
     def f(x, y):
@@ -74,7 +70,7 @@ def test_exit_with_failure(stdout):
     expect(stdout.getvalue()) == 'custom message\n'
 
 
-@patch('sys.stdout', new_callable=StringIO)
+@mock_stdout
 def test_DebugPrint(stdout):
     DebugPrint.enable()
     try:
@@ -96,7 +92,7 @@ def test_DebugPrint_double_enable():
         DebugPrint.disable()
 
 
-@patch('sys.stdout', new_callable=StringIO)
+@mock_stdout
 def test_DebugPrint_decorator(stdout):
     @noisy_wrap
     def f(x):
