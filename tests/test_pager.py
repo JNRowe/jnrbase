@@ -20,17 +20,13 @@
 from os import getenv
 from subprocess import Popen
 from tempfile import TemporaryFile
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
 
 from expecter import expect
 
 from jnrbase.pager import pager
 from jnrbase import pager as pager_mod
 
-from .utils import (mock_stdout, requires_exec)
+from .utils import (mock_stdout, patch, requires_exec)
 
 
 def stored_popen(f):

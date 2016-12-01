@@ -21,15 +21,13 @@ import sys
 import warnings
 
 from os import path
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
 
 from expecter import expect
 from nose2.tools import params
 
 from jnrbase import httplib2_certs
+
+from .utils import patch
 
 
 @patch.object(path, 'exists', lambda s: True)

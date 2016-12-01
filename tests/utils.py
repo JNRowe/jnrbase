@@ -44,4 +44,5 @@ def requires_exec(command=True):
 
 
 def mock_stdout(f):
+    """Decorator to setup mock for ``stdout``"""
     return patch('sys.stdout', new_callable=StringIO)(f)

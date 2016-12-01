@@ -19,14 +19,11 @@
 
 import os
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
-
 from expecter import expect
 
 from jnrbase import xdg_basedir
+
+from .utils import patch
 
 
 def test_cache_no_args():

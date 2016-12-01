@@ -21,15 +21,12 @@ import sys
 
 from datetime import (datetime, timedelta)
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
-
 from expecter import expect
 from nose2.tools import params
 
 from jnrbase import template
+
+from .utils import patch
 
 
 def test_setup():

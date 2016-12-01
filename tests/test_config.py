@@ -20,17 +20,14 @@
 from io import StringIO
 from os import path
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
-
 from expecter import expect
 from nose2.tools import params
 
 from jnrbase.compat import text
 from jnrbase.context import chdir
 from jnrbase import config
+
+from .utils import patch
 
 
 @params(

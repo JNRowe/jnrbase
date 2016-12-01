@@ -17,15 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
-
 from expecter import expect
 from nose2.tools import params
 
 from jnrbase import colourise
+
+from .utils import patch
 
 
 @params(
