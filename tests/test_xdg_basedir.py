@@ -17,13 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
 from expecter import expect
 
 from jnrbase import xdg_basedir
 
-from .utils import (patch, patch_env)
+from .utils import (mock_path_exists, patch, patch_env)
 
 
 def test_cache_no_args():
@@ -74,39 +72,37 @@ def test_macos_paths():
         )
 
 
-@patch.object(os.path, 'exists', lambda s: False)
+@mock_path_exists(False)
 def test_get_configs_all_missing():
     expect(xdg_basedir.get_configs('jnrbase')) == []
 
 
-@patch.object(os.path, 'exists', lambda s: True)
+@mock_path_exists()
 def test_get_configs():
     expect(len(xdg_basedir.get_configs('jnrbase'))) == 2
 
 
-@patch.object(os.path, 'exists', lambda s: True)
+@mock_path_exists()
 def test_get_configs_custom_dirs():
     with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
         expect(len(xdg_basedir.get_configs('jnrbase'))) == 3
 
 
-@patch.object(os.path, 'exists', lambda s: True)
+@mock_path_exists()
 def test_get_configs_macos():
     with patch.object(xdg_basedir.sys, 'platform', 'darwin'):
         expect(xdg_basedir.get_configs('jnrbase')[-1]).contains('/Library/')
 
 
-@patch.object(os.path, 'exists')
-def test_get_data(exists):
-    path_results = [True, False]
-    exists.side_effect = lambda s: path_results.pop()
+@mock_path_exists([True, False])
+def test_get_data():
     with patch_env({'XDG_DATA_HOME': '~/.xdg/local'}):
         with patch_env({'XDG_DATA_DIRS': '/usr/share:test2'}):
             expect(xdg_basedir.get_data('jnrbase', 'photo.jpg')) == \
                 '/usr/share/jnrbase/photo.jpg'
 
 
-@patch.object(os.path, 'exists', lambda s: False)
+@mock_path_exists(False)
 def test_get_data_no_files():
     with expect.raises(IOError):
         xdg_basedir.get_data('jnrbase', 'photo.jpg')

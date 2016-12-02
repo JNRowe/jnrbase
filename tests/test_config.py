@@ -18,7 +18,6 @@
 #
 
 from io import StringIO
-from os import path
 
 from expecter import expect
 from nose2.tools import params
@@ -27,14 +26,14 @@ from jnrbase.compat import text
 from jnrbase.context import chdir
 from jnrbase import config
 
-from .utils import (patch, patch_env)
+from .utils import (mock_path_exists, patch, patch_env)
 
 
 @params(
     (True, 4),
     (False, 3),
 )
-@patch.object(path, 'exists', lambda s: True)
+@mock_path_exists()
 @patch.object(config, 'open', lambda s, encoding: StringIO(text('')))
 def test_config_loading(local, count):
     with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
@@ -46,7 +45,7 @@ def test_config_loading(local, count):
         expect(cfg.configs).does_not_contain('/.jnrbaserc')
 
 
-@patch.object(path, 'exists', lambda s: False)
+@mock_path_exists(False)
 def test_config_loading_missing_files():
     expect(config.read_configs('jnrbase').configs) == []
 
