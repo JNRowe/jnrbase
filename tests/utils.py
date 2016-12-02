@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from functools import partial
 try:
     from unittest.mock import patch
 except ImportError:
@@ -46,3 +47,6 @@ def requires_exec(command=True):
 def mock_stdout(f):
     """Decorator to setup mock for ``stdout``"""
     return patch('sys.stdout', new_callable=StringIO)(f)
+
+
+patch_env = partial(patch.dict, 'os.environ')

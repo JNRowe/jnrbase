@@ -27,7 +27,7 @@ from nose2.tools import params
 
 from jnrbase import httplib2_certs
 
-from .utils import patch
+from .utils import (patch, patch_env)
 
 
 @patch.object(path, 'exists', lambda s: True)
@@ -85,6 +85,5 @@ def test_distros(file):
 def test_curl_bundle():
     with patch.object(httplib2_certs.path, 'exists',
                       lambda s: s == 'silly_platform_user'):
-        with patch.dict('os.environ',
-                        {'CURL_CA_BUNDLE': 'silly_platform_user'}):
+        with patch_env({'CURL_CA_BUNDLE': 'silly_platform_user'}):
             expect(httplib2_certs.find_certs()) == 'silly_platform_user'

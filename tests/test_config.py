@@ -27,7 +27,7 @@ from jnrbase.compat import text
 from jnrbase.context import chdir
 from jnrbase import config
 
-from .utils import patch
+from .utils import (patch, patch_env)
 
 
 @params(
@@ -37,7 +37,7 @@ from .utils import patch
 @patch.object(path, 'exists', lambda s: True)
 @patch.object(config, 'open', lambda s, encoding: StringIO(text('')))
 def test_config_loading(local, count):
-    with patch.dict('os.environ', {'XDG_CONFIG_DIRS': 'test1:test2'}):
+    with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
         cfg = config.read_configs('jnrbase', local=local)
     expect(len(cfg.configs)) == count
     if local:
@@ -52,19 +52,19 @@ def test_config_loading_missing_files():
 
 
 def test_no_colour_from_env():
-    with patch.dict('os.environ', {'NO_COLOUR': 'set'}):
+    with patch_env({'NO_COLOUR': 'set'}):
         cfg = config.read_configs('jnrbase')
     expect(cfg.colour) is False
 
 
 def test_colour_default():
-    with patch.dict('os.environ', clear=True):
+    with patch_env(clear=True):
         cfg = config.read_configs('jnrbase')
     expect(cfg.colour) is True
 
 
 def test_colour_from_config():
     with chdir('tests/data/config'):
-        with patch.dict('os.environ', clear=True):
+        with patch_env(clear=True):
             cfg = config.read_configs('jnrbase', local=True)
     expect(cfg.colour) is False

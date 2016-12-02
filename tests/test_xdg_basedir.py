@@ -23,18 +23,18 @@ from expecter import expect
 
 from jnrbase import xdg_basedir
 
-from .utils import patch
+from .utils import (patch, patch_env)
 
 
 def test_cache_no_args():
-    with patch.dict('os.environ', {'XDG_CACHE_HOME': '~/.xdg/cache'}):
+    with patch_env({'XDG_CACHE_HOME': '~/.xdg/cache'}):
         expect(xdg_basedir.user_cache('jnrbase')).contains(
             '/.xdg/cache/jnrbase'
         )
 
 
 def test_cache_no_home():
-    with patch.dict('os.environ', clear=True):
+    with patch_env(clear=True):
         expect(xdg_basedir.user_cache('jnrbase')) == '/.cache/jnrbase'
 
 
@@ -44,26 +44,26 @@ def test_cache_macos():
 
 
 def test_config_no_args():
-    with patch.dict('os.environ', {'XDG_CONFIG_HOME': '~/.xdg/config'}):
+    with patch_env({'XDG_CONFIG_HOME': '~/.xdg/config'}):
         expect(xdg_basedir.user_config('jnrbase')).contains(
             '/.xdg/config/jnrbase'
         )
 
 
 def test_config_no_home():
-    with patch.dict('os.environ', clear=True):
+    with patch_env(clear=True):
         expect(xdg_basedir.user_config('jnrbase')) == '/.config/jnrbase'
 
 
 def test_data_no_args():
-    with patch.dict('os.environ', {'XDG_DATA_HOME': '~/.xdg/local'}):
+    with patch_env({'XDG_DATA_HOME': '~/.xdg/local'}):
         expect(xdg_basedir.user_data('jnrbase')).contains(
             '/.xdg/local/jnrbase'
         )
 
 
 def test_data_no_home():
-    with patch.dict('os.environ', clear=True):
+    with patch_env(clear=True):
         expect(xdg_basedir.user_data('jnrbase')) == '/.local/share/jnrbase'
 
 
@@ -86,7 +86,7 @@ def test_get_configs():
 
 @patch.object(os.path, 'exists', lambda s: True)
 def test_get_configs_custom_dirs():
-    with patch.dict('os.environ', {'XDG_CONFIG_DIRS': 'test1:test2'}):
+    with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
         expect(len(xdg_basedir.get_configs('jnrbase'))) == 3
 
 
@@ -100,8 +100,8 @@ def test_get_configs_macos():
 def test_get_data(exists):
     path_results = [True, False]
     exists.side_effect = lambda s: path_results.pop()
-    with patch.dict('os.environ', {'XDG_DATA_HOME': '~/.xdg/local'}):
-        with patch.dict('os.environ', {'XDG_DATA_DIRS': '/usr/share:test2'}):
+    with patch_env({'XDG_DATA_HOME': '~/.xdg/local'}):
+        with patch_env({'XDG_DATA_DIRS': '/usr/share:test2'}):
             expect(xdg_basedir.get_data('jnrbase', 'photo.jpg')) == \
                 '/usr/share/jnrbase/photo.jpg'
 

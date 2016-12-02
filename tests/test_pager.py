@@ -26,7 +26,7 @@ from expecter import expect
 from jnrbase.pager import pager
 from jnrbase import pager as pager_mod
 
-from .utils import (mock_stdout, patch, requires_exec)
+from .utils import (mock_stdout, patch, patch_env, requires_exec)
 
 
 def stored_popen(f):
@@ -47,7 +47,7 @@ def test_pager():
 def test_default_less_config():
     with TemporaryFile() as f:
         with patch.object(pager_mod, 'Popen', new=stored_popen(f)):
-            with patch.dict(pager_mod.os.environ, clear=True):
+            with patch_env(clear=True):
                 pager('pager forcibly disabled')
                 expect(getenv('LESS')) == 'FRSX'
 
