@@ -17,6 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import sys
+
 from functools import partial
 from os import path
 try:
@@ -68,6 +70,11 @@ def mock_path_exists(result=True):
     else:
         matcher = lambda s: result.pop()  # NOQA
     return patch.object(path, 'exists', matcher)
+
+
+def mock_platform(result='darwin'):
+    """Decorator to setup mock for ``sys.platform``"""
+    return patch.object(sys, 'platform', result)
 
 
 patch_env = partial(patch.dict, 'os.environ')

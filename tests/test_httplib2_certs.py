@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys
 import warnings
 
 from expecter import expect
@@ -25,7 +24,7 @@ from nose2.tools import params
 
 from jnrbase import httplib2_certs
 
-from .utils import (mock_path_exists, patch, patch_env)
+from .utils import (mock_path_exists, mock_platform, patch, patch_env)
 
 
 @mock_path_exists()
@@ -56,19 +55,19 @@ def test_bundled_fail():
             httplib2_certs.find_certs()
 
 
+@mock_platform('freebsd')
 @mock_path_exists()
 def test_freebsd_paths():
-    with patch.object(sys, 'platform', 'freebsd'):
-        expect(httplib2_certs.find_certs()) \
-            == '/usr/local/share/certs/ca-root-nss.crt'
+    expect(httplib2_certs.find_certs()) \
+        == '/usr/local/share/certs/ca-root-nss.crt'
 
 
+@mock_platform('freebsd')
 @mock_path_exists(False)
 def test_freebsd_no_installed_certs():
     with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False):
-        with patch.object(sys, 'platform', 'freebsd'):
-            with expect.raises(RuntimeError):
-                httplib2_certs.find_certs()
+        with expect.raises(RuntimeError):
+            httplib2_certs.find_certs()
 
 
 @params(

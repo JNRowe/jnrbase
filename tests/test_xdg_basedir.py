@@ -21,7 +21,7 @@ from expecter import expect
 
 from jnrbase import xdg_basedir
 
-from .utils import (mock_path_exists, patch, patch_env)
+from .utils import (mock_path_exists, mock_platform, patch_env)
 
 
 def test_cache_no_args():
@@ -36,9 +36,9 @@ def test_cache_no_home():
         expect(xdg_basedir.user_cache('jnrbase')) == '/.cache/jnrbase'
 
 
+@mock_platform()
 def test_cache_macos():
-    with patch.object(xdg_basedir.sys, 'platform', 'darwin'):
-        expect(xdg_basedir.user_cache('jnrbase')).contains('/Caches')
+    expect(xdg_basedir.user_cache('jnrbase')).contains('/Caches')
 
 
 def test_config_no_args():
@@ -65,11 +65,11 @@ def test_data_no_home():
         expect(xdg_basedir.user_data('jnrbase')) == '/.local/share/jnrbase'
 
 
+@mock_platform()
 def test_macos_paths():
-    with patch.object(xdg_basedir.sys, 'platform', 'darwin'):
-        expect(xdg_basedir.user_data('jnrbase')).contains(
-            '/Library/Application Support/jnrbase'
-        )
+    expect(xdg_basedir.user_data('jnrbase')).contains(
+        '/Library/Application Support/jnrbase'
+    )
 
 
 @mock_path_exists(False)
@@ -88,10 +88,10 @@ def test_get_configs_custom_dirs():
         expect(len(xdg_basedir.get_configs('jnrbase'))) == 3
 
 
+@mock_platform()
 @mock_path_exists()
 def test_get_configs_macos():
-    with patch.object(xdg_basedir.sys, 'platform', 'darwin'):
-        expect(xdg_basedir.get_configs('jnrbase')[-1]).contains('/Library/')
+    expect(xdg_basedir.get_configs('jnrbase')[-1]).contains('/Library/')
 
 
 @mock_path_exists([True, False])
