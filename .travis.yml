@@ -14,7 +14,7 @@ install:
     fi
   - pip install .
 script:
-  - py.test tests
+  - nose2 tests
 branches:
   except:
     - /^play\/.*$/
