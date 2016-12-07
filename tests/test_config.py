@@ -18,12 +18,6 @@
 #
 
 from io import StringIO
-from os import path
-
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
 
 from expecter import expect
 from nose2.tools import params
@@ -32,15 +26,17 @@ from jnrbase.compat import text
 from jnrbase.context import chdir
 from jnrbase import config
 
+from .utils import (mock_path_exists, patch, patch_env)
+
 
 @params(
     (True, 4),
     (False, 3),
 )
-@patch.object(path, 'exists', lambda s: True)
+@mock_path_exists()
 @patch.object(config, 'open', lambda s, encoding: StringIO(text('')))
 def test_config_loading(local, count):
-    with patch.dict('os.environ', {'XDG_CONFIG_DIRS': 'test1:test2'}):
+    with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
         cfg = config.read_configs('jnrbase', local=local)
     expect(len(cfg.configs)) == count
     if local:
@@ -49,25 +45,25 @@ def test_config_loading(local, count):
         expect(cfg.configs).does_not_contain('/.jnrbaserc')
 
 
-@patch.object(path, 'exists', lambda s: False)
+@mock_path_exists(False)
 def test_config_loading_missing_files():
     expect(config.read_configs('jnrbase').configs) == []
 
 
 def test_no_colour_from_env():
-    with patch.dict('os.environ', {'NO_COLOUR': 'set'}):
+    with patch_env({'NO_COLOUR': 'set'}):
         cfg = config.read_configs('jnrbase')
     expect(cfg.colour) is False
 
 
 def test_colour_default():
-    with patch.dict('os.environ', clear=True):
+    with patch_env(clear=True):
         cfg = config.read_configs('jnrbase')
     expect(cfg.colour) is True
 
 
 def test_colour_from_config():
     with chdir('tests/data/config'):
-        with patch.dict('os.environ', clear=True):
+        with patch_env(clear=True):
             cfg = config.read_configs('jnrbase', local=True)
     expect(cfg.colour) is False
