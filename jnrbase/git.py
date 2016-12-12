@@ -17,8 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from subprocess import (CalledProcessError, check_output)
+from subprocess import CalledProcessError
 
+from jnrbase.compat import check_output
 from jnrbase.context import chdir
 
 

@@ -17,9 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from subprocess import CalledProcessError
+from sys import version_info
+
 from expecter import expect
 
 from jnrbase import compat
+
+from .utils import patch
 
 
 def test_mangle_repr_type():
@@ -29,3 +34,25 @@ def test_mangle_repr_type():
             return compat.text("test")
     # This works on Python 2 or 3 by design
     expect(repr(Test())).isinstance(str)
+
+
+def test_check_output():
+    expect(compat.check_output(['echo', 'hello'])) == 'hello\n'
+
+
+def test_check_output_py26_compat():
+    if version_info[:2] == (2, 6):
+        expect(compat.check_output(['echo', 'hello'])) == 'hello\n'
+    else:
+        with patch('subprocess.check_output', side_effect=AttributeError):
+            expect(compat.check_output(['echo', 'hello'])) == 'hello\n'
+
+
+def test_check_output_py26_compat_fail():
+    if version_info[:2] == (2, 6):
+        with expect.raises(CalledProcessError):
+            compat.check_output(['false', ])
+    else:
+        with patch('subprocess.check_output', side_effect=AttributeError):
+            with expect.raises(CalledProcessError):
+                compat.check_output(['false', ])
