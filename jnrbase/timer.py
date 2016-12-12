@@ -39,4 +39,4 @@ class Timer(object):
         end = time.time()
         self.elapsed = end - self.start
         if self.verbose:
-            print 'Elapsed: %f ms' % self.elapsed
+            print('Elapsed: %f ms' % self.elapsed)
