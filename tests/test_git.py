@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from contextlib import contextmanager
+from contextlib import (closing, contextmanager)
 from os import path
 from shutil import rmtree
 from subprocess import CalledProcessError
@@ -43,13 +43,13 @@ def tarball_data(tar_name):
     :see: `tar_name`
     """
     data_dir = path.join(path.dirname(path.abspath(__file__)), 'data', 'git')
-    tar = open_tar(path.join(data_dir, tar_name + '.tar'))
-    try:
-        temp_dir = mkdtemp()
-        tar.extractall(temp_dir)
-        yield str(path.join(temp_dir, tar_name))
-    finally:
-        rmtree(temp_dir)
+    with closing(open_tar(path.join(data_dir, tar_name + '.tar'))) as tar:
+        try:
+            temp_dir = mkdtemp()
+            tar.extractall(temp_dir)
+            yield str(path.join(temp_dir, tar_name))
+        finally:
+            rmtree(temp_dir)
 
 
 @requires_git

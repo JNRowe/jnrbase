@@ -43,7 +43,8 @@ def read_configs(pkg, name='config', local=True):
 
     lines = []
     for file in configs:
-        lines.extend(open(file, encoding='utf-8').readlines())
+        with open(file, encoding='utf-8') as f:
+            lines.extend(f.readlines())
     cfg = configobj.ConfigObj(lines)
     cfg.configs = configs
 

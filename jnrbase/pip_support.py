@@ -37,17 +37,17 @@ def parse_requires(file):
         list: Parsed dependencies
     """
     deps = []
-    req_file = open(file)
-    entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
-    for dep in entries:
-        if not dep:
-            continue
-        dep = dep
-        if dep.startswith('-r '):
-            include = dep.split()[1]
-            if '/' not in include:
-                include = path.join(path.dirname(file), include)
-            deps.extend(parse_requires(include))
-        else:
-            deps.append(dep)
+    with open(file) as req_file:
+        entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
+        for dep in entries:
+            if not dep:
+                continue
+            dep = dep
+            if dep.startswith('-r '):
+                include = dep.split()[1]
+                if '/' not in include:
+                    include = path.join(path.dirname(file), include)
+                deps.extend(parse_requires(include))
+            else:
+                deps.append(dep)
     return deps
