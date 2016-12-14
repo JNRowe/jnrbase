@@ -17,6 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from sys import version_info
+try:
+    from unittest import skipIf
+except ImportError:
+    from unittest2 import skipIf
+
 from expecter import expect
 
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
@@ -24,13 +30,19 @@ from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
 from .utils import mock_stdout
 
 
+skip26 = skipIf(version_info[:2] == (2, 6),
+                'Requires dirty hacks for low value')
+
+
+@skip26
 @mock_stdout
 def test_enter_no_arg(stdout):
     @enter
     def f(x, y):
         return x + y
     expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains("Entering 'f'(<function f at ")
+    expect(stdout.getvalue()).contains("Entering 'f'(%r)"
+                                       % f.__closure__[0].cell_contents)
 
 
 @mock_stdout
@@ -42,13 +54,15 @@ def test_enter_with_message(stdout):
     expect(stdout.getvalue()).contains('custom message\n')
 
 
+@skip26
 @mock_stdout
 def test_exit_no_arg(stdout):
     @exit
     def f(x, y):
         return x + y
     expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains("Exiting 'f'(<function f at ")
+    expect(stdout.getvalue()).contains("Exiting 'f'(%r)"
+                                       % f.__closure__[0].cell_contents)
 
 
 @mock_stdout

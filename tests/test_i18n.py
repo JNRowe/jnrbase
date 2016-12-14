@@ -27,5 +27,5 @@ from jnrbase import i18n
 
 def test_translation_config():
     _, N_ = i18n.setup(i18n)
-    expect(_.func_name) == 'gettext'
-    expect(N_.func_name) == 'ngettext'
+    expect(_.__name__) == 'gettext'
+    expect(N_.__name__) == 'ngettext'
