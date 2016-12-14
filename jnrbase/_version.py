@@ -1,10 +1,10 @@
-# This is versionah version 0.1.0 (2014-01-28)
-# pylint: disable=C0103, C0111, C0121, W0622
+# This is jnrbase version 0.2.0 (2016-12-14)
+# pylint: skip-file
 
-dotted = '0.1.0'
-libtool = '1:20'
-hex = 0x000100
-date = '2014-01-28'
-tuple = (0, 1, 0)
-dict = {'minor': 1, 'micro': 0, 'major': 0}
-web = 'versionah/0.1.0'
+dotted = '0.2.0'
+libtool = '2:20'
+hex = 0x000200
+date = '2016-12-14'
+tuple = (0, 2, 0)
+dict = {'micro': 0, 'minor': 2, 'major': 0}
+web = 'jnrbase/0.2.0'
