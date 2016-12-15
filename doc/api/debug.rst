@@ -23,12 +23,12 @@ Examples
     ... def f():
     ...     print('Hello')
     >>> f()
-    Entering <function f at 0x...>
+    Entering 'f'(<function f at 0x...>)
     Hello
     >>> f = exit(f)
     >>> f()
-    Entering <function f at 0x...>
+    Entering 'f'(<function f at 0x...>)
     Hello
-    Exiting <function f at 0x...>
+    Exiting 'f'(<function f at 0x...>)
     >>> enter(lambda: None)()
-    Entering <function <lambda> at 0x...>
+    Entering '<lambda>'(<function <lambda> at 0x...>)
