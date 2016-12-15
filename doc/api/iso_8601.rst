@@ -3,6 +3,13 @@
 iso_8601
 ========
 
+.. note::
+   This module requires ciso8601_ and pytz_, which ``pip`` users can install
+   with the ``jnrbase[iso_8601]`` requirement.
+
+.. _ciso8601: https://pypi.python.org/pypi/ciso8601
+.. _pytz: https://pypi.python.org/pypi/pytz
+
 .. autoclass:: UTC
 
 .. autodata:: utc

@@ -30,9 +30,18 @@ especially improve it, in your projects!
 Requirements
 ------------
 
-``jnrbase``'s dependencies outside of the standard library are:
+``jnrbase``'s dependencies outside of the standard library are dependent on the
+functionality you require, ranging from none to the following:
 
-<none so far>
+============  ==============================
+Extra tag     Dependencies
+============  ==============================
+``colour``    click_
+``config``    configobj_
+``iso_8601``  ciso8601_, pytz_
+``net``       httplib2_
+``template``  html2text_, Jinja2_, Pygments_
+============  ==============================
 
 It should work with any version of Python_ 2.6 or newer, including Python 3.
 If ``jnrbase`` doesn't work with the version of Python you have installed, file
@@ -79,6 +88,14 @@ If you've found a bug please attempt to include a minimal testcase so I can
 reproduce the problem, or even better a patch!
 
 .. _GPL v3: http://www.gnu.org/licenses/
+.. _click: https://pypi.python.org/pypi/click
+.. _configobj: https://pypi.python.org/pypi/configobj
+.. _ciso8601: https://pypi.python.org/pypi/ciso8601
+.. _pytz: https://pypi.python.org/pypi/pytz
+.. _httplib2: https://pypi.python.org/pypi/httplib2
+.. _html2text: https://pypi.python.org/pypi/html2text
+.. _jinja2: https://pypi.python.org/pypi/jinja2
+.. _pygments: https://pypi.python.org/pypi/pygments
 .. _Python: http://www.python.org/
 .. _issue: https://github.com/JNRowe/jnrbase/issues
 .. _nose2: https://pypi.python.org/pypi/nose2/

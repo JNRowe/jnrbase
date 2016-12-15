@@ -3,6 +3,12 @@
 colourise
 =========
 
+.. note::
+   This module requires click_, which ``pip`` users can install with
+   the ``jnrbase[colour]`` requirement.
+
+.. _click: https://pypi.python.org/pypi/click
+
 Text formatting
 '''''''''''''''
 
