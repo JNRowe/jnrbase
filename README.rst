@@ -5,6 +5,10 @@ jnrbase - Common utility functionality
    :target: http://travis-ci.org/JNRowe/jnrbase
    :alt: Test state on master
 
+.. image:: https://img.shields.io/coveralls/JNRowe/jnrbase/master.svg?style=plastic
+   :target: https://coveralls.io/repos/JNRowe/jnrbase
+   :alt: Coverage state on master
+
 ..
     .. image:: https://pypip.in/v/jnrbase/badge.png
     :target: https://crate.io/packages/jnrbase/
