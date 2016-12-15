@@ -1,22 +1,21 @@
 jnrbase - Common utility functionality
 ======================================
 
-.. image:: https://secure.travis-ci.org/JNRowe/jnrbase.png?branch=master
-   :target: http://travis-ci.org/JNRowe/jnrbase
+.. image:: https://img.shields.io/travis/JNRowe/jnrbase/master.svg?style=plastic
+   :target: https://travis-ci.org/JNRowe/jnrbase
    :alt: Test state on master
 
 .. image:: https://img.shields.io/coveralls/JNRowe/jnrbase/master.svg?style=plastic
    :target: https://coveralls.io/repos/JNRowe/jnrbase
    :alt: Coverage state on master
 
-..
-    .. image:: https://pypip.in/v/jnrbase/badge.png
-    :target: https://crate.io/packages/jnrbase/
-    :alt: Current PyPI release
+.. image:: https://img.shields.io/pypi/v/jnrbase.svg?style=plastic
+   :target: https://pypi.python.org/pypi/jnrbase
+   :alt: Current PyPI release
 
-    .. image:: https://pypip.in/d/jnrbase/badge.png
-    :target: https://crate.io/packages/jnrbase/
-    :alt: Number of downloads from PyPI
+.. image:: https://img.shields.io/pypi/JNRowe/jnrbase.svg?style=plastic
+   :target: https://pypi.python.org/pypi/jnrbase
+   :alt: Number of downloads from PyPI
 
 .. warning::
    This package is not ready to be used right now, and it will change
