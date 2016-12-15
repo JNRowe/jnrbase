@@ -8,8 +8,11 @@ include doc/wordlist.txt
 include extra/doap.rdf
 include extra/requirements*.txt
 include ca_certs_locater.py
+include tests/data/config/.jnrbaserc
+include unittest.cfg
 
 include tests/*.py
 
 recursive-include doc *.rst
+recursive-include tests/data *.tar
 recursive-include tests/data/pip *.txt
