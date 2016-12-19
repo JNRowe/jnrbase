@@ -17,25 +17,35 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import warnings
+
 from expecter import expect
 from hiro import Timeline
 
-from jnrbase.timer import Timer
+from jnrbase.timer import (Timer, Timing)
 
 from .utils import mock_stdout
 
 
 @Timeline()
-def test_timer(timeline):
-    with Timer() as t:
+def test_timing(timeline):
+    with Timing() as t:
         timeline.forward(3600)
     expect(t.elapsed) >= 3600
 
 
 @mock_stdout
-def test_verbose_timer(stdout):
+def test_verbose_timing(stdout):
     with Timeline() as timeline:
-        with Timer(verbose=True) as t:
+        with Timing(verbose=True) as t:
             timeline.forward(3600)
     expect(t.elapsed) >= 3600
     expect(stdout.getvalue()).contains('Elapsed: 36')
+
+
+def test_timer_rename():
+    with warnings.catch_warnings(record=True) as warns:
+        warnings.simplefilter("always")
+        Timer()
+        expect(warns[0].category) == DeprecationWarning
+        expect(str(warns[0])).contains('Timing')

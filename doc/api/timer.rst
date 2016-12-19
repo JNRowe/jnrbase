@@ -4,6 +4,7 @@ timer
 =====
 
 .. autoclass:: Timer
+.. autoclass:: Timing
 
 Examples
 --------
@@ -12,11 +13,11 @@ Examples
 
     from time import sleep
 
-    from jnrbase.timer import Timer
+    from jnrbase.timer import Timing
 
 .. doctest::
 
-    >>> with Timer() as t:
+    >>> with Timing() as t:
     ...     sleep(0.25)
     >>> t.elapsed >= 0.25
     True
