@@ -34,8 +34,7 @@ def test_timer(timeline):
 
 @mock_stdout
 def test_verbose_timer(stdout):
-    with Timeline() as timeline:
-        with Timer(verbose=True) as t:
-            timeline.forward(3600)
+    with Timeline() as timeline, Timer(verbose=True) as t:
+        timeline.forward(3600)
     expect(t.elapsed) >= 3600
     expect(stdout.getvalue()).contains('Elapsed: 36')

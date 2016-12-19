@@ -54,9 +54,8 @@ def tarball_data(tar_name):
 
 @requires_git
 def test_empty_repo():
-    with tarball_data('empty') as tree:
-        with expect.raises(CalledProcessError):
-            find_tag(git_dir=tree)
+    with tarball_data('empty') as tree, expect.raises(CalledProcessError):
+        find_tag(git_dir=tree)
 
 
 @requires_git
