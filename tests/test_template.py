@@ -65,9 +65,3 @@ def test_custom_filter_fallthrough(filter, args, kwargs, expected, stdout):
     stdout.isatty.side_effect = lambda: False
     env = template.setup('jnrbase')
     expect(env.filters[filter](*args, **kwargs)) == expected
-
-
-@patch.object(sys, 'version_info', (2, 6, 0))
-def test_python26_style_flagless_sub():
-    env = template.setup('jnrbase')
-    expect(env.filters['regexp']('test', 't', 'T')) == 'TesT'
