@@ -17,12 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from sys import version_info
-try:
-    from unittest import skipIf
-except ImportError:
-    from unittest2 import skipIf
-
 from expecter import expect
 
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
@@ -30,11 +24,6 @@ from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
 from .utils import mock_stdout
 
 
-skip26 = skipIf(version_info[:2] == (2, 6),
-                'Requires dirty hacks for low value')
-
-
-@skip26
 @mock_stdout
 def test_enter_no_arg(stdout):
     @enter
@@ -54,7 +43,6 @@ def test_enter_with_message(stdout):
     expect(stdout.getvalue()).contains('custom message\n')
 
 
-@skip26
 @mock_stdout
 def test_exit_no_arg(stdout):
     @exit
