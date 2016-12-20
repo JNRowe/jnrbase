@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from subprocess import CalledProcessError
+from subprocess import (check_output, CalledProcessError)
 
-from jnrbase.compat import check_output
+from jnrbase.compat import PY2
 from jnrbase.context import chdir
 
 
@@ -46,4 +46,6 @@ def find_tag(matcher='v[0-9]*', strict=True, git_dir='.'):
                 raise
             stdout = check_output(command + ['--always', ])
 
-        return stdout.strip()
+    if not PY2:  # pragma: Python 3
+        stdout = stdout.decode('ascii', 'replace')
+    return stdout.strip()

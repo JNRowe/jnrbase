@@ -63,7 +63,6 @@ def test_colour_default():
 
 
 def test_colour_from_config():
-    with chdir('tests/data/config'):
-        with patch_env(clear=True):
-            cfg = config.read_configs('jnrbase', local=True)
+    with chdir('tests/data/config'), patch_env(clear=True):
+        cfg = config.read_configs('jnrbase', local=True)
     expect(cfg.colour) is False

@@ -50,9 +50,9 @@ def test_bundled():
 
 @mock_path_exists(False)
 def test_bundled_fail():
-    with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False):
-        with expect.raises(RuntimeError):
-            httplib2_certs.find_certs()
+    with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False), \
+         expect.raises(RuntimeError):
+        httplib2_certs.find_certs()
 
 
 @mock_platform('freebsd')
@@ -65,9 +65,9 @@ def test_freebsd_paths():
 @mock_platform('freebsd')
 @mock_path_exists(False)
 def test_freebsd_no_installed_certs():
-    with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False):
-        with expect.raises(RuntimeError):
-            httplib2_certs.find_certs()
+    with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False), \
+         expect.raises(RuntimeError):
+        httplib2_certs.find_certs()
 
 
 @params(
