@@ -20,6 +20,10 @@
 import datetime
 import json
 
+try:
+    from contextlib import suppress
+except ImportError:
+    from contextlib2 import suppress
 from functools import (partial, wraps)
 
 from jnrbase.iso_8601 import (format_datetime, parse_datetime)
@@ -53,10 +57,8 @@ def json_to_datetime(obj):
         obj: Object to decode
     """
     for k, v in obj.items():
-        try:
+        with suppress(ValueError):
             obj[k] = parse_datetime(v)
-        except ValueError:
-            pass
     return obj
 
 
