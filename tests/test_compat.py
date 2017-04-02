@@ -1,6 +1,6 @@
 #
 # coding=utf-8
-"""test_i18n - Test i18n setup functions"""
+"""test_compat - Test Python 2/3 compatibility support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
