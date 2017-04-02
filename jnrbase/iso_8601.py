@@ -92,20 +92,25 @@ def format_delta(timedelta_):
                             hours, minutes, seconds)
 
 
-def parse_datetime(string):
+def parse_datetime(string, naive=False):
     """Parse ISO-8601 datetime string.
 
     Args:
         string (str): Datetime string to parse
+        naive (bool): Use naïve datetimes
     Returns:
         datetime.datetime: Parsed datetime object
     """
     if not string:
-        datetime_ = datetime.datetime.utcnow().replace(tzinfo=utc)
+        datetime_ = datetime.datetime.utcnow()
     else:
         datetime_ = ciso8601.parse_datetime(string)
         if not datetime_:
             raise ValueError('Unable to parse timestamp %r' % string)
+    if naive is True and datetime_.tzinfo:
+        datetime_ = datetime_.astimezone(utc).replace(tzinfo=None)
+    elif naive is False and datetime_.tzinfo is None:
+        datetime_ = datetime_.replace(tzinfo=utc)
     return datetime_
 
 

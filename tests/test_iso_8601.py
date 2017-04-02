@@ -53,6 +53,20 @@ def test_parse_datetime(string, expected):
 
 
 @params(
+    ('2011-05-04T07:00:00-01:00', datetime(2011, 5, 4, 8, 0)),
+    ('2011-05-04T12:15:00+03:00', datetime(2011, 5, 4, 9, 15)),
+    ('', None),
+)
+def test_parse_datetime_naive(string, expected):
+    if expected is None:
+        now = datetime.utcnow()
+        # Ugly, but patching a built-in is uglier
+        expect(parse_datetime(string, True) - now) < timedelta(seconds=3)
+    else:
+        expect(parse_datetime(string, True)) == expected
+
+
+@params(
     (datetime(2011, 5, 4, 8, 0, tzinfo=utc), '2011-05-04T08:00:00Z'),
     (datetime(2011, 5, 4, 9, 15, tzinfo=utc), '2011-05-04T09:15:00Z'),
 )
