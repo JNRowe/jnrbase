@@ -17,6 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+try:
+    from contextlib import suppress
+except ImportError:
+    from contextlib2 import suppress
 from sys import version_info
 
 PY2 = version_info[0] == 2
@@ -55,5 +59,20 @@ if PY2:  # pragma: Python 2
             return self.__repr_unicode__().encode('utf-8')
         klass.__repr__ = wrapper
         return klass
+
+    def safe_hasattr(obj, attr_name):
+        """Check object for attribute existence.
+
+        See :func:`hasattr`
+
+        Args:
+            attr_name (str): Attribute to test for
+        """
+        safe = object()
+        with suppress(AttributeError):
+            result = getattr(obj, attr_name, safe)
+        return result is not safe
+
 else:  # pragma: Python 3
+    safe_hasattr = hasattr
     mangle_repr_type = lambda x: x

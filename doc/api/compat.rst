@@ -30,3 +30,7 @@ compat
 .. autofunction:: mangle_repr_type
 
     On Python 3 this is simply a no-op, as it is unnecessary.
+
+.. autofunction:: safe_hasattr
+
+    On Python 3 this is simply a no-op, as it is unnecessary.

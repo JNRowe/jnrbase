@@ -68,6 +68,18 @@ class InvalidKeyTest(TestCase):
             self.ad.__delattr__({True: False})
 
 
+class HasAttrTest(TestCase):
+    def setUp(self):
+        self.ad = AttrDict(carrots=3, snacks=0)
+
+        def raise_error():
+            raise ValueError()
+        self.ad.prop = property(raise_error)
+
+    def test_swallowed_exception(self):
+        expect(self.ad).contains('prop')
+
+
 class ROAttrDictTest(AttrDictTest):
     def test___setattr__(self):
         with expect.raises(AttributeError):

@@ -18,8 +18,9 @@
 #
 
 from expecter import expect
+from nose2.tools import params
 
-from jnrbase.compat import (mangle_repr_type, text)
+from jnrbase.compat import (PY2, mangle_repr_type, safe_hasattr, text)
 
 
 def test_mangle_repr_type():
@@ -29,3 +30,26 @@ def test_mangle_repr_type():
             return text("test")
     # This works on Python 2 or 3 by design
     expect(repr(Test())).isinstance(str)
+
+
+@params(
+    (tuple(), 'count', True),
+    (tuple(), 'no_exist', False),
+)
+def test_safe_hasattr(obj, attr, expected):
+    expect(safe_hasattr(obj, attr)) == expected
+
+
+def test_break_hasattr():
+    class Funky:
+        @property
+        def break_hasattr(self):
+            raise ValueError()
+
+    with expect.raises(ValueError):
+        safe_hasattr(Funky(), 'break_hasattr')
+    if PY2:  # pragma: Python 2
+        expect(hasattr(Funky(), 'break_hasattr')) == False
+    else:  # pragma: Python 3
+        with expect.raises(ValueError):
+            hasattr(Funky(), 'break_hasattr')
