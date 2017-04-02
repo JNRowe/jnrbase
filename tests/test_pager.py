@@ -49,10 +49,10 @@ def test_pager():
 @requires_exec('less')
 def test_default_less_config():
     with TemporaryFile() as f:
-        with patch.object(pager_mod, 'Popen', new=stored_popen(f)):
-            with patch_env(clear=True):
-                pager('pager forcibly disabled')
-                expect(getenv('LESS')) == 'FRSX'
+        with patch.object(pager_mod, 'Popen', new=stored_popen(f)), \
+             patch_env(clear=True):
+            pager('pager forcibly disabled')
+            expect(getenv('LESS')) == 'FRSX'
 
 
 @mock_stdout

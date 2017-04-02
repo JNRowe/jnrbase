@@ -96,8 +96,8 @@ def test_get_configs_macos():
 
 @mock_path_exists([True, False])
 def test_get_data():
-    with patch_env({'XDG_DATA_HOME': '~/.xdg/local'}), \
-         patch_env({'XDG_DATA_DIRS': '/usr/share:test2'}):
+    with patch_env({'XDG_DATA_HOME': '~/.xdg/local',
+                    'XDG_DATA_DIRS': '/usr/share:test2'}):
         expect(xdg_basedir.get_data('jnrbase', 'photo.jpg')) == \
                '/usr/share/jnrbase/photo.jpg'
 
