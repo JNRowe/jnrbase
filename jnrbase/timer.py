@@ -19,8 +19,6 @@
 
 import time
 
-from warnings import warn
-
 
 class Timing(object):
 
@@ -42,15 +40,3 @@ class Timing(object):
         self.elapsed = end - self.start
         if self.verbose:
             print('Elapsed: %f ms' % self.elapsed)
-
-
-class Timer(Timing):
-
-    """Deprecated name for ``Timer``
-
-    .. warning:: This will be removing in v0.3.0.
-    """
-
-    def __init__(self, verbose=False):
-        warn('Class Timer has been renamed Timing', DeprecationWarning, 2)
-        super(Timer, self).__init__(self)

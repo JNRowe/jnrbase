@@ -3,7 +3,6 @@
 timer
 =====
 
-.. autoclass:: Timer
 .. autoclass:: Timing
 
 Examples
