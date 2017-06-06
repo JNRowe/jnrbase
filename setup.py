@@ -37,10 +37,12 @@ pip_support = imp.load_module('pip_support', pip_file, pip_file.name,
                               ('.py', pip_file.mode, imp.PY_SOURCE))
 
 
-install_requires = []  # extra/requirements-base.txt
+install_requires = pip_support.parse_requires('extra/requirements-base.txt')
 
 extras_require = {}
 for file in glob.glob('extra/requirements-*.txt'):
+    if file == 'extra/requirements-base.txt':
+        continue
     suffix = os.path.splitext(file)[0].split('-')[1]
     if suffix not in ['doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)

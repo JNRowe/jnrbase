@@ -1,7 +1,6 @@
+-r requirements-base.txt
 -r requirements-colour.txt
 -r requirements-config.txt
 -r requirements-iso_8601.txt
 -r requirements-net.txt
 -r requirements-template.txt
-
-contextlib2>=0.5.4;python_version<"3.4"
