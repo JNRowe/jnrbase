@@ -148,8 +148,7 @@ def setup(pkg):
     Returns:
         jinja2.Environment: Jinja environment
     """
-    dirs = [path.join(dir, 'templates')
-            for dir in xdg_basedir.get_data_dirs(pkg)]
+    dirs = [path.join(d, 'templates') for d in xdg_basedir.get_data_dirs(pkg)]
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader(
         list(jinja2.FileSystemLoader(s) for s in dirs)))

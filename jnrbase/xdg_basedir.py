@@ -90,8 +90,8 @@ def get_configs(pkg, name='config'):
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))
                 for d in getenv('XDG_CONFIG_DIRS', '/etc/xdg').split(':'))
     configs = []
-    for dir in reversed(dirs):
-        test_path = path.join(dir, name)
+    for d in reversed(dirs):
+        test_path = path.join(d, name)
         if path.exists(test_path):
             configs.append(test_path)
     return configs
@@ -110,8 +110,8 @@ def get_data(pkg, name):
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))
                 for d in getenv('XDG_DATA_DIRS',
                                 '/usr/local/share/:/usr/share/').split(':'))
-    for dir in dirs:
-        test_path = path.join(dir, name)
+    for d in dirs:
+        test_path = path.join(d, name)
         if path.exists(test_path):
             return test_path
     raise IOError('No data file %r for %r' % (name, pkg))
@@ -129,4 +129,4 @@ def get_data_dirs(pkg):
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))
                 for d in getenv('XDG_DATA_DIRS',
                                 '/usr/local/share/:/usr/share/').split(':'))
-    return [dir for dir in dirs if path.isdir(dir)]
+    return [d for d in dirs if path.isdir(d)]

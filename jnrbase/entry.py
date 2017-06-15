@@ -18,14 +18,14 @@
 #
 
 
-def entry_point(f):
+def entry_point(func):
     """Execute function when module is run directly.
 
     Args:
-        f (func): Function to run
+        func (func): Function to run
     """
-    if f.__module__ == '__main__':
+    if func.__module__ == '__main__':
         import sys
-        sys.exit(f())
+        sys.exit(func())
     else:
-        return f
+        return func

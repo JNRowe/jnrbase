@@ -46,7 +46,7 @@ class UTC(datetime.tzinfo):
 
 
 #: Instantiated :class:`UTC` object for direct use
-utc = UTC()
+utc = UTC()  # pylint: disable=invalid-name
 
 
 def parse_delta(string):
