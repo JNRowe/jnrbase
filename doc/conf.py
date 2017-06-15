@@ -53,7 +53,7 @@ source_suffix = '.rst'
 project = u'jnrbase'
 copyright = jnrbase.__copyright__
 
-version = '.'.join(map(str, jnrbase._version.tuple[:2]))
+version = '.'.join([str(s) for s in jnrbase._version.tuple[:2]])
 release = jnrbase._version.dotted
 
 pygments_style = 'sphinx'

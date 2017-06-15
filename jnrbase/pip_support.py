@@ -38,7 +38,7 @@ def parse_requires(file):
     """
     deps = []
     with open(file) as req_file:
-        entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
+        entries = [s.split('#')[0].strip() for s in req_file.readlines()]
         for dep in entries:
             if not dep:
                 continue
