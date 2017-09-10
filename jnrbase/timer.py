@@ -17,6 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
+
 import time
 
 
@@ -30,13 +32,15 @@ class Timing(object):
 
     def __init__(self, verbose=False):
         self.verbose = verbose
+        self._start = None
+        self.elapsed = None
 
     def __enter__(self):
-        self.start = time.time()
+        self._start = time.time()
         return self
 
     def __exit__(self, *args):
         end = time.time()
-        self.elapsed = end - self.start
+        self.elapsed = end - self._start
         if self.verbose:
             print('Elapsed: %f ms' % self.elapsed)

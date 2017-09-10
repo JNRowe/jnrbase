@@ -33,7 +33,7 @@ class DatetimeEncoder(json.JSONEncoder):
 
     """Custom JSON encoding for supporting ``datetime`` objects."""
 
-    def default(self, obj):
+    def default(self, o):
         """Handle ``datetime`` objects when encoding as JSON.
 
         This simply falls through to :meth:`~json.JSONEncoder.default` if
@@ -42,10 +42,10 @@ class DatetimeEncoder(json.JSONEncoder):
         Args:
             obj: Object to encode
         """
-        if isinstance(obj, datetime.datetime):
-            return format_datetime(obj)
+        if isinstance(o, datetime.datetime):
+            return format_datetime(o)
         else:
-            return super(DatetimeEncoder, self).default(obj)
+            return super(DatetimeEncoder, self).default(o)
 
 
 def json_to_datetime(obj):

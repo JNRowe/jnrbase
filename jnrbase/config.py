@@ -42,8 +42,8 @@ def read_configs(pkg, name='config', local=True):
             configs.append(localrc)
 
     lines = []
-    for file in configs:
-        with open(file, encoding='utf-8') as f:
+    for fname in configs:
+        with open(fname, encoding='utf-8') as f:
             lines.extend(f.readlines())
     cfg = configobj.ConfigObj(lines)
     cfg.configs = configs

@@ -17,6 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
+
 import os
 
 from subprocess import (PIPE, Popen)
@@ -34,11 +36,11 @@ def pager(text, pager='less'):
     if pager:
         if 'less' in pager and 'LESS' not in os.environ:
             os.environ['LESS'] = 'FRSX'
-        pager = Popen([pager, ], stdin=PIPE)
+        proc = Popen([pager, ], stdin=PIPE)
         if PY2:  # pragma: Python 2
-            pager.communicate(text)
+            proc.communicate(text)
         else:  # pragma: Python 3
-            pager.communicate(text.encode())
-        pager.wait()
+            proc.communicate(text.encode())
+        proc.wait()
     else:
         print(text)

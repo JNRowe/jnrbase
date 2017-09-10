@@ -24,7 +24,7 @@
 from os import path
 
 
-def parse_requires(file):
+def parse_requires(fname):
     """Parse pip-style requirements files.
 
     This is a *very* naïve parser, but very few packages make any use of the
@@ -32,13 +32,13 @@ def parse_requires(file):
     packages in the wild depend on them.
 
     Args:
-        file (str): Base file to pass
+        fname (str): Base file to pass
     Returns:
         list: Parsed dependencies
     """
     deps = []
-    with open(file) as req_file:
-        entries = map(lambda s: s.split('#')[0].strip(), req_file.readlines())
+    with open(fname) as req_file:
+        entries = [s.split('#')[0].strip() for s in req_file.readlines()]
         for dep in entries:
             if not dep:
                 continue
@@ -46,7 +46,7 @@ def parse_requires(file):
             if dep.startswith('-r '):
                 include = dep.split()[1]
                 if '/' not in include:
-                    include = path.join(path.dirname(file), include)
+                    include = path.join(path.dirname(fname), include)
                 deps.extend(parse_requires(include))
             else:
                 deps.append(dep)

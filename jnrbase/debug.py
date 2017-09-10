@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 
 import inspect
 import os
@@ -65,12 +66,12 @@ class DebugPrint(object):
         sys.stdout = _orig_stdout
 
 
-def noisy_wrap(f):
+def noisy_wrap(func):
     """Decorator to enable DebugPrint for a given function."""
     def wrapper(*args, **kwargs):
         DebugPrint.enable()
         try:
-            f(*args, **kwargs)
+            func(*args, **kwargs)
         finally:
             DebugPrint.disable()
     return wrapper
@@ -84,14 +85,14 @@ def enter(msg=None):
     Returns:
         function
     """
-    def decorator(f):
-        @wraps(f)
+    def decorator(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             if msg:
                 print(msg)
             else:
-                print("Entering %r(%r)" % (f.__name__, f))
-            return f(*args, **kwargs)
+                print("Entering %r(%r)" % (func.__name__, func))
+            return func(*args, **kwargs)
         return wrapper
     if callable(msg):
         return enter()(msg)
@@ -106,16 +107,16 @@ def exit(msg=None):
     Returns:
         function
     """
-    def decorator(f):
-        @wraps(f)
+    def decorator(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             try:
-                return f(*args, **kwargs)
+                return func(*args, **kwargs)
             finally:
                 if msg:
                     print(msg)
                 else:
-                    print("Exiting %r(%r)" % (f.__name__, f))
+                    print("Exiting %r(%r)" % (func.__name__, func))
         return wrapper
     if callable(msg):
         return exit()(msg)

@@ -33,7 +33,7 @@ class UTC(datetime.tzinfo):
     def __repr__(self):
         return '%s()' % (self.__class__.__name__)
 
-    # pylint: disable-msg=W0613
+    # pylint: disable=unused-argument
     def utcoffset(self, datetime_):
         return datetime.timedelta(0)
 
@@ -42,11 +42,11 @@ class UTC(datetime.tzinfo):
 
     def tzname(self, datetime_):
         return 'UTC'
-    # pylint: enable-msg=W0613
+    # pylint: enable=unused-argument
 
 
 #: Instantiated :class:`UTC` object for direct use
-utc = UTC()
+utc = UTC()  # pylint: disable=invalid-name
 
 
 def parse_delta(string):
@@ -59,7 +59,7 @@ def parse_delta(string):
     """
     if not string:
         return datetime.timedelta(0)
-    match = re.match("""
+    match = re.match(r"""
         P
         ((?P<days>\d+)D)?
         T?
@@ -69,7 +69,7 @@ def parse_delta(string):
     """, string, re.VERBOSE)
     match_dict = dict((k, int(v) if v else 0)
                       for k, v in match.groupdict().items())
-    return datetime.timedelta(**match_dict)  # pylint: disable-msg=W0142
+    return datetime.timedelta(**match_dict)
 
 
 def format_delta(timedelta_):
