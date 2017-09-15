@@ -17,13 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from __future__ import print_function
-
 import os
 
 from subprocess import (PIPE, Popen)
-
-from jnrbase.compat import PY2
 
 
 def pager(text, pager='less'):
@@ -37,10 +33,7 @@ def pager(text, pager='less'):
         if 'less' in pager and 'LESS' not in os.environ:
             os.environ['LESS'] = 'FRSX'
         proc = Popen([pager, ], stdin=PIPE)
-        if PY2:  # pragma: Python 2
-            proc.communicate(text)
-        else:  # pragma: Python 3
-            proc.communicate(text.encode())
+        proc.communicate(text.encode())
         proc.wait()
     else:
         print(text)

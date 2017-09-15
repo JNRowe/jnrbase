@@ -58,9 +58,10 @@ release = jnrbase._version.dotted
 
 pygments_style = 'sphinx'
 with suppress(CalledProcessError):
-    html_last_updated_fmt = check_output(['git', 'log',
-                                          "--pretty=format:'%ad [%h]'",
-                                          '--date=short', '-n1'])
+    html_last_updated_fmt = check_output(
+        ['git', 'log', "--pretty=format:'%ad [%h]'", '--date=short', '-n1'],
+        encoding='ascii'
+    )
 
 # Autodoc extension settings
 autoclass_content = 'init'
@@ -72,7 +73,7 @@ intersphinx_mapping = {
     for k, v in {
         'click': 'http://click.pocoo.org/6/',
         'pygments': 'http://pygments.org/',
-        'python': 'http://docs.python.org/',
+        'python': 'http://docs.python.org/3/',
     }.items()
 }
 

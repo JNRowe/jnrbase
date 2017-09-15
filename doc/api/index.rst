@@ -11,7 +11,6 @@ external dependencies to function.
 
    attrdict
    colourise
-   compat
    config
    context
    debug

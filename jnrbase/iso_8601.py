@@ -22,10 +22,7 @@ import re
 
 import ciso8601
 
-from . import compat
 
-
-@compat.mangle_repr_type
 class UTC(datetime.tzinfo):
 
     """UTC timezone object."""

@@ -23,7 +23,6 @@ from tempfile import TemporaryFile
 
 from expecter import expect
 
-from jnrbase.compat import PY2
 from jnrbase.pager import pager
 from jnrbase import pager as pager_mod
 
@@ -41,7 +40,6 @@ def test_pager():
             pager('paging through cat', 'cat')
         f.seek(0)
         data = f.read()
-    if not PY2:  # pragma: Python 3
         data = data.decode()
     expect(data) == 'paging through cat'
 

@@ -17,8 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .compat import safe_hasattr
-
 
 class AttrDict(dict):
 
@@ -35,7 +33,7 @@ class AttrDict(dict):
         Returns:
             bool: True, if item in AttrDict
         """
-        return safe_hasattr(self, key)
+        return hasattr(self, key)
 
     def __getattr__(self, key):
         """Support item access via dot notation.

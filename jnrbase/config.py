@@ -21,7 +21,6 @@ from os import (environ, path)
 
 import configobj
 
-from .compat import open
 from .xdg_basedir import get_configs
 
 

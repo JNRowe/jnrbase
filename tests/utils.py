@@ -20,13 +20,12 @@
 import sys
 
 from functools import partial
+from io import StringIO
 from os import path
 try:
     from unittest.mock import patch
 except ImportError:
     from mock import patch
-
-from jnrbase.compat import StringIO
 
 
 def func_attr(name, value):
