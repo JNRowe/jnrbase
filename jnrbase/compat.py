@@ -19,7 +19,7 @@
 
 try:
     from contextlib import suppress
-except ImportError:
+except ImportError:  # pragma: no cover
     from contextlib2 import suppress
 from sys import version_info
 
