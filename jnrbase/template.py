@@ -150,8 +150,10 @@ def setup(pkg):
     """
     dirs = [path.join(d, 'templates') for d in xdg_basedir.get_data_dirs(pkg)]
 
-    env = jinja2.Environment(loader=jinja2.ChoiceLoader(
-        list(jinja2.FileSystemLoader(s) for s in dirs)))
+    env = jinja2.Environment(
+        autoescape=jinja2.select_autoescape(['html', 'xml']),
+        loader=jinja2.ChoiceLoader(list(jinja2.FileSystemLoader(s)
+                                        for s in dirs)))
     env.loader.loaders.append(jinja2.PackageLoader(pkg, 'templates'))
     env.filters.update(FILTERS)
 
