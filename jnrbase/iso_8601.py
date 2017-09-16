@@ -89,7 +89,7 @@ def format_delta(timedelta_):
                             hours, minutes, seconds)
 
 
-def parse_datetime(string, naive=False):
+def parse_datetime(string, *, naive=False):
     """Parse ISO-8601 datetime string.
 
     Args:

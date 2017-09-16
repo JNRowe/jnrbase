@@ -61,9 +61,9 @@ def test_parse_datetime_naive(string, expected):
     if expected is None:
         now = datetime.utcnow()
         # Ugly, but patching a built-in is uglier
-        expect(parse_datetime(string, True) - now) < timedelta(seconds=3)
+        expect(parse_datetime(string, naive=True) - now) < timedelta(seconds=3)
     else:
-        expect(parse_datetime(string, True)) == expected
+        expect(parse_datetime(string, naive=True)) == expected
 
 
 @params(

@@ -22,7 +22,7 @@ from subprocess import (check_output, CalledProcessError)
 from jnrbase.context import chdir
 
 
-def find_tag(matcher='v[0-9]*', strict=True, git_dir='.'):
+def find_tag(matcher='v[0-9]*', *, strict=True, git_dir='.'):
     """Find closest tag for a git repository.
 
     .. note:: This defaults to `Semantic Version`_ tag matching.

@@ -22,7 +22,7 @@ import os
 from subprocess import (PIPE, Popen)
 
 
-def pager(text, pager='less'):
+def pager(text, *, pager='less'):
     """Pass output through pager.
 
     Args:

@@ -37,7 +37,7 @@ def stored_popen(f):
 def test_pager():
     with TemporaryFile() as f:
         with patch.object(pager_mod, 'Popen', new=stored_popen(f)):
-            pager('paging through cat', 'cat')
+            pager('paging through cat', pager='cat')
         f.seek(0)
         data = f.read()
         data = data.decode()
@@ -55,5 +55,5 @@ def test_default_less_config():
 
 @mock_stdout
 def test_disable_pager(stdout):
-    pager('pager forcibly disabled', None)
+    pager('pager forcibly disabled', pager=None)
     expect(stdout.getvalue()) == 'pager forcibly disabled\n'

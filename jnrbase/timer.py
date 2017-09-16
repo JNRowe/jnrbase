@@ -28,7 +28,7 @@ class Timing(object):
         verbose (bool): Print elapsed time
     """
 
-    def __init__(self, verbose=False):
+    def __init__(self, *, verbose=False):
         self.verbose = verbose
         self._start = None
         self.elapsed = None

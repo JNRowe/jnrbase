@@ -24,7 +24,7 @@ import configobj
 from .xdg_basedir import get_configs
 
 
-def read_configs(pkg, name='config', local=True):
+def read_configs(pkg, name='config', *, local=True):
     """Process configuration file stack.
 
     Args:
