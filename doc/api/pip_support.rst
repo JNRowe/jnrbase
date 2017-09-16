@@ -16,4 +16,4 @@ Examples
    :options: +ELLIPSIS
 
     >>> parse_requires('extra/requirements-test.txt')
-    ['contextlib2>=0.5.4;python_version<"3.4"', ..., 'nose2[coverage_plugin]>=0.5.0']
+    ['click>=3.0', ..., 'nose2[coverage_plugin]>=0.5.0']

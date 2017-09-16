@@ -20,10 +20,7 @@
 import os
 import sys
 
-try:
-    from contextlib import suppress
-except ImportError:
-    from contextlib2 import suppress
+from contextlib import suppress
 from subprocess import (CalledProcessError, check_output)
 
 root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))

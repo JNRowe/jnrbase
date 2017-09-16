@@ -43,7 +43,7 @@ Extra tag     Dependencies
 ``template``  html2text_, Jinja2_, Pygments_
 ============  ==============================
 
-It should work with any version of Python_ 3.3 or newer.  If ``jnrbase``
+It should work with any version of Python_ 3.5 or newer.  If ``jnrbase``
 doesn't work with the version of Python you have installed, file an issue_ and
 I'll endeavour to fix it.
 
@@ -73,7 +73,7 @@ Bug reports
 Ideas
 '''''
 
-* <your name here>
+* Ryan Sutton
 
 If I've forgotten to include your name I wholeheartedly apologise.  Just drop me
 a mail_ and I'll update the list!

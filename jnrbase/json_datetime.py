@@ -20,10 +20,7 @@
 import datetime
 import json
 
-try:
-    from contextlib import suppress
-except ImportError:  # pragma: no cover
-    from contextlib2 import suppress
+from contextlib import suppress
 from functools import (partial, wraps)
 
 from jnrbase.iso_8601 import (format_datetime, parse_datetime)
