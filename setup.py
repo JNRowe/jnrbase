@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# coding=utf-8
 """setup.py - Setuptools tasks and config for jnrbase"""
 # Copyright © 2011-2016  James Rowe <jnrowe@gmail.com>
 #

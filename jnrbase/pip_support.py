@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """pip_support - pip workarounds support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

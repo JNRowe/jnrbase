@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """attrdict - Dictionary with attribute access."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

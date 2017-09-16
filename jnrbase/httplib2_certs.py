@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """httplib2_certs - httplib2 system certs finder."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

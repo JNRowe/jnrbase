@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """config - Configuration loading support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """path_context - Path context handlers support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

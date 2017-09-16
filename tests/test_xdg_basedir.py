@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_xdg_basedir - Test XDG basedir support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_config - Test configuration support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

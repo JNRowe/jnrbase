@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_httplib2_certs - Test cert locating functions"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

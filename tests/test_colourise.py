@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_colourise - Test colourisation functions"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """iso_8601 - ISO-8601 support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

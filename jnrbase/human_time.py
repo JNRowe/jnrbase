@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """human_time - Handle human readable date formats."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

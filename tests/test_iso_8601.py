@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_iso_8601 - Test ISO-8601 handling functions"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
