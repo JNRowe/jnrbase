@@ -22,29 +22,6 @@ import re
 import ciso8601
 
 
-class UTC(datetime.tzinfo):
-
-    """UTC timezone object."""
-
-    def __repr__(self):
-        return '%s()' % (self.__class__.__name__)
-
-    # pylint: disable=unused-argument
-    def utcoffset(self, datetime_):
-        return datetime.timedelta(0)
-
-    def dst(self, datetime_):
-        return datetime.timedelta(0)
-
-    def tzname(self, datetime_):
-        return 'UTC'
-    # pylint: enable=unused-argument
-
-
-#: Instantiated :class:`UTC` object for direct use
-utc = UTC()  # pylint: disable=invalid-name
-
-
 def parse_delta(string):
     """Parse ISO-8601 duration string.
 
@@ -98,15 +75,16 @@ def parse_datetime(string, *, naive=False):
         datetime.datetime: Parsed datetime object
     """
     if not string:
-        datetime_ = datetime.datetime.utcnow()
+        datetime_ = datetime.datetime.now(datetime.timezone.utc)
     else:
         datetime_ = ciso8601.parse_datetime(string)
         if not datetime_:
             raise ValueError('Unable to parse timestamp %r' % string)
     if naive is True and datetime_.tzinfo:
-        datetime_ = datetime_.astimezone(utc).replace(tzinfo=None)
+        datetime_ = datetime_.astimezone(datetime.timezone.utc)
+        datetime_ = datetime_.replace(tzinfo=None)
     elif naive is False and datetime_.tzinfo is None:
-        datetime_ = datetime_.replace(tzinfo=utc)
+        datetime_ = datetime_.replace(tzinfo=datetime.timezone.utc)
     return datetime_
 
 

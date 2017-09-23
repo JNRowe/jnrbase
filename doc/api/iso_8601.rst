@@ -10,10 +10,6 @@ iso_8601
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601
 .. _pytz: https://pypi.python.org/pypi/pytz
 
-.. autoclass:: UTC
-
-.. autodata:: utc
-
 .. autofunction:: parse_delta
 .. autofunction:: format_delta
 

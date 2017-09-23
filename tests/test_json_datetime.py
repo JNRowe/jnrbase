@@ -16,12 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from datetime import datetime
+from datetime import (datetime, timezone)
 
 from expecter import expect
 
 from jnrbase import json_datetime
-from jnrbase.iso_8601 import utc
 
 
 def test_json_no_datetime():
@@ -33,13 +32,14 @@ def test_json_no_datetime():
 
 
 def test_json_datetime():
-    data = {'test': datetime(2014, 2, 3, 18, 12, tzinfo=utc)}
+    data = {'test': datetime(2014, 2, 3, 18, 12, tzinfo=timezone.utc)}
     expect(json_datetime.dumps(data, indent=None)) == \
         '{"test": "2014-02-03T18:12:00Z"}'
 
 
 def test_deep_json_datetime():
-    data = {'test': [{'test2': datetime(2014, 2, 3, 18, 12, tzinfo=utc)}, ]}
+    data = {'test': [{'test2': datetime(2014, 2, 3, 18, 12,
+                                        tzinfo=timezone.utc)}, ]}
     expect(json_datetime.dumps(data, indent=None)) == \
         '{"test": [{"test2": "2014-02-03T18:12:00Z"}]}'
 
@@ -50,6 +50,6 @@ def test_json_load_no_datetime():
 
 
 def test_roundtrip():
-    data = {'test': datetime(2014, 2, 3, 18, 12, tzinfo=utc)}
+    data = {'test': datetime(2014, 2, 3, 18, 12, tzinfo=timezone.utc)}
     json = json_datetime.dumps(data, indent=None)
     expect(json_datetime.loads(json)) == data
