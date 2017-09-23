@@ -16,6 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from contextlib import redirect_stdout
+from io import StringIO
 from os import getenv
 from subprocess import Popen
 from tempfile import TemporaryFile
@@ -25,7 +27,7 @@ from expecter import expect
 from jnrbase.pager import pager
 from jnrbase import pager as pager_mod
 
-from .utils import (mock_stdout, patch, patch_env, requires_exec)
+from .utils import (patch, patch_env, requires_exec)
 
 
 def stored_popen(f):
@@ -52,7 +54,7 @@ def test_default_less_config():
             expect(getenv('LESS')) == 'FRSX'
 
 
-@mock_stdout
-def test_disable_pager(stdout):
-    pager('pager forcibly disabled', pager=None)
-    expect(stdout.getvalue()) == 'pager forcibly disabled\n'
+def test_disable_pager():
+    with StringIO() as f, redirect_stdout(f):
+        pager('pager forcibly disabled', pager=None)
+        expect(f.getvalue()) == 'pager forcibly disabled\n'

@@ -19,7 +19,6 @@
 import sys
 
 from functools import partial
-from io import StringIO
 from os import path
 from unittest.mock import patch
 
@@ -40,11 +39,6 @@ def func_attr(name, value):
 def requires_exec(command=True):
     """Mark test as requiring external process"""
     return func_attr('requires_exec', command)
-
-
-def mock_stdout(f):
-    """Decorator to setup mock for ``stdout``"""
-    return patch('sys.stdout', new_callable=StringIO)(f)
 
 
 def mock_path_exists(result=True):
