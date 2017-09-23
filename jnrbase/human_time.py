@@ -69,7 +69,7 @@ def parse_timedelta(delta):
     Args:
         delta (str): Frequency to parse
     """
-    match = re.match(r'^(\d+(?:|\.\d+)) *([hdwmy])$', delta, re.IGNORECASE)
+    match = re.fullmatch(r'^(\d+(?:|\.\d+)) *([hdwmy])', delta, re.IGNORECASE)
     if not match:
         raise ValueError("Invalid 'frequency' value")
     value, units = match.groups()
