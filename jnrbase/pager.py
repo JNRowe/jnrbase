@@ -18,7 +18,7 @@
 
 import os
 
-from subprocess import (PIPE, Popen)
+from subprocess import run
 
 
 def pager(text, *, pager='less'):
@@ -31,8 +31,6 @@ def pager(text, *, pager='less'):
     if pager:
         if 'less' in pager and 'LESS' not in os.environ:
             os.environ['LESS'] = 'FRSX'
-        proc = Popen([pager, ], stdin=PIPE)
-        proc.communicate(text.encode())
-        proc.wait()
+        run([pager, ], input=text.encode())
     else:
         print(text)

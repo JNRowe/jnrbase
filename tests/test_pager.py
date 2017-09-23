@@ -19,7 +19,7 @@
 from contextlib import redirect_stdout
 from io import StringIO
 from os import getenv
-from subprocess import Popen
+from subprocess import run
 from tempfile import TemporaryFile
 
 from expecter import expect
@@ -30,14 +30,14 @@ from jnrbase import pager as pager_mod
 from .utils import (patch, patch_env, requires_exec)
 
 
-def stored_popen(f):
-    return lambda *args, **kwargs: Popen(*args, stdout=f, **kwargs)
+def stored_run(f):
+    return lambda *args, **kwargs: run(*args, stdout=f, **kwargs)
 
 
 @requires_exec('cat')
 def test_pager():
     with TemporaryFile() as f:
-        with patch.object(pager_mod, 'Popen', new=stored_popen(f)):
+        with patch.object(pager_mod, 'run', new=stored_run(f)):
             pager('paging through cat', pager='cat')
         f.seek(0)
         data = f.read()
@@ -48,7 +48,7 @@ def test_pager():
 @requires_exec('less')
 def test_default_less_config():
     with TemporaryFile() as f:
-        with patch.object(pager_mod, 'Popen', new=stored_popen(f)), \
+        with patch.object(pager_mod, 'run', new=stored_run(f)), \
              patch_env(clear=True):
             pager('pager forcibly disabled')
             expect(getenv('LESS')) == 'FRSX'
