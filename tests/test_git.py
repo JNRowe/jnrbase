@@ -41,7 +41,7 @@ def tarball_data(tar_name):
 
     :see: `tar_name`
     """
-    data_dir = path.join(path.dirname(path.abspath(__file__)), 'data', 'git')
+    data_dir = path.join(path.dirname(__file__), 'data', 'git')
     with closing(open_tar(path.join(data_dir, tar_name + '.tar'))) as tar:
         try:
             temp_dir = mkdtemp()

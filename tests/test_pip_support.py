@@ -26,7 +26,7 @@ from jnrbase import pip_support
 from .utils import patch
 
 
-DATA_DIR = path.join(path.dirname(path.abspath(__file__)), 'data', 'pip')
+DATA_DIR = path.join(path.dirname(__file__), 'data', 'pip')
 
 
 def data_file(fname):

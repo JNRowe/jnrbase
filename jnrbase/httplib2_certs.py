@@ -57,7 +57,7 @@ def find_certs():
     """
     bundle = path.realpath(path.dirname(httplib2.CA_CERTS))
     # Some distros symlink the bundled path location to the system certs
-    if not bundle.startswith(path.realpath(path.dirname(httplib2.__file__))):
+    if not bundle.startswith(path.dirname(httplib2.__file__)):
         return bundle
     for platform, files in PLATFORM_FILES.items():
         if sys.platform.startswith(platform):

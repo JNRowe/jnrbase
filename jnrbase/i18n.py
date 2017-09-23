@@ -30,8 +30,7 @@ def setup(pkg):
         2-tuple of functions: Gettext functions for singular and plural
             translations
     """
-    package_locale = path.join(path.realpath(path.dirname(pkg.__file__)),
-                               'locale')
+    package_locale = path.join(path.dirname(pkg.__file__), 'locale')
     gettext.install(pkg, package_locale)
 
     return gettext.gettext, gettext.ngettext
