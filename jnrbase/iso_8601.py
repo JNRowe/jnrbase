@@ -38,7 +38,7 @@ def parse_delta(string):
         T?
         ((?P<hours>\d{1,2})H)?
         ((?P<minutes>\d{1,2})M)?
-        ((?P<seconds>\d{1,2})?(\.(?P<microseconds>\d+)S)?)
+        ((?P<seconds>\d{1,2})?((?:\.(?P<microseconds>\d+))?S)?)
     """, string, re.VERBOSE)
     match_dict = dict((k, int(v) if v else 0)
                       for k, v in match.groupdict().items())

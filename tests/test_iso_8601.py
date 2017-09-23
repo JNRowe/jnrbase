@@ -66,6 +66,7 @@ def test_format_datetime(dt, expected):
 @params(
     ('PT04H30M21S', timedelta(hours=4, minutes=30, seconds=21)),
     ('PT00H12M01S', timedelta(minutes=12, seconds=1)),
+    ('PT00H12M01.45S', timedelta(minutes=12, seconds=1, microseconds=45)),
     ('PT04H', timedelta(hours=4)),
     ('PT04H30M', timedelta(hours=4, minutes=30)),
     ('PT30M', timedelta(minutes=30)),
