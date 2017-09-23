@@ -46,9 +46,14 @@ class DebugPrint():
         if text == os.linesep:
             self.fh.write(text)
         else:
-            outer = inspect.currentframe().f_back
-            filename = outer.f_code.co_filename.split(os.sep)[-1]
-            lineno = outer.f_lineno
+            frame = inspect.currentframe()
+            if frame is None:
+                filename = 'unknown'
+                lineno = 0
+            else:
+                outer = frame.f_back
+                filename = outer.f_code.co_filename.split(os.sep)[-1]
+                lineno = outer.f_lineno
             self.fh.write("[%15s:%03d] %s" % (filename[-15:], lineno, text))
 
     @staticmethod

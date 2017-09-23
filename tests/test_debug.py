@@ -21,6 +21,9 @@ from expecter import expect
 from io import StringIO
 
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
+from jnrbase import debug as debug_mod
+
+from .utils import patch
 
 
 def test_enter_no_arg():
@@ -79,6 +82,17 @@ def test_DebugPrint():
             out = f.getvalue()
             expect(out).contains('test_debug.py:')
             expect(out).contains('] boom\n')
+        finally:
+            DebugPrint.disable()
+
+
+@patch.object(debug_mod.inspect, 'currentframe', lambda: None)
+def test_DebugPrint_no_stack_frame():
+    with StringIO() as f, redirect_stdout(f):
+        DebugPrint.enable()
+        try:
+            print("boom")
+            expect(f.getvalue()).contains('unknown:000] boom\n')
         finally:
             DebugPrint.disable()
 
