@@ -113,7 +113,7 @@ def get_data(pkg, name):
         test_path = path.join(d, name)
         if path.exists(test_path):
             return test_path
-    raise IOError('No data file %r for %r' % (name, pkg))
+    raise FileNotFoundError('No data file %r for %r' % (name, pkg))
 
 
 def get_data_dirs(pkg):

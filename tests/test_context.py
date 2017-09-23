@@ -31,5 +31,5 @@ def test_chdir():
 
 
 def test_chdir_missing():
-    with expect.raises(OSError), context.chdir('missing_dir'):
-            pass
+    with expect.raises(FileNotFoundError), context.chdir('missing_dir'):
+        pass

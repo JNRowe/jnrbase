@@ -103,5 +103,5 @@ def test_get_data():
 
 @mock_path_exists(False)
 def test_get_data_no_files():
-    with expect.raises(IOError):
+    with expect.raises(FileNotFoundError):
         xdg_basedir.get_data('jnrbase', 'photo.jpg')
