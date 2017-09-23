@@ -25,7 +25,7 @@ from functools import wraps
 _orig_stdout = sys.stdout
 
 
-class DebugPrint(object):
+class DebugPrint():
 
     """Verbose print wrapper for debugging."""
 
