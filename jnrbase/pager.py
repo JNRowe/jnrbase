@@ -26,7 +26,7 @@ def pager(text, *, pager='less'):
 
     Args:
         text (str): Text to page
-        pager (bool): Pager to use
+        pager (str): Pager to use
     """
     if pager:
         if 'less' in pager and 'LESS' not in os.environ:
