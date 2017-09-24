@@ -63,7 +63,7 @@ I'd like to thank the following people who have contributed to ``jnrbase``.
 Patches
 '''''''
 
-* <your name here>
+* Nathan McGregor
 
 Bug reports
 '''''''''''
