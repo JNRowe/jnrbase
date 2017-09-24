@@ -20,7 +20,7 @@ import os
 import sys
 
 from contextlib import suppress
-from subprocess import (CalledProcessError, check_output)
+from subprocess import (CalledProcessError, PIPE, run)
 
 root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, root_dir)
@@ -54,10 +54,10 @@ release = jnrbase._version.dotted
 
 pygments_style = 'sphinx'
 with suppress(CalledProcessError):
-    html_last_updated_fmt = check_output(
-        ['git', 'log', "--pretty=format:'%ad [%h]'", '--date=short', '-n1'],
-        encoding='ascii'
-    )
+    proc = run(['git', 'log', "--pretty=format:'%ad [%h]'", '--date=short',
+                '-n1'],
+               stdout=PIPE)
+    html_last_updated_fmt = proc.stdout.decode()
 
 # Autodoc extension settings
 autoclass_content = 'init'
