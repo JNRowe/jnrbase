@@ -17,7 +17,6 @@
 #
 
 from datetime import (datetime, timedelta, timezone)
-from unittest import TestCase
 
 from expecter import expect
 from nose2.tools import params
