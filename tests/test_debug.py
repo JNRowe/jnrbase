@@ -17,8 +17,11 @@
 #
 
 from contextlib import redirect_stdout
-from expecter import expect
 from io import StringIO
+from operator import add
+
+from expecter import expect
+from nose2.tools import params
 
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
 from jnrbase import debug as debug_mod
@@ -26,46 +29,37 @@ from jnrbase import debug as debug_mod
 from .utils import patch
 
 
-def test_enter_no_arg():
-    @enter
+@params(
+    (enter, ),
+    (exit, ),
+)
+def test_decorator_no_message(ftype):
+    @ftype
     def func(x, y):
         return x + y
     with StringIO() as f, redirect_stdout(f):
         expect(func(4, 3)) == 7
         expect(f.getvalue()).contains(
-            "Entering 'func'({!r})".format(func.__closure__[0].cell_contents))
+            "{}ing 'func'({!r})".format(ftype.__name__.capitalize(),
+                                        func.__closure__[0].cell_contents))
 
 
-def test_enter_with_message():
-    @enter('custom message')
-    def func(x, y):
-        return x + y
+@params(
+    (enter, ),
+    (exit, ),
+)
+def test_decorator_with_message(ftype):
     with StringIO() as f, redirect_stdout(f):
-        expect(func(4, 3)) == 7
+        expect(ftype('custom message')(add)(4, 3)) == 7
         expect(f.getvalue()).contains('custom message\n')
 
 
-def test_exit_no_arg():
-    @exit
-    def func(x, y):
-        return x + y
-    with StringIO() as f, redirect_stdout(f):
-        expect(func(4, 3)) == 7
-        expect(f.getvalue()).contains(
-            "Exiting 'func'({!r})".format(func.__closure__[0].cell_contents))
-
-
-def test_exit_with_message():
-    @exit('custom message')
-    def func(x, y):
-        return x + y
-    with StringIO() as f, redirect_stdout(f):
-        expect(func(4, 3)) == 7
-        expect(f.getvalue()).contains('custom message\n')
-
-
-def test_exit_with_failure():
-    @exit('custom message')
+@params(
+    (enter, ),
+    (exit, ),
+)
+def test_decorator_with_failure(ftype):
+    @ftype('custom message')
     def func(x, y):
         raise ValueError('boom')
     with StringIO() as f, redirect_stdout(f):
@@ -97,15 +91,17 @@ def test_DebugPrint_no_stack_frame():
             DebugPrint.disable()
 
 
-def test_DebugPrint_double_enable():
+def test_DebugPrint_double_toggle():
     with StringIO() as f, redirect_stdout(f):
         DebugPrint.enable()
         sys.stdout.first = True
         try:
             DebugPrint.enable()
-            expect(sys.stdout.first) is True
+            expect(sys.stdout.first) == True
         finally:
             DebugPrint.disable()
+        expect(hasattr(sys.stdout, 'first')) == False
+        DebugPrint.disable()
 
 
 def test_DebugPrint_decorator():
