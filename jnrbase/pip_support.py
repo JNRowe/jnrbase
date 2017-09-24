@@ -64,7 +64,7 @@ def parse_requires(fname):
                 if not match:
                     raise ValueError('Invalid marker {!r}'.format(marker))
                 if not eval(marker, {
-                        "__builtins__": {},
+                        '__builtins__': {},
                         'python_version': '{}.{}'.format(*version_info[:2]),
                     }):
                     continue
