@@ -55,14 +55,15 @@ def format_delta(timedelta_):
     """
     if timedelta_ == datetime.timedelta(0):
         return ''
-    days = '%dD' % timedelta_.days if timedelta_.days else ''
+    days = '{}D'.format(timedelta_.days) if timedelta_.days else ''
     hours, minutes = divmod(timedelta_.seconds, 3600)
     minutes, seconds = divmod(minutes, 60)
-    hours = '%02dH' % hours if hours else ''
-    minutes = '%02dM' % minutes if minutes else ''
-    seconds = '%02dS' % seconds if seconds else ''
-    return 'P%s%s%s%s%s' % (days, 'T' if hours or minutes or seconds else '',
-                            hours, minutes, seconds)
+    hours = '{:02d}H'.format(hours) if hours else ''
+    minutes = '{:02d}M'.format(minutes) if minutes else ''
+    seconds = '{:02d}S'.format(seconds) if seconds else ''
+    return 'P{}{}{}{}{}'.format(days,
+                                'T' if hours or minutes or seconds else '',
+                                hours, minutes, seconds)
 
 
 def parse_datetime(string, *, naive=False):
@@ -79,7 +80,7 @@ def parse_datetime(string, *, naive=False):
     else:
         datetime_ = ciso8601.parse_datetime(string)
         if not datetime_:
-            raise ValueError('Unable to parse timestamp %r' % string)
+            raise ValueError('Unable to parse timestamp {!r}'.format(string))
     if naive is True and datetime_.tzinfo:
         datetime_ = datetime_.astimezone(datetime.timezone.utc)
         datetime_ = datetime_.replace(tzinfo=None)
@@ -97,4 +98,4 @@ def format_datetime(datetime_):
         str: ISO-8601 compatible string
     """
     # Can't call isoformat method as it uses the +00:00 form
-    return datetime_.strftime('%Y-%m-%dT%H:%M:%SZ')
+    return datetime_.strftime('%FT%TZ')

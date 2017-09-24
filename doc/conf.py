@@ -28,10 +28,10 @@ sys.path.insert(0, root_dir)
 import jnrbase  # NOQA
 
 extensions = \
-    ['sphinx.ext.%s' % ext for ext in ['autodoc', 'coverage', 'doctest',
-                                       'extlinks', 'intersphinx', 'napoleon',
-                                       'todo', 'viewcode']] \
-    + ['sphinxcontrib.%s' % ext for ext in []]
+    ['sphinx.ext.{}'.format(ext)
+     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
+                 'napoleon', 'todo', 'viewcode']] \
+    + ['sphinxcontrib.{}'.format(ext) for ext in []]
 
 # Only activate spelling if it is installed.  It is not required in the
 # general case and we don't have the granularity to describe this in a clean
@@ -65,7 +65,7 @@ autodoc_default_flags = ['members', ]
 
 # intersphinx extension settings
 intersphinx_mapping = {
-    k: (v, os.getenv('SPHINX_%s_OBJECTS' % k.upper()))
+    k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
         'click': 'http://click.pocoo.org/6/',
         'pygments': 'http://pygments.org/',

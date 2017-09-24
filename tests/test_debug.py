@@ -32,8 +32,8 @@ def test_enter_no_arg():
         return x + y
     with StringIO() as f, redirect_stdout(f):
         expect(func(4, 3)) == 7
-        expect(f.getvalue()).contains("Entering 'func'(%r)"
-                                      % func.__closure__[0].cell_contents)
+        expect(f.getvalue()).contains(
+            "Entering 'func'({!r})".format(func.__closure__[0].cell_contents))
 
 
 def test_enter_with_message():
@@ -51,8 +51,8 @@ def test_exit_no_arg():
         return x + y
     with StringIO() as f, redirect_stdout(f):
         expect(func(4, 3)) == 7
-        expect(f.getvalue()).contains("Exiting 'func'(%r)"
-                                      % func.__closure__[0].cell_contents)
+        expect(f.getvalue()).contains(
+            "Exiting 'func'({!r})".format(func.__closure__[0].cell_contents))
 
 
 def test_exit_with_message():
@@ -111,11 +111,11 @@ def test_DebugPrint_double_enable():
 def test_DebugPrint_decorator():
     @noisy_wrap
     def func(x):
-        print("%x" % x)
+        print(hex(x))
         print(x)
     with StringIO() as f, redirect_stdout(f):
         func(20)
         out = f.getvalue()
     expect(out).contains('test_debug.py:')
-    expect(out).contains('] 14\n')
+    expect(out).contains('] 0x14\n')
     expect(out).contains('] 20\n')

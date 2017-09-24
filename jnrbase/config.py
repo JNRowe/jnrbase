@@ -35,7 +35,7 @@ def read_configs(pkg, name='config', *, local=True):
     """
     configs = get_configs(pkg, name)
     if local:
-        localrc = path.abspath('.%src' % pkg)
+        localrc = path.abspath('.{}rc'.format(pkg))
         if path.exists(localrc):
             configs.append(localrc)
 

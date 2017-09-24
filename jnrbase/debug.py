@@ -54,7 +54,8 @@ class DebugPrint():
                 outer = frame.f_back
                 filename = outer.f_code.co_filename.split(os.sep)[-1]
                 lineno = outer.f_lineno
-            self.fh.write("[%15s:%03d] %s" % (filename[-15:], lineno, text))
+            self.fh.write("[{:>15s}:{:03d}] {}".format(filename[-15:], lineno,
+                                                       text))
 
     @staticmethod
     def enable():
@@ -93,7 +94,7 @@ def enter(msg=None):
             if msg:
                 print(msg)
             else:
-                print("Entering %r(%r)" % (func.__name__, func))
+                print("Entering {!r}({!r})".format(func.__name__, func))
             return func(*args, **kwargs)
         return wrapper
     if callable(msg):
@@ -118,7 +119,7 @@ def exit(msg=None):
                 if msg:
                     print(msg)
                 else:
-                    print("Exiting %r(%r)" % (func.__name__, func))
+                    print("Exiting {!r}({!r})".format(func.__name__, func))
         return wrapper
     if callable(msg):
         return exit()(msg)

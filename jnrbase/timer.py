@@ -40,4 +40,4 @@ class Timing():
         end = time.time()
         self.elapsed = end - self._start
         if self.verbose:
-            print('Elapsed: %f ms' % self.elapsed)
+            print('Elapsed: {} ms'.format(self.elapsed))

@@ -49,17 +49,17 @@ def human_timestamp(timestamp):
             name = match_names[matches.index(scale)]
             break
     else:
-        raise ValueError('Timestamp invalid: %r' % timestamp)
+        raise ValueError('Timestamp invalid: {!r}'.format(timestamp))
 
     if i == 1 and name in ('year', 'month', 'week'):
-        result = 'last %s' % name
+        result = 'last {}'.format(name)
     elif i == 1 and name == 'day':
         result = 'yesterday'
     elif i == 1 and name == 'hour':
         result = 'about an hour ago'
     else:
-        result = 'about %s %s%s ago' % (i if i > 10 else numstr[i], name,
-                                        's' if i > 1 else '')
+        result = 'about {} {}{} ago'.format(i if i > 10 else numstr[i], name,
+                                            's' if i > 1 else '')
     return result
 
 

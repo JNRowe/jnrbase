@@ -38,7 +38,7 @@ def find_tag(matcher='v[0-9]*', *, strict=True, git_dir='.'):
     command = 'git describe --abbrev=12 --dirty'.split()
     with chdir(git_dir):
         try:
-            stdout = check_output(command + ['--match=%s' % matcher, ])
+            stdout = check_output(command + ['--match={}'.format(matcher), ])
         except CalledProcessError:
             if strict:
                 raise

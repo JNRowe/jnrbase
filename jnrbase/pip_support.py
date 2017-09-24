@@ -51,7 +51,7 @@ def parse_requires(fname):
             elif ';' in dep:
                 dep, marker = dep.split(';')
                 if not eval(marker.strip(),
-                            {'python_version': '%s.%s' % version_info[:2]}):
+                            {'python_version': '{}.{}'.format(*version_info[:2])}):
                     continue
             deps.append(dep)
     return deps
