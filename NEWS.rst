@@ -16,7 +16,7 @@ User-visible changes
 * ``debug.{enter,exit}`` output now includes the function name
 * ``Timer`` has been renamed to ``Timing`` to match PEP-343 naming
 * contextlib2_ is required with Python v3.4, or earlier
-* Python 3.5  is now supported
+* Python 3.5 is now supported
 * Python 2.6 support has been removed… but, if you need it file an issue_
 
 .. _contextlib2: https://pypi.python.org/pypi/contextlib2
