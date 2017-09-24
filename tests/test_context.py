@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_context - Test path context handlers support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -32,5 +31,5 @@ def test_chdir():
 
 
 def test_chdir_missing():
-    with expect.raises(OSError), context.chdir('missing_dir'):
-            pass
+    with expect.raises(FileNotFoundError), context.chdir('missing_dir'):
+        pass

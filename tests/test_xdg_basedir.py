@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_xdg_basedir - Test XDG basedir support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -104,5 +103,5 @@ def test_get_data():
 
 @mock_path_exists(False)
 def test_get_data_no_files():
-    with expect.raises(IOError):
+    with expect.raises(FileNotFoundError):
         xdg_basedir.get_data('jnrbase', 'photo.jpg')

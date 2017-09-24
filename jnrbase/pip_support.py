@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """pip_support - pip workarounds support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -22,6 +21,7 @@
 # support the workflow to some extent…
 
 from os import path
+from sys import version_info
 
 
 def parse_requires(fname):
@@ -42,12 +42,16 @@ def parse_requires(fname):
         for dep in entries:
             if not dep:
                 continue
-            dep = dep
-            if dep.startswith('-r '):
+            elif dep.startswith('-r '):
                 include = dep.split()[1]
                 if '/' not in include:
                     include = path.join(path.dirname(fname), include)
                 deps.extend(parse_requires(include))
-            else:
-                deps.append(dep)
+                continue
+            elif ';' in dep:
+                dep, marker = dep.split(';')
+                if not eval(marker.strip(),
+                            {'python_version': '{}.{}'.format(*version_info[:2])}):
+                    continue
+            deps.append(dep)
     return deps

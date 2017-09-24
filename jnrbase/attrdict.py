@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """attrdict - Dictionary with attribute access."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -17,8 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .compat import safe_hasattr
-
 
 class AttrDict(dict):
 
@@ -35,7 +32,7 @@ class AttrDict(dict):
         Returns:
             bool: True, if item in AttrDict
         """
-        return safe_hasattr(self, key)
+        return hasattr(self, key)
 
     def __getattr__(self, key):
         """Support item access via dot notation.
@@ -85,5 +82,5 @@ class ROAttrDict(AttrDict):
         Raises:
             AttributeError: On modification attempt
         """
-        raise AttributeError('%r is read-only' % self.__class__.__name__)
+        raise AttributeError('{!r} is read-only'.format(self.__class__))
     __delattr__ = __delitem__ = __setattr__ = __setitem__

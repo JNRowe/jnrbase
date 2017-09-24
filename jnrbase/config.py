@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """config - Configuration loading support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -21,11 +20,10 @@ from os import (environ, path)
 
 import configobj
 
-from .compat import open
 from .xdg_basedir import get_configs
 
 
-def read_configs(pkg, name='config', local=True):
+def read_configs(pkg, name='config', *, local=True):
     """Process configuration file stack.
 
     Args:
@@ -37,7 +35,7 @@ def read_configs(pkg, name='config', local=True):
     """
     configs = get_configs(pkg, name)
     if local:
-        localrc = path.abspath('.%src' % pkg)
+        localrc = path.abspath('.{}rc'.format(pkg))
         if path.exists(localrc):
             configs.append(localrc)
 

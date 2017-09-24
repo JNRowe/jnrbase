@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """template - Jinja templating support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -73,7 +72,7 @@ def colourise(text, *args, **kwargs):
 
 
 @jinja_filter
-def highlight(text, lexer='diff', formatter='terminal'):
+def highlight(text, *, lexer='diff', formatter='terminal'):
     """Highlight text highlighted using ``pygments``.
 
     Returns text untouched if colour output is not enabled
@@ -96,7 +95,7 @@ def highlight(text, lexer='diff', formatter='terminal'):
 
 
 @jinja_filter
-def html2text(html, width=80, ascii_replacements=False):
+def html2text(html, *, width=80, ascii_replacements=False):
     """HTML to plain text renderer.
 
     See: :pypi:`html2text`
@@ -114,7 +113,7 @@ def html2text(html, width=80, ascii_replacements=False):
 
 
 @jinja_filter
-def regexp(string, pattern, repl, count=0, flags=0):
+def regexp(string, pattern, repl, *, count=0, flags=0):
     """Jinja filter for regexp replacements.
 
     See :func:`re.sub` for documentation.

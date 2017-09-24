@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """human_time - Handle human readable date formats."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -50,17 +49,17 @@ def human_timestamp(timestamp):
             name = match_names[matches.index(scale)]
             break
     else:
-        raise ValueError('Timestamp invalid: %r' % timestamp)
+        raise ValueError('Timestamp invalid: {!r}'.format(timestamp))
 
     if i == 1 and name in ('year', 'month', 'week'):
-        result = 'last %s' % name
+        result = 'last {}'.format(name)
     elif i == 1 and name == 'day':
         result = 'yesterday'
     elif i == 1 and name == 'hour':
         result = 'about an hour ago'
     else:
-        result = 'about %s %s%s ago' % (i if i > 10 else numstr[i], name,
-                                        's' if i > 1 else '')
+        result = 'about {} {}{} ago'.format(i if i > 10 else numstr[i], name,
+                                            's' if i > 1 else '')
     return result
 
 
@@ -70,7 +69,11 @@ def parse_timedelta(delta):
     Args:
         delta (str): Frequency to parse
     """
-    match = re.match(r'^(\d+(?:|\.\d+)) *([hdwmy])$', delta, re.IGNORECASE)
+    match = re.fullmatch(r"""
+            ^(\d+(?:|\.\d+))  # value, possibly float
+            \ *
+            ([hdwmy])$  # units
+         """, delta, re.IGNORECASE | re.VERBOSE)
     if not match:
         raise ValueError("Invalid 'frequency' value")
     value, units = match.groups()

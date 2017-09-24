@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# coding=utf-8
 """setup.py - Setuptools tasks and config for jnrbase"""
 # Copyright © 2011-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -37,12 +36,10 @@ pip_support = imp.load_module('pip_support', pip_file, pip_file.name,
                               ('.py', pip_file.mode, imp.PY_SOURCE))
 
 
-install_requires = pip_support.parse_requires('extra/requirements-base.txt')
+install_requires = []
 
 extras_require = {}
 for file in glob.glob('extra/requirements-*.txt'):
-    if file == 'extra/requirements-base.txt':
-        continue
     suffix = os.path.splitext(file)[0].split('-')[1]
     if suffix not in ['doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)
@@ -72,11 +69,7 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development',

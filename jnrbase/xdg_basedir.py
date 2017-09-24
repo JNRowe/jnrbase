@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """xdg_basedir - XDG base directory support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -114,7 +113,7 @@ def get_data(pkg, name):
         test_path = path.join(d, name)
         if path.exists(test_path):
             return test_path
-    raise IOError('No data file %r for %r' % (name, pkg))
+    raise FileNotFoundError('No data file {!r} for {!r}'.format(name, pkg))
 
 
 def get_data_dirs(pkg):

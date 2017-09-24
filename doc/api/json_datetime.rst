@@ -32,14 +32,13 @@ Examples
 
 .. testsetup::
 
-    from datetime import datetime
+    from datetime import (datetime, timezone)
 
-    from jnrbase.iso_8601 import utc
     from jnrbase.json_datetime import (dumps, loads)
 
 .. doctest::
 
-    >>> data = {'test': datetime(2016, 11, 30, 18, 35, tzinfo=utc)}
+    >>> data = {'test': datetime(2016, 11, 30, 18, 35, tzinfo=timezone.utc)}
     >>> dumps(data, indent=None)
     '{"test": "2016-11-30T18:35:00Z"}'
     >>> loads(dumps(data, indent=None)) == data

@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_i18n - Test i18n setup functions"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #

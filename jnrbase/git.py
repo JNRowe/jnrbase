@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """git - Utilities for git support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -19,11 +18,10 @@
 
 from subprocess import (check_output, CalledProcessError)
 
-from jnrbase.compat import PY2
 from jnrbase.context import chdir
 
 
-def find_tag(matcher='v[0-9]*', strict=True, git_dir='.'):
+def find_tag(matcher='v[0-9]*', *, strict=True, git_dir='.'):
     """Find closest tag for a git repository.
 
     .. note:: This defaults to `Semantic Version`_ tag matching.
@@ -40,12 +38,11 @@ def find_tag(matcher='v[0-9]*', strict=True, git_dir='.'):
     command = 'git describe --abbrev=12 --dirty'.split()
     with chdir(git_dir):
         try:
-            stdout = check_output(command + ['--match=%s' % matcher, ])
+            stdout = check_output(command + ['--match={}'.format(matcher), ])
         except CalledProcessError:
             if strict:
                 raise
             stdout = check_output(command + ['--always', ])
 
-    if not PY2:  # pragma: Python 3
         stdout = stdout.decode('ascii', 'replace')
     return stdout.strip()

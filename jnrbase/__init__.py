@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """jnrbase - Common utility functionality.
 
 This is a collection of common utility libraries that are used in various Open

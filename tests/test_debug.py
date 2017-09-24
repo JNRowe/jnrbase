@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_debug - Test debug support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -17,91 +16,106 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from contextlib import redirect_stdout
 from expecter import expect
+from io import StringIO
 
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
+from jnrbase import debug as debug_mod
 
-from .utils import mock_stdout
+from .utils import patch
 
 
-@mock_stdout
-def test_enter_no_arg(stdout):
+def test_enter_no_arg():
     @enter
-    def f(x, y):
+    def func(x, y):
         return x + y
-    expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains("Entering 'f'(%r)"
-                                       % f.__closure__[0].cell_contents)
+    with StringIO() as f, redirect_stdout(f):
+        expect(func(4, 3)) == 7
+        expect(f.getvalue()).contains(
+            "Entering 'func'({!r})".format(func.__closure__[0].cell_contents))
 
 
-@mock_stdout
-def test_enter_with_message(stdout):
+def test_enter_with_message():
     @enter('custom message')
-    def f(x, y):
+    def func(x, y):
         return x + y
-    expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains('custom message\n')
+    with StringIO() as f, redirect_stdout(f):
+        expect(func(4, 3)) == 7
+        expect(f.getvalue()).contains('custom message\n')
 
 
-@mock_stdout
-def test_exit_no_arg(stdout):
+def test_exit_no_arg():
     @exit
-    def f(x, y):
+    def func(x, y):
         return x + y
-    expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains("Exiting 'f'(%r)"
-                                       % f.__closure__[0].cell_contents)
+    with StringIO() as f, redirect_stdout(f):
+        expect(func(4, 3)) == 7
+        expect(f.getvalue()).contains(
+            "Exiting 'func'({!r})".format(func.__closure__[0].cell_contents))
 
 
-@mock_stdout
-def test_exit_with_message(stdout):
+def test_exit_with_message():
     @exit('custom message')
-    def f(x, y):
+    def func(x, y):
         return x + y
-    expect(f(4, 3)) == 7
-    expect(stdout.getvalue()).contains('custom message\n')
+    with StringIO() as f, redirect_stdout(f):
+        expect(func(4, 3)) == 7
+        expect(f.getvalue()).contains('custom message\n')
 
 
-@mock_stdout
-def test_exit_with_failure(stdout):
+def test_exit_with_failure():
     @exit('custom message')
-    def f(x, y):
+    def func(x, y):
         raise ValueError('boom')
-    with expect.raises(ValueError):
-        f(4, 3)
-    expect(stdout.getvalue()) == 'custom message\n'
+    with StringIO() as f, redirect_stdout(f):
+        with expect.raises(ValueError):
+            func(4, 3)
+        expect(f.getvalue()) == 'custom message\n'
 
 
-@mock_stdout
-def test_DebugPrint(stdout):
-    DebugPrint.enable()
-    try:
-        print("boom")
-        out = stdout.getvalue()
-        expect(out).contains('test_debug.py:')
-        expect(out).contains('] boom\n')
-    finally:
-        DebugPrint.disable()
+def test_DebugPrint():
+    with StringIO() as f, redirect_stdout(f):
+        DebugPrint.enable()
+        try:
+            print("boom")
+            out = f.getvalue()
+            expect(out).contains('test_debug.py:')
+            expect(out).contains('] boom\n')
+        finally:
+            DebugPrint.disable()
+
+
+@patch.object(debug_mod.inspect, 'currentframe', lambda: None)
+def test_DebugPrint_no_stack_frame():
+    with StringIO() as f, redirect_stdout(f):
+        DebugPrint.enable()
+        try:
+            print("boom")
+            expect(f.getvalue()).contains('unknown:000] boom\n')
+        finally:
+            DebugPrint.disable()
 
 
 def test_DebugPrint_double_enable():
-    DebugPrint.enable()
-    sys.stdout.first = True
-    try:
+    with StringIO() as f, redirect_stdout(f):
         DebugPrint.enable()
-        expect(sys.stdout.first) is True
-    finally:
-        DebugPrint.disable()
+        sys.stdout.first = True
+        try:
+            DebugPrint.enable()
+            expect(sys.stdout.first) is True
+        finally:
+            DebugPrint.disable()
 
 
-@mock_stdout
-def test_DebugPrint_decorator(stdout):
+def test_DebugPrint_decorator():
     @noisy_wrap
-    def f(x):
-        print("%x" % x)
+    def func(x):
+        print(hex(x))
         print(x)
-    f(20)
-    out = stdout.getvalue()
+    with StringIO() as f, redirect_stdout(f):
+        func(20)
+        out = f.getvalue()
     expect(out).contains('test_debug.py:')
-    expect(out).contains('] 14\n')
+    expect(out).contains('] 0x14\n')
     expect(out).contains('] 20\n')

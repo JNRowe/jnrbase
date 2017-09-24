@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """iso_8601 - ISO-8601 support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -22,32 +21,6 @@ import re
 
 import ciso8601
 
-from . import compat
-
-
-@compat.mangle_repr_type
-class UTC(datetime.tzinfo):
-
-    """UTC timezone object."""
-
-    def __repr__(self):
-        return '%s()' % (self.__class__.__name__)
-
-    # pylint: disable=unused-argument
-    def utcoffset(self, datetime_):
-        return datetime.timedelta(0)
-
-    def dst(self, datetime_):
-        return datetime.timedelta(0)
-
-    def tzname(self, datetime_):
-        return 'UTC'
-    # pylint: enable=unused-argument
-
-
-#: Instantiated :class:`UTC` object for direct use
-utc = UTC()  # pylint: disable=invalid-name
-
 
 def parse_delta(string):
     """Parse ISO-8601 duration string.
@@ -59,13 +32,13 @@ def parse_delta(string):
     """
     if not string:
         return datetime.timedelta(0)
-    match = re.match(r"""
+    match = re.fullmatch(r"""
         P
         ((?P<days>\d+)D)?
         T?
         ((?P<hours>\d{1,2})H)?
         ((?P<minutes>\d{1,2})M)?
-        ((?P<seconds>\d{1,2})?(\.(?P<microseconds>\d+)S)?)
+        ((?P<seconds>\d{1,2})?((?:\.(?P<microseconds>\d+))?S)?)
     """, string, re.VERBOSE)
     match_dict = dict((k, int(v) if v else 0)
                       for k, v in match.groupdict().items())
@@ -82,17 +55,18 @@ def format_delta(timedelta_):
     """
     if timedelta_ == datetime.timedelta(0):
         return ''
-    days = '%dD' % timedelta_.days if timedelta_.days else ''
+    days = '{}D'.format(timedelta_.days) if timedelta_.days else ''
     hours, minutes = divmod(timedelta_.seconds, 3600)
     minutes, seconds = divmod(minutes, 60)
-    hours = '%02dH' % hours if hours else ''
-    minutes = '%02dM' % minutes if minutes else ''
-    seconds = '%02dS' % seconds if seconds else ''
-    return 'P%s%s%s%s%s' % (days, 'T' if hours or minutes or seconds else '',
-                            hours, minutes, seconds)
+    hours = '{:02d}H'.format(hours) if hours else ''
+    minutes = '{:02d}M'.format(minutes) if minutes else ''
+    seconds = '{:02d}S'.format(seconds) if seconds else ''
+    return 'P{}{}{}{}{}'.format(days,
+                                'T' if hours or minutes or seconds else '',
+                                hours, minutes, seconds)
 
 
-def parse_datetime(string, naive=False):
+def parse_datetime(string, *, naive=False):
     """Parse ISO-8601 datetime string.
 
     Args:
@@ -102,15 +76,16 @@ def parse_datetime(string, naive=False):
         datetime.datetime: Parsed datetime object
     """
     if not string:
-        datetime_ = datetime.datetime.utcnow()
+        datetime_ = datetime.datetime.now(datetime.timezone.utc)
     else:
         datetime_ = ciso8601.parse_datetime(string)
         if not datetime_:
-            raise ValueError('Unable to parse timestamp %r' % string)
+            raise ValueError('Unable to parse timestamp {!r}'.format(string))
     if naive is True and datetime_.tzinfo:
-        datetime_ = datetime_.astimezone(utc).replace(tzinfo=None)
+        datetime_ = datetime_.astimezone(datetime.timezone.utc)
+        datetime_ = datetime_.replace(tzinfo=None)
     elif naive is False and datetime_.tzinfo is None:
-        datetime_ = datetime_.replace(tzinfo=utc)
+        datetime_ = datetime_.replace(tzinfo=datetime.timezone.utc)
     return datetime_
 
 
@@ -123,4 +98,4 @@ def format_datetime(datetime_):
         str: ISO-8601 compatible string
     """
     # Can't call isoformat method as it uses the +00:00 form
-    return datetime_.strftime('%Y-%m-%dT%H:%M:%SZ')
+    return datetime_.strftime('%FT%TZ')

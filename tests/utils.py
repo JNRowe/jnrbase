@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """utils - Utility functions for tests"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -21,12 +20,7 @@ import sys
 
 from functools import partial
 from os import path
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
-
-from jnrbase.compat import StringIO
+from unittest.mock import patch
 
 
 def func_attr(name, value):
@@ -45,11 +39,6 @@ def func_attr(name, value):
 def requires_exec(command=True):
     """Mark test as requiring external process"""
     return func_attr('requires_exec', command)
-
-
-def mock_stdout(f):
-    """Decorator to setup mock for ``stdout``"""
-    return patch('sys.stdout', new_callable=StringIO)(f)
 
 
 def mock_path_exists(result=True):

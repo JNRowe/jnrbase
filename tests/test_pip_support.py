@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_pip_support - Test pip workarounds support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -20,11 +19,14 @@
 from os import path
 
 from expecter import expect
+from nose2.tools import params
 
-from jnrbase.pip_support import parse_requires
+from jnrbase import pip_support
+
+from .utils import patch
 
 
-DATA_DIR = path.join(path.dirname(path.abspath(__file__)), 'data', 'pip')
+DATA_DIR = path.join(path.dirname(__file__), 'data', 'pip')
 
 
 def data_file(fname):
@@ -32,16 +34,29 @@ def data_file(fname):
 
 
 def test_empty_parse():
-    expect(parse_requires(data_file('empty.txt'))) == []
+    expect(pip_support.parse_requires(data_file('empty.txt'))) == []
 
 
 def test_comment_skipping():
-    expect(parse_requires(data_file('comments.txt'))) == ['httplib2', 'lxml']
+    expect(pip_support.parse_requires(data_file('comments.txt'))) \
+        == ['httplib2', 'lxml']
 
 
 def test_include():
-    expect(parse_requires(data_file('base.txt'))) == ['httplib2', 'lxml']
+    expect(pip_support.parse_requires(data_file('base.txt'))) \
+        == ['httplib2', 'lxml']
 
 
 def test_abs_include():
-    expect(parse_requires(data_file('base_abs.txt'))) == ['httplib2', 'lxml']
+    expect(pip_support.parse_requires(data_file('base_abs.txt'))) \
+        == ['httplib2', 'lxml']
+
+
+@params(
+    ((3, 3, 6), ['contextlib2>=0.5.4', ]),
+    ((3, 5, 0), []),
+)
+def test_parse_markers(version, expected):
+    with patch.object(pip_support, 'version_info', version):
+        expect(pip_support.parse_requires(data_file('markers.txt'))) \
+            == expected

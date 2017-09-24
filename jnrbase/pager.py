@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """pager - pager pipe support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -17,30 +16,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from __future__ import print_function
-
 import os
 
-from subprocess import (PIPE, Popen)
-
-from jnrbase.compat import PY2
+from subprocess import run
 
 
-def pager(text, pager='less'):
+def pager(text, *, pager='less'):
     """Pass output through pager.
 
     Args:
         text (str): Text to page
-        pager (bool): Pager to use
+        pager (str): Pager to use
     """
     if pager:
         if 'less' in pager and 'LESS' not in os.environ:
             os.environ['LESS'] = 'FRSX'
-        proc = Popen([pager, ], stdin=PIPE)
-        if PY2:  # pragma: Python 2
-            proc.communicate(text)
-        else:  # pragma: Python 3
-            proc.communicate(text.encode())
-        proc.wait()
+        run([pager, ], input=text.encode())
     else:
         print(text)

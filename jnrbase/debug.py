@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """debug - Miscellaneous debugging support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -17,8 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from __future__ import print_function
-
 import inspect
 import os
 import sys
@@ -28,7 +25,7 @@ from functools import wraps
 _orig_stdout = sys.stdout
 
 
-class DebugPrint(object):
+class DebugPrint():
 
     """Verbose print wrapper for debugging."""
 
@@ -49,10 +46,16 @@ class DebugPrint(object):
         if text == os.linesep:
             self.fh.write(text)
         else:
-            outer = inspect.currentframe().f_back
-            filename = outer.f_code.co_filename.split(os.sep)[-1]
-            lineno = outer.f_lineno
-            self.fh.write("[%15s:%03d] %s" % (filename[-15:], lineno, text))
+            frame = inspect.currentframe()
+            if frame is None:
+                filename = 'unknown'
+                lineno = 0
+            else:
+                outer = frame.f_back
+                filename = outer.f_code.co_filename.split(os.sep)[-1]
+                lineno = outer.f_lineno
+            self.fh.write("[{:>15s}:{:03d}] {}".format(filename[-15:], lineno,
+                                                       text))
 
     @staticmethod
     def enable():
@@ -91,7 +94,7 @@ def enter(msg=None):
             if msg:
                 print(msg)
             else:
-                print("Entering %r(%r)" % (func.__name__, func))
+                print("Entering {!r}({!r})".format(func.__name__, func))
             return func(*args, **kwargs)
         return wrapper
     if callable(msg):
@@ -116,7 +119,7 @@ def exit(msg=None):
                 if msg:
                     print(msg)
                 else:
-                    print("Exiting %r(%r)" % (func.__name__, func))
+                    print("Exiting {!r}({!r})".format(func.__name__, func))
         return wrapper
     if callable(msg):
         return exit()(msg)

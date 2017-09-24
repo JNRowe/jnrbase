@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """conf - Sphinx configuration information"""
 # Copyright © 2011-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -20,22 +19,19 @@
 import os
 import sys
 
-try:
-    from contextlib import suppress
-except ImportError:
-    from contextlib2 import suppress
+from contextlib import suppress
 from subprocess import (CalledProcessError, check_output)
 
-root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, root_dir)
 
 import jnrbase  # NOQA
 
 extensions = \
-    ['sphinx.ext.%s' % ext for ext in ['autodoc', 'coverage', 'doctest',
-                                       'extlinks', 'intersphinx', 'napoleon',
-                                       'todo', 'viewcode']] \
-    + ['sphinxcontrib.%s' % ext for ext in []]
+    ['sphinx.ext.{}'.format(ext)
+     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
+                 'napoleon', 'todo', 'viewcode']] \
+    + ['sphinxcontrib.{}'.format(ext) for ext in []]
 
 # Only activate spelling if it is installed.  It is not required in the
 # general case and we don't have the granularity to describe this in a clean
@@ -58,9 +54,10 @@ release = jnrbase._version.dotted
 
 pygments_style = 'sphinx'
 with suppress(CalledProcessError):
-    html_last_updated_fmt = check_output(['git', 'log',
-                                          "--pretty=format:'%ad [%h]'",
-                                          '--date=short', '-n1'])
+    html_last_updated_fmt = check_output(
+        ['git', 'log', "--pretty=format:'%ad [%h]'", '--date=short', '-n1'],
+        encoding='ascii'
+    )
 
 # Autodoc extension settings
 autoclass_content = 'init'
@@ -68,11 +65,11 @@ autodoc_default_flags = ['members', ]
 
 # intersphinx extension settings
 intersphinx_mapping = {
-    k: (v, os.getenv('SPHINX_%s_OBJECTS' % k.upper()))
+    k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
         'click': 'http://click.pocoo.org/6/',
         'pygments': 'http://pygments.org/',
-        'python': 'http://docs.python.org/',
+        'python': 'http://docs.python.org/3/',
     }.items()
 }
 

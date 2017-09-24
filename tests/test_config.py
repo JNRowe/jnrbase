@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_config - Test configuration support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -22,7 +21,6 @@ from io import StringIO
 from expecter import expect
 from nose2.tools import params
 
-from jnrbase.compat import text
 from jnrbase.context import chdir
 from jnrbase import config
 
@@ -34,7 +32,7 @@ from .utils import (mock_path_exists, patch, patch_env)
     (False, 3),
 )
 @mock_path_exists()
-@patch.object(config, 'open', lambda s, encoding: StringIO(text('')))
+@patch.object(config, 'open', lambda s, encoding: StringIO(''))
 def test_config_loading(local, count):
     with patch_env({'XDG_CONFIG_DIRS': 'test1:test2'}):
         cfg = config.read_configs('jnrbase', local=local)

@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """test_pager - Test pager piping support"""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -17,31 +16,31 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from contextlib import redirect_stdout
+from io import StringIO
 from os import getenv
-from subprocess import Popen
+from subprocess import run
 from tempfile import TemporaryFile
 
 from expecter import expect
 
-from jnrbase.compat import PY2
 from jnrbase.pager import pager
 from jnrbase import pager as pager_mod
 
-from .utils import (mock_stdout, patch, patch_env, requires_exec)
+from .utils import (patch, patch_env, requires_exec)
 
 
-def stored_popen(f):
-    return lambda *args, **kwargs: Popen(*args, stdout=f, **kwargs)
+def stored_run(f):
+    return lambda *args, **kwargs: run(*args, stdout=f, **kwargs)
 
 
 @requires_exec('cat')
 def test_pager():
     with TemporaryFile() as f:
-        with patch.object(pager_mod, 'Popen', new=stored_popen(f)):
-            pager('paging through cat', 'cat')
+        with patch.object(pager_mod, 'run', new=stored_run(f)):
+            pager('paging through cat', pager='cat')
         f.seek(0)
         data = f.read()
-    if not PY2:  # pragma: Python 3
         data = data.decode()
     expect(data) == 'paging through cat'
 
@@ -49,13 +48,13 @@ def test_pager():
 @requires_exec('less')
 def test_default_less_config():
     with TemporaryFile() as f:
-        with patch.object(pager_mod, 'Popen', new=stored_popen(f)), \
+        with patch.object(pager_mod, 'run', new=stored_run(f)), \
              patch_env(clear=True):
             pager('pager forcibly disabled')
             expect(getenv('LESS')) == 'FRSX'
 
 
-@mock_stdout
-def test_disable_pager(stdout):
-    pager('pager forcibly disabled', None)
-    expect(stdout.getvalue()) == 'pager forcibly disabled\n'
+def test_disable_pager():
+    with StringIO() as f, redirect_stdout(f):
+        pager('pager forcibly disabled', pager=None)
+        expect(f.getvalue()) == 'pager forcibly disabled\n'

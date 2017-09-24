@@ -1,5 +1,4 @@
 #
-# coding=utf-8
 """timer - Function timing support."""
 # Copyright © 2014-2016  James Rowe <jnrowe@gmail.com>
 #
@@ -17,12 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from __future__ import print_function
-
 import time
 
 
-class Timing(object):
+class Timing():
 
     """Timing context manager.
 
@@ -30,7 +27,7 @@ class Timing(object):
         verbose (bool): Print elapsed time
     """
 
-    def __init__(self, verbose=False):
+    def __init__(self, *, verbose=False):
         self.verbose = verbose
         self._start = None
         self.elapsed = None
@@ -43,4 +40,4 @@ class Timing(object):
         end = time.time()
         self.elapsed = end - self._start
         if self.verbose:
-            print('Elapsed: %f ms' % self.elapsed)
+            print('Elapsed: {} ms'.format(self.elapsed))
