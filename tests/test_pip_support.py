@@ -60,3 +60,8 @@ def test_parse_markers(version, expected):
     with patch.object(pip_support, 'version_info', version):
         expect(pip_support.parse_requires(data_file('markers.txt'))) \
             == expected
+
+
+def test_invalid_markers():
+    with expect.raises(ValueError):
+        pip_support.parse_requires(data_file('invalid_markers.txt'))

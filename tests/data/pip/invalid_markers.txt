@@ -1,0 +1,1 @@
+unmask>=8.0;scooby_doo_version<"1"

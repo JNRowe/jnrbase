@@ -20,6 +20,8 @@
 # systems I use.  However, lots of Python users like to use it so we'll need to
 # support the workflow to some extent…
 
+import re
+
 from os import path
 from sys import version_info
 
@@ -49,8 +51,19 @@ def parse_requires(fname):
                 deps.extend(parse_requires(include))
                 continue
             elif ';' in dep:
-                dep, marker = dep.split(';')
-                if not eval(marker.strip(), {
+                dep, marker = [s.strip() for s in dep.split(';')]
+                # Support for other markers will be added when they're actually
+                # found in the wild
+                match = re.fullmatch(r"""
+                        (?:python_version)  # Supported markers
+                        \s*
+                        (?:<=?|==|>=?)  # Supported comparisons
+                        \s*
+                        (?P<quote>(?:'|"))(?:[\d\.]+)(?P=quote)  # Test
+                    """, marker, re.VERBOSE)
+                if not match:
+                    raise ValueError('Invalid marker {!r}'.format(marker))
+                if not eval(marker, {
                         "__builtins__": {},
                         'python_version': '{}.{}'.format(*version_info[:2]),
                     }):
