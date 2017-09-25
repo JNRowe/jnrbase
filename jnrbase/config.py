@@ -19,6 +19,8 @@
 from configparser import ConfigParser
 from os import environ, path
 
+from .human_time import parse_timedelta
+from .iso_8601 import parse_datetime, parse_delta
 from .xdg_basedir import get_configs
 
 
@@ -38,7 +40,11 @@ def read_configs(pkg, name='config', *, local=True):
         if path.exists(localrc):
             configs.append(localrc)
 
-    cfg = ConfigParser()
+    cfg = ConfigParser(converters={
+        'datetime': parse_datetime,
+        'humandelta': parse_timedelta,
+        'timedelta': parse_delta,
+    })
     cfg.read(configs, 'utf-8')
     cfg.configs = configs
 
