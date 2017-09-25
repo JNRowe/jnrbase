@@ -16,10 +16,11 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
+from configparser import ConfigParser
 from os import environ, path
 
-import configobj
-
+from .human_time import parse_timedelta
+from .iso_8601 import parse_datetime, parse_delta
 from .xdg_basedir import get_configs
 
 
@@ -31,7 +32,7 @@ def read_configs(pkg, name='config', *, local=True):
         name (str): File name to search for within config directories
         local (bool): Whether to include config files from current directory
     Returns:
-        configobj.ConfigObj: Parsed configuration files
+        ConfigParser: Parsed configuration files
     """
     configs = get_configs(pkg, name)
     if local:
@@ -39,17 +40,18 @@ def read_configs(pkg, name='config', *, local=True):
         if path.exists(localrc):
             configs.append(localrc)
 
-    lines = []
-    for fname in configs:
-        with open(fname, encoding='utf-8') as f:
-            lines.extend(f.readlines())
-    cfg = configobj.ConfigObj(lines)
+    cfg = ConfigParser(converters={
+        'datetime': parse_datetime,
+        'humandelta': parse_timedelta,
+        'timedelta': parse_delta,
+    })
+    cfg.read(configs, 'utf-8')
     cfg.configs = configs
 
     if 'NO_COLOUR' in environ:
         cfg.colour = False
     elif pkg in cfg and 'colour' in cfg[pkg]:
-        cfg.colour = cfg[pkg].as_bool('colour')
+        cfg.colour = cfg[pkg].getboolean('colour')
     else:
         cfg.colour = True
 
