@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from os import (environ, path)
+from os import environ, path
 
 import configobj
 

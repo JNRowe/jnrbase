@@ -20,7 +20,7 @@ from expecter import expect
 
 from jnrbase import xdg_basedir
 
-from .utils import (mock_path_exists, mock_platform, patch_env)
+from .utils import mock_path_exists, mock_platform, patch_env
 
 
 def test_cache_no_args():

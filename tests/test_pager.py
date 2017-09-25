@@ -24,10 +24,10 @@ from tempfile import TemporaryFile
 
 from expecter import expect
 
-from jnrbase.pager import pager
 from jnrbase import pager as pager_mod
+from jnrbase.pager import pager
 
-from .utils import (patch, patch_env, requires_exec)
+from .utils import patch, patch_env, requires_exec
 
 
 def stored_run(f):

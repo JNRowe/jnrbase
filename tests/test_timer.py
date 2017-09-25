@@ -17,8 +17,9 @@
 #
 
 from contextlib import redirect_stdout
-from expecter import expect
 from io import StringIO
+
+from expecter import expect
 from hiro import Timeline
 
 from jnrbase.timer import Timing

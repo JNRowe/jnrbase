@@ -23,7 +23,7 @@ from nose2.tools import params
 
 from jnrbase import httplib2_certs
 
-from .utils import (mock_path_exists, mock_platform, patch, patch_env)
+from .utils import mock_path_exists, mock_platform, patch, patch_env
 
 
 @mock_path_exists()
@@ -41,7 +41,7 @@ def test_unbundled_package_import():
 @mock_path_exists(False)
 def test_bundled():
     with warnings.catch_warnings(record=True) as warns:
-        warnings.simplefilter("always")
+        warnings.simplefilter('always')
         httplib2_certs.find_certs()
         expect(warns[0].category) == RuntimeWarning
         expect(str(warns[0])).contains('falling back')

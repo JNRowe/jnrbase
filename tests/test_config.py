@@ -21,10 +21,10 @@ from io import StringIO
 from expecter import expect
 from nose2.tools import params
 
-from jnrbase.context import chdir
 from jnrbase import config
+from jnrbase.context import chdir
 
-from .utils import (mock_path_exists, patch, patch_env)
+from .utils import mock_path_exists, patch, patch_env
 
 
 @params(
@@ -51,16 +51,16 @@ def test_config_loading_missing_files():
 def test_no_colour_from_env():
     with patch_env({'NO_COLOUR': 'set'}):
         cfg = config.read_configs('jnrbase')
-    expect(cfg.colour) == False
+    expect(cfg.colour) == False  # NOQA: E712
 
 
 def test_colour_default():
     with patch_env(clear=True):
         cfg = config.read_configs('jnrbase')
-    expect(cfg.colour) == True
+    expect(cfg.colour) == True  # NOQA: E712
 
 
 def test_colour_from_config():
     with chdir('tests/data/config'), patch_env(clear=True):
         cfg = config.read_configs('jnrbase', local=True)
-    expect(cfg.colour) == False
+    expect(cfg.colour) == False  # NOQA: E712

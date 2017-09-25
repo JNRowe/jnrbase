@@ -20,9 +20,9 @@ import datetime
 import json
 
 from contextlib import suppress
-from functools import (partial, wraps)
+from functools import partial, wraps
 
-from jnrbase.iso_8601 import (format_datetime, parse_datetime)
+from jnrbase.iso_8601 import format_datetime, parse_datetime
 
 
 class DatetimeEncoder(json.JSONEncoder):
