@@ -25,15 +25,15 @@ from setuptools import setup
 
 # Hack to import _version file without importing jnrbase/__init__.py, its
 # purpose is to allow import without requiring dependencies at this point.
-ver_file = open('jnrbase/_version.py')
-_version = imp.load_module('_version', ver_file, ver_file.name,
-                           ('.py', ver_file.mode, imp.PY_SOURCE))
+with open('jnrbase/_version.py') as ver_file:
+    _version = imp.load_module('_version', ver_file, ver_file.name,
+                               ('.py', ver_file.mode, imp.PY_SOURCE))
 
 # Hack to import pip_support file without importing jnrbase/__init__.py, its
 # purpose is to allow import without requiring dependencies at this point.
-pip_file = open('jnrbase/pip_support.py')
-pip_support = imp.load_module('pip_support', pip_file, pip_file.name,
-                              ('.py', pip_file.mode, imp.PY_SOURCE))
+with open('jnrbase/pip_support.py') as pip_file:
+    pip_support = imp.load_module('pip_support', pip_file, pip_file.name,
+                                  ('.py', pip_file.mode, imp.PY_SOURCE))
 
 
 install_requires = []
@@ -44,11 +44,14 @@ for file in glob.glob('extra/requirements-*.txt'):
     if suffix not in ['doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)
 
+with open('README.rst') as readme:
+    long_description = readme.read()
+
 setup(
     name='jnrbase',
     version=_version.dotted,
     description='Common utility functionality',
-    long_description=open('README.rst').read(),
+    long_description=long_description,
     author='James Rowe',
     author_email='jnrowe@gmail.com',
     url='https://github.com/JNRowe/jnrbase',
