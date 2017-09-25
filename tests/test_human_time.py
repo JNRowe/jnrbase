@@ -21,7 +21,7 @@ import datetime
 from expecter import expect
 from nose2.tools import params
 
-from jnrbase.human_time import (human_timestamp, parse_timedelta)
+from jnrbase.human_time import human_timestamp, parse_timedelta
 
 
 @params(

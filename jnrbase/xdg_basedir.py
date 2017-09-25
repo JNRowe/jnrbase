@@ -20,7 +20,7 @@
 
 import sys
 
-from os import (getenv, path)
+from os import getenv, path
 
 
 #: Allow macOS directory structure

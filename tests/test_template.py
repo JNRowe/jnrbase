@@ -18,7 +18,7 @@
 
 import sys
 
-from datetime import (datetime, timedelta)
+from datetime import datetime, timedelta
 
 from expecter import expect
 from nose2.tools import params

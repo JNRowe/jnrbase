@@ -19,7 +19,7 @@
 # The colouring we use here is hopefully quite self-explanatory, and is in
 # common use in, for example, git
 
-from click import (echo, style)
+from click import echo, style
 
 
 #: Global flag to disable *all* colourisation

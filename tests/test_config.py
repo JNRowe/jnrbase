@@ -21,10 +21,10 @@ from io import StringIO
 from expecter import expect
 from nose2.tools import params
 
-from jnrbase.context import chdir
 from jnrbase import config
+from jnrbase.context import chdir
 
-from .utils import (mock_path_exists, patch, patch_env)
+from .utils import mock_path_exists, patch, patch_env
 
 
 @params(

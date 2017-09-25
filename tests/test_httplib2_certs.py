@@ -23,7 +23,7 @@ from nose2.tools import params
 
 from jnrbase import httplib2_certs
 
-from .utils import (mock_path_exists, mock_platform, patch, patch_env)
+from .utils import mock_path_exists, mock_platform, patch, patch_env
 
 
 @mock_path_exists()

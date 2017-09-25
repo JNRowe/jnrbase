@@ -23,8 +23,8 @@ from operator import add
 from expecter import expect
 from nose2.tools import params
 
-from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, sys)
 from jnrbase import debug as debug_mod
+from jnrbase.debug import DebugPrint, enter, exit, noisy_wrap, sys
 
 from .utils import patch
 

@@ -19,7 +19,7 @@
 import sys
 import warnings
 
-from os import (getenv, path)
+from os import getenv, path
 
 import httplib2
 
