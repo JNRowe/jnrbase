@@ -75,7 +75,7 @@ def parse_timedelta(delta):
             ([hdwmy])$  # units
          """, delta, re.IGNORECASE | re.VERBOSE)
     if not match:
-        raise ValueError("Invalid 'frequency' value")
+        raise ValueError('Invalid ‘frequency’ value')
     value, units = match.groups()
     units = 'hdwmy'.index(units.lower())
     # hours per hour/day/week/month/year

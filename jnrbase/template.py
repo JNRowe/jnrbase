@@ -54,7 +54,7 @@ def jinja_filter(func):
 
 @jinja_filter
 def colourise(text, *args, **kwargs):
-    """Colourise text using click's style function.
+    """Colourise text using click’s style function.
 
     Returns text untouched if colour output is not enabled
 

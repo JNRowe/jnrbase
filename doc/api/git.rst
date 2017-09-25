@@ -9,7 +9,7 @@ Examples
 --------
 
 ..
-    Can't be a doctest without shipping a git tree for the test, or basically
+    Can’t be a doctest without shipping a git tree for the test, or basically
     allowing it a full ellipsis match :/
 
 .. code-block:: pycon
