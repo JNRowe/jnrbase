@@ -53,11 +53,11 @@ def mock_path_exists(result=True):
         result: Value to return from mock object
     """
     if isinstance(result, bool):
-        matcher = lambda s: result  # NOQA
+        matcher = lambda s: result  # NOQA: E731
     elif isinstance(result, dict):
-        matcher = lambda s: result.get(s, False)  # NOQA
+        matcher = lambda s: result.get(s, False)  # NOQA: E731
     else:
-        matcher = lambda s: result.pop()  # NOQA
+        matcher = lambda s: result.pop()  # NOQA: E731
     return patch.object(path, 'exists', matcher)
 
 

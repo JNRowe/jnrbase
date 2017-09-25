@@ -16,4 +16,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from jnrbase.httplib2_certs import find_certs as get  # NOQA
+from jnrbase.httplib2_certs import find_certs as get  # NOQA: F401

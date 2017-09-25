@@ -20,7 +20,7 @@ from unittest import TestCase
 
 from expecter import expect
 
-from jnrbase.attrdict import (AttrDict, ROAttrDict)
+from jnrbase.attrdict import (AttrDict, ROAttrDict)  # NOQA: F401
 
 
 class AttrDictTest(TestCase):

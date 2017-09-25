@@ -25,7 +25,7 @@ from subprocess import (CalledProcessError, PIPE, run)
 root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, root_dir)
 
-import jnrbase  # NOQA
+import jnrbase  # NOQA: F401
 
 extensions = \
     ['sphinx.ext.{}'.format(ext)
@@ -37,7 +37,7 @@ extensions = \
 # general case and we don’t have the granularity to describe this in a clean
 # way
 try:
-    from sphinxcontrib import spelling  # NOQA
+    from sphinxcontrib import spelling  # NOQA: F401
 except ImportError:
     pass
 else:

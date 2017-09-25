@@ -97,10 +97,10 @@ def test_DebugPrint_double_toggle():
         sys.stdout.first = True
         try:
             DebugPrint.enable()
-            expect(sys.stdout.first) == True
+            expect(sys.stdout.first) == True  # NOQA: E712
         finally:
             DebugPrint.disable()
-        expect(hasattr(sys.stdout, 'first')) == False
+        expect(hasattr(sys.stdout, 'first')) == False  # NOQA: E712
         DebugPrint.disable()
 
 
