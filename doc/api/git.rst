@@ -8,11 +8,13 @@ git
 Examples
 --------
 
-..
-    Can’t be a doctest without shipping a git tree for the test, or basically
-    allowing it a full ellipsis match :/
+.. testsetup::
 
-.. code-block:: pycon
+    from jnrbase.git import find_tag
+    from tests.test_git import tarball_data
 
-    >>> find_tag(strict=False)
-    '4c411a98-dirty'
+.. doctest::
+
+    >>> with tarball_data('semver') as tree:
+    ...    find_tag(git_dir=tree)
+    'v2.3.4'
