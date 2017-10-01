@@ -23,13 +23,14 @@ from pytest import mark
 from jnrbase import config
 from jnrbase.context import chdir
 
+from .utils import func_attr
+
 
 @mark.parametrize('local,count', [
     (True, 4),
     (False, 3),
 ])
-def test_config_loading(local, count, monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: True)
+def test_config_loading(local, count, monkeypatch, path_exists_force):
     monkeypatch.setattr('builtins.open', lambda s, encoding: StringIO(''))
     monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
     cfg = config.read_configs('jnrbase', local=local)
@@ -40,8 +41,8 @@ def test_config_loading(local, count, monkeypatch):
         assert '/.jnrbaserc' not in cfg.configs
 
 
-def test_config_loading_missing_files(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: False)
+@func_attr('exists_result', False)
+def test_config_loading_missing_files(path_exists_force):
     assert config.read_configs('jnrbase').configs == []
 
 

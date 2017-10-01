@@ -20,6 +20,11 @@ from pytest import raises
 
 from jnrbase import xdg_basedir
 
+from .utils import func_attr
+
+
+exists_result = lambda x: func_attr('exists_result', x)
+
 
 def test_cache_no_args(monkeypatch):
     monkeypatch.setenv('XDG_CACHE_HOME', '~/.xdg/cache')
@@ -62,38 +67,34 @@ def test_macos_paths(monkeypatch):
         in xdg_basedir.user_data('jnrbase')
 
 
-def test_get_configs_all_missing(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: False)
+@exists_result(False)
+def test_get_configs_all_missing(path_exists_force):
     assert xdg_basedir.get_configs('jnrbase') == []
 
 
-def test_get_configs(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: True)
+def test_get_configs(path_exists_force):
     assert len(xdg_basedir.get_configs('jnrbase')) == 2
 
 
-def test_get_configs_custom_dirs(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: True)
+def test_get_configs_custom_dirs(monkeypatch, path_exists_force):
     monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
     assert len(xdg_basedir.get_configs('jnrbase')) == 3
 
 
-def test_get_configs_macos(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: True)
+def test_get_configs_macos(monkeypatch, path_exists_force):
     monkeypatch.setattr('sys.platform', 'darwin')
     assert '/Library/' in xdg_basedir.get_configs('jnrbase')[-1]
 
 
-def test_get_data(monkeypatch):
-    exists_result = [True, False]
-    monkeypatch.setattr('os.path.exists', lambda s: exists_result.pop())
+@exists_result([True, False])
+def test_get_data(monkeypatch, path_exists_force):
     monkeypatch.setenv('XDG_DATA_HOME', '~/.xdg/local')
     monkeypatch.setenv('XDG_DATA_DIRS', '/usr/share:test2')
     assert xdg_basedir.get_data('jnrbase', 'photo.jpg') \
         == '/usr/share/jnrbase/photo.jpg'
 
 
-def test_get_data_no_files(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: False)
+@exists_result(False)
+def test_get_data_no_files(path_exists_force):
     with raises(FileNotFoundError, match='No data file'):
         xdg_basedir.get_data('jnrbase', 'photo.jpg')

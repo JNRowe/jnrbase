@@ -20,9 +20,13 @@ from pytest import mark, raises, warns
 
 from jnrbase import httplib2_certs
 
+from .utils import func_attr
 
-def test_upstream_import(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: True)
+
+exists_result = lambda x: func_attr('exists_result', x)
+
+
+def test_upstream_import(path_exists_force):
     import ca_certs_locater
     assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
@@ -33,29 +37,28 @@ def test_unbundled_package_import(monkeypatch):
     assert httplib2_certs.find_certs() == '/fixed_by_distributor'
 
 
-def test_bundled(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: False)
+@exists_result(False)
+def test_bundled(path_exists_force):
     with warns(RuntimeWarning) as record:
         httplib2_certs.find_certs()
     assert 'falling back' in record[0].message.args[0]
 
 
-def test_bundled_fail(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: False)
+@exists_result(False)
+def test_bundled_fail(monkeypatch, path_exists_force):
     monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
     with raises(RuntimeError, message='No system certs detected!'):
         httplib2_certs.find_certs()
 
 
-def test_freebsd_paths(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: True)
+def test_freebsd_paths(monkeypatch, path_exists_force):
     monkeypatch.setattr('sys.platform', 'freebsd')
     assert httplib2_certs.find_certs() \
         == '/usr/local/share/certs/ca-root-nss.crt'
 
 
-def test_freebsd_no_installed_certs(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: False)
+@exists_result(False)
+def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
     monkeypatch.setattr('sys.platform', 'freebsd')
     monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
     with raises(RuntimeError, message='No system certs detected!'):
