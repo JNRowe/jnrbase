@@ -1,4 +1,3 @@
-include .coveragerc
 include .editorconfig
 include .travis.yml
 include COPYING
