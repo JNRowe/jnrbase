@@ -18,7 +18,7 @@
 
 from subprocess import CalledProcessError, check_output
 
-from jnrbase.context import chdir
+from .context import chdir
 
 
 def find_tag(matcher='v[0-9]*', *, strict=True, git_dir='.'):
