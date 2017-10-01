@@ -18,17 +18,18 @@
 
 from contextlib import contextmanager
 from os import path
+from shutil import which
 from subprocess import CalledProcessError
 from tarfile import open as open_tar
 from tempfile import TemporaryDirectory
 
 from expecter import expect
+from pytest import mark
 
 from jnrbase.git import find_tag
 
-from .utils import requires_exec
 
-requires_git = requires_exec('git')
+pytestmark = mark.skipif(not which('git'), reason='Requires git')
 
 
 @contextmanager
@@ -47,25 +48,21 @@ def tarball_data(tar_name):
             yield str(path.join(temp_dir, tar_name))
 
 
-@requires_git
 def test_empty_repo():
     with tarball_data('empty') as tree, expect.raises(CalledProcessError):
         find_tag(git_dir=tree)
 
 
-@requires_git
 def test_semver_repo():
     with tarball_data('semver') as tree:
         expect(find_tag(git_dir=tree)) == 'v2.3.4'
 
 
-@requires_git
 def test_non_strict():
     with tarball_data('empty') as tree:
         expect(find_tag(strict=None, git_dir=tree)) == 'db3ed35e8734'
 
 
-@requires_git
 def test_custom_match():
     with tarball_data('funky_names') as tree:
         expect(find_tag('prefix[0-9]*', git_dir=tree)) == 'prefix9.8.7.6'

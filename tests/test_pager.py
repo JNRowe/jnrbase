@@ -21,20 +21,22 @@ from io import StringIO
 from os import getenv
 from subprocess import run
 from tempfile import TemporaryFile
+from shutil import which
 
 from expecter import expect
+from pytest import mark
 
 from jnrbase import pager as pager_mod
 from jnrbase.pager import pager
 
-from .utils import patch, patch_env, requires_exec
+from .utils import patch, patch_env
 
 
 def stored_run(f):
     return lambda *args, **kwargs: run(*args, stdout=f, **kwargs)
 
 
-@requires_exec('cat')
+@mark.skipif(not which('cat'), reason='Requires cat')
 def test_pager():
     with TemporaryFile() as f:
         with patch.object(pager_mod, 'run', new=stored_run(f)):
@@ -45,7 +47,7 @@ def test_pager():
     expect(data) == 'paging through cat'
 
 
-@requires_exec('less')
+@mark.skipif(not which('less'), reason='Requires less')
 def test_default_less_config():
     with TemporaryFile() as f:
         with patch.object(pager_mod, 'run', new=stored_run(f)), \

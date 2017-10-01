@@ -21,18 +21,17 @@ from io import StringIO
 from operator import add
 
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from jnrbase import debug as debug_mod
 from jnrbase.debug import DebugPrint, enter, exit, noisy_wrap, sys
 
 from .utils import patch
 
-
-@params(
-    (enter, ),
-    (exit, ),
-)
+@mark.parametrize('ftype', [
+    enter,
+    exit,
+])
 def test_decorator_no_message(ftype):
     @ftype
     def func(x, y):
@@ -44,20 +43,20 @@ def test_decorator_no_message(ftype):
                                         func.__closure__[0].cell_contents))
 
 
-@params(
-    (enter, ),
-    (exit, ),
-)
+@mark.parametrize('ftype', [
+    enter,
+    exit,
+])
 def test_decorator_with_message(ftype):
     with StringIO() as f, redirect_stdout(f):
         expect(ftype('custom message')(add)(4, 3)) == 7
         expect(f.getvalue()).contains('custom message\n')
 
 
-@params(
-    (enter, ),
-    (exit, ),
-)
+@mark.parametrize('ftype', [
+    enter,
+    exit,
+])
 def test_decorator_with_failure(ftype):
     @ftype('custom message')
     def func(x, y):

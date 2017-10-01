@@ -19,7 +19,7 @@
 import warnings
 
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from jnrbase import httplib2_certs
 
@@ -69,10 +69,10 @@ def test_freebsd_no_installed_certs():
         httplib2_certs.find_certs()
 
 
-@params(
+@mark.parametrize('file', [
     '/etc/ssl/certs/ca-certificates.crt',
     '/etc/pki/tls/certs/ca-bundle.crt',
-)
+])
 def test_distros(file):
     with patch.object(httplib2_certs.path, 'exists', lambda s: s == file):
         expect(httplib2_certs.find_certs()) == file

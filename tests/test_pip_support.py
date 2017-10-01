@@ -19,7 +19,7 @@
 from os import path
 
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from jnrbase import pip_support
 
@@ -52,10 +52,10 @@ def test_abs_include():
         == ['httplib2', 'lxml']
 
 
-@params(
+@mark.parametrize('version,expected', [
     ((3, 3, 6), ['contextlib2>=0.5.4', ]),
     ((3, 5, 0), []),
-)
+])
 def test_parse_markers(version, expected):
     with patch.object(pip_support, 'version_info', version):
         expect(pip_support.parse_requires(data_file('markers.txt'))) \

@@ -6,4 +6,3 @@ dist/
 jnrbase.egg-info/
 
 .coverage
-.noseids

@@ -19,18 +19,18 @@
 from datetime import datetime, timedelta, timezone
 
 from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
                               parse_delta)
 
 
-@params(
+@mark.parametrize('string,expected', [
     ('2011-05-04T08:00:00Z', datetime(2011, 5, 4, 8, 0, tzinfo=timezone.utc)),
     ('2011-05-04T09:15:00Z', datetime(2011, 5, 4, 9, 15, tzinfo=timezone.utc)),
     ('2011-05-04T09:15:00', datetime(2011, 5, 4, 9, 15, tzinfo=timezone.utc)),
     ('', None),
-)
+])
 def test_parse_datetime(string, expected):
     if expected is None:
         now = datetime.now(timezone.utc)
@@ -40,11 +40,11 @@ def test_parse_datetime(string, expected):
         expect(parse_datetime(string)) == expected
 
 
-@params(
+@mark.parametrize('string,expected', [
     ('2011-05-04T07:00:00-01:00', datetime(2011, 5, 4, 8, 0)),
     ('2011-05-04T12:15:00+03:00', datetime(2011, 5, 4, 9, 15)),
     ('', None),
-)
+])
 def test_parse_datetime_naive(string, expected):
     if expected is None:
         now = datetime.utcnow()
@@ -54,15 +54,15 @@ def test_parse_datetime_naive(string, expected):
         expect(parse_datetime(string, naive=True)) == expected
 
 
-@params(
+@mark.parametrize('dt,expected', [
     (datetime(2011, 5, 4, 8, 0, tzinfo=timezone.utc), '2011-05-04T08:00:00Z'),
     (datetime(2011, 5, 4, 9, 15, tzinfo=timezone.utc), '2011-05-04T09:15:00Z'),
-)
+])
 def test_format_datetime(dt, expected):
     expect(format_datetime(dt)) == expected
 
 
-@params(
+@mark.parametrize('string,expected', [
     ('PT04H30M21S', timedelta(hours=4, minutes=30, seconds=21)),
     ('PT00H12M01S', timedelta(minutes=12, seconds=1)),
     ('PT00H12M01.45S', timedelta(minutes=12, seconds=1, microseconds=45)),
@@ -73,12 +73,12 @@ def test_format_datetime(dt, expected):
     ('PT4H', timedelta(hours=4)),
     ('P3DT04H', timedelta(days=3, hours=4)),
     ('P3D', timedelta(days=3)),
-)
+])
 def test_parse_duration(string, expected):
     expect(parse_delta(string)) == expected
 
 
-@params(
+@mark.parametrize('delta,expected', [
     (timedelta(hours=4, minutes=30, seconds=21), 'PT04H30M21S'),
     (timedelta(minutes=12, seconds=1), 'PT12M01S'),
     (timedelta(), ''),
@@ -89,7 +89,7 @@ def test_parse_duration(string, expected):
     (timedelta(hours=4, minutes=30), 'PT04H30M'),
     (timedelta(minutes=30), 'PT30M'),
     (timedelta(hours=4, seconds=21), 'PT04H21S'),
-)
+])
 def test_format_duration(delta, expected):
     expect(format_delta(delta)) == expected
 

@@ -24,7 +24,7 @@ from jnrbase.attrdict import AttrDict, ROAttrDict  # NOQA: F401
 
 
 class AttrDictTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = globals()[self.__class__.__name__[:-4]](carrots=3, snacks=0)
 
     def test_base(self):
@@ -55,7 +55,7 @@ class AttrDictTest(TestCase):
 
 
 class InvalidKeyTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = AttrDict(carrots=3, snacks=0)
 
     def test_invalid_key_set(self):
@@ -68,7 +68,7 @@ class InvalidKeyTest(TestCase):
 
 
 class HasAttrTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = AttrDict(carrots=3, snacks=0)
 
         def raise_error():
