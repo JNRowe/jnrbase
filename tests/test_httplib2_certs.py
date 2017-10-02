@@ -47,7 +47,7 @@ def test_bundled(path_exists_force):
 @exists_result(False)
 def test_bundled_fail(monkeypatch, path_exists_force):
     monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
-    with raises(RuntimeError, message='No system certs detected!'):
+    with raises(RuntimeError, match='No system certs detected!'):
         httplib2_certs.find_certs()
 
 
@@ -61,7 +61,7 @@ def test_freebsd_paths(monkeypatch, path_exists_force):
 def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
     monkeypatch.setattr('sys.platform', 'freebsd')
     monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
-    with raises(RuntimeError, message='No system certs detected!'):
+    with raises(RuntimeError, match='No system certs detected!'):
         httplib2_certs.find_certs()
 
 

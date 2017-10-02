@@ -60,5 +60,5 @@ def test_parse_timedelta(string, dt):
 
 
 def test_parse_invalid_timedelta():
-    with raises(ValueError, message='Invalid ‘frequency’ value'):
+    with raises(ValueError, match='Invalid ‘frequency’ value'):
         parse_timedelta('1 k')

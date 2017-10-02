@@ -25,7 +25,7 @@ def test_entrypoint():
     def f():
         return 42
     f.__module__ = '__main__'
-    with raises(SystemExit, message=42):
+    with raises(SystemExit, match='42'):
         entry_point(f)
 
 
