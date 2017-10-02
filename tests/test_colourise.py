@@ -16,24 +16,21 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from jnrbase import colourise
 
-from .utils import patch
 
-
-@params(
+@mark.parametrize('f,expected', [
     (colourise.info, u'\x1b[34m\x1b[1m'),
     (colourise.fail, u'\x1b[31m\x1b[1m'),
     (colourise.success, u'\x1b[32m\x1b[1m'),
     (colourise.warn, u'\x1b[33m\x1b[1m'),
-)
+])
 def test_colouriser(f, expected):
-    expect(f('test')).contains(expected)
+    assert expected in f('test')
 
 
-@patch.object(colourise, 'COLOUR', False)
-def test_disabled_colouriser():
-    expect(colourise.info('test')) == 'test'
+def test_disabled_colouriser(monkeypatch):
+    monkeypatch.setattr(colourise, 'COLOUR', False)
+    assert colourise.info('test') == 'test'

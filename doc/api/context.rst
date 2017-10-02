@@ -16,10 +16,10 @@ Examples
 
 .. doctest::
 
-    >>> sorted(listdir('.')[:3])
-    ['.noseids', '.travis.yml', 'README.rst']
+    >>> sorted(listdir('.')[:2])
+    ['.travis.yml', 'README.rst']
     >>> with chdir('doc'):
     ...     sorted(listdir('.'))[:3]
     ['alternatives.rst', 'api', 'background.rst']
-    >>> sorted(listdir('.')[:3])
-    ['.noseids', '.travis.yml', 'README.rst']
+    >>> sorted(listdir('.')[:2])
+    ['.travis.yml', 'README.rst']

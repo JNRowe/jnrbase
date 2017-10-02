@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from expecter import expect
+from pytest import raises
 
 from jnrbase.entry import entry_point
 
@@ -25,7 +25,7 @@ def test_entrypoint():
     def f():
         return 42
     f.__module__ = '__main__'
-    with expect.raises(SystemExit):
+    with raises(SystemExit, message=42):
         entry_point(f)
 
 
@@ -33,4 +33,4 @@ def test_fallthrough():
     @entry_point
     def f():
         return 42
-    expect(f()) == 42
+    assert f() == 42

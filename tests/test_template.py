@@ -16,31 +16,26 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
-
 from datetime import datetime, timedelta
 
-from expecter import expect
-from nose2.tools import params
+from pytest import mark
 
 from jnrbase import template
-
-from .utils import patch
 
 
 def test_setup():
     env = template.setup('jnrbase')
-    expect(env.filters).contains('safe')
+    assert 'safe' in env.filters
 
 
 def test_filter_decorator():
     @template.jinja_filter
     def test():
         return ''
-    expect(template.FILTERS['test']) == test
+    assert template.FILTERS['test'] == test
 
 
-@params(
+@mark.parametrize('filter_,args,kwargs,expected', [
     ('colourise', ('test', 'green'), {}, u'\x1b[32mtest\x1b[0m'),
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
@@ -48,19 +43,18 @@ def test_filter_decorator():
     ('html2text', ('<b>test</b>', ), {}, '**test**'),
     ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
      'yesterday'),
-)
-def test_custom_filter(filter, args, kwargs, expected):
+])
+def test_custom_filter(filter_, args, kwargs, expected, monkeypatch):
+    monkeypatch.setattr('sys.stdout.isatty', lambda: True)
     env = template.setup('jnrbase')
-    expect(env.filters[filter](*args, **kwargs)) == expected
+    assert env.filters[filter_](*args, **kwargs) == expected
 
 
-@params(
+@mark.parametrize('filter_,args,kwargs,expected', [
     ('colourise', ('test', 'green'), {}, 'test'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
      'f = lambda: True'),
-)
-@patch.object(sys, 'stdout')
-def test_custom_filter_fallthrough(filter, args, kwargs, expected, stdout):
-    stdout.isatty.side_effect = lambda: False
+])
+def test_custom_filter_fallthrough(filter_, args, kwargs, expected):
     env = template.setup('jnrbase')
-    expect(env.filters[filter](*args, **kwargs)) == expected
+    assert env.filters[filter_](*args, **kwargs) == expected

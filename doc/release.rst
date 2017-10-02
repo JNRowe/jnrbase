@@ -12,9 +12,9 @@ Release HOWTO
 Test
 ----
 
-In the general case tests can be run via nose2_::
+In the general case tests can be run via pytest_::
 
-    $ nose2 tests
+    $ pytest tests
 
 When preparing a release it is important to check that :mod:`jnrbase` works
 with all supported Python versions, and that the documentation is correct.
@@ -47,4 +47,4 @@ Fetch the uploaded tarballs, and check for errors.
 You should also perform test installations from PyPI, to check the experience
 :mod:`jnrbase` users will have.
 
-.. _nose2: https://pypi.python.org/pypi/nose2/
+.. _pytest: https://pypi.python.org/pypi/pytest/

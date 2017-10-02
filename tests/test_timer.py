@@ -16,25 +16,19 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from contextlib import redirect_stdout
-from io import StringIO
-
-from expecter import expect
 from hiro import Timeline
 
 from jnrbase.timer import Timing
 
 
-@Timeline()
-def test_timing(timeline):
-    with Timing() as t:
+def test_timing():
+    with Timeline() as timeline, Timing() as t:
         timeline.forward(3600)
-    expect(t.elapsed) >= 3600
+    assert t.elapsed >= 3600
 
 
-def test_verbose_timing():
-    with StringIO() as f, redirect_stdout(f):
-        with Timeline() as timeline, Timing(verbose=True) as t:
-            timeline.forward(3600)
-        expect(t.elapsed) >= 3600
-        expect(f.getvalue()).contains('Elapsed: 36')
+def test_verbose_timing(capsys):
+    with Timeline() as timeline, Timing(verbose=True) as t:
+        timeline.forward(3600)
+    assert t.elapsed >= 3600
+    assert 'Elapsed: 36' in capsys.readouterr()[0]

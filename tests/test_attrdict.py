@@ -18,57 +18,57 @@
 
 from unittest import TestCase
 
-from expecter import expect
+from pytest import raises
 
 from jnrbase.attrdict import AttrDict, ROAttrDict  # NOQA: F401
 
 
 class AttrDictTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = globals()[self.__class__.__name__[:-4]](carrots=3, snacks=0)
 
     def test_base(self):
-        expect(self.ad).isinstance(dict)
+        assert isinstance(self.ad, dict)
 
-        expect(self.ad['carrots']) == 3
-        expect(self.ad['snacks']) == 0
+        assert self.ad['carrots'] == 3
+        assert self.ad['snacks'] == 0
 
-        expect(sorted(self.ad.keys())) == ['carrots', 'snacks']
+        assert sorted(self.ad.keys()) == ['carrots', 'snacks']
 
     def test___contains__(self):
-        expect(self.ad).contains('carrots')
-        expect(self.ad).does_not_contain('prizes')
+        assert 'carrots' in self.ad
+        assert 'prizes' not in self.ad
 
     def test___getattr__(self):
-        expect(self.ad.carrots) == 3
-        expect(self.ad.snacks) == 0
+        assert self.ad.carrots == 3
+        assert self.ad.snacks == 0
 
     def test___setattr__(self):
         self.ad.carrots, self.ad.snacks = 0, 3
-        expect(self.ad.carrots) == 0
-        expect(self.ad.snacks) == 3
+        assert self.ad.carrots == 0
+        assert self.ad.snacks == 3
 
     def test___delattr__(self):
-        expect(self.ad).contains('carrots')
+        assert 'carrots' in self.ad
         del self.ad['carrots']
-        expect(self.ad).does_not_contain('carrots')
+        assert 'carrots' not in self.ad
 
 
 class InvalidKeyTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = AttrDict(carrots=3, snacks=0)
 
     def test_invalid_key_set(self):
-        with expect.raises(AttributeError):
+        with raises(AttributeError, match='unhashable'):
             self.ad.__setattr__({True: False}, None)
 
     def test_invalid_key_delete(self):
-        with expect.raises(AttributeError):
+        with raises(AttributeError, match='unhashable'):
             self.ad.__delattr__({True: False})
 
 
 class HasAttrTest(TestCase):
-    def setUp(self):
+    def setup_method(self, method):
         self.ad = AttrDict(carrots=3, snacks=0)
 
         def raise_error():
@@ -76,14 +76,14 @@ class HasAttrTest(TestCase):
         self.ad.prop = property(raise_error)
 
     def test_swallowed_exception(self):
-        expect(self.ad).contains('prop')
+        assert 'prop' in self.ad
 
 
 class ROAttrDictTest(AttrDictTest):
     def test___setattr__(self):
-        with expect.raises(AttributeError):
+        with raises(AttributeError, match='is read-only'):
             self.ad.carrots = 1
 
     def test___delattr__(self):
-        with expect.raises(AttributeError):
+        with raises(AttributeError, match='is read-only'):
             del self.ad.carrots

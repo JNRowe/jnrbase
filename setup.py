@@ -21,6 +21,18 @@ import glob
 import os
 
 from setuptools import setup
+from setuptools.command.test import test
+
+class PytestTest(test):
+    def finalize_options(self):
+        test.finalize_options(self)
+        self.test_args = ['tests/', ]
+        self.test_suite = True
+
+    def run_tests(self):
+        from sys import exit
+        from pytest import main
+        exit(main(self.test_args))
 
 
 # Hack to import _version file without importing jnrbase/__init__.py, its
@@ -61,6 +73,8 @@ setup(
     packages=['jnrbase', ],
     install_requires=install_requires,
     extras_require=extras_require,
+    tests_require=['pytest'],
+    cmdclass={'test': PytestTest},
     zip_safe=False,
     classifiers=[
         'Development Status :: 3 - Alpha',

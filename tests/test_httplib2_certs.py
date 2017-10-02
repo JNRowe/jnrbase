@@ -16,69 +16,65 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-import warnings
-
-from expecter import expect
-from nose2.tools import params
+from pytest import mark, raises, warns
 
 from jnrbase import httplib2_certs
 
-from .utils import mock_path_exists, mock_platform, patch, patch_env
+from .utils import func_attr
 
 
-@mock_path_exists()
-def test_upstream_import():
+exists_result = lambda x: func_attr('exists_result', x)
+
+
+def test_upstream_import(path_exists_force):
     import ca_certs_locater
-    expect(ca_certs_locater.get()) == '/etc/ssl/certs/ca-certificates.crt'
+    assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
 
 
-def test_unbundled_package_import():
-    with patch.object(httplib2_certs.httplib2, 'CA_CERTS',
-                      '/fixed_by_distributor/certs.crt'):
-        expect(httplib2_certs.find_certs()) == '/fixed_by_distributor'
+def test_unbundled_package_import(monkeypatch):
+    monkeypatch.setattr(httplib2_certs.httplib2, 'CA_CERTS',
+                        '/fixed_by_distributor/certs.crt')
+    assert httplib2_certs.find_certs() == '/fixed_by_distributor'
 
 
-@mock_path_exists(False)
-def test_bundled():
-    with warnings.catch_warnings(record=True) as warns:
-        warnings.simplefilter('always')
+@exists_result(False)
+def test_bundled(path_exists_force):
+    with warns(RuntimeWarning) as record:
         httplib2_certs.find_certs()
-        expect(warns[0].category) == RuntimeWarning
-        expect(str(warns[0])).contains('falling back')
+    assert 'falling back' in record[0].message.args[0]
 
 
-@mock_path_exists(False)
-def test_bundled_fail():
-    with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False), \
-         expect.raises(RuntimeError):
+@exists_result(False)
+def test_bundled_fail(monkeypatch, path_exists_force):
+    monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
+    with raises(RuntimeError, message='No system certs detected!'):
         httplib2_certs.find_certs()
 
 
-@mock_platform('freebsd')
-@mock_path_exists()
-def test_freebsd_paths():
-    expect(httplib2_certs.find_certs()) \
+def test_freebsd_paths(monkeypatch, path_exists_force):
+    monkeypatch.setattr('sys.platform', 'freebsd')
+    assert httplib2_certs.find_certs() \
         == '/usr/local/share/certs/ca-root-nss.crt'
 
 
-@mock_platform('freebsd')
-@mock_path_exists(False)
-def test_freebsd_no_installed_certs():
-    with patch.object(httplib2_certs, 'ALLOW_FALLBACK', False), \
-         expect.raises(RuntimeError):
+@exists_result(False)
+def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
+    monkeypatch.setattr('sys.platform', 'freebsd')
+    monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
+    with raises(RuntimeError, message='No system certs detected!'):
         httplib2_certs.find_certs()
 
 
-@params(
+@mark.parametrize('file', [
     '/etc/ssl/certs/ca-certificates.crt',
     '/etc/pki/tls/certs/ca-bundle.crt',
-)
-def test_distros(file):
-    with patch.object(httplib2_certs.path, 'exists', lambda s: s == file):
-        expect(httplib2_certs.find_certs()) == file
+])
+def test_distros(file, monkeypatch):
+    monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: s == file)
+    assert httplib2_certs.find_certs() == file
 
 
-@mock_path_exists({'silly_platform_user': True})
-def test_curl_bundle():
-    with patch_env({'CURL_CA_BUNDLE': 'silly_platform_user'}):
-        expect(httplib2_certs.find_certs()) == 'silly_platform_user'
+def test_curl_bundle(monkeypatch):
+    monkeypatch.setattr('os.path.exists', lambda s: s == 'silly_platform_user')
+    monkeypatch.setenv('CURL_CA_BUNDLE', 'silly_platform_user')
+    assert httplib2_certs.find_certs() == 'silly_platform_user'
