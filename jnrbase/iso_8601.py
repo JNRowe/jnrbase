@@ -55,15 +55,15 @@ def format_delta(timedelta_):
     """
     if timedelta_ == datetime.timedelta(0):
         return ''
-    days = '{}D'.format(timedelta_.days) if timedelta_.days else ''
+    days_s = '{}D'.format(timedelta_.days) if timedelta_.days else ''
     hours, minutes = divmod(timedelta_.seconds, 3600)
     minutes, seconds = divmod(minutes, 60)
-    hours = '{:02d}H'.format(hours) if hours else ''
-    minutes = '{:02d}M'.format(minutes) if minutes else ''
-    seconds = '{:02d}S'.format(seconds) if seconds else ''
-    return 'P{}{}{}{}{}'.format(days,
+    hours_s = '{:02d}H'.format(hours) if hours else ''
+    minutes_s = '{:02d}M'.format(minutes) if minutes else ''
+    seconds_s = '{:02d}S'.format(seconds) if seconds else ''
+    return 'P{}{}{}{}{}'.format(days_s,
                                 'T' if hours or minutes or seconds else '',
-                                hours, minutes, seconds)
+                                hours_s, minutes_s, seconds_s)
 
 
 def parse_datetime(string, *, naive=False):

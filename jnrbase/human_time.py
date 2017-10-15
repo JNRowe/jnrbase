@@ -77,7 +77,7 @@ def parse_timedelta(delta):
     if not match:
         raise ValueError('Invalid ‘frequency’ value')
     value, units = match.groups()
-    units = 'hdwmy'.index(units.lower())
+    units_i = 'hdwmy'.index(units.lower())
     # hours per hour/day/week/month/year
     multiplier = (1, 24, 168, 672, 8760)
-    return datetime.timedelta(hours=float(value) * multiplier[units])
+    return datetime.timedelta(hours=float(value) * multiplier[units_i])
