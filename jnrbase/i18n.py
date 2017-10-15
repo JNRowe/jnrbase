@@ -31,6 +31,6 @@ def setup(pkg):
             translations
     """
     package_locale = path.join(path.dirname(pkg.__file__), 'locale')
-    gettext.install(pkg, package_locale)
+    gettext.install(pkg.__name__, package_locale)
 
     return gettext.gettext, gettext.ngettext
