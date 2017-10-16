@@ -25,7 +25,11 @@ from subprocess import (CalledProcessError, PIPE, run)
 root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, root_dir)
 
-import jnrbase  # NOQA: F401
+import jnrbase  # NOQA: E402
+
+on_rtd = os.getenv('READTHEDOCS')
+if not on_rtd:
+    import sphinx_rtd_theme
 
 extensions = \
     ['sphinx.ext.{}'.format(ext)
@@ -33,15 +37,16 @@ extensions = \
                  'napoleon', 'todo', 'viewcode']] \
     + ['sphinxcontrib.{}'.format(ext) for ext in []]
 
-# Only activate spelling if it is installed.  It is not required in the
-# general case and we don’t have the granularity to describe this in a clean
-# way
-try:
-    from sphinxcontrib import spelling  # NOQA: F401
-except ImportError:
-    pass
-else:
-    extensions.append('sphinxcontrib.spelling')
+if not on_rtd:
+    # Only activate spelling if it is installed.  It is not required in the
+    # general case and we don’t have the granularity to describe this in a
+    # clean way
+    try:
+        from sphinxcontrib import spelling  # NOQA: E401
+    except ImportError:
+        pass
+    else:
+        extensions.append('sphinxcontrib.spelling')
 
 master_doc = 'index'
 source_suffix = '.rst'
@@ -51,6 +56,12 @@ copyright = jnrbase.__copyright__
 
 version = '.'.join([str(s) for s in jnrbase._version.tuple[:2]])
 release = jnrbase._version.dotted
+
+# readthedocs.org handles this setup for their builds, but it is nice to see
+# approximately correct builds on the local system too
+if not on_rtd:
+    html_theme = "sphinx_rtd_theme"
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path(), ]
 
 pygments_style = 'sphinx'
 with suppress(CalledProcessError):
