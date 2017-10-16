@@ -29,15 +29,14 @@ Requirements
 ``jnrbase``’s dependencies outside of the standard library are dependent on the
 functionality you require, ranging from none to the following:
 
-============  ==============================
+============  ====================================
 Extra tag     Dependencies
-============  ==============================
-``colour``    click_
-``config``    configobj_
-``iso_8601``  ciso8601_
+============  ====================================
+``colour``    click_ ≥ 3.0
+``iso_8601``  ciso8601_ ≥ 1.0.1
 ``net``       httplib2_
-``template``  html2text_, Jinja2_, Pygments_
-============  ==============================
+``template``  html2text_, Jinja2_ ≥ 2.9, Pygments_
+============  ====================================
 
 It should work with any version of Python_ 3.5 or newer.  If ``jnrbase``
 doesn’t work with the version of Python you have installed, file an issue_ and
@@ -85,7 +84,6 @@ reproduce the problem, or even better a patch!
 
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _click: https://pypi.python.org/pypi/click
-.. _configobj: https://pypi.python.org/pypi/configobj
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601
 .. _httplib2: https://pypi.python.org/pypi/httplib2
 .. _html2text: https://pypi.python.org/pypi/html2text
