@@ -13,10 +13,6 @@ jnrbase - Common utility functionality
    :target: https://pypi.python.org/pypi/jnrbase
    :alt: Current PyPI release
 
-.. image:: https://img.shields.io/pypi/JNRowe/jnrbase.svg?style=plastic
-   :target: https://pypi.python.org/pypi/jnrbase
-   :alt: Number of downloads from PyPI
-
 .. warning::
    This package is not ready to be used right now, and it will change
    significantly before it is.
