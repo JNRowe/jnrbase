@@ -9,6 +9,8 @@ json_datetime
 
     See also: :class:`json.JSONEncoder`
 
+.. automethod:: DatetimeEncoder.default
+
 .. autofunction:: json_to_datetime
 
 .. function:: dump(...)
@@ -32,9 +34,9 @@ Examples
 
 .. testsetup::
 
-    from datetime import (datetime, timezone)
+    from datetime import datetime, timezone
 
-    from jnrbase.json_datetime import (dumps, loads)
+    from jnrbase.json_datetime import dumps, loads
 
 .. doctest::
 

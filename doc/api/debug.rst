@@ -5,17 +5,17 @@ debug
 
 .. autoclass:: DebugPrint
 
-.. autofunction:: noisy_wrap
-
 .. autofunction:: enter
 .. autofunction:: exit
+
+.. autofunction:: noisy_wrap
 
 Examples
 --------
 
 .. testsetup::
 
-    from jnrbase.debug import (enter, exit)
+    from jnrbase.debug import enter, exit
 
 .. doctest::
 

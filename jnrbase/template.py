@@ -37,26 +37,27 @@ from .human_time import human_timestamp
 FILTERS = {}
 
 
-def jinja_filter(func):
+def jinja_filter(fun):
     """Simple decorator to add a new filter to Jinja environment.
 
     See also: :obj:`FILTERS`
 
     Args:
-        func (func): Function to add to Jinja environment
+        func (types.FunctionType): Function to add to Jinja environment
     Returns:
-        func: Unmodified function
+        types.FunctionType: Unmodified function
     """
-    FILTERS[func.__name__] = func
+    FILTERS[fun.__name__] = fun
 
-    return func
+    return fun
 
 
 @jinja_filter
 def colourise(text, *args, **kwargs):
     """Colourise text using click’s style function.
 
-    Returns text untouched if colour output is not enabled
+    Returns text untouched if colour output is not enabled, or ``stdout`` is
+    not a tty.
 
     See :func:`click.style` for parameters
 
@@ -75,9 +76,9 @@ def colourise(text, *args, **kwargs):
 def highlight(text, *, lexer='diff', formatter='terminal'):
     """Highlight text highlighted using ``pygments``.
 
-    Returns text untouched if colour output is not enabled
+    Returns text untouched if colour output is not enabled.
 
-    See: :pypi:`Pygments`
+    See also: :pypi:`Pygments`
 
     Args:
         text (str): Text to highlight
@@ -98,7 +99,7 @@ def highlight(text, *, lexer='diff', formatter='terminal'):
 def html2text(html, *, width=80, ascii_replacements=False):
     """HTML to plain text renderer.
 
-    See: :pypi:`html2text`
+    See also: :pypi:`html2text`
 
     Args:
         text (str): Text to process
@@ -145,7 +146,7 @@ def setup(pkg):
     Args:
         pkg (str): Package name to use as base for templates searches
     Returns:
-        jinja2.Environment: Jinja environment
+        jinja2.Environment: Configured Jinja environment
     """
     dirs = [path.join(d, 'templates') for d in xdg_basedir.get_data_dirs(pkg)]
 

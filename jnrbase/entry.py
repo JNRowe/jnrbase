@@ -17,14 +17,18 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 
-def entry_point(func):
+def entry_point(fun):
     """Execute function when module is run directly.
 
+    .. note::
+
+        This allows fall through for importing modules that use it.
+
     Args:
-        func (func): Function to run
+        fun (types.FunctionType): Function to run
     """
-    if func.__module__ == '__main__':
+    if fun.__module__ == '__main__':
         import sys
-        sys.exit(func())
+        sys.exit(fun())
     else:
-        return func
+        return fun

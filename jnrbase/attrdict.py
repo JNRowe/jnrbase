@@ -30,7 +30,7 @@ class AttrDict(dict):
         Args:
             key (object): Key to test for
         Returns:
-            bool: True, if item in AttrDict
+            bool: ``True``, if item in AttrDict
         """
         return hasattr(self, key)
 

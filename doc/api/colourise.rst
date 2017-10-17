@@ -4,15 +4,18 @@ colourise
 =========
 
 .. note::
-   This module requires click_, which ``pip`` users can install with
-   the ``jnrbase[colour]`` requirement.
+   This module requires click_, which :program:`pip` users can install with the
+   ``jnrbase[colour]`` requirement.
 
 .. _click: https://pypi.python.org/pypi/click
+
+.. autodata:: COLOUR
+
+.. autofunction:: _colourise
 
 Text formatting
 '''''''''''''''
 
-.. autofunction:: _colourise
 .. autofunction:: fail
 .. autofunction:: info
 .. autofunction:: success
@@ -37,7 +40,7 @@ Text formatting
 .. testsetup::
 
     from jnrbase import colourise
-    from jnrbase.colourise import (fail, info, success, warn)
+    from jnrbase.colourise import fail, info, success, warn
 
 
     colourise.COLOUR = False

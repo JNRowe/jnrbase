@@ -69,12 +69,19 @@ class DebugPrint:
         sys.stdout = _orig_stdout
 
 
-def noisy_wrap(func):
-    """Decorator to enable DebugPrint for a given function."""
+def noisy_wrap(fun):
+    """Decorator to enable DebugPrint for a given function.
+
+    Args:
+        fun (types.FunctionType): Function to wrap
+    Returns:
+        types.FunctionType: Wrapped function
+
+    """
     def wrapper(*args, **kwargs):
         DebugPrint.enable()
         try:
-            func(*args, **kwargs)
+            fun(*args, **kwargs)
         finally:
             DebugPrint.disable()
     return wrapper
@@ -86,16 +93,17 @@ def enter(msg=None):
     Args:
         msg (str): Message to display
     Returns:
-        function
+        types.FunctionType: Wrapped function
+
     """
-    def decorator(func):
-        @wraps(func)
+    def decorator(fun):
+        @wraps(fun)
         def wrapper(*args, **kwargs):
             if msg:
                 print(msg)
             else:
-                print('Entering {!r}({!r})'.format(func.__name__, func))
-            return func(*args, **kwargs)
+                print('Entering {!r}({!r})'.format(fun.__name__, fun))
+            return fun(*args, **kwargs)
         return wrapper
     if callable(msg):
         return enter()(msg)
@@ -108,18 +116,19 @@ def exit(msg=None):
     Args:
         msg (str): Message to display
     Returns:
-        function
+        types.FunctionType: Wrapped function
+
     """
-    def decorator(func):
-        @wraps(func)
+    def decorator(fun):
+        @wraps(fun)
         def wrapper(*args, **kwargs):
             try:
-                return func(*args, **kwargs)
+                return fun(*args, **kwargs)
             finally:
                 if msg:
                     print(msg)
                 else:
-                    print('Exiting {!r}({!r})'.format(func.__name__, func))
+                    print('Exiting {!r}({!r})'.format(fun.__name__, fun))
         return wrapper
     if callable(msg):
         return exit()(msg)

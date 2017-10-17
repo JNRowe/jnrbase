@@ -1,28 +1,20 @@
 jnrbase - Common utility functionality
 ======================================
 
-.. image:: https://img.shields.io/travis/JNRowe/jnrbase/master.svg?style=plastic
+.. image:: https://img.shields.io/travis/JNRowe/jnrbase/master.png
    :target: https://travis-ci.org/JNRowe/jnrbase
    :alt: Test state on master
 
-.. image:: https://img.shields.io/coveralls/JNRowe/jnrbase/master.svg?style=plastic
+.. image:: https://img.shields.io/coveralls/JNRowe/jnrbase/master.png
    :target: https://coveralls.io/repos/JNRowe/jnrbase
    :alt: Coverage state on master
 
-.. image:: https://img.shields.io/pypi/v/jnrbase.svg?style=plastic
+.. image:: https://img.shields.io/pypi/v/jnrbase.png
    :target: https://pypi.python.org/pypi/jnrbase
    :alt: Current PyPI release
 
-.. image:: https://img.shields.io/pypi/JNRowe/jnrbase.svg?style=plastic
-   :target: https://pypi.python.org/pypi/jnrbase
-   :alt: Number of downloads from PyPI
-
-.. warning::
-   This package is not ready to be used right now, and it will change
-   significantly before it is.
-
-``jnrbase`` is a collection of common utility libraries that are used in various
-Open Source projects that I (JNRowe) work on.  Feel free to use it, and
+``jnrbase`` is a collection of common utility libraries that are used in
+various Open Source projects that I (JNRowe_) work on.  Feel free to use it, and
 especially improve it, in your projects!
 
 ``jnrbase`` is released under the `GPL v3`_ license.
@@ -33,15 +25,14 @@ Requirements
 ``jnrbase``’s dependencies outside of the standard library are dependent on the
 functionality you require, ranging from none to the following:
 
-============  ==============================
+============  ====================================
 Extra tag     Dependencies
-============  ==============================
-``colour``    click_
-``config``    configobj_
-``iso_8601``  ciso8601_
+============  ====================================
+``colour``    click_ ≥ 3.0
+``iso_8601``  ciso8601_ ≥ 1.0.1
 ``net``       httplib2_
-``template``  html2text_, Jinja2_, Pygments_
-============  ==============================
+``template``  html2text_, Jinja2_ ≥ 2.9, Pygments_
+============  ====================================
 
 It should work with any version of Python_ 3.5 or newer.  If ``jnrbase``
 doesn’t work with the version of Python you have installed, file an issue_ and
@@ -52,6 +43,8 @@ but it should work fine on other systems too.
 
 To run the tests you’ll need pytest_.  Once you have pytest_ installed you can
 run the tests with the following commands::
+
+.. code:: console
 
     $ pytest tests
 
@@ -75,21 +68,21 @@ Ideas
 
 * Ryan Sutton
 
-If I’ve forgotten to include your name I wholeheartedly apologise.  Just drop me
-a mail_ and I’ll update the list!
+If I’ve forgotten to include your name I wholeheartedly apologise.  Just drop
+me a mail_ and I’ll update the list!
 
 Bugs
 ----
 
-If you find any problems, bugs or just have a question about this package either
-file an issue_ or drop me a mail_.
+If you find any problems, bugs or just have a question about this package
+either file an issue_ or drop me a mail_.
 
 If you’ve found a bug please attempt to include a minimal testcase so I can
 reproduce the problem, or even better a patch!
 
+.. _JNRowe: https://github.com/JNRowe
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _click: https://pypi.python.org/pypi/click
-.. _configobj: https://pypi.python.org/pypi/configobj
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601
 .. _httplib2: https://pypi.python.org/pypi/httplib2
 .. _html2text: https://pypi.python.org/pypi/html2text

@@ -28,10 +28,10 @@ from sys import version_info
 
 
 def parse_requires(fname):
-    """Parse pip-style requirements files.
+    """Parse ``pip``-style requirements files.
 
-    This is a *very* naïve parser, but very few packages make any use of the
-    more advanced features.  Support for other features will only be added when
+    This is a *very* naïve parser, but very few packages make use of the more
+    advanced features.  Support for other features will be added only when
     packages in the wild depend on them.
 
     Args:
@@ -64,10 +64,11 @@ def parse_requires(fname):
                     """, marker, re.VERBOSE)
                 if not match:
                     raise ValueError('Invalid marker {!r}'.format(marker))
-                if not eval(marker, {
-                        '__builtins__': {},
-                        'python_version': '{}.{}'.format(*version_info[:2]),
-                    }):
+                env = {
+                    '__builtins__': {},
+                    'python_version': '{}.{}'.format(*version_info[:2]),
+                }
+                if not eval(marker, env):
                     continue
             deps.append(dep)
     return deps

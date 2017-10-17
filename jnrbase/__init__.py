@@ -25,4 +25,4 @@ from . import _version
 
 __version__ = _version.dotted
 __date__ = _version.date
-__copyright__ = 'Copyright (C) 2014-2016  James Rowe <jnrowe@gmail.com>'
+__copyright__ = 'Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>'
