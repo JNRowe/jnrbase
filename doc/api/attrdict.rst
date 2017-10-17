@@ -4,13 +4,17 @@ attrdict
 ========
 
 .. autoclass:: AttrDict
+   :special-members: __delattr__, __getattr__, __setattr__
+
+.. autoclass:: ROAttrDict
+   :special-members: __setattr__
 
 Examples
 --------
 
 .. testsetup::
 
-    from jnrbase.attrdict import AttrDict
+    from jnrbase.attrdict import AttrDict, ROAttrDict
 
 .. doctest::
 
@@ -20,3 +24,9 @@ Examples
     >>> ad.b += 1
     >>> ad.b
     3
+
+    >>> ro_ad = ROAttrDict()
+    >>> ro_ad.c = 1
+    Traceback (most recent call last):
+      ...
+    AttributeError: <class 'jnrbase.attrdict.ROAttrDict'> is read-only
