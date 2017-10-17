@@ -32,6 +32,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
-.. _Python: http://www.python.org/
 .. _JNRowe: https://github.com/JNRowe
 .. _GPL v3: http://www.gnu.org/licenses/
