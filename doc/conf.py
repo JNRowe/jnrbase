@@ -52,7 +52,7 @@ master_doc = 'index'
 source_suffix = '.rst'
 
 project = u'jnrbase'
-copyright = jnrbase.__copyright__
+copyright = '2014-2017  James Rowe'
 
 version = '.'.join([str(s) for s in jnrbase._version.tuple[:2]])
 release = jnrbase._version.dotted
