@@ -57,6 +57,8 @@ copyright = '2014-2017  James Rowe'
 version = '.'.join([str(s) for s in jnrbase._version.tuple[:2]])
 release = jnrbase._version.dotted
 
+html_experimental_html5_writer = True
+
 # readthedocs.org handles this setup for their builds, but it is nice to see
 # approximately correct builds on the local system too
 if not on_rtd:
