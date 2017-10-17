@@ -19,7 +19,7 @@
 import time
 
 
-class Timing():
+class Timing:
 
     """Timing context manager.
 
