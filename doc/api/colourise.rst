@@ -9,10 +9,13 @@ colourise
 
 .. _click: https://pypi.python.org/pypi/click
 
+.. autodata:: COLOUR
+
+.. autofunction:: _colourise
+
 Text formatting
 '''''''''''''''
 
-.. autofunction:: _colourise
 .. autofunction:: fail
 .. autofunction:: info
 .. autofunction:: success

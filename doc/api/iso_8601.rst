@@ -10,8 +10,14 @@ iso_8601
 
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601
 
+Duration support
+''''''''''''''''
+
 .. autofunction:: parse_delta
 .. autofunction:: format_delta
+
+Timestamp support
+'''''''''''''''''
 
 .. autofunction:: parse_datetime
 .. autofunction:: format_datetime
