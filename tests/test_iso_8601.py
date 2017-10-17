@@ -18,7 +18,7 @@
 
 from datetime import datetime, timedelta, timezone
 
-from pytest import mark
+from pytest import mark, raises
 
 from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
                               parse_delta)
@@ -96,3 +96,8 @@ def test_format_duration(delta, expected):
 
 def test_parse_null_duration():
     assert parse_delta('') == timedelta()
+
+
+def test_parse_invalid_duration():
+    with raises(ValueError, match='Unable to parse delta '):
+        parse_delta('P3Dwhoops')

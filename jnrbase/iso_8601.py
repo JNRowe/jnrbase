@@ -40,6 +40,8 @@ def parse_delta(string):
         ((?P<minutes>\d{1,2})M)?
         ((?P<seconds>\d{1,2})?((?:\.(?P<microseconds>\d+))?S)?)
     """, string, re.VERBOSE)
+    if not match:
+        raise ValueError('Unable to parse delta {!r}'.format(string))
     match_dict = dict((k, int(v) if v else 0)
                       for k, v in match.groupdict().items())
     return datetime.timedelta(**match_dict)
