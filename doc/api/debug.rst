@@ -15,7 +15,7 @@ Examples
 
 .. testsetup::
 
-    from jnrbase.debug import (enter, exit)
+    from jnrbase.debug import enter, exit
 
 .. doctest::
 

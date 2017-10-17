@@ -12,9 +12,9 @@ Examples
 
 .. testsetup::
 
-    from datetime import (datetime, timedelta)
+    from datetime import datetime, timedelta
 
-    from jnrbase.human_time import (human_timestamp, parse_timedelta)
+    from jnrbase.human_time import human_timestamp, parse_timedelta
 
 
     now = datetime.utcnow()

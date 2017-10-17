@@ -29,7 +29,7 @@ Examples
 
 .. testsetup::
 
-    from jnrbase.template import (FILTERS, regexp)
+    from jnrbase.template import FILTERS, regexp
 
 .. doctest::
 

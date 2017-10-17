@@ -20,7 +20,7 @@ import os
 import sys
 
 from contextlib import suppress
-from subprocess import (CalledProcessError, PIPE, run)
+from subprocess import CalledProcessError, PIPE, run
 
 root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.insert(0, root_dir)
@@ -42,7 +42,7 @@ if not on_rtd:
     # general case and we don’t have the granularity to describe this in a
     # clean way
     try:
-        from sphinxcontrib import spelling  # NOQA: E401
+        from sphinxcontrib import spelling  # NOQA: F401
     except ImportError:
         pass
     else:

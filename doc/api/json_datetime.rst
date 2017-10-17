@@ -32,9 +32,9 @@ Examples
 
 .. testsetup::
 
-    from datetime import (datetime, timezone)
+    from datetime import datetime, timezone
 
-    from jnrbase.json_datetime import (dumps, loads)
+    from jnrbase.json_datetime import dumps, loads
 
 .. doctest::
 

@@ -37,7 +37,7 @@ Text formatting
 .. testsetup::
 
     from jnrbase import colourise
-    from jnrbase.colourise import (fail, info, success, warn)
+    from jnrbase.colourise import fail, info, success, warn
 
 
     colourise.COLOUR = False
