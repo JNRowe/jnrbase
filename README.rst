@@ -13,10 +13,6 @@ jnrbase - Common utility functionality
    :target: https://pypi.python.org/pypi/jnrbase
    :alt: Current PyPI release
 
-.. warning::
-   This package is not ready to be used right now, and it will change
-   significantly before it is.
-
 ``jnrbase`` is a collection of common utility libraries that are used in
 various Open Source projects that I (JNRowe_) work on.  Feel free to use it, and
 especially improve it, in your projects!
