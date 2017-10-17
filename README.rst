@@ -18,7 +18,7 @@ jnrbase - Common utility functionality
    significantly before it is.
 
 ``jnrbase`` is a collection of common utility libraries that are used in
-various Open Source projects that I (JNRowe) work on.  Feel free to use it, and
+various Open Source projects that I (JNRowe_) work on.  Feel free to use it, and
 especially improve it, in your projects!
 
 ``jnrbase`` is released under the `GPL v3`_ license.
@@ -84,6 +84,7 @@ either file an issue_ or drop me a mail_.
 If you’ve found a bug please attempt to include a minimal testcase so I can
 reproduce the problem, or even better a patch!
 
+.. _JNRowe: https://github.com/JNRowe
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _click: https://pypi.python.org/pypi/click
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601

@@ -2,7 +2,7 @@
 ==============
 
 ``jnrbase`` is a collection of utility libraries that are used in various Open
-Source projects that I (JNRowe) work on.  Feel free to use it in your
+Source projects that I (JNRowe_) work on.  Feel free to use it in your
 projects, or perhaps even improve it!
 
 ``jnrbase`` is released under the `GPL v3`_ license.
@@ -34,4 +34,5 @@ Indices and tables
 * :ref:`search`
 
 .. _Python: http://www.python.org/
+.. _JNRowe: https://github.com/JNRowe
 .. _GPL v3: http://www.gnu.org/licenses/
