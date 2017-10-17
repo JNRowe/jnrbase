@@ -1,5 +1,5 @@
 #
-"""conf - Sphinx configuration information"""
+"""conf - Sphinx configuration information."""
 # Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of jnrbase.

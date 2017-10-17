@@ -9,6 +9,8 @@ json_datetime
 
     See also: :class:`json.JSONEncoder`
 
+.. automethod:: DatetimeEncoder.default
+
 .. autofunction:: json_to_datetime
 
 .. function:: dump(...)

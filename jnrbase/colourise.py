@@ -86,44 +86,36 @@ def warn(text):
 
 
 def pfail(text):  # pragma: no cover
-    """Pretty print a failure message.
+    """Pretty print a failure message to ``stdout``.
 
     Args:
         text (str): Text to print
-    Returns:
-        str: Bright red text, if possible
     """
     echo(fail(text))
 
 
 def pinfo(text):  # pragma: no cover
-    """Pretty print an informational message.
+    """Pretty print an informational message to ``stdout``.
 
     Args:
         text (str): Text to print
-    Returns:
-        str: Bright blue text, if possible
     """
     echo(info(text))
 
 
 def psuccess(text):  # pragma: no cover
-    """Pretty print a success message.
+    """Pretty print a success message to ``stdout``.
 
     Args:
         text (str): Text to print
-    Returns:
-        str: Bright green text, if possible
     """
     echo(success(text))
 
 
 def pwarn(text):  # pragma: no cover
-    """Pretty print a warning message.
+    """Pretty print a warning message to ``stdout``.
 
     Args:
         text (str): Text to print
-    Returns:
-        str: Bright yellow text, if possible
     """
     echo(warn(text))

@@ -26,7 +26,7 @@ import httplib2
 
 #: Allow fallback to bundled httplib2 certs.
 #:
-#: *Packagers*: Set this to ``False``
+#: *Packagers*: Patch this to ``False``
 ALLOW_FALLBACK = True
 
 #: Default certificate locations for platforms
@@ -48,7 +48,7 @@ def find_certs():
         unwanted behaviour, but please maintain the option so that downstream
         users can inspect the configuration easily.
 
-    See: :pypi:`httplib2`
+    See also: :pypi:`httplib2`
 
     Returns:
         str: Path to SSL certificates
