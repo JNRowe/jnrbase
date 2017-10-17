@@ -17,8 +17,8 @@ jnrbase - Common utility functionality
    This package is not ready to be used right now, and it will change
    significantly before it is.
 
-``jnrbase`` is a collection of common utility libraries that are used in various
-Open Source projects that I (JNRowe) work on.  Feel free to use it, and
+``jnrbase`` is a collection of common utility libraries that are used in
+various Open Source projects that I (JNRowe) work on.  Feel free to use it, and
 especially improve it, in your projects!
 
 ``jnrbase`` is released under the `GPL v3`_ license.
@@ -48,6 +48,8 @@ but it should work fine on other systems too.
 To run the tests you’ll need pytest_.  Once you have pytest_ installed you can
 run the tests with the following commands::
 
+.. code:: console
+
     $ pytest tests
 
 Contributors
@@ -70,14 +72,14 @@ Ideas
 
 * Ryan Sutton
 
-If I’ve forgotten to include your name I wholeheartedly apologise.  Just drop me
-a mail_ and I’ll update the list!
+If I’ve forgotten to include your name I wholeheartedly apologise.  Just drop
+me a mail_ and I’ll update the list!
 
 Bugs
 ----
 
-If you find any problems, bugs or just have a question about this package either
-file an issue_ or drop me a mail_.
+If you find any problems, bugs or just have a question about this package
+either file an issue_ or drop me a mail_.
 
 If you’ve found a bug please attempt to include a minimal testcase so I can
 reproduce the problem, or even better a patch!

@@ -1,9 +1,9 @@
 :mod:`jnrbase`
 ==============
 
-``jnrbase`` is a collection of common utility libraries that are used in various
-Open Source projects that I (JNRowe) work on.  Feel free to use it, and
-especially improve it, in your projects!
+``jnrbase`` is a collection of utility libraries that are used in various Open
+Source projects that I (JNRowe) work on.  Feel free to use it in your
+projects, or perhaps even improve it!
 
 ``jnrbase`` is released under the `GPL v3`_ license.
 

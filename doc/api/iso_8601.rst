@@ -4,8 +4,9 @@ iso_8601
 ========
 
 .. note::
-   This module requires ciso8601_, which ``pip`` users can install with the
-   ``jnrbase[iso_8601]`` requirement.
+
+   This module requires ciso8601_, which :program:`pip` users can install with
+   the ``jnrbase[iso_8601]`` requirement.
 
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601
 

@@ -7,8 +7,8 @@ start of a rabbit hole that leads to indefinite chasing of repeating bugs in
 their copy’n’paste hideaways, and it needs to stop.
 
 For an example of how bad it can get in the real world take a look at pip_;
-a package which bundles packages that themself bundle packages until the final
-turtle lets out a little yelp and dies.
+a package which bundles packages that themself bundle packages, until the final
+turtle lets out a little yelp, squishes unto itself and dies.
 
 This package is my attempt at solving the problem for the projects I maintain,
 and in its current state is a odd grab-bag of assorted functionality.  Whether

@@ -4,8 +4,8 @@ template
 ========
 
 .. note::
-   This module requires html2text_, Jinja2_, and Pygments_. ``pip`` users can
-   install them with the ``jnrbase[template]`` requirement.
+   This module requires html2text_, Jinja2_, and Pygments_. :program:`pip`
+   users can install them with the ``jnrbase[template]`` requirement.
 
 .. _html2text: https://pypi.python.org/pypi/html2text
 .. _jinja2: https://pypi.python.org/pypi/jinja2
