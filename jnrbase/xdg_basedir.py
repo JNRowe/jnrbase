@@ -28,7 +28,7 @@ from typing import List
 ALLOW_DARWIN = True
 
 
-def user_cache(pkg: str) -> str:
+def user_cache(__pkg: str) -> str:
     """Return a cache location honouring :envvar:`XDG_CACHE_HOME`.
 
     .. envvar:: XDG_CACHE_HOME
@@ -36,7 +36,7 @@ def user_cache(pkg: str) -> str:
         See XDG base directory spec.
 
     Args:
-        pkg: Package name
+        __pkg: Package name
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Caches'
@@ -44,10 +44,10 @@ def user_cache(pkg: str) -> str:
         user_dir = getenv('XDG_CACHE_HOME',
                           path.sep.join([getenv('HOME', ''), '.cache']))
 
-    return path.expanduser(path.sep.join([user_dir, pkg]))
+    return path.expanduser(path.sep.join([user_dir, __pkg]))
 
 
-def user_config(pkg: str) -> str:
+def user_config(__pkg: str) -> str:
     """Return a config location honouring :envvar:`XDG_CONFIG_HOME`.
 
     .. envvar:: XDG_CONFIG_HOME
@@ -55,17 +55,17 @@ def user_config(pkg: str) -> str:
         See XDG base directory spec.
 
     Args:
-        pkg: Package name
+        __pkg: Package name
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Preferences'
     else:
         user_dir = getenv('XDG_CONFIG_HOME',
                           path.sep.join([getenv('HOME', ''), '.config']))
-    return path.expanduser(path.sep.join([user_dir, pkg]))
+    return path.expanduser(path.sep.join([user_dir, __pkg]))
 
 
-def user_data(pkg: str) -> str:
+def user_data(__pkg: str) -> str:
     """Return a data location honouring :envvar:`XDG_DATA_HOME`.
 
     .. envvar:: XDG_DATA_HOME
@@ -80,53 +80,53 @@ def user_data(pkg: str) -> str:
     else:
         user_dir = getenv('XDG_DATA_HOME',
                           path.sep.join([getenv('HOME', ''), '.local/share']))
-    return path.expanduser(path.sep.join([user_dir, pkg]))
+    return path.expanduser(path.sep.join([user_dir, __pkg]))
 
 
-def get_configs(pkg: str, name: str = 'config') -> List[str]:
+def get_configs(__pkg: str, __name: str = 'config') -> List[str]:
     """Return all configs for given package.
 
     Args:
-        pkg: Package name
-        name: Configuration file name
+        __pkg: Package name
+        __name: Configuration file name
     """
-    dirs = [user_config(pkg), ]
-    dirs.extend(path.expanduser(path.sep.join([d, pkg]))
+    dirs = [user_config(__pkg), ]
+    dirs.extend(path.expanduser(path.sep.join([d, __pkg]))
                 for d in getenv('XDG_CONFIG_DIRS', '/etc/xdg').split(':'))
     configs = []
     for d in reversed(dirs):
-        test_path = path.join(d, name)
+        test_path = path.join(d, __name)
         if path.exists(test_path):
             configs.append(test_path)
     return configs
 
 
-def get_data(pkg: str, name: str) -> str:
+def get_data(__pkg: str, __name: str) -> str:
     """Return top-most data file for given package.
 
     Args:
-        pkg: Package name
-        name: Data file name
+        __pkg: Package name
+        __name: Data file name
     """
-    dirs = [user_data(pkg), ]
-    dirs.extend(path.expanduser(path.sep.join([d, pkg]))
+    dirs = [user_data(__pkg), ]
+    dirs.extend(path.expanduser(path.sep.join([d, __pkg]))
                 for d in getenv('XDG_DATA_DIRS',
                                 '/usr/local/share/:/usr/share/').split(':'))
     for d in dirs:
-        test_path = path.join(d, name)
+        test_path = path.join(d, __name)
         if path.exists(test_path):
             return test_path
-    raise FileNotFoundError('No data file {!r} for {!r}'.format(name, pkg))
+    raise FileNotFoundError('No data file {!r} for {!r}'.format(__name, __pkg))
 
 
-def get_data_dirs(pkg: str) -> List[str]:
+def get_data_dirs(__pkg: str) -> List[str]:
     """Return all data directories for given package.
 
     Args:
-        pkg: Package name
+        __pkg: Package name
     """
-    dirs = [user_data(pkg), ]
-    dirs.extend(path.expanduser(path.sep.join([d, pkg]))
+    dirs = [user_data(__pkg), ]
+    dirs.extend(path.expanduser(path.sep.join([d, __pkg]))
                 for d in getenv('XDG_DATA_DIRS',
                                 '/usr/local/share/:/usr/share/').split(':'))
     return [d for d in dirs if path.isdir(d)]

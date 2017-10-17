@@ -24,7 +24,7 @@ from .iso_8601 import parse_datetime, parse_delta
 from .xdg_basedir import get_configs
 
 
-def read_configs(pkg: str, name: str = 'config', *,
+def read_configs(__pkg: str, __name: str = 'config', *,
                  local: bool = True) -> ConfigParser:
     """Process configuration file stack.
 
@@ -40,15 +40,15 @@ def read_configs(pkg: str, name: str = 'config', *,
     ===================  ===========================================
 
     Args:
-        pkg: Package name to use as base for config files
-        name: File name to search for within config directories
+        __pkg: Package name to use as base for config files
+        __name: File name to search for within config directories
         local: Whether to include config files from current directory
     Returns:
         Parsed configuration files
     """
-    configs = get_configs(pkg, name)
+    configs = get_configs(__pkg, __name)
     if local:
-        localrc = path.abspath('.{}rc'.format(pkg))
+        localrc = path.abspath('.{}rc'.format(__pkg))
         if path.exists(localrc):
             configs.append(localrc)
 
@@ -62,8 +62,8 @@ def read_configs(pkg: str, name: str = 'config', *,
 
     if 'NO_COLOUR' in environ:
         cfg.colour = False
-    elif pkg in cfg and 'colour' in cfg[pkg]:
-        cfg.colour = cfg[pkg].getboolean('colour')
+    elif __pkg in cfg and 'colour' in cfg[__pkg]:
+        cfg.colour = cfg[__pkg].getboolean('colour')
     else:
         cfg.colour = True
 

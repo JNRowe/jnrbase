@@ -26,47 +26,47 @@ class AttrDict(dict):
     See also: :obj:`dict`
     """
 
-    def __contains__(self, key: Hashable) -> bool:
+    def __contains__(self, __key: Hashable) -> bool:
         """Check for item membership.
 
         Args:
-            key: Key to test for
+            __key: Key to test for
         Returns:
             ``True``, if item in AttrDict
         """
-        return hasattr(self, key)
+        return hasattr(self, __key)
 
-    def __getattr__(self, key: Hashable):
+    def __getattr__(self, __key: Hashable) -> Any:
         """Support item access via dot notation.
 
         Args:
-            key: Key to fetch
+            __key: Key to fetch
         """
         try:
-            return self[key]
+            return self[__key]
         except KeyError:
-            raise AttributeError(key)
+            raise AttributeError(__key)
 
-    def __setattr__(self, key: Hashable, value: Any) -> None:
+    def __setattr__(self, __key: Hashable, __value: Any) -> None:
         """Support item assignment via dot notation.
 
         Args:
-            key: Key to set value for
-            value: Value to set key to
+            __key: Key to set value for
+            __value: Value to set key to
         """
         try:
-            self[key] = value
+            self[__key] = __value
         except Exception as err:
             raise AttributeError(str(err))
 
-    def __delattr__(self, key: Hashable) -> None:
+    def __delattr__(self, __key: Hashable) -> None:
         """Support item deletion via dot notation.
 
         Args:
-            key: Key to delete
+            __key: Key to delete
         """
         try:
-            del self[key]
+            del self[__key]
         except TypeError as err:
             raise AttributeError(str(err))
 

@@ -39,23 +39,23 @@ from .human_time import human_timestamp
 FILTERS = {}
 
 
-def jinja_filter(fun: Callable) -> Callable:
+def jinja_filter(__func: Callable) -> Callable:
     """Simple decorator to add a new filter to Jinja environment.
 
     See also: :obj:`FILTERS`
 
     Args:
-        func: Function to add to Jinja environment
+        __func: Function to add to Jinja environment
     Returns:
         Unmodified function
     """
-    FILTERS[fun.__name__] = fun
+    FILTERS[__func.__name__] = __func
 
-    return fun
+    return __func
 
 
 @jinja_filter
-def colourise(text: str, *args, **kwargs) -> str:
+def colourise(__text: str, *args, **kwargs) -> str:
     """Colourise text using click’s style function.
 
     Returns text untouched if colour output is not enabled, or ``stdout`` is
@@ -64,18 +64,18 @@ def colourise(text: str, *args, **kwargs) -> str:
     See :func:`click.style` for parameters
 
     Args:
-        text: Text to colourise
+        __text: Text to colourise
     Returns:
         Colourised text, when possible
     """
     if sys.stdout.isatty():
-        return style(text, *args, **kwargs)
+        return style(__text, *args, **kwargs)
     else:
-        return text
+        return __text
 
 
 @jinja_filter
-def highlight(text: str, *, lexer: str = 'diff',
+def highlight(__text: str, *, lexer: str = 'diff',
               formatter: str = 'terminal') -> str:
     """Highlight text highlighted using ``pygments``.
 
@@ -84,7 +84,7 @@ def highlight(text: str, *, lexer: str = 'diff',
     See also: :pypi:`Pygments`
 
     Args:
-        text: Text to highlight
+        __text: Text to highlight
         lexer: Jinja lexer to use
         formatter: Jinja formatter to use
     Returns:
@@ -93,20 +93,20 @@ def highlight(text: str, *, lexer: str = 'diff',
     if sys.stdout.isatty():
         lexer = get_lexer_by_name(lexer)
         formatter = get_formatter_by_name(formatter)
-        return pyg_highlight(text, lexer, formatter)
+        return pyg_highlight(__text, lexer, formatter)
     else:
-        return text
+        return __text
 
 
 @jinja_filter
-def html2text(html: str, *, width: int = 80,
+def html2text(__html: str, *, width: int = 80,
               ascii_replacements: bool = False) -> str:
     """HTML to plain text renderer.
 
     See also: :pypi:`html2text`
 
     Args:
-        text: Text to process
+        __html: Text to process
         width: Paragraph width
         ascii_replacements: Use pseudo-ASCII replacements for Unicode
     Returns:
@@ -114,11 +114,11 @@ def html2text(html: str, *, width: int = 80,
     """
     html2.BODY_WIDTH = width
     html2.UNICODE_SNOB = ascii_replacements
-    return html2.html2text(html).strip()
+    return html2.html2text(__html).strip()
 
 
 @jinja_filter
-def regexp(string: str, pattern: str, repl: Union[Callable, str], *,
+def regexp(__string: str, __pattern: str, __repl: Union[Callable, str], *,
            count: int = 0, flags: int = 0) -> str:
     """Jinja filter for regexp replacements.
 
@@ -127,36 +127,38 @@ def regexp(string: str, pattern: str, repl: Union[Callable, str], *,
     Returns:
         Text with substitutions applied
     """
-    return re.sub(pattern, repl, string, count, flags)
+    return re.sub(__pattern, __repl, __string, count, flags)
 
 
 @jinja_filter
-def relative_time(timestamp: datetime) -> str:
+def relative_time(__timestamp: datetime) -> str:
     """Format a relative time.
 
     See :func:`~jnrbase.human_time.human_timestamp`
 
     Args:
-        timestamp: Event to generate relative timestamp against
+        __timestamp: Event to generate relative timestamp against
     Returns:
         Human readable date and time offset
     """
-    return human_timestamp(timestamp)
+    return human_timestamp(__timestamp)
 
 
-def setup(pkg: str) -> jinja2.Environment:
+def setup(__pkg: str) -> jinja2.Environment:
     """Configure a new Jinja environment with our filters.
 
     Args:
-        pkg: Package name to use as base for templates searches
+        __pkg: Package name to use as base for templates searches
     Returns:
         Configured Jinja environment
     """
-    dirs = [path.join(d, 'templates') for d in xdg_basedir.get_data_dirs(pkg)]
+    dirs = [path.join(d, 'templates')
+            for d in xdg_basedir.get_data_dirs(__pkg)]
 
     env = jinja2.Environment(
         autoescape=jinja2.select_autoescape(['html', 'xml']),
         loader=jinja2.ChoiceLoader([jinja2.FileSystemLoader(s) for s in dirs]))
+    env.loader.loaders.append(jinja2.PackageLoader(__pkg, 'templates'))
     env.filters.update(FILTERS)
 
     return env
