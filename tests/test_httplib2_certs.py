@@ -23,7 +23,7 @@ from jnrbase import httplib2_certs
 from .utils import func_attr
 
 
-exists_result = lambda x: func_attr('exists_result', x)
+exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731
 
 
 def test_upstream_import(path_exists_force):
