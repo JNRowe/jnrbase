@@ -38,7 +38,7 @@ Extra tag     Dependencies
 ============  ==============================
 ``colour``    click_
 ``config``    configobj_
-``iso_8601``  ciso8601_, pytz_
+``iso_8601``  ciso8601_
 ``net``       httplib2_
 ``template``  html2text_, Jinja2_, Pygments_
 ============  ==============================
@@ -91,7 +91,6 @@ reproduce the problem, or even better a patch!
 .. _click: https://pypi.python.org/pypi/click
 .. _configobj: https://pypi.python.org/pypi/configobj
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601
-.. _pytz: https://pypi.python.org/pypi/pytz
 .. _httplib2: https://pypi.python.org/pypi/httplib2
 .. _html2text: https://pypi.python.org/pypi/html2text
 .. _jinja2: https://pypi.python.org/pypi/jinja2
