@@ -18,6 +18,7 @@
 
 import datetime
 import re
+import warnings
 
 import ciso8601
 
@@ -71,12 +72,19 @@ def format_delta(timedelta_):
 def parse_datetime(string, *, naive=False):
     """Parse ISO-8601 datetime string.
 
+    Warning:
+        Support for naïve datetimes will be removed in v0.7.0.
+
     Args:
         string (str): Datetime string to parse
         naive (bool): Use naïve datetimes
     Returns:
         datetime.datetime: Parsed datetime object
     """
+    if naive:
+        warnings.warn(
+            'parse_datetime’s naive support will be removed in v0.7.0',
+            DeprecationWarning, 2)
     if not string:
         datetime_ = datetime.datetime.now(datetime.timezone.utc)
     else:

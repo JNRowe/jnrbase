@@ -18,10 +18,11 @@
 
 from datetime import datetime, timedelta, timezone
 
-from pytest import mark, raises
+from pytest import deprecated_call, mark, raises
 
 from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
                               parse_delta)
+from jnrbase._version import tuple as v_tuple
 
 
 @mark.parametrize('string,expected', [
@@ -45,13 +46,19 @@ def test_parse_datetime(string, expected):
     ('', None),
 ])
 def test_parse_datetime_naive(string, expected):
-    if expected is None:
-        now = datetime.utcnow()
-        # Ugly, but patching a built-in is uglier
-        assert (parse_datetime(string, naive=True) - now) \
-            < timedelta(seconds=3)
-    else:
-        assert parse_datetime(string, naive=True) == expected
+    with deprecated_call():
+        if expected is None:
+            now = datetime.utcnow()
+            # Ugly, but patching a built-in is uglier
+            assert (parse_datetime(string, naive=True) - now) \
+                < timedelta(seconds=3)
+        else:
+            assert parse_datetime(string, naive=True) == expected
+
+
+@mark.skipif(v_tuple < (0, 7, 0), reason='Deprecations')
+def test_parse_datetime_naive_deprecation():
+    parse_datetime('2011-05-04T07:00:00-01:00', naive=True)
 
 
 @mark.parametrize('dt,expected', [
