@@ -18,6 +18,7 @@
 
 from datetime import datetime, timedelta, timezone
 
+from hiro import Timeline
 from pytest import deprecated_call, mark, raises
 
 from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
@@ -33,9 +34,9 @@ from jnrbase._version import tuple as v_tuple
 ])
 def test_parse_datetime(string, expected):
     if expected is None:
-        now = datetime.now(timezone.utc)
-        # Ugly, but patching a built-in is uglier
-        assert (parse_datetime(string) - now) < timedelta(seconds=3)
+        with Timeline().freeze():
+            now = datetime.now(timezone.utc)
+            assert parse_datetime(string) == now
     else:
         assert parse_datetime(string) == expected
 
@@ -48,10 +49,9 @@ def test_parse_datetime(string, expected):
 def test_parse_datetime_naive(string, expected):
     with deprecated_call():
         if expected is None:
-            now = datetime.utcnow()
-            # Ugly, but patching a built-in is uglier
-            assert (parse_datetime(string, naive=True) - now) \
-                < timedelta(seconds=3)
+            with Timeline().freeze():
+                now = datetime.utcnow()
+                assert parse_datetime(string, naive=True) == now
         else:
             assert parse_datetime(string, naive=True) == expected
 
