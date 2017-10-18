@@ -67,9 +67,6 @@ metadata = dict(conf['metadata'])
 
 pip_support = import_file(metadata['name'], 'pip_support.py')
 
-
-install_requires = []
-
 extras_require = {}
 for file in glob.glob('extra/requirements-*.txt'):
     suffix = os.path.splitext(file)[0].split('-')[1]
@@ -88,7 +85,6 @@ _version = import_file(metadata['name'], '_version.py')
 
 setup(
     version=_version.dotted,
-    install_requires=install_requires,
     extras_require=extras_require,
     tests_require=['pytest'],
     cmdclass={'test': PytestTest},
