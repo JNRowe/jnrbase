@@ -13,6 +13,7 @@ include unittest.cfg
 
 include tests/*.py
 
+recursive-include .github *.rst
 recursive-include doc *.rst
 recursive-include tests/data *.tar
 recursive-include tests/data/pip *.txt

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
+from datetime import datetime, timedelta
 
 from pytest import mark, raises
 
@@ -37,16 +37,16 @@ from jnrbase.human_time import human_timestamp, parse_timedelta
     ({}, 'right now'),
 ])
 def test_human_timestamp(delta, result):
-    dt = datetime.datetime.utcnow() - datetime.timedelta(**delta)
+    dt = datetime.utcnow() - timedelta(**delta)
     assert human_timestamp(dt) == result
 
 
 @mark.parametrize('string,dt', [
-    ('3h', datetime.timedelta(0, 10800)),
-    ('1d', datetime.timedelta(1)),
-    ('1 d', datetime.timedelta(1)),
-    ('0.5 y', datetime.timedelta(182, 43200)),
-    ('0.5 Y', datetime.timedelta(182, 43200)),
+    ('3h', timedelta(0, 10800)),
+    ('1d', timedelta(1)),
+    ('1 d', timedelta(1)),
+    ('0.5 y', timedelta(182, 43200)),
+    ('0.5 Y', timedelta(182, 43200)),
 ])
 def test_parse_timedelta(string, dt):
     assert parse_timedelta(string) == dt

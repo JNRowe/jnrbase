@@ -23,7 +23,7 @@ from jnrbase import xdg_basedir
 from .utils import func_attr
 
 
-exists_result = lambda x: func_attr('exists_result', x)
+exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731
 
 
 def test_cache_no_args(monkeypatch):

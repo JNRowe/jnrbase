@@ -27,6 +27,17 @@ from .xdg_basedir import get_configs
 def read_configs(pkg, name='config', *, local=True):
     """Process configuration file stack.
 
+    We export the time parsing functionality of ``jnrbase`` as custom
+    converters for :obj:`~configparser.ConfigParser`:
+
+    ===================  ===========================================
+    Method               Function
+    ===================  ===========================================
+    ``.getdatetime()``   :func:`~jnrbase.iso_8601.parse_datetime`
+    ``.gethumantime()``  :func:`~jnrbase.human_time.parse_timedelta`
+    ``.gettimedelta()``  :func:`~jnrbase.iso_8601.parse_delta`
+    ===================  ===========================================
+
     Args:
         pkg (str): Package name to use as base for config files
         name (str): File name to search for within config directories

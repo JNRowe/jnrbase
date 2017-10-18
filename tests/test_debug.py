@@ -18,29 +18,31 @@
 
 from operator import add
 
-from pytest import mark, raises
+from pytest import deprecated_call, mark, raises
 
 from jnrbase import debug as debug_mod
-from jnrbase.debug import DebugPrint, enter, exit, noisy_wrap, sys
+from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, on_enter,
+                           on_exit, sys)
+from jnrbase._version import tuple as v_tuple
 
 
 @mark.parametrize('ftype', [
-    enter,
-    exit,
+    on_enter,
+    on_exit,
 ])
 def test_decorator_no_message(ftype, capsys):
     @ftype
     def func(x, y):
         return x + y
     assert func(4, 3) == 7
-    assert "{}ing 'func'({!r})".format(ftype.__name__.capitalize(),
+    assert "{}ing 'func'({!r})".format(ftype.__name__[3:].capitalize(),
                                        func.__closure__[0].cell_contents) \
         in capsys.readouterr()[0]
 
 
 @mark.parametrize('ftype', [
-    enter,
-    exit,
+    on_enter,
+    on_exit,
 ])
 def test_decorator_with_message(ftype, capsys):
     assert ftype('custom message')(add)(4, 3) == 7
@@ -48,8 +50,8 @@ def test_decorator_with_message(ftype, capsys):
 
 
 @mark.parametrize('ftype', [
-    enter,
-    exit,
+    on_enter,
+    on_exit,
 ])
 def test_decorator_with_failure(ftype, capsys):
     @ftype('custom message')
@@ -58,6 +60,25 @@ def test_decorator_with_failure(ftype, capsys):
     with raises(ValueError):
         func(4, 3)
     assert capsys.readouterr()[0] == 'custom message\n'
+
+
+@mark.parametrize('ftype', [
+    enter,
+    exit,
+])
+def test_decorator_deprecated_name(ftype, capsys):
+    with deprecated_call():
+        assert ftype(add)(4, 3) == 7
+        assert "{}ing 'add'".format(ftype.__name__.capitalize())
+
+
+@mark.skipif(v_tuple < (0, 8, 0), reason='Deprecations')
+@mark.parametrize('ftype', [
+    enter,
+    exit,
+])
+def test_decorator_name_deprecation(ftype):
+    assert ftype(add)(4, 3) == 7
 
 
 def test_DebugPrint(capsys):

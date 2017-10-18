@@ -104,7 +104,7 @@ def html2text(html, *, width=80, ascii_replacements=False):
     Args:
         text (str): Text to process
         width (int): Paragraph width
-        ascii_replacements (bool): Use psuedo-ascii replacements for Unicode
+        ascii_replacements (bool): Use pseudo-ASCII replacements for Unicode
     Returns:
         str: Rendered text
     """
