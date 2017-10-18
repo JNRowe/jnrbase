@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
+from datetime import timedelta
+
 from hiro import Timeline
 
 from jnrbase.timer import Timing
@@ -24,11 +26,11 @@ from jnrbase.timer import Timing
 def test_timing():
     with Timeline() as timeline, Timing() as t:
         timeline.forward(3600)
-    assert t.elapsed >= 3600
+    assert t.elapsed >= timedelta(hours=1)
 
 
 def test_verbose_timing(capsys):
     with Timeline() as timeline, Timing(verbose=True) as t:
         timeline.forward(3600)
-    assert t.elapsed >= 3600
-    assert 'Elapsed: 36' in capsys.readouterr()[0]
+    assert t.elapsed >= timedelta(hours=1)
+    assert 'Elapsed: 1:00' in capsys.readouterr()[0]

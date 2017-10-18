@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-import time
+from datetime import datetime
 
 
 class Timing:
@@ -33,11 +33,10 @@ class Timing:
         self.elapsed = None
 
     def __enter__(self):
-        self._start = time.time()
+        self._start = datetime.utcnow()
         return self
 
     def __exit__(self, *args):
-        end = time.time()
-        self.elapsed = end - self._start
+        self.elapsed = datetime.utcnow() - self._start
         if self.verbose:
-            print('Elapsed: {} ms'.format(self.elapsed))
+            print('Elapsed: {}'.format(self.elapsed))
