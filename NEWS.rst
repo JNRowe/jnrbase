@@ -3,6 +3,22 @@ User-visible changes
 
 .. contents::
 
+0.6.0 - 2017-10-18
+------------------
+
+* This package is no longer considered an alpha, but given its new beta status
+  large changes may still be made
+* ``jnrbase.config`` now uses Python’s configparser_ for loading config files
+* ``jnrbase.config`` exposes ``jnrbase``’s ``parse_{datetime,{time,}delta}``
+  functions for value conversions
+* Support for naïve datetimes will be removed in v0.7.0
+* Tests now require pytest_
+* configobj_ is no longer required
+
+.. _configparser: http://docs.python.org/3/library/configparser.html
+.. _pytest: https://pypi.python.org/pypi/pytest/
+.. _configobj: https://pypi.python.org/pypi/configobj
+
 0.5.0 - 2017-09-24
 ------------------
 
