@@ -92,6 +92,8 @@ intersphinx_mapping = {
 # extlinks extension settings
 extlinks = {
     'pypi': ('http://pypi.python.org/pypi/%s', ''),
+    'issue': ('https://github.com/JNRowe/jnrbase/issues/%s', 'issue #'),
+    'pr': ('https://github.com/JNRowe/jnrbase/pull/%s', 'pull request #'),
 }
 
 # spelling extension settings

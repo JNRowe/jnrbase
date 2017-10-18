@@ -23,6 +23,7 @@ Contents
    alternatives
    release
    thaw
+   upgrading
    api/index
    todo
 
