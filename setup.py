@@ -25,6 +25,7 @@ from importlib.util import module_from_spec, spec_from_file_location
 from setuptools import setup
 from setuptools.command.test import test
 
+
 class PytestTest(test):
     def finalize_options(self):
         test.finalize_options(self)
@@ -73,6 +74,8 @@ for file in glob.glob('extra/requirements-*.txt'):
     if suffix not in ['doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)
 
+tests_require = pip_support.parse_requires('extra/requirements-test.txt')
+
 metadata = dict(conf['metadata'])
 for k in ['classifiers', 'packages', 'py_modules']:
     if k in metadata:
@@ -86,7 +89,7 @@ _version = import_file(metadata['name'], '_version.py')
 setup(
     version=_version.dotted,
     extras_require=extras_require,
-    tests_require=['pytest'],
+    tests_require=tests_require,
     cmdclass={'test': PytestTest},
     zip_safe=False,
     **metadata,
