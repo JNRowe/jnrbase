@@ -5,30 +5,33 @@ debug
 
 .. autoclass:: DebugPrint
 
+.. autofunction:: noisy_wrap
+
+.. autofunction:: on_enter
+.. autofunction:: on_exit
+
 .. autofunction:: enter
 .. autofunction:: exit
-
-.. autofunction:: noisy_wrap
 
 Examples
 --------
 
 .. testsetup::
 
-    from jnrbase.debug import enter, exit
+    from jnrbase.debug import on_enter, on_exit
 
 .. doctest::
 
-    >>> @enter()
+    >>> @on_enter()
     ... def f():
     ...     print('Hello')
     >>> f()
     Entering 'f'(<function f at 0x...>)
     Hello
-    >>> f = exit(f)
+    >>> f = on_exit(f)
     >>> f()
     Entering 'f'(<function f at 0x...>)
     Hello
     Exiting 'f'(<function f at 0x...>)
-    >>> enter(lambda: None)()
+    >>> on_enter(lambda: None)()
     Entering '<lambda>'(<function <lambda> at 0x...>)

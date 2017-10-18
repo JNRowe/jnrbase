@@ -19,6 +19,7 @@
 import inspect
 import os
 import sys
+import warnings
 
 from functools import wraps
 
@@ -87,7 +88,7 @@ def noisy_wrap(fun):
     return wrapper
 
 
-def enter(msg=None):
+def on_enter(msg=None):
     """Decorator to display a message when entering a function.
 
     Args:
@@ -106,11 +107,28 @@ def enter(msg=None):
             return fun(*args, **kwargs)
         return wrapper
     if callable(msg):
-        return enter()(msg)
+        return on_enter()(msg)
     return decorator
 
 
-def exit(msg=None):
+def enter(msg=None):
+    """Decorator to display a message when entering a function.
+
+    Warning:
+        Deprecated name for ``on_enter``.
+
+    Args:
+        msg (str): Message to display
+    Returns:
+        function
+    """
+    warnings.warn(
+        'enter() has been renamed on_enter; enter() will be removed in v0.8.0',
+        DeprecationWarning, 2)
+    return on_enter(msg)
+
+
+def on_exit(msg=None):
     """Decorator to display a message when exiting a function.
 
     Args:
@@ -131,5 +149,22 @@ def exit(msg=None):
                     print('Exiting {!r}({!r})'.format(fun.__name__, fun))
         return wrapper
     if callable(msg):
-        return exit()(msg)
+        return on_exit()(msg)
     return decorator
+
+
+def exit(msg=None):
+    """Decorator to display a message when exiting a function.
+
+    Warning:
+        Deprecated name for ``on_exit``.
+
+    Args:
+        msg (str): Message to display
+    Returns:
+        function
+    """
+    warnings.warn(
+        'exit() has been renamed on_enter; exit() will be removed in v0.8.0',
+        DeprecationWarning, 2)
+    return on_enter(msg)
