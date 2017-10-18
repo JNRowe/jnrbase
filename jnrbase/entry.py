@@ -20,8 +20,7 @@
 def entry_point(fun):
     """Execute function when module is run directly.
 
-    .. note::
-
+    Note:
         This allows fall through for importing modules that use it.
 
     Args:

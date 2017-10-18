@@ -40,8 +40,7 @@ PLATFORM_FILES = {
 def find_certs():
     """Find suitable certificates for ``httplib2``.
 
-    .. warning::
-
+    Warning:
         The default behaviour is to fall back to the bundled certificates when
         no system certificates can be found.  If you're packaging ``jnrbase``
         *please* set ``ALLOW_FALLBACK`` to ``False`` to disable this very much
