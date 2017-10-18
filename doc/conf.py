@@ -76,6 +76,9 @@ with suppress(CalledProcessError):
 autoclass_content = 'init'
 autodoc_default_flags = ['members', ]
 
+# coverage extension settings
+coverage_write_headline = False
+
 # intersphinx extension settings
 intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
