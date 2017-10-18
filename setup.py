@@ -57,6 +57,10 @@ def import_file(package, fname):
     return module
 
 
+def make_list(s):
+    return s.strip().splitlines()
+
+
 conf = ConfigParser()
 conf.read('setup.cfg')
 metadata = dict(conf['metadata'])
@@ -72,44 +76,22 @@ for file in glob.glob('extra/requirements-*.txt'):
     if suffix not in ['doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)
 
+metadata = dict(conf['metadata'])
+for k in ['classifiers', 'packages', 'py_modules']:
+    if k in metadata:
+        metadata[k] = make_list(metadata[k])
+
 with open('README.rst') as readme:
-    long_description = readme.read()
+    metadata['long_description'] = readme.read()
 
 _version = import_file(metadata['name'], '_version.py')
 
 setup(
-    name='jnrbase',
     version=_version.dotted,
-    description='Common utility functionality',
-    long_description=long_description,
-    author='James Rowe',
-    author_email='jnrowe@gmail.com',
-    url='https://github.com/JNRowe/jnrbase',
-    license='GPL-3',
-    keywords='library support utility',
-    py_modules=['ca_certs_locater', ],
-    packages=['jnrbase', ],
     install_requires=install_requires,
     extras_require=extras_require,
     tests_require=['pytest'],
     cmdclass={'test': PytestTest},
     zip_safe=False,
-    classifiers=[
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
-        'Intended Audience :: Other Audience',
-        'License :: OSI Approved',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
-        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
-        'Natural Language :: English',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Topic :: Software Development',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: Software Development :: Libraries :: Application Frameworks',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-    ],
+    **metadata,
 )
