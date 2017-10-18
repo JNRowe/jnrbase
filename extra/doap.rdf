@@ -16,7 +16,7 @@
     </description>
 
     <homepage rdf:resource="https://github.com/JNRowe/jnrbase" />
-    <bug-database rdf:resource="http://github.com/JNRowe/jnrbase/issues" />
+    <bug-database rdf:resource="https://github.com/JNRowe/jnrbase/issues" />
     <repository>
         <GitRepository>
             <location rdf:resource="git://github.com/JNRowe/jnrbase.git" />
@@ -31,7 +31,7 @@
         <foaf:Person>
             <foaf:name>James Rowe</foaf:name>
             <mbox rdf:resource="mailto:jnrowe@gmail.com" />
-            <rdfs:homepage rdf:resource="http://jnrowe.github.io" />
+            <rdfs:homepage rdf:resource="https://jnrowe.github.io" />
         </foaf:Person>
     </maintainer>
 </Project>
