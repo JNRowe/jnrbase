@@ -18,8 +18,6 @@
 
 import datetime
 
-from re import escape
-
 from pytest import mark, raises
 
 from jnrbase.human_time import human_timestamp, parse_timedelta
@@ -36,16 +34,11 @@ from jnrbase.human_time import human_timestamp, parse_timedelta
     ({'hours': 1, }, 'about an hour ago'),
     ({'minutes': 6, }, 'about six minutes ago'),
     ({'seconds': 12, }, 'about 12 seconds ago'),
+    ({}, 'right now'),
 ])
 def test_human_timestamp(delta, result):
     dt = datetime.datetime.utcnow() - datetime.timedelta(**delta)
     assert human_timestamp(dt) == result
-
-
-def test_human_timestamp_invalid_delta():
-    dt = datetime.datetime.utcnow() - datetime.timedelta(milliseconds=5)
-    with raises(ValueError, match=escape(repr(dt))):
-        human_timestamp(dt)
 
 
 @mark.parametrize('string,dt', [

@@ -49,9 +49,11 @@ def human_timestamp(timestamp):
             name = match_names[matches.index(scale)]
             break
     else:
-        raise ValueError('Timestamp invalid: {!r}'.format(timestamp))
+        i = 0  # Too small
 
-    if i == 1 and name in ('year', 'month', 'week'):
+    if i == 0:
+        result = 'right now'
+    elif i == 1 and name in ('year', 'month', 'week'):
         result = 'last {}'.format(name)
     elif i == 1 and name == 'day':
         result = 'yesterday'
