@@ -1,17 +1,7 @@
 jnrbase - Common utility functionality
 ======================================
 
-.. image:: https://img.shields.io/travis/JNRowe/jnrbase/master.png
-   :target: https://travis-ci.org/JNRowe/jnrbase
-   :alt: Test state on master
-
-.. image:: https://img.shields.io/coveralls/JNRowe/jnrbase/master.png
-   :target: https://coveralls.io/repos/JNRowe/jnrbase
-   :alt: Coverage state on master
-
-.. image:: https://img.shields.io/pypi/v/jnrbase.png
-   :target: https://pypi.python.org/pypi/jnrbase
-   :alt: Current PyPI release
+|travis| |coveralls| |pypi|
 
 ``jnrbase`` is a collection of common utility libraries that are used in
 various Open Source projects that I (JNRowe_) work on.  Feel free to use it, and
@@ -92,3 +82,15 @@ reproduce the problem, or even better a patch!
 .. _issue: https://github.com/JNRowe/jnrbase/issues
 .. _pytest: https://pypi.python.org/pypi/pytest/
 .. _mail: jnrowe@gmail.com
+
+.. |travis| image:: https://img.shields.io/travis/JNRowe/jnrbase/master.png
+   :target: https://travis-ci.org/JNRowe/jnrbase
+   :alt: Test state on master
+
+.. |coveralls| image:: https://img.shields.io/coveralls/JNRowe/jnrbase/master.png
+   :target: https://coveralls.io/repos/JNRowe/jnrbase
+   :alt: Coverage state on master
+
+.. |pypi| image:: https://img.shields.io/pypi/v/jnrbase.png
+   :target: https://pypi.python.org/pypi/jnrbase
+   :alt: Current PyPI release
