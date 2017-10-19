@@ -18,16 +18,20 @@
 
 from datetime import datetime
 
+from jnrbase.human_time import human_timestamp
+
 
 class Timing:
 
     """Timing context manager.
 
     Args:
+        human_format (bool): Use humanised output
         verbose (bool): Print elapsed time
     """
 
-    def __init__(self, *, verbose=False):
+    def __init__(self, *, human_format=True, verbose=False):
+        self.human_format = human_format
         self.verbose = verbose
         self._start = None
         self.elapsed = None
@@ -37,6 +41,10 @@ class Timing:
         return self
 
     def __exit__(self, *args):
-        self.elapsed = datetime.utcnow() - self._start
+        now = datetime.utcnow()
+        self.elapsed = now - self._start
         if self.verbose:
-            print('Elapsed: {}'.format(self.elapsed))
+            if self.human_format:
+                print('Started {}'.format(human_timestamp(self._start)))
+            else:
+                print('Elapsed: {}'.format(self.elapsed))

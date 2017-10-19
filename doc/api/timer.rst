@@ -10,6 +10,7 @@ Examples
 
 .. testsetup::
 
+    from datetime import timedelta
     from time import sleep
 
     from jnrbase.timer import Timing
@@ -18,5 +19,5 @@ Examples
 
     >>> with Timing() as t:
     ...     sleep(0.25)
-    >>> t.elapsed >= 0.25
+    >>> t.elapsed >= timedelta(milliseconds=250)
     True

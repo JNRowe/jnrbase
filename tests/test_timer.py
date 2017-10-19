@@ -33,4 +33,11 @@ def test_verbose_timing(capsys):
     with Timeline() as timeline, Timing(verbose=True) as t:
         timeline.forward(3600)
     assert t.elapsed >= timedelta(hours=1)
+    assert 'Started about an hour ago' in capsys.readouterr()[0]
+
+
+def test_verbose_timing_non_human(capsys):
+    with Timeline() as timeline, Timing(human_format=False, verbose=True) as t:
+        timeline.forward(3600)
+    assert t.elapsed >= timedelta(hours=1)
     assert 'Elapsed: 1:00' in capsys.readouterr()[0]
