@@ -24,6 +24,7 @@ Contents
    release
    thaw
    upgrading
+   NEWS
    api/index
    todo
 
