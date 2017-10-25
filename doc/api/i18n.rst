@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.i18n
+.. module:: jnrbase.i18n
 
 i18n
 ====

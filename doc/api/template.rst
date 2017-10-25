@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.template
+.. module:: jnrbase.template
 
 template
 ========

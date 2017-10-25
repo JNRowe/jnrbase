@@ -63,6 +63,7 @@ version = '.'.join([str(s) for s in jnrbase._version.tuple[:2]])
 release = jnrbase._version.dotted
 
 html_experimental_html5_writer = True
+modindex_common_prefix = ['jnrbase.', ]
 
 # readthedocs.org handles this setup for their builds, but it is nice to see
 # approximately correct builds on the local system too

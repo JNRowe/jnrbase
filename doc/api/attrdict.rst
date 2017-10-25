@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.attrdict
+.. module:: jnrbase.attrdict
 
 attrdict
 ========

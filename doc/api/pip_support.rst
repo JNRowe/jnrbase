@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.pip_support
+.. module:: jnrbase.pip_support
 
 pip_support
 ===========

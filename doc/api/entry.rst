@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.entry
+.. module:: jnrbase.entry
 
 entry
 =====

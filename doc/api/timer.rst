@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.timer
+.. module:: jnrbase.timer
 
 timer
 =====

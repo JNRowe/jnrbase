@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.httplib2_certs
+.. module:: jnrbase.httplib2_certs
 
 httplib2_certs
 ==============

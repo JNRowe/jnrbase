@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.iso_8601
+.. module:: jnrbase.iso_8601
 
 iso_8601
 ========

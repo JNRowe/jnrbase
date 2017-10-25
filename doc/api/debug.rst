@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.debug
+.. module:: jnrbase.debug
 
 debug
 =====

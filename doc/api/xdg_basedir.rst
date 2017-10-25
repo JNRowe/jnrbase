@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.xdg_basedir
+.. module:: jnrbase.xdg_basedir
 
 xdg_basedir
 ===========

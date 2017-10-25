@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.colourise
+.. module:: jnrbase.colourise
 
 colourise
 =========

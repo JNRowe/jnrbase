@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.context
+.. module:: jnrbase.context
 
 context
 =======

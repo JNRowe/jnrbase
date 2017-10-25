@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.json_datetime
+.. module:: jnrbase.json_datetime
 
 json_datetime
 =============

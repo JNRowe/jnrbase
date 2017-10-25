@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.pager
+.. module:: jnrbase.pager
 
 pager
 =====

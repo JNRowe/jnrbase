@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.config
+.. module:: jnrbase.config
 
 config
 ======

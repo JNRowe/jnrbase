@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.human_time
+.. module:: jnrbase.human_time
 
 human_time
 ==========

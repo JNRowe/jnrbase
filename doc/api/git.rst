@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.git
+.. module:: jnrbase.git
 
 git
 ===
