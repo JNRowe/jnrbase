@@ -1,8 +1,31 @@
 User-visible changes
 ====================
 
+.. See doc/upgrading.rst for a more explantory discussion of major changes
+
 .. contents::
    :local:
+
+0.7.0 - 2017-10-25
+------------------
+
+* As advertised, support for naïve datetimes has been removed from ``iso_8601``
+* ``Timing`` now uses a ``datetime.timedelta`` for its ``elapsed`` attribute
+* ``Timing`` now uses ``human_timestamp`` for its verbose output
+* ``debug``’s ``enter`` and ``exit`` have been renamed to ``on_enter`` and
+  ``on_exit`` respectively
+* The deprecated ``debug.enter`` and ``debug.exit`` names will be removed in
+  v0.8.0.
+* httplib2_ v0.10, or newer, is required for ``jnrbase[net]``
+* click_ is now required for ``jnrbase[template]``
+* ``jnrbase[template]`` requires html2text_ 2016.5.29 or newer and and Pygments
+  v2.1 or newer
+* Tests now require pytest-randomly_
+
+.. _click: https://pypi.python.org/pypi/click/
+.. _html2text: https://pypi.python.org/pypi/html2text/
+.. _httplib2: https://pypi.python.org/pypi/httplib2/
+.. _pytest-randomly: https://pypi.python.org/pypi/pytest-randomly/
 
 0.6.0 - 2017-10-18
 ------------------
