@@ -21,9 +21,9 @@ from datetime import datetime, timedelta, timezone
 from hiro import Timeline
 from pytest import deprecated_call, mark, raises
 
-from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
-                              parse_delta)
 from jnrbase._version import tuple as v_tuple
+from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
+                              parse_delta,)
 
 
 @mark.parametrize('string,expected', [
