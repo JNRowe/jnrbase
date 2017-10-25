@@ -67,7 +67,7 @@ nitpicky = True
 project = 'jnrbase'
 copyright = '2014-2017  James Rowe'
 
-version = '.'.join([str(s) for s in jnrbase._version.tuple[:2]])
+version = '{major}.{minor}'.format_map(jnrbase._version.dict)
 release = jnrbase._version.dotted
 
 modindex_common_prefix = ['jnrbase.', ]
@@ -79,7 +79,7 @@ trim_footnote_reference_space = True
 # readthedocs.org handles this setup for their builds, but it is nice to see
 # approximately correct builds on the local system too
 if not on_rtd:
-    html_theme = "sphinx_rtd_theme"
+    html_theme = 'sphinx_rtd_theme'
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path(), ]
 
 with suppress(CalledProcessError):
