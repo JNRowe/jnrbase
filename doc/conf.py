@@ -56,7 +56,11 @@ rst_epilog = """
 .. |modref| replace:: :mod:`jnrbase`
 """
 
+default_role = 'any'
+
 needs_sphinx = '1.6'
+
+nitpicky = True
 # }}}
 
 # Project information {{{
@@ -113,6 +117,7 @@ intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
         'click': 'http://click.pocoo.org/6/',
+        'jinja2': 'http://jinja.pocoo.org/docs/',
         'pygments': 'http://pygments.org/',
         'python': 'http://docs.python.org/3/',
     }.items()
