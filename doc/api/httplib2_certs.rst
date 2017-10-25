@@ -21,3 +21,16 @@ Functions
 ---------
 
 .. autofunction:: find_certs
+
+Examples
+--------
+
+.. testsetup::
+
+    from jnrbase.httplib2_certs import find_certs
+
+.. doctest::
+   :options: +SKIP
+
+    >>> find_certs()
+    '/etc/ssl/certs/ca-certificates.crt'
