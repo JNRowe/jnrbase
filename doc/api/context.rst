@@ -1,9 +1,14 @@
-.. currentmodule:: jnrbase.context
+.. module:: jnrbase.context
 
 context
 =======
 
+Functions
+---------
+
 .. autofunction:: chdir(path)
+
+.. _context-examples:
 
 Examples
 --------

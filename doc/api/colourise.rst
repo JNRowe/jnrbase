@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.colourise
+.. module:: jnrbase.colourise
 
 colourise
 =========
@@ -9,7 +9,13 @@ colourise
 
 .. _click: https://pypi.python.org/pypi/click
 
+Constants
+---------
+
 .. autodata:: COLOUR
+
+Functions
+---------
 
 .. autofunction:: _colourise
 
@@ -28,6 +34,8 @@ Message formatting
 .. autofunction:: pinfo
 .. autofunction:: psuccess
 .. autofunction:: pwarn
+
+.. _colourise-examples:
 
 Examples
 --------

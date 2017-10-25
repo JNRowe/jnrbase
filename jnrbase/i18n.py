@@ -28,8 +28,8 @@ def setup(pkg):
         pkg (types.ModuleType): Package to use as location for
             :program:`gettext` files
     Returns:
-        2-tuple of functions:
-            :program:`gettext` functions for singular and plural translations
+        tuple: 2-tuple of :program:`gettext` functions for singular and plural
+            translations
 
     """
     package_locale = path.join(path.dirname(pkg.__file__), 'locale')

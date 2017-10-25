@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.iso_8601
+.. module:: jnrbase.iso_8601
 
 iso_8601
 ========
@@ -9,6 +9,9 @@ iso_8601
    the ``jnrbase[iso_8601]`` requirement.
 
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601
+
+Functions
+---------
 
 Duration support
 ''''''''''''''''
@@ -21,6 +24,8 @@ Timestamp support
 
 .. autofunction:: parse_datetime
 .. autofunction:: format_datetime
+
+.. _iso_8601-examples:
 
 Examples
 --------

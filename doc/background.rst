@@ -2,18 +2,32 @@ Background
 ==========
 
 Over the years various packages that I maintain have begun to sprout incessant
-duplication, and duplication is a *bad* thing.  Accepting duplication is the
+duplication, and duplication is a *Bad Thing*\ ™.  Accepting duplication is the
 start of a rabbit hole that leads to indefinite chasing of repeating bugs in
 their copy’n’paste hideaways, and it needs to stop.
 
-For an example of how bad it can get in the real world take a look at pip_;
-a package which bundles packages that themself bundle packages, until the final
-turtle lets out a little yelp, squishes unto itself and dies.
+.. digraph:: nightmare
+
+    graph [rankdir=LR]
+    node [fontname="Permanent Marker", shape=box, style=filled]
+    edge [fontname="Permanent Marker", arrowhead=empty, label="0…*"]
+
+    "package" [fillcolor="#28ff1e"]
+    "bundled" [fillcolor="#daa520"]
+    "mo’ bundled" [fillcolor="#d2691e"]
+    "mo’ mo’ bundled" [fillcolor="#8b4513"]
+
+    "package" -> "bundled" -> "mo’ bundled" -> "mo’ mo’ bundled"
+
+For an example of how bad it can get in the real world :download:`take a look
+at pip <pip.dot>`; a package which bundles packages that themself bundle
+packages, until the final turtle lets out a futile little yelp, squishes unto
+itself and dies.
 
 This package is my attempt at solving the problem for the projects I maintain,
-and in its current state is a odd grab-bag of assorted functionality.  Whether
+and in its current state is an odd grab-bag of assorted functionality.  Whether
 any of pieces will eventually deserve their own packages is yet to be decided,
-but for now they’re small enough to reside in :mod:`jnrbase`.
+but for now they’re destined to reside in |modref|.
 
 Philosophy
 ----------

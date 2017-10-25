@@ -26,6 +26,9 @@ def chdir(path):
 
     Args:
         path (str): Directory to change to
+
+    Yields:
+        Execution context in ``path``
     """
     old = os.getcwd()
     try:

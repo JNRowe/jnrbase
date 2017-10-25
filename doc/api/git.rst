@@ -1,9 +1,14 @@
-.. currentmodule:: jnrbase.git
+.. module:: jnrbase.git
 
 git
 ===
 
+Functions
+---------
+
 .. autofunction:: find_tag
+
+.. _git-examples:
 
 Examples
 --------

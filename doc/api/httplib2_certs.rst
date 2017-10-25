@@ -1,4 +1,4 @@
-.. currentmodule:: jnrbase.httplib2_certs
+.. module:: jnrbase.httplib2_certs
 
 httplib2_certs
 ==============
@@ -9,9 +9,30 @@ httplib2_certs
 
 .. _httplib2: https://pypi.python.org/pypi/httplib2
 
+Constants
+---------
+
 .. autodata:: ALLOW_FALLBACK
 
 .. autodata:: PLATFORM_FILES
    :annotation: = {<sys.platform>: [<file>, ], ...}
 
+Functions
+---------
+
 .. autofunction:: find_certs
+
+.. _httplib2_certs-examples:
+
+Examples
+--------
+
+.. testsetup::
+
+    from jnrbase.httplib2_certs import find_certs
+
+.. doctest::
+   :options: +SKIP
+
+    >>> find_certs()
+    '/etc/ssl/certs/ca-certificates.crt'

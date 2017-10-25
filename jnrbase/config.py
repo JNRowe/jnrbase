@@ -28,7 +28,7 @@ def read_configs(pkg, name='config', *, local=True):
     """Process configuration file stack.
 
     We export the time parsing functionality of ``jnrbase`` as custom
-    converters for :obj:`~configparser.ConfigParser`:
+    converters for :class:`configparser.ConfigParser`:
 
     ===================  ===========================================
     Method               Function
@@ -43,7 +43,7 @@ def read_configs(pkg, name='config', *, local=True):
         name (str): File name to search for within config directories
         local (bool): Whether to include config files from current directory
     Returns:
-        ConfigParser: Parsed configuration files
+        configparser.ConfigParser: Parsed configuration files
     """
     configs = get_configs(pkg, name)
     if local:

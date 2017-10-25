@@ -1,9 +1,14 @@
-.. currentmodule:: jnrbase.timer
+.. module:: jnrbase.timer
 
 timer
 =====
 
+Classes
+-------
+
 .. autoclass:: Timing
+
+.. _timer-examples:
 
 Examples
 --------

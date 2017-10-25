@@ -1,11 +1,11 @@
-:mod:`jnrbase`
-==============
+``jnrbase``
+===========
 
-``jnrbase`` is a collection of utility libraries that are used in various Open
+|modref| is a collection of utility libraries that are used in various Open
 Source projects that I (JNRowe_) work on.  Feel free to use it in your
 projects, or perhaps even improve it!
 
-``jnrbase`` is released under the `GPL v3`_ license.
+|modref| is released under the `GPL v3`_ license.
 
 :Git repository:  https://github.com/JNRowe/jnrbase/
 :Issue tracker:  https://github.com/JNRowe/jnrbase/issues/
@@ -24,6 +24,7 @@ Contents
    release
    thaw
    upgrading
+   NEWS
    api/index
    todo
 
@@ -31,6 +32,7 @@ Indices and tables
 ------------------
 
 * :ref:`genindex`
+* :ref:`modindex`
 * :ref:`search`
 
 .. _JNRowe: https://github.com/JNRowe

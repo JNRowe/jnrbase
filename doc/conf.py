@@ -31,10 +31,11 @@ on_rtd = os.getenv('READTHEDOCS')
 if not on_rtd:
     import sphinx_rtd_theme
 
+# General configuration {{{
 extensions = \
     ['sphinx.ext.{}'.format(ext)
-     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
-                 'napoleon', 'todo', 'viewcode']] \
+     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'graphviz',
+                 'intersphinx', 'napoleon', 'todo', 'viewcode']] \
     + ['sphinxcontrib.{}'.format(ext) for ext in []]
 
 if not on_rtd:
@@ -49,59 +50,92 @@ if not on_rtd:
         extensions.append('sphinxcontrib.spelling')
 
 master_doc = 'index'
-source_suffix = '.rst'
 
-project = u'jnrbase'
+rst_epilog = """
+.. |PyPI| replace:: :abbr:`PyPI (Python Package Index)`
+.. |modref| replace:: :mod:`jnrbase`
+"""
+
+default_role = 'any'
+
+needs_sphinx = '1.6'
+
+nitpicky = True
+# }}}
+
+# Project information {{{
+project = 'jnrbase'
 copyright = '2014-2017  James Rowe'
 
-version = '.'.join([str(s) for s in jnrbase._version.tuple[:2]])
+version = '{major}.{minor}'.format_map(jnrbase._version.dict)
 release = jnrbase._version.dotted
 
-html_experimental_html5_writer = True
+modindex_common_prefix = ['jnrbase.', ]
 
+trim_footnote_reference_space = True
+# }}}
+
+# Options for HTML output {{{
 # readthedocs.org handles this setup for their builds, but it is nice to see
 # approximately correct builds on the local system too
 if not on_rtd:
-    html_theme = "sphinx_rtd_theme"
+    html_theme = 'sphinx_rtd_theme'
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path(), ]
 
-pygments_style = 'sphinx'
 with suppress(CalledProcessError):
     proc = run(['git', 'log', "--pretty=format:'%ad [%h]'", '--date=short',
                 '-n1'],
                stdout=PIPE)
     html_last_updated_fmt = proc.stdout.decode()
 
-# Autodoc extension settings
-autoclass_content = 'init'
+html_copy_source = False
+
+html_experimental_html5_writer = True
+# }}}
+
+# autodoc extension settings {{{
+autoclass_content = 'both'
 autodoc_default_flags = ['members', ]
+# }}}
 
-# coverage extension settings
+# coverage extension settings {{{
 coverage_write_headline = False
+# }}}
 
-# intersphinx extension settings
+# extlinks extension settings {{{
+github_base = 'https://github.com/JNRowe/{}/'.format(project)
+extlinks = {
+    'issue': ('{}issues/%s'.format(github_base), 'issue #'),
+    'pr': ('{}pull/%s'.format(github_base), 'pull request #'),
+    'pypi': ('https://pypi.python.org/pypi/%s', ''),
+}
+# }}}
+
+# graphviz extension settings {{{
+graphviz_output_format = 'svg'
+# }}}
+
+# intersphinx extension settings {{{
 intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
         'click': 'http://click.pocoo.org/6/',
+        'jinja2': 'http://jinja.pocoo.org/docs/',
         'pygments': 'http://pygments.org/',
         'python': 'http://docs.python.org/3/',
     }.items()
 }
+# }}}
 
-# extlinks extension settings
-extlinks = {
-    'pypi': ('http://pypi.python.org/pypi/%s', ''),
-    'issue': ('https://github.com/JNRowe/jnrbase/issues/%s', 'issue #'),
-    'pr': ('https://github.com/JNRowe/jnrbase/pull/%s', 'pull request #'),
-}
+# napoleon extension settings {{{
+napoleon_numpy_docstring = False
+# }}}
 
-# spelling extension settings
+# spelling extension settings {{{
 spelling_lang = 'en_GB'
 spelling_word_list_filename = 'wordlist.txt'
+# }}}
 
-# napoleon extension settings
-napoleon_numpy_docstring = False
-
-# todo extension settings
+# todo extension settings {{{
 todo_include_todos = True
+# }}}

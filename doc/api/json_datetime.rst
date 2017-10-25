@@ -1,7 +1,10 @@
-.. currentmodule:: jnrbase.json_datetime
+.. module:: jnrbase.json_datetime
 
 json_datetime
 =============
+
+Classes
+-------
 
 .. class:: DatetimeEncoder
 
@@ -10,6 +13,9 @@ json_datetime
     See also: :class:`json.JSONEncoder`
 
 .. automethod:: DatetimeEncoder.default
+
+Functions
+---------
 
 .. autofunction:: json_to_datetime
 
@@ -28,6 +34,8 @@ json_datetime
 .. function:: loads(...)
 
     Simple :func:`json.loads` wrapper using :func:`json_to_datetime`.
+
+.. _json_datetime-examples:
 
 Examples
 --------

@@ -1,9 +1,14 @@
-.. currentmodule:: jnrbase.pip_support
+.. module:: jnrbase.pip_support
 
 pip_support
 ===========
 
+Functions
+---------
+
 .. autofunction:: parse_requires
+
+.. _pip_support-examples:
 
 Examples
 --------

@@ -72,7 +72,8 @@ def format_delta(timedelta_):
 def parse_datetime(string, *, naive=False):
     """Parse ISO-8601 datetime string.
 
-    Warning:
+    .. deprecated:: 0.6.0
+
         Support for naïve datetimes will be removed in v0.7.0.
 
     Args:

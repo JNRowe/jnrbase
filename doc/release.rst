@@ -7,19 +7,19 @@ Release HOWTO
   first thing I recommend that you do is find/write a tool that allows you to
   automate all of this, or you’re going to miss important steps at some point.
 
+.. highlight:: console
+
 Test
 ----
 
-Tests can be run via pytest_:
-
-.. code-block:: console
+Tests can be run via pytest_::
 
     $ pip install -r extra/requirements-test.txt
     $ pytest -v tests
 
-When preparing a release it is important to check that :mod:`jnrbase` works
-with all supported Python versions, and that the documentation for executing
-them is correct.
+When preparing a release it is important to check that |modref| works with all
+supported Python versions, and that the documentation for executing them is
+correct.
 
 Prepare release
 ---------------
@@ -33,24 +33,22 @@ With the tests passing, do the following steps:
 * Push the changes — including the new tag — to the GitHub repository
 * Create a new release on GitHub
 
-Update PyPI
------------
+Update |PyPI|
+-------------
 
 ..
   This is the section you’re especially likely to get wrong at some point if you
   try to handle all of this manually ;)
 
-Create and upload the new release tarballs to PyPI using twine_:
-
-.. code-block:: console
+Create and upload the new release tarballs to |PyPI| using twine_:
 
     $ ./setup.py sdist bdist_wheel
     $ twine upload --sign dist/jnrbase-${version}*
 
 Fetch the uploaded tarballs, and check for errors.
 
-You should also test installation from PyPI, to check the experience
-:mod:`jnrbase`’s end users will have.
+You should also test installation from |PyPI|, to check the experience
+|modref|’s end users will have.
 
 .. _pytest: http://pytest.org/
 .. _twine: https://pypi.python.org/pypi/twine

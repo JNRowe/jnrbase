@@ -2,6 +2,7 @@ User-visible changes
 ====================
 
 .. contents::
+   :local:
 
 0.6.0 - 2017-10-18
 ------------------
@@ -26,8 +27,8 @@ User-visible changes
   or peg the ``jnrbase`` dependency to ``<0.5``
 * Python 3.5 is the minimum supported version… but, if you desperately need
   support for 3.{2..4} file an issue_
-* Many functions now use `keyword-only arguments`_ for option setting
-  arguments
+* Many functions now use keyword-only arguments for option setting arguments,
+  as defined in :PEP:`3102`
 
     ===========================    ====================================
     Class/function                 Option
@@ -46,7 +47,6 @@ User-visible changes
   library’s ``datetime.timezone``
 * Jinja2_ v2.9, or newer, is required for ``jnrbase[template]``
 
-.. _keyword-only arguments: https://www.python.org/dev/peps/pep-3102/
 .. _Jinja2: https://pypi.python.org/pypi/Jinja2
 
 0.4.0 - 2017-04-03
@@ -60,7 +60,7 @@ User-visible changes
 ------------------
 
 * ``debug.{enter,exit}`` output now includes the function name
-* ``Timer`` has been renamed to ``Timing`` to match PEP-343 naming
+* ``Timer`` has been renamed to ``Timing`` to match :PEP:`343` naming
 * contextlib2_ is required with Python v3.4, or earlier
 * Python 3.5 is now supported
 * Python 2.6 support has been removed… but, if you need it file an issue_

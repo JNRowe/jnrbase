@@ -1,9 +1,14 @@
-.. currentmodule:: jnrbase.entry
+.. module:: jnrbase.entry
 
 entry
 =====
 
+Functions
+---------
+
 .. autofunction:: entry_point
+
+.. _entry-examples:
 
 Examples
 --------

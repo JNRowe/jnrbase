@@ -1,13 +1,18 @@
-.. currentmodule:: jnrbase.attrdict
+.. module:: jnrbase.attrdict
 
 attrdict
 ========
+
+Classes
+-------
 
 .. autoclass:: AttrDict
    :special-members: __delattr__, __getattr__, __setattr__
 
 .. autoclass:: ROAttrDict
    :special-members: __setattr__
+
+.. _attrdict-examples:
 
 Examples
 --------

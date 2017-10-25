@@ -1,11 +1,16 @@
-.. currentmodule:: jnrbase.human_time
+.. module:: jnrbase.human_time
 
 human_time
 ==========
 
+Functions
+---------
+
 .. autofunction:: human_timestamp
 
 .. autofunction:: parse_timedelta
+
+.. _human_time-examples:
 
 Examples
 --------

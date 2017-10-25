@@ -1,9 +1,12 @@
-.. currentmodule:: jnrbase.debug
+.. module:: jnrbase.debug
 
 debug
 =====
 
 .. autoclass:: DebugPrint
+
+Functions
+---------
 
 .. autofunction:: noisy_wrap
 
@@ -12,6 +15,8 @@ debug
 
 .. autofunction:: enter
 .. autofunction:: exit
+
+.. _debug-examples:
 
 Examples
 --------
