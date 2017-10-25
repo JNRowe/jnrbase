@@ -37,7 +37,7 @@ def parse_requires(fname):
     Args:
         fname (str): Base file to pass
     Returns:
-        list: Parsed dependencies
+        list[str]: Parsed dependencies
     """
     deps = []
     with open(fname) as req_file:

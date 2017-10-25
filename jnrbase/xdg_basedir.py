@@ -30,6 +30,10 @@ ALLOW_DARWIN = True
 def user_cache(pkg):
     """Return a cache location honouring :envvar:`XDG_CACHE_HOME`.
 
+    .. envvar:: XDG_CACHE_HOME
+
+        See XDG base directory spec.
+
     Args:
         pkg (str): Package name
     Returns:
@@ -47,6 +51,10 @@ def user_cache(pkg):
 def user_config(pkg):
     """Return a config location honouring :envvar:`XDG_CONFIG_HOME`.
 
+    .. envvar:: XDG_CONFIG_HOME
+
+        See XDG base directory spec.
+
     Args:
         pkg (str): Package name
     Returns:
@@ -62,6 +70,10 @@ def user_config(pkg):
 
 def user_data(pkg):
     """Return a data location honouring :envvar:`XDG_DATA_HOME`.
+
+    .. envvar:: XDG_DATA_HOME
+
+        See XDG base directory spec.
 
     Args:
         pkg (str): Package name
@@ -83,7 +95,7 @@ def get_configs(pkg, name='config'):
         pkg (str): Package name
         name (str): Configuration file name
     Returns:
-        list of str
+        list[str]
     """
     dirs = [user_config(pkg), ]
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))

@@ -34,7 +34,7 @@ class DebugPrint:
         """Configure new DebugPrint handler.
 
         Args:
-            fh (file): File handle to override
+            fh (io.TextIOWrapper): File handle to override
         """
         self.fh = fh
 
@@ -114,8 +114,9 @@ def on_enter(msg=None):
 def enter(msg=None):
     """Decorator to display a message when entering a function.
 
-    Warning:
-        Deprecated name for ``on_enter``.
+    .. deprecated:: 0.7.0
+
+        Renamed to :func:`on_enter`.
 
     Args:
         msg (str): Message to display
@@ -156,8 +157,9 @@ def on_exit(msg=None):
 def exit(msg=None):
     """Decorator to display a message when exiting a function.
 
-    Warning:
-        Deprecated name for ``on_exit``.
+    .. deprecated:: 0.7.0
+
+        Renamed to :func:`on_exit`.
 
     Args:
         msg (str): Message to display

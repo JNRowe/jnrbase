@@ -129,7 +129,7 @@ def regexp(string, pattern, repl, *, count=0, flags=0):
 def relative_time(timestamp):
     """Format a relative time.
 
-    See :func:`human_time.human_timestamp`
+    See :func:`~jnrbase.human_time.human_timestamp`
 
     Args:
         timestamp (datetime.datetime): Event to generate relative timestamp

@@ -51,6 +51,11 @@ if not on_rtd:
 master_doc = 'index'
 source_suffix = '.rst'
 
+rst_epilog = """
+.. |PyPI| replace:: :abbr:`PyPI (Python Package Index)`
+.. |modref| replace:: :mod:`jnrbase`
+"""
+
 project = u'jnrbase'
 copyright = '2014-2017  James Rowe'
 

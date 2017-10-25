@@ -4,8 +4,8 @@ jnrbase - Common utility functionality
 |travis| |coveralls| |pypi|
 
 ``jnrbase`` is a collection of common utility libraries that are used in
-various Open Source projects that I (JNRowe_) work on.  Feel free to use it, and
-especially improve it, in your projects!
+various Open Source projects that I (JNRowe_) work on.  Feel free to use it
+— and perhaps improve it — in your projects!
 
 ``jnrbase`` is released under the `GPL v3`_ license.
 
@@ -59,7 +59,7 @@ Ideas
 * Ryan Sutton
 
 If I’ve forgotten to include your name I wholeheartedly apologise.  Just drop
-me a mail_ and I’ll update the list!
+me a mail_ or open an issue_, and I’ll update the list!
 
 Bugs
 ----
@@ -68,7 +68,7 @@ If you find any problems, bugs or just have a question about this package
 either file an issue_ or drop me a mail_.
 
 If you’ve found a bug please attempt to include a minimal testcase so I can
-reproduce the problem, or even better a patch!
+reproduce the problem, or even better a fix!
 
 .. _JNRowe: https://github.com/JNRowe
 .. _GPL v3: http://www.gnu.org/licenses/

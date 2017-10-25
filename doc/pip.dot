@@ -1,0 +1,27 @@
+digraph {
+    graph [rankdir=LR]
+    node [fontcolor=white, shape=box, style=filled]
+
+    "pip" -> "appdirs"
+    "pip" -> "cachecontrol"
+    "pip" -> "colorama"
+    "pip" -> "distlib"
+    "pip" -> "distro"
+    "pip" -> "html5lib"
+    "pip" -> "ipaddress"
+    "pip" -> "lockfile"
+    "pip" -> "<ordered dict>"
+    "pip" -> "packaging"
+    "pip" -> "pkg_resources"
+    "pip" -> "progress"
+    "pip" -> "pyparsing"
+    "pip" -> "requests" -> "chardet"
+             "requests" -> "urllib3"
+                           "urllib3" -> "<ordered dict>"
+                           "urllib3" -> "six"
+                           "urllib3" -> "<ssl>"
+    "pip" -> "retrying"
+    "pip" -> "re-vendor"
+    "pip" -> "six"
+    "pip" -> "webencodings"
+}
