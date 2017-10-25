@@ -45,9 +45,5 @@ Examples
     >>> timestamp = '2016-12-01T13:02:26Z'
     >>> parse_datetime(timestamp)
     datetime.datetime(2016, 12, 1, 13, 2, 26, tzinfo=<UTC>)
-    >>> parse_datetime(timestamp, naive=True)
-    datetime.datetime(2016, 12, 1, 13, 2, 26)
-    >>> parse_datetime('2016-12-01T16:02:26+03:00', naive=True)
-    datetime.datetime(2016, 12, 1, 13, 2, 26)
     >>> format_datetime(parse_datetime(timestamp)) == timestamp
     True

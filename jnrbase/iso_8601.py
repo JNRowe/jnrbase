@@ -18,7 +18,6 @@
 
 import datetime
 import re
-import warnings
 
 import ciso8601
 
@@ -69,33 +68,21 @@ def format_delta(timedelta_):
                                 hours_s, minutes_s, seconds_s)
 
 
-def parse_datetime(string, *, naive=False):
+def parse_datetime(string):
     """Parse ISO-8601 datetime string.
-
-    .. deprecated:: 0.6.0
-
-        Support for naïve datetimes will be removed in v0.7.0.
 
     Args:
         string (str): Datetime string to parse
-        naive (bool): Use naïve datetimes
     Returns:
         datetime.datetime: Parsed datetime object
     """
-    if naive:
-        warnings.warn(
-            'parse_datetime’s naive support will be removed in v0.7.0',
-            DeprecationWarning, 2)
     if not string:
         datetime_ = datetime.datetime.now(datetime.timezone.utc)
     else:
         datetime_ = ciso8601.parse_datetime(string)
         if not datetime_:
             raise ValueError('Unable to parse timestamp {!r}'.format(string))
-    if naive is True and datetime_.tzinfo:
-        datetime_ = datetime_.astimezone(datetime.timezone.utc)
-        datetime_ = datetime_.replace(tzinfo=None)
-    elif naive is False and datetime_.tzinfo is None:
+    if datetime_.tzinfo is None:
         datetime_ = datetime_.replace(tzinfo=datetime.timezone.utc)
     return datetime_
 

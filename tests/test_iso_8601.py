@@ -19,11 +19,10 @@
 from datetime import datetime, timedelta, timezone
 
 from hiro import Timeline
-from pytest import deprecated_call, mark, raises
+from pytest import mark, raises
 
 from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
                               parse_delta)
-from jnrbase._version import tuple as v_tuple
 
 
 @mark.parametrize('string,expected', [
@@ -39,26 +38,6 @@ def test_parse_datetime(string, expected):
             assert parse_datetime(string) == now
     else:
         assert parse_datetime(string) == expected
-
-
-@mark.parametrize('string,expected', [
-    ('2011-05-04T07:00:00-01:00', datetime(2011, 5, 4, 8, 0)),
-    ('2011-05-04T12:15:00+03:00', datetime(2011, 5, 4, 9, 15)),
-    ('', None),
-])
-def test_parse_datetime_naive(string, expected):
-    with deprecated_call():
-        if expected is None:
-            with Timeline().freeze():
-                now = datetime.utcnow()
-                assert parse_datetime(string, naive=True) == now
-        else:
-            assert parse_datetime(string, naive=True) == expected
-
-
-@mark.skipif(v_tuple < (0, 7, 0), reason='Deprecations')
-def test_parse_datetime_naive_deprecation():
-    parse_datetime('2011-05-04T07:00:00-01:00', naive=True)
 
 
 @mark.parametrize('dt,expected', [
