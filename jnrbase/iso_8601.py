@@ -43,8 +43,7 @@ def parse_delta(string):
     """, string, re.VERBOSE)
     if not match:
         raise ValueError('Unable to parse delta {!r}'.format(string))
-    match_dict = dict((k, int(v) if v else 0)
-                      for k, v in match.groupdict().items())
+    match_dict = {k: int(v) if v else 0 for k, v in match.groupdict().items()}
     return datetime.timedelta(**match_dict)
 
 
