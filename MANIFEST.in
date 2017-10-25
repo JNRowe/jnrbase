@@ -9,7 +9,6 @@ include extra/doap.rdf
 include extra/requirements*.txt
 include ca_certs_locater.py
 include tests/data/config/.jnrbaserc
-include unittest.cfg
 
 include tests/*.py
 
