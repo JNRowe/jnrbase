@@ -35,6 +35,8 @@ Functions
 
     Simple :func:`json.loads` wrapper using :func:`json_to_datetime`.
 
+.. _json_datetime-examples:
+
 Examples
 --------
 

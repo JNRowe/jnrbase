@@ -12,6 +12,8 @@ Classes
 .. autoclass:: ROAttrDict
    :special-members: __setattr__
 
+.. _attrdict-examples:
+
 Examples
 --------
 

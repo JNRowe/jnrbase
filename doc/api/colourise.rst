@@ -35,6 +35,8 @@ Message formatting
 .. autofunction:: psuccess
 .. autofunction:: pwarn
 
+.. _colourise-examples:
+
 Examples
 --------
 

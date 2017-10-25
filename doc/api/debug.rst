@@ -16,6 +16,8 @@ Functions
 .. autofunction:: enter
 .. autofunction:: exit
 
+.. _debug-examples:
+
 Examples
 --------
 

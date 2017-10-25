@@ -8,6 +8,8 @@ Functions
 
 .. autofunction:: parse_requires
 
+.. _pip_support-examples:
+
 Examples
 --------
 

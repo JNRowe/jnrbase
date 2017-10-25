@@ -10,6 +10,8 @@ Functions
 
 .. autofunction:: parse_timedelta
 
+.. _human_time-examples:
+
 Examples
 --------
 

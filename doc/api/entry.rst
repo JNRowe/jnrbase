@@ -8,6 +8,8 @@ Functions
 
 .. autofunction:: entry_point
 
+.. _entry-examples:
+
 Examples
 --------
 

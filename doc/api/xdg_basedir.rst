@@ -20,6 +20,8 @@ Functions
 
 .. autofunction:: get_data_dirs
 
+.. _xdg_basedir-examples:
+
 Examples
 --------
 

@@ -8,6 +8,8 @@ Functions
 
 .. autofunction:: read_configs
 
+.. _config-examples:
+
 Examples
 --------
 

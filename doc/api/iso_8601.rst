@@ -25,6 +25,8 @@ Timestamp support
 .. autofunction:: parse_datetime
 .. autofunction:: format_datetime
 
+.. _iso_8601-examples:
+
 Examples
 --------
 

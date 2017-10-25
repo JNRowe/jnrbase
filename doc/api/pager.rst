@@ -8,6 +8,8 @@ Functions
 
 .. autofunction:: pager
 
+.. _pager-examples:
+
 Examples
 --------
 

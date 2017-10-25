@@ -8,6 +8,8 @@ Functions
 
 .. autofunction:: setup
 
+.. _i18n-examples:
+
 Examples
 --------
 

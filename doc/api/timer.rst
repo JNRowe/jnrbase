@@ -8,6 +8,8 @@ Classes
 
 .. autoclass:: Timing
 
+.. _timer-examples:
+
 Examples
 --------
 

@@ -8,6 +8,8 @@ Functions
 
 .. autofunction:: chdir(path)
 
+.. _context-examples:
+
 Examples
 --------
 

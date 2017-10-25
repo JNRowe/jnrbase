@@ -30,6 +30,8 @@ Functions
 
 .. autofunction:: setup
 
+.. _template-examples:
+
 Examples
 --------
 

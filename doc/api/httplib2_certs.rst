@@ -22,6 +22,8 @@ Functions
 
 .. autofunction:: find_certs
 
+.. _httplib2_certs-examples:
+
 Examples
 --------
 
