@@ -30,20 +30,16 @@ class Timing:
         Renamed from ``Timer``.
 
     Attributes:
-        human_format (bool): Use humanised output
         verbose (bool): Print elapsed time
-        _start (datetime.datetime): Instantiation time
         elapsed (datetime.timedelta): Duration of execution
     """
 
-    def __init__(self, *, human_format=True, verbose=False):
+    def __init__(self, *, verbose=False):
         """Configure the timing Timing context manager.
 
         Args:
-            human_format (bool): Use humanised output
             verbose (bool): Print elapsed time
         """
-        self.human_format = human_format
         self.verbose = verbose
         self._start = None
         self.elapsed = None
@@ -56,7 +52,4 @@ class Timing:
         now = datetime.utcnow()
         self.elapsed = now - self._start
         if self.verbose:
-            if self.human_format:
-                print('Started {}'.format(human_timestamp(self._start)))
-            else:
-                print('Elapsed: {}'.format(self.elapsed))
+            print('Started {}'.format(human_timestamp(self._start)))
