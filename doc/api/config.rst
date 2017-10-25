@@ -3,4 +3,7 @@
 config
 ======
 
+Functions
+---------
+
 .. autofunction:: read_configs

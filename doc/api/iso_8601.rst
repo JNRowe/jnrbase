@@ -10,6 +10,9 @@ iso_8601
 
 .. _ciso8601: https://pypi.python.org/pypi/ciso8601
 
+Functions
+---------
+
 Duration support
 ''''''''''''''''
 

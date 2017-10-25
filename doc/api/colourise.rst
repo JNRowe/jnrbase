@@ -9,7 +9,13 @@ colourise
 
 .. _click: https://pypi.python.org/pypi/click
 
+Constants
+---------
+
 .. autodata:: COLOUR
+
+Functions
+---------
 
 .. autofunction:: _colourise
 

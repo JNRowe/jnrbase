@@ -3,6 +3,9 @@
 pip_support
 ===========
 
+Functions
+---------
+
 .. autofunction:: parse_requires
 
 Examples

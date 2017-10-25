@@ -3,6 +3,9 @@
 context
 =======
 
+Functions
+---------
+
 .. autofunction:: chdir(path)
 
 Examples

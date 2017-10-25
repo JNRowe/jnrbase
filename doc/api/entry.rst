@@ -3,6 +3,9 @@
 entry
 =====
 
+Functions
+---------
+
 .. autofunction:: entry_point
 
 Examples

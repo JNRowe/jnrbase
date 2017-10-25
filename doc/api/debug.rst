@@ -5,6 +5,9 @@ debug
 
 .. autoclass:: DebugPrint
 
+Functions
+---------
+
 .. autofunction:: noisy_wrap
 
 .. autofunction:: on_enter

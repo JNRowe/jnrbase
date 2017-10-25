@@ -11,8 +11,14 @@ template
 .. _jinja2: https://pypi.python.org/pypi/jinja2
 .. _pygments: https://pypi.python.org/pypi/pygments
 
+Constants
+---------
+
 .. autodata:: FILTERS
    :annotation: = {<name>: <filter function>, ...}
+
+Functions
+---------
 
 .. autofunction:: jinja_filter
 

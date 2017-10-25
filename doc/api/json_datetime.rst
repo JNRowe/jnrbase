@@ -3,6 +3,9 @@
 json_datetime
 =============
 
+Classes
+-------
+
 .. class:: DatetimeEncoder
 
     Custom JSON encoding for supporting ``datetime`` objects.
@@ -10,6 +13,9 @@ json_datetime
     See also: :class:`json.JSONEncoder`
 
 .. automethod:: DatetimeEncoder.default
+
+Functions
+---------
 
 .. autofunction:: json_to_datetime
 

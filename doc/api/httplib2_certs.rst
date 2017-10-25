@@ -9,9 +9,15 @@ httplib2_certs
 
 .. _httplib2: https://pypi.python.org/pypi/httplib2
 
+Constants
+---------
+
 .. autodata:: ALLOW_FALLBACK
 
 .. autodata:: PLATFORM_FILES
    :annotation: = {<sys.platform>: [<file>, ], ...}
+
+Functions
+---------
 
 .. autofunction:: find_certs

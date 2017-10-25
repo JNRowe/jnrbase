@@ -3,6 +3,9 @@
 human_time
 ==========
 
+Functions
+---------
+
 .. autofunction:: human_timestamp
 
 .. autofunction:: parse_timedelta

@@ -3,7 +3,13 @@
 xdg_basedir
 ===========
 
+Constants
+---------
+
 .. autodata:: ALLOW_DARWIN
+
+Functions
+---------
 
 .. autofunction:: user_cache
 .. autofunction:: user_config

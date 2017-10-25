@@ -51,7 +51,7 @@ Patches
 Bug reports
 '''''''''''
 
-* <your name here>
+* Delphine Beauchemin
 
 Ideas
 '''''

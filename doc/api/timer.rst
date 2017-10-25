@@ -3,6 +3,9 @@
 timer
 =====
 
+Classes
+-------
+
 .. autoclass:: Timing
 
 Examples

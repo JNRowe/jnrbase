@@ -3,6 +3,9 @@
 git
 ===
 
+Functions
+---------
+
 .. autofunction:: find_tag
 
 Examples
