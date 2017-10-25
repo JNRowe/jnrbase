@@ -6,6 +6,19 @@ duplication, and duplication is a *Bad Thing*\ ™.  Accepting duplication is th
 start of a rabbit hole that leads to indefinite chasing of repeating bugs in
 their copy’n’paste hideaways, and it needs to stop.
 
+.. digraph:: nightmare
+
+    graph [rankdir=LR]
+    node [fontname="Permanent Marker", shape=box, style=filled]
+    edge [fontname="Permanent Marker", arrowhead=empty, label="0…*"]
+
+    "package" [fillcolor="#28ff1e"]
+    "bundled" [fillcolor="#daa520"]
+    "mo’ bundled" [fillcolor="#d2691e"]
+    "mo’ mo’ bundled" [fillcolor="#8b4513"]
+
+    "package" -> "bundled" -> "mo’ bundled" -> "mo’ mo’ bundled"
+
 For an example of how bad it can get in the real world :download:`take a look
 at pip <pip.dot>`; a package which bundles packages that themself bundle
 packages, until the final turtle lets out a futile little yelp, squishes unto

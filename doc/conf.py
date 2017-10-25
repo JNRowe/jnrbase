@@ -33,8 +33,8 @@ if not on_rtd:
 
 extensions = \
     ['sphinx.ext.{}'.format(ext)
-     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
-                 'napoleon', 'todo', 'viewcode']] \
+     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'graphviz',
+                 'intersphinx', 'napoleon', 'todo', 'viewcode']] \
     + ['sphinxcontrib.{}'.format(ext) for ext in []]
 
 if not on_rtd:
@@ -84,6 +84,9 @@ autodoc_default_flags = ['members', ]
 
 # coverage extension settings
 coverage_write_headline = False
+
+# graphviz extension settings
+graphviz_output_format = 'svg'
 
 # intersphinx extension settings
 intersphinx_mapping = {
