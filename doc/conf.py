@@ -88,6 +88,8 @@ with suppress(CalledProcessError):
                stdout=PIPE)
     html_last_updated_fmt = proc.stdout.decode()
 
+html_copy_source = False
+
 html_experimental_html5_writer = True
 # }}}
 
