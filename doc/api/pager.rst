@@ -7,3 +7,15 @@ Functions
 ---------
 
 .. autofunction:: pager
+
+Examples
+--------
+
+.. testsetup::
+
+    from jnrbase.pager import pager
+
+.. doctest::
+   :options: +SKIP
+
+    >>> pager('long text', pager='most')
