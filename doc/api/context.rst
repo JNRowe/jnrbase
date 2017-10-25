@@ -25,6 +25,6 @@ Examples
     ['.travis.yml', 'README.rst']
     >>> with chdir('doc'):
     ...     sorted(listdir('.'))[:3]
-    ['alternatives.rst', 'api', 'background.rst']
+    ['NEWS.rst', 'alternatives.rst', 'api']
     >>> sorted(listdir('.')[:2])
     ['.travis.yml', 'README.rst']

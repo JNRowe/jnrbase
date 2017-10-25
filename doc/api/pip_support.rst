@@ -21,4 +21,4 @@ Examples
    :options: +ELLIPSIS
 
     >>> parse_requires('extra/requirements-test.txt')
-    ['click>=3.0', ..., 'pytest-cov>=1.8']
+    ['click>=3.0', ..., 'pytest-randomly>=1.2']
