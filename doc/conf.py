@@ -72,6 +72,7 @@ release = jnrbase._version.dotted
 
 modindex_common_prefix = ['jnrbase.', ]
 
+trim_footnote_reference_space = True
 # }}}
 
 # Options for HTML output {{{
