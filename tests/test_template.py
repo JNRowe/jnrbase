@@ -36,10 +36,10 @@ def test_filter_decorator():
 
 
 @mark.parametrize('filter_,args,kwargs,expected', [
-    ('colourise', ('test', 'green'), {}, u'\x1b[32mtest\x1b[0m'),
+    ('colourise', ('test', 'green'), {}, '\x1b[32mtest\x1b[0m'),
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
-     u'f = \x1b[34mlambda\x1b[39;49;00m: \x1b[36mTrue\x1b[39;49;00m\n'),
+     'f = \x1b[34mlambda\x1b[39;49;00m: \x1b[36mTrue\x1b[39;49;00m\n'),
     ('html2text', ('<b>test</b>', ), {}, '**test**'),
     ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
      'yesterday'),

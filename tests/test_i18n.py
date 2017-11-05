@@ -18,6 +18,7 @@
 
 from jnrbase import i18n
 
+
 # This needs a *real* test suite, but its usage necessitates bundling a heap of
 # test data and patching practically everything to make it work.
 
