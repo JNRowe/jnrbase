@@ -24,6 +24,7 @@ Contents
    release
    thaw
    upgrading
+   dependency_choices
    NEWS
    api/index
    todo

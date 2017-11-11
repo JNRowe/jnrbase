@@ -11,6 +11,8 @@ Frequently Asked Questions
 
    Transfer relevant FAQs from rdep FAQ documents
 
+.. _click_for_color-label:
+
 Why require ``click`` just for ``jnrbase[colour]``?
 ---------------------------------------------------
 
