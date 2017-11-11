@@ -6,8 +6,10 @@ duplication, and duplication is a *Bad Thing*\ ™.  Accepting duplication is th
 start of a rabbit hole that leads to indefinite chasing of repeating bugs in
 their copy’n’paste hideaways, and it needs to stop.
 
-.. digraph:: nightmare
+.. image:: images/depends.png
+    :alt: Example bundled dependency list
 
+..
     graph [rankdir=LR]
     node [fontname="Permanent Marker", shape=box, style=filled]
     edge [fontname="Permanent Marker", arrowhead=empty, label="0…*"]

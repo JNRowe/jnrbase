@@ -34,8 +34,8 @@ if not on_rtd:
 # General configuration {{{
 extensions = \
     ['sphinx.ext.{}'.format(ext)
-     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'graphviz',
-                 'intersphinx', 'napoleon', 'todo', 'viewcode']] \
+     for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
+                 'napoleon', 'todo', 'viewcode']] \
     + ['sphinxcontrib.{}'.format(ext) for ext in []]
 
 if not on_rtd:
