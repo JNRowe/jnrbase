@@ -1,5 +1,5 @@
 #
-"""conftest - Configuration for tests"""
+"""conftest - Configuration for tests."""
 # Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of jnrbase.
@@ -26,7 +26,7 @@ def _get_module(request):
 
 @fixture
 def path_exists_force(request, monkeypatch):
-    """Force result of module's ``path.exists`` function
+    """Force result of module's ``path.exists`` function.
 
     This fixture returns ``True`` by default, but a custom value can be
     specified by setting the ``exists_result`` attribute on a test function.

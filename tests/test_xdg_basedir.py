@@ -1,5 +1,5 @@
 #
-"""test_xdg_basedir - Test XDG basedir support"""
+"""test_xdg_basedir - Test XDG basedir support."""
 # Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of jnrbase.

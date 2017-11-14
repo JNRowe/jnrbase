@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""setup.py - Setuptools tasks and config for jnrbase"""
+"""setup.py - Setuptools tasks and config for jnrbase."""
 # Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of jnrbase.
