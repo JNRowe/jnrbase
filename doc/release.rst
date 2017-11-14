@@ -40,10 +40,12 @@ Update |PyPI|
   This is the section you’re especially likely to get wrong at some point if you
   try to handle all of this manually ;)
 
-Create and upload the new release tarballs to |PyPI| using twine_:
+Create and upload the new release tarballs to |PyPI| using twine_::
 
     $ ./setup.py sdist bdist_wheel
-    $ twine upload --sign dist/jnrbase-${version}*
+    $ gpg --detach-sign --armour dist/jnrbase-${version}.tar.gz
+    $ gpg --detach-sign --armour dist/jnrbase-${version}-*.whl
+    $ twine upload dist/jnrbase-${version}*
 
 Fetch the uploaded tarballs, and check for errors.
 
