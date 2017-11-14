@@ -24,14 +24,15 @@ from pytest import raises
 from jnrbase import context
 
 
-def test_chdir():
+def test_chdir(tmpdir):
     orig = getcwd()
-    with context.chdir('tests'):
-        assert getcwd != orig
+    dir_ = tmpdir.join('new').mkdir()
+    with context.chdir(dir_):
+        assert getcwd() == dir_
     assert getcwd() == orig
 
 
-def test_chdir_missing():
+def test_chdir_missing(tmpdir):
     with raises(FileNotFoundError, match=escape('[Errno 2]')), \
-            context.chdir('missing_dir'):
+            context.chdir(tmpdir.join('missing_dir').strpath):
         pass
