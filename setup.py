@@ -16,11 +16,10 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-import glob
-import os
-
 from configparser import ConfigParser
+from glob import glob
 from importlib.util import module_from_spec, spec_from_file_location
+from os import path
 
 from setuptools import setup
 from setuptools.command.test import test
@@ -69,8 +68,8 @@ metadata = dict(conf['metadata'])
 pip_support = import_file(metadata['name'], 'pip_support.py')
 
 extras_require = {}
-for file in glob.glob('extra/requirements-*.txt'):
-    suffix = os.path.splitext(file)[0].split('-')[1]
+for file in glob('extra/requirements-*.txt'):
+    suffix = path.splitext(file)[0].split('-')[1]
     if suffix not in ['doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)
 
