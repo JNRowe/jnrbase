@@ -20,7 +20,6 @@ from operator import add
 
 from pytest import deprecated_call, mark, raises
 
-from jnrbase import debug as debug_mod
 from jnrbase._version import tuple as v_tuple
 from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, on_enter,
                            on_exit, sys,)
@@ -93,7 +92,7 @@ def test_DebugPrint(capsys):
 
 
 def test_DebugPrint_no_stack_frame(capsys, monkeypatch):
-    monkeypatch.setattr(debug_mod.inspect, 'currentframe', lambda: None)
+    monkeypatch.setattr('jnrbase.debug.inspect.currentframe', lambda: None)
     DebugPrint.enable()
     try:
         print('boom')

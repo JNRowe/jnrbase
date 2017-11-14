@@ -32,5 +32,5 @@ def test_colouriser(f, expected):
 
 
 def test_disabled_colouriser(monkeypatch):
-    monkeypatch.setattr(colourise, 'COLOUR', False)
+    monkeypatch.setattr('jnrbase.colourise.COLOUR', False)
     assert colourise.info('test') == 'test'

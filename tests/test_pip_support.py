@@ -20,7 +20,7 @@ from os import path
 
 from pytest import mark, raises
 
-from jnrbase import pip_support
+from jnrbase.pip_support import parse_requires
 
 
 DATA_DIR = path.join(path.dirname(__file__), 'data', 'pip')
@@ -31,22 +31,19 @@ def data_file(fname):
 
 
 def test_empty_parse():
-    assert pip_support.parse_requires(data_file('empty.txt')) == []
+    assert parse_requires(data_file('empty.txt')) == []
 
 
 def test_comment_skipping():
-    assert pip_support.parse_requires(data_file('comments.txt')) \
-        == ['httplib2', 'lxml']
+    assert parse_requires(data_file('comments.txt')) == ['httplib2', 'lxml']
 
 
 def test_include():
-    assert pip_support.parse_requires(data_file('base.txt')) \
-        == ['httplib2', 'lxml']
+    assert parse_requires(data_file('base.txt')) == ['httplib2', 'lxml']
 
 
 def test_abs_include():
-    assert pip_support.parse_requires(data_file('base_abs.txt')) \
-        == ['httplib2', 'lxml']
+    assert parse_requires(data_file('base_abs.txt')) == ['httplib2', 'lxml']
 
 
 @mark.parametrize('version,expected', [
@@ -54,10 +51,10 @@ def test_abs_include():
     ((3, 5, 0), []),
 ])
 def test_parse_markers(version, expected, monkeypatch):
-    monkeypatch.setattr(pip_support, 'version_info', version)
-    assert pip_support.parse_requires(data_file('markers.txt')) == expected
+    monkeypatch.setattr('jnrbase.pip_support.version_info', version)
+    assert parse_requires(data_file('markers.txt')) == expected
 
 
 def test_invalid_markers():
     with raises(ValueError, match='Invalid marker'):
-        pip_support.parse_requires(data_file('invalid_markers.txt'))
+        parse_requires(data_file('invalid_markers.txt'))

@@ -32,7 +32,7 @@ def test_upstream_import(path_exists_force):
 
 
 def test_unbundled_package_import(monkeypatch):
-    monkeypatch.setattr(httplib2_certs.httplib2, 'CA_CERTS',
+    monkeypatch.setattr('jnrbase.httplib2_certs.httplib2.CA_CERTS',
                         '/fixed_by_distributor/certs.crt')
     assert httplib2_certs.find_certs() == '/fixed_by_distributor'
 
@@ -46,7 +46,7 @@ def test_bundled(path_exists_force):
 
 @exists_result(False)
 def test_bundled_fail(monkeypatch, path_exists_force):
-    monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
+    monkeypatch.setattr('jnrbase.httplib2_certs.ALLOW_FALLBACK', False)
     with raises(RuntimeError, match='No system certs detected!'):
         httplib2_certs.find_certs()
 
@@ -60,7 +60,7 @@ def test_freebsd_paths(monkeypatch, path_exists_force):
 @exists_result(False)
 def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
     monkeypatch.setattr('sys.platform', 'freebsd')
-    monkeypatch.setattr(httplib2_certs, 'ALLOW_FALLBACK', False)
+    monkeypatch.setattr('jnrbase.httplib2_certs.ALLOW_FALLBACK', False)
     with raises(RuntimeError, match='No system certs detected!'):
         httplib2_certs.find_certs()
 
@@ -70,7 +70,8 @@ def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
     '/etc/pki/tls/certs/ca-bundle.crt',
 ])
 def test_distros(file, monkeypatch):
-    monkeypatch.setattr(httplib2_certs.path, 'exists', lambda s: s == file)
+    monkeypatch.setattr('jnrbase.httplib2_certs.path.exists',
+                        lambda s: s == file)
     assert httplib2_certs.find_certs() == file
 
 
