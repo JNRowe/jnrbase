@@ -1,4 +1,5 @@
 .. module:: jnrbase.context
+   :synopsis: Path context handlers support
 
 context
 =======

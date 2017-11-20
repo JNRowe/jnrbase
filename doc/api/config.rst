@@ -1,4 +1,5 @@
 .. module:: jnrbase.config
+   :synopsis: Configuration loading support
 
 config
 ======

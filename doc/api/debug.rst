@@ -1,4 +1,5 @@
 .. module:: jnrbase.debug
+   :synopsis: Miscellaneous debugging support
 
 debug
 =====

@@ -1,4 +1,5 @@
 .. module:: jnrbase.i18n
+   :synopsis: Configure internationalisation support
 
 i18n
 ====

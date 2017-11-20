@@ -1,4 +1,5 @@
 .. module:: jnrbase.timer
+   :synopsis: Function timing support
 
 timer
 =====

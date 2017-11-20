@@ -1,4 +1,5 @@
 .. module:: jnrbase.git
+   :synopsis: Utilities for ``git`` support
 
 git
 ===

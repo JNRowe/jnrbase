@@ -1,4 +1,5 @@
 .. module:: jnrbase
+   :synopsis: Common utility functionality
 
 API documentation
 =================

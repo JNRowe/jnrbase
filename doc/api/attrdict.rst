@@ -1,4 +1,5 @@
 .. module:: jnrbase.attrdict
+   :synopsis: Dictionary with attribute access
 
 attrdict
 ========

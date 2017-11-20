@@ -1,4 +1,5 @@
 .. module:: jnrbase.colourise
+   :synopsis: Output colourisation support
 
 colourise
 =========

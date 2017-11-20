@@ -1,4 +1,5 @@
 .. module:: jnrbase.pager
+   :synopsis: pager pipe support
 
 pager
 =====

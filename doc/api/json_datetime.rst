@@ -1,4 +1,5 @@
 .. module:: jnrbase.json_datetime
+   :synopsis: :abbr:`JSON (JavaScript Object Notation)` datetime support
 
 json_datetime
 =============

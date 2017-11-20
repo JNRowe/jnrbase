@@ -1,4 +1,5 @@
 .. module:: jnrbase.human_time
+   :synopsis: Handle human readable date formats
 
 human_time
 ==========

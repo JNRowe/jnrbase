@@ -1,4 +1,5 @@
 .. module:: jnrbase.pip_support
+   :synopsis: ``pip`` workarounds support
 
 pip_support
 ===========

@@ -1,4 +1,5 @@
 .. module:: jnrbase.iso_8601
+   :synopsis: ISO-8601 support
 
 iso_8601
 ========

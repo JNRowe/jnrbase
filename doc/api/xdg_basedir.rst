@@ -1,4 +1,5 @@
 .. module:: jnrbase.xdg_basedir
+   :synopsis: XDG base directory support
 
 xdg_basedir
 ===========

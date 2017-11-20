@@ -1,4 +1,5 @@
 .. module:: jnrbase.httplib2_certs
+   :synopsis: ``httplib2`` system certs finder
 
 httplib2_certs
 ==============

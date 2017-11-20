@@ -1,4 +1,5 @@
 .. module:: jnrbase.entry
+   :synopsis: Simple, lazy, module executing support
 
 entry
 =====

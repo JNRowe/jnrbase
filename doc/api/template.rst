@@ -1,4 +1,5 @@
 .. module:: jnrbase.template
+   :synopsis: Jinja templating support
 
 template
 ========
