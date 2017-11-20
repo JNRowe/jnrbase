@@ -94,5 +94,4 @@ def format_datetime(datetime_):
     Returns:
         str: ISO-8601 compatible string
     """
-    # Can’t call isoformat method as it uses the +00:00 form
-    return datetime_.strftime('%FT%TZ')
+    return datetime_.isoformat().replace('+00:00', 'Z')
