@@ -19,8 +19,9 @@
 from os import getenv
 from shutil import which
 
-from pytest import mark
+from pytest import deprecated_call, mark
 
+from jnrbase._version import tuple as v_tuple
 from jnrbase.pager import pager
 
 
@@ -33,8 +34,14 @@ def test_pager(monkeypatch, capfd):
 @mark.skipif(not which('less'), reason='Requires less')
 def test_default_less_config(monkeypatch):
     monkeypatch.setattr('os.environ', {})
-    pager('pager forcibly disabled')
+    with deprecated_call():
+        pager('pager forcibly disabled')
     assert getenv('LESS') == 'FRSX'
+
+
+@mark.skipif(v_tuple < (0, 9, 0), reason='Deprecations')
+def test_default_less_config_deprecation():
+    pager('pager forcibly disabled')
 
 
 def test_disable_pager(capsys):
