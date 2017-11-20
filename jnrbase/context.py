@@ -1,5 +1,5 @@
 #
-"""path_context - Path context handlers support."""
+"""path_context - Environment modifying context handlers support."""
 # Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of jnrbase.
@@ -36,3 +36,28 @@ def chdir(path):
         yield
     finally:
         os.chdir(old)
+
+
+@contextlib.contextmanager
+def env(**kwargs):
+    """Context handler to temporarily alter environment.
+
+    If you supply a value of ``None``, then the associated key will be deleted
+    from the environment.
+
+    Args:
+        kwargs: Environment variables to override
+
+    Yields:
+        Execution context with modified environment
+    """
+    old = os.environ.copy()
+    try:
+        for k, v in kwargs.items():
+            if v is None:
+                del os.environ[k]
+            else:
+                os.environ[k] = v
+        yield
+    finally:
+        os.environ = old

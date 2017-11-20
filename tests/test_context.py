@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from os import getcwd
+from os import getcwd, getenv
 from re import escape
 
 from pytest import raises
@@ -36,3 +36,17 @@ def test_chdir_missing(tmpdir):
     with raises(FileNotFoundError, match=escape('[Errno 2]')), \
             context.chdir(tmpdir.join('missing_dir').strpath):
         pass
+
+
+def test_env_override():
+    assert getenv('SHELL') != 'hello'
+    with context.env(SHELL='hello'):
+        assert getenv('SHELL') == 'hello'
+    assert getenv('SHELL') != 'hello'
+
+
+def test_env_unset():
+    assert getenv('SHELL')
+    with context.env(SHELL=None):
+        assert getenv('SHELL') is None
+    assert getenv('SHELL')

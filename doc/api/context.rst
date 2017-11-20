@@ -1,5 +1,5 @@
 .. module:: jnrbase.context
-   :synopsis: Path context handlers support
+   :synopsis: Environment modifying context handlers support
 
 context
 =======
@@ -9,6 +9,8 @@ Functions
 
 .. autofunction:: chdir(path)
 
+.. autofunction:: env(**kwargs)
+
 .. _context-examples:
 
 Examples
@@ -16,9 +18,9 @@ Examples
 
 .. testsetup::
 
-    from os import listdir
+    from os import getenv, listdir
 
-    from jnrbase.context import chdir
+    from jnrbase.context import chdir, env
 
 .. doctest::
 
@@ -29,3 +31,9 @@ Examples
     ['NEWS.rst', 'alternatives.rst', 'api']
     >>> sorted(listdir('.')[:2])
     ['.travis.yml', 'README.rst']
+
+.. doctest::
+
+    >>> with env(SHELL='oi'):
+    ...     getenv('SHELL')
+    'oi'
