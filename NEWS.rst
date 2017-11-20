@@ -6,6 +6,13 @@ User-visible changes
 .. contents::
    :local:
 
+0.8.0 - 2017-11-20
+------------------
+
+* As advertised, ``debug``'s ``enter`` and ``exit`` have been removed
+* ``context.env`` wrapper to temporarily alter environment variables
+* ``graphviz`` is no longer required to build docs
+
 0.7.0 - 2017-10-25
 ------------------
 
