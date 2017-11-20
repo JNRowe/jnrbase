@@ -18,6 +18,7 @@
 
 from os import getcwd, getenv
 from re import escape
+from subprocess import PIPE, run
 
 from pytest import raises
 
@@ -50,3 +51,11 @@ def test_env_unset():
     with context.env(SHELL=None):
         assert getenv('SHELL') is None
     assert getenv('SHELL')
+
+
+def test_env_subshell_support():
+    assert getenv('NOT_SET') is None
+    with context.env(NOT_SET='hello'):
+        out = run(['printenv', ], stdout=PIPE, encoding='utf-8').stdout
+        assert 'NOT_SET=hello' in out.splitlines()
+    assert getenv('NOT_SET') is None
