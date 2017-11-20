@@ -18,11 +18,9 @@
 
 from operator import add
 
-from pytest import deprecated_call, mark, raises
+from pytest import mark, raises
 
-from jnrbase._version import tuple as v_tuple
-from jnrbase.debug import (DebugPrint, enter, exit, noisy_wrap, on_enter,
-                           on_exit, sys,)
+from jnrbase.debug import (DebugPrint, noisy_wrap, on_enter, on_exit, sys)
 
 
 @mark.parametrize('ftype', [
@@ -59,25 +57,6 @@ def test_decorator_with_failure(ftype, capsys):
     with raises(ValueError):
         func(4, 3)
     assert capsys.readouterr()[0] == 'custom message\n'
-
-
-@mark.parametrize('ftype', [
-    enter,
-    exit,
-])
-def test_decorator_deprecated_name(ftype, capsys):
-    with deprecated_call():
-        assert ftype(add)(4, 3) == 7
-        assert "{}ing 'add'".format(ftype.__name__.capitalize())
-
-
-@mark.skipif(v_tuple < (0, 8, 0), reason='Deprecations')
-@mark.parametrize('ftype', [
-    enter,
-    exit,
-])
-def test_decorator_name_deprecation(ftype):
-    assert ftype(add)(4, 3) == 7
 
 
 def test_DebugPrint(capsys):

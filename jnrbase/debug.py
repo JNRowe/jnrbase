@@ -19,7 +19,6 @@
 import inspect
 import os
 import sys
-import warnings
 
 from functools import wraps
 
@@ -111,24 +110,6 @@ def on_enter(msg=None):
     return decorator
 
 
-def enter(msg=None):
-    """Decorator to display a message when entering a function.
-
-    .. deprecated:: 0.7.0
-
-        Renamed to :func:`on_enter`.
-
-    Args:
-        msg (str): Message to display
-    Returns:
-        function
-    """
-    warnings.warn(
-        'enter() has been renamed on_enter; enter() will be removed in v0.8.0',
-        DeprecationWarning, 2)
-    return on_enter(msg)
-
-
 def on_exit(msg=None):
     """Decorator to display a message when exiting a function.
 
@@ -152,21 +133,3 @@ def on_exit(msg=None):
     if callable(msg):
         return on_exit()(msg)
     return decorator
-
-
-def exit(msg=None):
-    """Decorator to display a message when exiting a function.
-
-    .. deprecated:: 0.7.0
-
-        Renamed to :func:`on_exit`.
-
-    Args:
-        msg (str): Message to display
-    Returns:
-        function
-    """
-    warnings.warn(
-        'exit() has been renamed on_enter; exit() will be removed in v0.8.0',
-        DeprecationWarning, 2)
-    return on_enter(msg)

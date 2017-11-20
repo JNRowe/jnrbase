@@ -14,9 +14,6 @@ Functions
 .. autofunction:: on_enter
 .. autofunction:: on_exit
 
-.. autofunction:: enter
-.. autofunction:: exit
-
 .. _debug-examples:
 
 Examples
