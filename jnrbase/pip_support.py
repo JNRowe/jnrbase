@@ -18,7 +18,7 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 # pip, both as a tool and a package manager, are not available on many of the
-# systems I use.  However, lots of Python users like to use it so we'll need to
+# systems I use.  However, lots of Python users like to use it so we’ll need to
 # support the workflow to some extent…
 
 import re
@@ -53,7 +53,7 @@ def parse_requires(fname):
                 continue
             elif ';' in dep:
                 dep, marker = [s.strip() for s in dep.split(';')]
-                # Support for other markers will be added when they're actually
+                # Support for other markers will be added when they’re actually
                 # found in the wild
                 match = re.fullmatch(r"""
                         (?:python_version)  # Supported markers
