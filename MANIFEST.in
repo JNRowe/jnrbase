@@ -4,6 +4,7 @@ include COPYING
 include *.rst
 include doc/images/depends.png
 include doc/conf.py
+include doc/pip.dot
 include doc/wordlist.txt
 include extra/README.pip
 include extra/doap.rdf
