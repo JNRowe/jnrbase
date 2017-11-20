@@ -18,7 +18,7 @@
 
 from datetime import datetime
 
-from jnrbase.human_time import human_timestamp
+from .human_time import human_timestamp
 
 
 class Timing:
