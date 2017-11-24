@@ -53,7 +53,7 @@ def json_to_datetime(obj):
         obj: Object to decode
     """
     for k, v in obj.items():
-        with suppress(ValueError):
+        with suppress(TypeError, ValueError):
             obj[k] = parse_datetime(v)
     return obj
 

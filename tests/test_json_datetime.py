@@ -45,8 +45,9 @@ def test_deep_json_datetime():
 
 
 def test_json_load_no_datetime():
-    data = '{"test": "not a datetime"}'
-    assert json_datetime.loads(data) == {'test': 'not a datetime'}
+    data = '{"test": "not a datetime", "not a string": 3}'
+    assert json_datetime.loads(data) == {'test': 'not a datetime',
+                                         'not a string': 3}
 
 
 def test_roundtrip():
