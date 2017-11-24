@@ -6,6 +6,14 @@ User-visible changes
 .. contents::
    :local:
 
+0.9.0 - 2017-11-24
+------------------
+
+* As advertised, ``pager``'s default value for ``$LESS`` hase been removed
+* ``timedelta`` objects are now supported by ``json_datetime``
+* Functionality that may be useful from the command line is now available via
+  ``jnrbase`` command
+
 0.8.0 - 2017-11-20
 ------------------
 
