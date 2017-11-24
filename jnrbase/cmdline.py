@@ -28,7 +28,7 @@ from click import (File, argument, echo, group, option, pass_context,
 import jnrbase
 from jnrbase import (_version, colourise, config, git, httplib2_certs,
                      human_time, json_datetime, i18n, iso_8601, pip_support,
-                     template, timer)
+                     template, timer, xdg_basedir)
 
 
 _, N_ = i18n.setup(jnrbase)
@@ -156,6 +156,15 @@ def time(ctx, command):
 @cli.group(help=_('Query package directories'))
 def dirs():
     pass
+
+
+for k in ['cache', 'config', 'data']:
+    @dirs.command(name=k,
+                  help=_('Display {} dir honouring XDG basedir.'.format(k)))
+    @argument('package')
+    @pass_context
+    def func(ctx, package):
+        echo(getattr(xdg_basedir, 'user_{}'.format(ctx.command.name))(package))
 
 
 if __name__ == '__main__':

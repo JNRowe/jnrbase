@@ -71,6 +71,51 @@ Find location of system certificates
 
     Show help message and exit.
 
+``dirs``
+~~~~~~~~
+
+.. program:: jnrbase dirs
+
+Extract or list values from config
+
+.. option:: --help
+
+    Show help message and exit.
+
+``dirs cache``
+''''''''''''''
+
+.. program:: jnrbase dirs cache
+
+Display cache dir honouring XDG basedir
+
+.. option:: --help
+
+    Show help message and exit.
+
+``dirs config``
+'''''''''''''''
+
+.. program:: jnrbase dirs config
+
+Display config dir honouring XDG basedir
+
+.. option:: --help
+
+    Show help message and exit.
+
+``dirs data``
+'''''''''''''
+
+.. program:: jnrbase dirs data
+
+Display data dir honouring XDG basedir
+
+
+.. option:: --help
+
+    Show help message and exit.
+
 ``find-tag``
 ~~~~~~~~~~~~
 
