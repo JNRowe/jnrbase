@@ -18,14 +18,15 @@
 
 from contextlib import suppress
 from configparser import NoOptionError, NoSectionError
+from datetime import datetime, timezone
 from inspect import signature
 from subprocess import CalledProcessError
 
 from click import argument, echo, group, option, pass_context, version_option
 
 import jnrbase
-from jnrbase import (_version, colourise, config, git, httplib2_certs, i18n,
-                     pip_support)
+from jnrbase import (_version, colourise, config, git, httplib2_certs,
+                     human_time, i18n, iso_8601, pip_support)
 
 
 _, N_ = i18n.setup(jnrbase)
@@ -100,6 +101,22 @@ def find_tag(match, strict, directory):
 @cli.command(help=_('Find location of system certificates.'))
 def certs():
     echo(httplib2_certs.find_certs())
+
+
+@cli.command('pretty-time', help=_('Format timestamp for human consumption.'))
+@argument('time')
+def pretty_time(time):
+    try:
+        dt = iso_8601.parse_datetime(time)
+    except ValueError:
+        now = datetime.utcnow().replace(tzinfo=timezone.utc)
+        try:
+            delta = iso_8601.parse_delta(time)
+        except:
+            delta = human_time.parse_timedelta(time)
+        dt = now - delta
+
+    echo(human_time.human_timestamp(dt))
 
 
 @cli.command('pip-requires', help=_('Parse pip requirements file.'))

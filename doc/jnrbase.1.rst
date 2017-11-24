@@ -160,6 +160,17 @@ Parse pip requirements file
 
     Show help message and exit.
 
+``pretty-time``
+~~~~~~~~~~~~~~~
+
+.. program:: jnrbase pretty-time
+
+Format timestamp for human consumption
+
+.. option:: --help
+
+    Show help message and exit.
+
 BUGS
 ----
 

@@ -16,14 +16,14 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from pytest import mark, raises
 
 from jnrbase.human_time import human_timestamp, parse_timedelta
 
 
-@mark.parametrize('delta,result', [
+human_timestamp_examples = [
     ({'days': 365, }, 'last year'),
     ({'days': 70, }, 'about two months ago'),
     ({'days': 30, }, 'last month'),
@@ -35,8 +35,18 @@ from jnrbase.human_time import human_timestamp, parse_timedelta
     ({'minutes': 6, }, 'about six minutes ago'),
     ({'seconds': 12, }, 'about 12 seconds ago'),
     ({}, 'right now'),
-])
+]
+
+
+@mark.parametrize('delta,result', human_timestamp_examples)
 def test_human_timestamp(delta, result):
+    now = datetime.utcnow().replace(tzinfo=timezone.utc)
+    dt = now - timedelta(**delta)
+    assert human_timestamp(dt) == result
+
+
+@mark.parametrize('delta,result', human_timestamp_examples)
+def test_human_timestamp_naive(delta, result):
     dt = datetime.utcnow() - timedelta(**delta)
     assert human_timestamp(dt) == result
 
