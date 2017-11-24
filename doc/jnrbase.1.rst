@@ -41,6 +41,25 @@ OPTIONS
 COMMANDS
 --------
 
+``config``
+~~~~~~~~~~
+
+.. program:: jnrbase config
+
+Find location of system certificates
+
+.. option:: -n, --name <filename>
+
+    Config file to read from.
+
+.. option:: -l, --local / --no-local
+
+    Read local :file:`.{package}rc` files.
+
+.. option:: --help
+
+    Show help message and exit.
+
 ``messages``
 ~~~~~~~~~~~~
 

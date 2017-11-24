@@ -16,12 +16,14 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
+from contextlib import suppress
+from configparser import NoOptionError, NoSectionError
 from inspect import signature
 
-from click import argument, group, pass_context, version_option
+from click import argument, echo, group, option, pass_context, version_option
 
 import jnrbase
-from jnrbase import _version, colourise, i18n
+from jnrbase import _version, colourise, config, i18n
 
 
 _, N_ = i18n.setup(jnrbase)
@@ -61,6 +63,25 @@ for k in ['info', 'success', 'warn']:
     fn = getattr(colourise, 'p{}'.format(k))
     help = _(getattr(colourise, k).__doc__.splitlines()[0])
     messages.command(name=k, help=help)(text_arg(fn))
+
+
+@cli.command(name='config', help=_('Extract or list values from config.'))
+@option('-n', '--name', default=get_default(config.read_configs, 'name'),
+        help=_('Config file to read from.'))
+@option('-l', '--local / --no-local', help=_('Read local .<package>rc files.'))
+@argument('package')
+@argument('section')
+@argument('key', required=False)
+def config_(name, local, package, section, key):
+    cfg = config.read_configs(package, name, local=local)
+    if key:
+        with suppress(NoOptionError, NoSectionError):
+            echo(cfg.get(section, key))
+    else:
+        with suppress(NoSectionError):
+            for k in cfg.options(section):
+                colourise.pinfo(k)
+                echo('    {}'.format(cfg.get(section, k)))
 
 
 if __name__ == '__main__':
