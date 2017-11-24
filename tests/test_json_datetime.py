@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from pytest import raises
 
@@ -44,13 +44,27 @@ def test_deep_json_datetime():
         '{"test": [{"test2": "2014-02-03T18:12:00Z"}]}'
 
 
-def test_json_load_no_datetime():
+def test_json_load_no_custom_dump():
     data = '{"test": "not a datetime", "not a string": 3}'
     assert json_datetime.loads(data) == {'test': 'not a datetime',
                                          'not a string': 3}
 
 
+def test_json_timedelta():
+    data = {'test': timedelta(hours=3, seconds=4)}
+    assert json_datetime.dumps(data, indent=None) == '{"test": "PT03H04S"}'
+
+
+def test_deep_json_timedelta():
+    data = {'test': [{'test2': timedelta(hours=3, seconds=4)}, ]}
+    assert json_datetime.dumps(data, indent=None) == \
+        '{"test": [{"test2": "PT03H04S"}]}'
+
+
 def test_roundtrip():
-    data = {'test': datetime(2014, 2, 3, 18, 12, tzinfo=timezone.utc)}
+    data = {
+        'datetime': datetime(2014, 2, 3, 18, 12, tzinfo=timezone.utc),
+        'timedelta': timedelta(hours=3, seconds=4),
+    }
     json = json_datetime.dumps(data, indent=None)
     assert json_datetime.loads(json) == data

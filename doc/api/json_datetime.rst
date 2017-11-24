@@ -15,7 +15,11 @@ Functions
 
     Specialisation of :func:`json_serialise`.
 
-.. autofunction:: json_to_datetime
+.. autofunction:: timedelta_serialise
+
+    Specialisation of :func:`json_serialise`.
+
+.. autofunction:: json_using_iso8601
 
 .. function:: dump(...)
 
@@ -27,11 +31,11 @@ Functions
 
 .. function:: load(...)
 
-    Simple :func:`json.load` wrapper using :func:`json_to_datetime`.
+    Simple :func:`json.load` wrapper using :func:`json_using_iso8601`.
 
 .. function:: loads(...)
 
-    Simple :func:`json.loads` wrapper using :func:`json_to_datetime`.
+    Simple :func:`json.loads` wrapper using :func:`json_using_iso8601`.
 
 .. _json_datetime-examples:
 

@@ -22,7 +22,8 @@ import json
 from contextlib import suppress
 from functools import partial, singledispatch, wraps
 
-from .iso_8601 import format_datetime, parse_datetime
+from .iso_8601 import (format_datetime, format_delta, parse_datetime,
+                       parse_delta)
 
 
 encoder = json.JSONEncoder()
@@ -49,7 +50,13 @@ def datetime_serialise(o):
     return format_datetime(o)
 
 
-def json_to_datetime(obj):
+@json_serialise.register(datetime.timedelta)
+def timedelta_serialise(o):
+    """JSON serialiser for ``timedelta`` objects"""
+    return format_delta(o)
+
+
+def json_using_iso8601(obj):
     """Parse ISO-8601 values from JSON databases.
 
     See :class:`json.JSONDecoder`
@@ -60,11 +67,13 @@ def json_to_datetime(obj):
     for k, v in obj.items():
         with suppress(TypeError, ValueError):
             obj[k] = parse_datetime(v)
+        with suppress(TypeError, ValueError):
+            obj[k] = parse_delta(v)
     return obj
 
 
 dump = wraps(json.dump)(partial(json.dump, indent=4, default=json_serialise))
 dumps = wraps(json.dumps)(partial(json.dumps, indent=4,
                                   default=json_serialise))
-load = wraps(json.load)(partial(json.load, object_hook=json_to_datetime))
-loads = wraps(json.loads)(partial(json.loads, object_hook=json_to_datetime))
+load = wraps(json.load)(partial(json.load, object_hook=json_using_iso8601))
+loads = wraps(json.loads)(partial(json.loads, object_hook=json_using_iso8601))
