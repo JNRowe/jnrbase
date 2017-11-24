@@ -57,17 +57,17 @@ def env(**kwargs):
         # This apparent duplication is because putenv doesn’t update
         # os.environ, and os.environ changes aren’t propagated to subprocesses.
         for k, v in old.items():
-            os.environ[k] = v
+            os.environ[k] = v  # NOQA: B003
             os.putenv(k, v)
         for k, v in kwargs.items():
             if v is None:
                 del os.environ[k]
             else:
-                os.environ[k] = v
+                os.environ[k] = v  # NOQA: B003
                 os.putenv(k, v)
         yield
     finally:
         os.environ.clear()
         for k, v in old.items():
-            os.environ[k] = v
+            os.environ[k] = v  # NOQA: B003
             os.putenv(k, v)
