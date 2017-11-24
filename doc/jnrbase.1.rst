@@ -41,6 +41,17 @@ OPTIONS
 COMMANDS
 --------
 
+``certs``
+~~~~~~~~~
+
+.. program:: jnrbase certs
+
+Find location of system certificates
+
+.. option:: --help
+
+    Show help message and exit.
+
 ``config``
 ~~~~~~~~~~
 

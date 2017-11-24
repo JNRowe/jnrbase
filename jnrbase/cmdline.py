@@ -23,7 +23,7 @@ from inspect import signature
 from click import argument, echo, group, option, pass_context, version_option
 
 import jnrbase
-from jnrbase import _version, colourise, config, i18n
+from jnrbase import _version, colourise, config, httplib2_certs, i18n
 
 
 _, N_ = i18n.setup(jnrbase)
@@ -82,6 +82,11 @@ def config_(name, local, package, section, key):
             for k in cfg.options(section):
                 colourise.pinfo(k)
                 echo('    {}'.format(cfg.get(section, k)))
+
+
+@cli.command(help=_('Find location of system certificates.'))
+def certs():
+    echo(httplib2_certs.find_certs())
 
 
 if __name__ == '__main__':
