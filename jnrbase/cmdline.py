@@ -24,7 +24,8 @@ from subprocess import CalledProcessError
 from click import argument, echo, group, option, pass_context, version_option
 
 import jnrbase
-from jnrbase import _version, colourise, config, git, httplib2_certs, i18n
+from jnrbase import (_version, colourise, config, git, httplib2_certs, i18n,
+                     pip_support)
 
 
 _, N_ = i18n.setup(jnrbase)
@@ -99,6 +100,14 @@ def find_tag(match, strict, directory):
 @cli.command(help=_('Find location of system certificates.'))
 def certs():
     echo(httplib2_certs.find_certs())
+
+
+@cli.command('pip-requires', help=_('Parse pip requirements file.'))
+@argument('name')
+def pip_requires(name):
+    requires = pip_support.parse_requires(name)
+    for l in requires:
+        echo(l)
 
 
 if __name__ == '__main__':

@@ -149,6 +149,17 @@ Format a warning message
 
     Show help message and exit.
 
+``pip-requires``
+~~~~~~~~~~~~~~~~
+
+.. program:: jnrbase pip-requires
+
+Parse pip requirements file
+
+.. option:: --help
+
+    Show help message and exit.
+
 BUGS
 ----
 
