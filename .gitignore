@@ -1,6 +1,7 @@
 *.html
 *.py[co]
 
+.cache/
 build/
 dist/
 jnrbase.egg-info/
