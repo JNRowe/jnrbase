@@ -42,7 +42,12 @@ def human_timestamp(timestamp):
     ]
     match_names = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second']
 
-    delta = int((datetime.datetime.utcnow() - timestamp).total_seconds())
+    if timestamp.tzinfo is None:
+        timestamp = timestamp.replace(tzinfo=datetime.timezone.utc)
+
+    now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
+
+    delta = int((now - timestamp).total_seconds())
     for scale in matches:
         i = delta // scale
         if i:
