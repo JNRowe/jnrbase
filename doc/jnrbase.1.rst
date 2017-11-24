@@ -186,6 +186,17 @@ Format timestamp for human consumption
 
     Show help message and exit.
 
+``time``
+~~~~~~~~
+
+.. program:: jnrbase time
+
+Time the output of a command
+
+.. option:: --help
+
+    Show help message and exit.
+
 BUGS
 ----
 

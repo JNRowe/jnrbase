@@ -20,7 +20,7 @@ from contextlib import suppress
 from configparser import NoOptionError, NoSectionError
 from datetime import datetime, timezone
 from inspect import signature
-from subprocess import CalledProcessError
+from subprocess import CalledProcessError, run
 
 from click import (File, argument, echo, group, option, pass_context,
                    version_option)
@@ -28,7 +28,7 @@ from click import (File, argument, echo, group, option, pass_context,
 import jnrbase
 from jnrbase import (_version, colourise, config, git, httplib2_certs,
                      human_time, json_datetime, i18n, iso_8601, pip_support,
-                     template)
+                     template, timer)
 
 
 _, N_ = i18n.setup(jnrbase)
@@ -142,6 +142,20 @@ def gen_text(env, package, tmpl):
     jinja_env = template.setup(package)
     tmpl = jinja_env.get_template(tmpl)
     echo(tmpl.render(**env_args))
+
+
+@cli.command(help=_('Time the output of a command'))
+@argument('command')
+@pass_context
+def time(ctx, command):
+    with timer.Timing(verbose=True):
+        p = run(command, shell=True)
+    ctx.exit(p.returncode)
+
+
+@cli.group(help=_('Query package directories'))
+def dirs():
+    pass
 
 
 if __name__ == '__main__':
