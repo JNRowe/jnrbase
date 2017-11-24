@@ -19,11 +19,12 @@
 from contextlib import suppress
 from configparser import NoOptionError, NoSectionError
 from inspect import signature
+from subprocess import CalledProcessError
 
 from click import argument, echo, group, option, pass_context, version_option
 
 import jnrbase
-from jnrbase import _version, colourise, config, httplib2_certs, i18n
+from jnrbase import _version, colourise, config, git, httplib2_certs, i18n
 
 
 _, N_ = i18n.setup(jnrbase)
@@ -82,6 +83,17 @@ def config_(name, local, package, section, key):
             for k in cfg.options(section):
                 colourise.pinfo(k)
                 echo('    {}'.format(cfg.get(section, k)))
+
+
+@cli.command('find-tag', help=_('Find tag for git repository.'))
+@option('-m', '--match', default=get_default(git.find_tag, 'matcher'),
+        help=_('Limit the selection of matches with glob.'))
+@option('-s', '--strict / --no-strict', help=_('Always generate a result.'))
+@option('-d', '--directory', default=get_default(git.find_tag, 'git_dir'),
+        help=_('Git repository to operate on.'))
+def find_tag(match, strict, directory):
+    with suppress(CalledProcessError):
+        echo(git.find_tag(match, strict=strict, git_dir=directory))
 
 
 @cli.command(help=_('Find location of system certificates.'))

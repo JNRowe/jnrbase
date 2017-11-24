@@ -71,6 +71,29 @@ Find location of system certificates
 
     Show help message and exit.
 
+``find-tag``
+~~~~~~~~~~~~
+
+.. program:: jnrbase find-tag
+
+Find tag for git repository
+
+.. option:: -m, --match <glob>
+
+    Limit the selection of matches with glob.
+
+.. option:: -s, --strict
+
+    Always generate a result.
+
+.. option:: -d, --directory <dir>
+
+    Git repository to operate on.
+
+.. option:: --help
+
+    Show help message and exit.
+
 ``messages``
 ~~~~~~~~~~~~
 
