@@ -4,29 +4,26 @@
 json_datetime
 =============
 
-Classes
--------
-
-.. class:: DatetimeEncoder
-
-    Custom JSON encoding for supporting ``datetime`` objects.
-
-    See also: :class:`json.JSONEncoder`
-
-.. automethod:: DatetimeEncoder.default
-
 Functions
 ---------
+
+.. autofunction:: json_serialise
+
+    Implemented with :func:`functools.singledispatch`.
+
+.. autofunction:: datetime_serialise
+
+    Specialisation of :func:`json_serialise`.
 
 .. autofunction:: json_to_datetime
 
 .. function:: dump(...)
 
-    Simple :func:`json.dump` wrapper using :class:`DatetimeEncoder`.
+    Simple :func:`json.dump` wrapper using :func:`json_serialise`.
 
 .. function:: dumps(...)
 
-    Simple :func:`json.dumps` wrapper using :class:`DatetimeEncoder`.
+    Simple :func:`json.dumps` wrapper using :func:`json_serialise`.
 
 .. function:: load(...)
 

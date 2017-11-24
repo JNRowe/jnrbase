@@ -20,28 +20,33 @@ import datetime
 import json
 
 from contextlib import suppress
-from functools import partial, wraps
+from functools import partial, singledispatch, wraps
 
 from .iso_8601 import format_datetime, parse_datetime
 
 
-class DatetimeEncoder(json.JSONEncoder):
+encoder = json.JSONEncoder()
 
-    """Custom JSON encoding for supporting ``datetime`` objects."""
 
-    def default(self, o):
-        """Handle ``datetime`` objects when encoding as JSON.
+@singledispatch
+def json_serialise(o):
+    """Custom JSON serialiser.
 
-        This simply falls through to :meth:`~json.JSONEncoder.default` if
-        ``obj`` is not a ``datetime`` instance.
+    This simply falls through to :meth:`~json.JSONEncoder.default` when there
+    isn't a custom dispatcher register for a type.
 
-        Args:
-            obj: Object to encode
-        """
-        if isinstance(o, datetime.datetime):
-            return format_datetime(o)
-        else:
-            return super(DatetimeEncoder, self).default(o)
+    Args:
+        o: Object to encode
+    Returns:
+        str: JSON-encoded string
+    """
+    return encoder.default(o)
+
+
+@json_serialise.register(datetime.datetime)
+def datetime_serialise(o):
+    """JSON serialiser for ``datetime`` objects"""
+    return format_datetime(o)
 
 
 def json_to_datetime(obj):
@@ -58,7 +63,8 @@ def json_to_datetime(obj):
     return obj
 
 
-dump = wraps(json.dump)(partial(json.dump, indent=4, cls=DatetimeEncoder))
-dumps = wraps(json.dumps)(partial(json.dumps, indent=4, cls=DatetimeEncoder))
+dump = wraps(json.dump)(partial(json.dump, indent=4, default=json_serialise))
+dumps = wraps(json.dumps)(partial(json.dumps, indent=4,
+                                  default=json_serialise))
 load = wraps(json.load)(partial(json.load, object_hook=json_to_datetime))
 loads = wraps(json.loads)(partial(json.loads, object_hook=json_to_datetime))
