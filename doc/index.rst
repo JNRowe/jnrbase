@@ -23,6 +23,7 @@ Contents
    alternatives
    release
    thaw
+   jnrbase.1
    upgrading
    dependency_choices
    NEWS

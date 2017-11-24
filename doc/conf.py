@@ -93,6 +93,12 @@ html_copy_source = False
 html_experimental_html5_writer = True
 # }}}
 
+# Options for manual page output {{{
+man_pages = [
+    ('jnrbase.1', 'jnrbase', 'jnrbase Documentation', ['James Rowe', ], 1)
+]
+# }}}
+
 # autodoc extension settings {{{
 autoclass_content = 'both'
 autodoc_default_flags = ['members', ]

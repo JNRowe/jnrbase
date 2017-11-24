@@ -80,6 +80,10 @@ for k in ['classifiers', 'packages', 'py_modules']:
     if k in metadata:
         metadata[k] = make_list(metadata[k])
 
+for k in ['entry_points', 'package_data']:
+    if k in metadata:
+        metadata[k] = eval(metadata[k], {'__builtins__': {}})
+
 with open('README.rst') as readme:
     metadata['long_description'] = readme.read()
 
