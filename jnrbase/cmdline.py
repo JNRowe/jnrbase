@@ -22,11 +22,13 @@ from datetime import datetime, timezone
 from inspect import signature
 from subprocess import CalledProcessError
 
-from click import argument, echo, group, option, pass_context, version_option
+from click import (File, argument, echo, group, option, pass_context,
+                   version_option)
 
 import jnrbase
 from jnrbase import (_version, colourise, config, git, httplib2_certs,
-                     human_time, i18n, iso_8601, pip_support)
+                     human_time, json_datetime, i18n, iso_8601, pip_support,
+                     template)
 
 
 _, N_ = i18n.setup(jnrbase)
@@ -125,6 +127,21 @@ def pip_requires(name):
     requires = pip_support.parse_requires(name)
     for l in requires:
         echo(l)
+
+
+@cli.command('gen-text', help=_('Create output from Jinja template.'))
+@option('-e', '--env', type=File(),
+        help=_('JSON data to generate output with.'))
+@argument('package')
+@argument('tmpl')
+def gen_text(env, package, tmpl):
+    if env:
+        env_args = json_datetime.load(env)
+    else:
+        env_args = {}
+    jinja_env = template.setup(package)
+    tmpl = jinja_env.get_template(tmpl)
+    echo(tmpl.render(**env_args))
 
 
 if __name__ == '__main__':

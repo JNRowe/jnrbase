@@ -94,6 +94,21 @@ Find tag for git repository
 
     Show help message and exit.
 
+``gen-text``
+~~~~~~~~~~~~
+
+.. program:: jnrbase gen-text
+
+Create output from Jinja template
+
+.. option:: -e, --env <filename>
+
+    JSON data to generate output with.
+
+.. option:: --help
+
+    Show help message and exit.
+
 ``messages``
 ~~~~~~~~~~~~
 
