@@ -27,7 +27,7 @@ from jnrbase import context
 
 def test_chdir(tmpdir):
     orig = getcwd()
-    dir_ = tmpdir.join('new').mkdir()
+    dir_ = tmpdir.join('new').mkdir().strpath
     with context.chdir(dir_):
         assert getcwd() == dir_
     assert getcwd() == orig
@@ -56,6 +56,7 @@ def test_env_unset():
 def test_env_subshell_support():
     assert getenv('NOT_SET') is None
     with context.env(NOT_SET='hello'):
-        out = run(['printenv', ], stdout=PIPE, encoding='utf-8').stdout
+        # Switch to encoding kwarg when Python 3.5 support is dropped
+        out = run(['printenv', ], stdout=PIPE).stdout.decode()
         assert 'NOT_SET=hello' in out.splitlines()
     assert getenv('NOT_SET') is None
