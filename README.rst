@@ -1,7 +1,7 @@
 jnrbase - Common utility functionality
 ======================================
 
-|travis| |coveralls| |pypi|
+|travis| |coveralls| |pypi| |readthedocs|
 
 ``jnrbase`` is a collection of common utility libraries that are used in
 various Open Source projects that I (JNRowe_) work on.  Feel free to use it
@@ -94,3 +94,7 @@ reproduce the problem, or even better a fix!
 .. |pypi| image:: https://img.shields.io/pypi/v/jnrbase.png
    :target: https://pypi.python.org/pypi/jnrbase
    :alt: Current PyPI release
+
+.. |readthedocs| image:: https://img.shields.io/readthedocs/jnrbase/stable.png
+   :target: https://jnrbase.readthedocs.io/
+   :alt: Documentation
