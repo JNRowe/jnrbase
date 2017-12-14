@@ -87,7 +87,7 @@ reproduce the problem, or even better a fix!
    :target: https://travis-ci.org/JNRowe/jnrbase
    :alt: Test state on master
 
-.. |coveralls| image:: https://img.shields.io/coveralls/JNRowe/jnrbase/master.png
+.. |coveralls| image:: https://img.shields.io/coveralls/github/JNRowe/jnrbase/master.png
    :target: https://coveralls.io/repos/JNRowe/jnrbase
    :alt: Coverage state on master
 
