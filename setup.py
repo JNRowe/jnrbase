@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 """setup.py - Setuptools tasks and config for jnrbase."""
 # Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
