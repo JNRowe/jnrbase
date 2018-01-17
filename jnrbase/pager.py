@@ -19,17 +19,18 @@
 import os
 
 from subprocess import run
+from typing import Optional
 
 
-def pager(text, *, pager='less'):
+def pager(text: str, *, pager: Optional[str] = 'less'):
     """Pass output through pager.
 
     See :manpage:`less(1)`, if you wish to configure the default pager.  For
     example, you may wish to check ``FRSX`` options.
 
     Args:
-        text (str): Text to page
-        pager (str): Pager to use
+        text: Text to page
+        pager: Pager to use
     """
     if pager:
         run([pager, ], input=text.encode())

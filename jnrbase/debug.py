@@ -20,6 +20,9 @@ import inspect
 import os
 import sys
 
+from io import TextIOBase
+from typing import Callable, Optional, Union
+
 from functools import wraps
 
 _orig_stdout = sys.stdout
@@ -29,19 +32,19 @@ class DebugPrint:
 
     """Verbose print wrapper for debugging."""
 
-    def __init__(self, fh):
+    def __init__(self, fh: TextIOBase) -> None:
         """Configure new DebugPrint handler.
 
         Args:
-            fh (io.TextIOWrapper): File handle to override
+            fh: File handle to override
         """
         self.fh = fh
 
-    def write(self, text):
+    def write(self, text: str) -> None:
         """Write text to the debug stream.
 
         Args:
-            text (str): Text to write
+            text: Text to write
         """
         if text == os.linesep:
             self.fh.write(text)
@@ -58,24 +61,24 @@ class DebugPrint:
                                                        text))
 
     @staticmethod
-    def enable():
+    def enable() -> None:
         """Patch ``sys.stdout`` to use ``DebugPrint``."""
         if not isinstance(sys.stdout, DebugPrint):
             sys.stdout = DebugPrint(sys.stdout)
 
     @staticmethod
-    def disable():
+    def disable() -> None:
         """Re-attach ``sys.stdout`` to its previous file handle."""
         sys.stdout = _orig_stdout
 
 
-def noisy_wrap(fun):
+def noisy_wrap(fun: Callable) -> Callable:
     """Decorator to enable DebugPrint for a given function.
 
     Args:
-        fun (types.FunctionType): Function to wrap
+        fun: Function to wrap
     Returns:
-        types.FunctionType: Wrapped function
+        Wrapped function
 
     """
     def wrapper(*args, **kwargs):
@@ -87,13 +90,13 @@ def noisy_wrap(fun):
     return wrapper
 
 
-def on_enter(msg=None):
+def on_enter(msg: Optional[Union[Callable, str]] = None) -> Callable:
     """Decorator to display a message when entering a function.
 
     Args:
-        msg (str): Message to display
+        msg: Message to display
     Returns:
-        types.FunctionType: Wrapped function
+        Wrapped function
 
     """
     def decorator(fun):
@@ -110,13 +113,13 @@ def on_enter(msg=None):
     return decorator
 
 
-def on_exit(msg=None):
+def on_exit(msg: Optional[Union[Callable, str]] = None) -> Callable:
     """Decorator to display a message when exiting a function.
 
     Args:
-        msg (str): Message to display
+        msg: Message to display
     Returns:
-        types.FunctionType: Wrapped function
+        Wrapped function
 
     """
     def decorator(fun):

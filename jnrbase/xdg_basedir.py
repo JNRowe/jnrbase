@@ -21,13 +21,14 @@
 import sys
 
 from os import getenv, path
+from typing import List
 
 
 #: Allow macOS directory structure
 ALLOW_DARWIN = True
 
 
-def user_cache(pkg):
+def user_cache(pkg: str) -> str:
     """Return a cache location honouring :envvar:`XDG_CACHE_HOME`.
 
     .. envvar:: XDG_CACHE_HOME
@@ -35,9 +36,7 @@ def user_cache(pkg):
         See XDG base directory spec.
 
     Args:
-        pkg (str): Package name
-    Returns:
-        str
+        pkg: Package name
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Caches'
@@ -48,7 +47,7 @@ def user_cache(pkg):
     return path.expanduser(path.sep.join([user_dir, pkg]))
 
 
-def user_config(pkg):
+def user_config(pkg: str) -> str:
     """Return a config location honouring :envvar:`XDG_CONFIG_HOME`.
 
     .. envvar:: XDG_CONFIG_HOME
@@ -56,9 +55,7 @@ def user_config(pkg):
         See XDG base directory spec.
 
     Args:
-        pkg (str): Package name
-    Returns:
-        str
+        pkg: Package name
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Preferences'
@@ -68,7 +65,7 @@ def user_config(pkg):
     return path.expanduser(path.sep.join([user_dir, pkg]))
 
 
-def user_data(pkg):
+def user_data(pkg: str) -> str:
     """Return a data location honouring :envvar:`XDG_DATA_HOME`.
 
     .. envvar:: XDG_DATA_HOME
@@ -76,9 +73,7 @@ def user_data(pkg):
         See XDG base directory spec.
 
     Args:
-        pkg (str): Package name
-    Returns:
-        str
+        pkg: Package name
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/Application Support'
@@ -88,14 +83,12 @@ def user_data(pkg):
     return path.expanduser(path.sep.join([user_dir, pkg]))
 
 
-def get_configs(pkg, name='config'):
+def get_configs(pkg: str, name: str = 'config') -> List[str]:
     """Return all configs for given package.
 
     Args:
-        pkg (str): Package name
-        name (str): Configuration file name
-    Returns:
-        list[str]
+        pkg: Package name
+        name: Configuration file name
     """
     dirs = [user_config(pkg), ]
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))
@@ -108,14 +101,12 @@ def get_configs(pkg, name='config'):
     return configs
 
 
-def get_data(pkg, name):
+def get_data(pkg: str, name: str) -> str:
     """Return top-most data file for given package.
 
     Args:
-        pkg (str): Package name
-        name (str): Data file name
-    Returns:
-        str
+        pkg: Package name
+        name: Data file name
     """
     dirs = [user_data(pkg), ]
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))
@@ -128,13 +119,11 @@ def get_data(pkg, name):
     raise FileNotFoundError('No data file {!r} for {!r}'.format(name, pkg))
 
 
-def get_data_dirs(pkg):
+def get_data_dirs(pkg: str) -> List[str]:
     """Return all data directories for given package.
 
     Args:
-        pkg (str): Package name
-    Returns:
-        str
+        pkg: Package name
     """
     dirs = [user_data(pkg), ]
     dirs.extend(path.expanduser(path.sep.join([d, pkg]))

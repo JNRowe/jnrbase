@@ -20,14 +20,13 @@ import datetime
 import re
 
 
-def human_timestamp(timestamp):
+def human_timestamp(timestamp: datetime.datetime) -> str:
     """Format a relative time.
 
     Args:
-        timestamp (datetime.datetime): Event to generate relative timestamp
-            against
+        timestamp: Event to generate relative timestamp against
     Returns:
-        str: Human readable date and time offset
+        Human readable date and time offset
     """
     numstr = '. a two three four five six seven eight nine ten'.split()
 
@@ -70,11 +69,11 @@ def human_timestamp(timestamp):
     return result
 
 
-def parse_timedelta(delta):
+def parse_timedelta(delta: str) -> datetime.timedelta:
     """Parse human readable frequency.
 
     Args:
-        delta (str): Frequency to parse
+        delta: Frequency to parse
     """
     match = re.fullmatch(r"""
             ^(\d+(?:|\.\d+))  # value, possibly float

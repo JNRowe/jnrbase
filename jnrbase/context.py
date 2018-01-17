@@ -19,13 +19,15 @@
 import contextlib
 import os
 
+from typing import ContextManager, Dict, Union
+
 
 @contextlib.contextmanager
-def chdir(path):
+def chdir(path: str) -> ContextManager:
     """Context handler to temporarily switch directories.
 
     Args:
-        path (str): Directory to change to
+        path: Directory to change to
 
     Yields:
         Execution context in ``path``
@@ -39,7 +41,7 @@ def chdir(path):
 
 
 @contextlib.contextmanager
-def env(**kwargs):
+def env(**kwargs: Union[Dict[str, str], None]) -> ContextManager:
     """Context handler to temporarily alter environment.
 
     If you supply a value of ``None``, then the associated key will be deleted

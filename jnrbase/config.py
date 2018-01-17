@@ -24,7 +24,8 @@ from .iso_8601 import parse_datetime, parse_delta
 from .xdg_basedir import get_configs
 
 
-def read_configs(pkg, name='config', *, local=True):
+def read_configs(pkg: str, name: str = 'config', *,
+                 local: bool = True) -> ConfigParser:
     """Process configuration file stack.
 
     We export the time parsing functionality of ``jnrbase`` as custom
@@ -39,11 +40,11 @@ def read_configs(pkg, name='config', *, local=True):
     ===================  ===========================================
 
     Args:
-        pkg (str): Package name to use as base for config files
-        name (str): File name to search for within config directories
-        local (bool): Whether to include config files from current directory
+        pkg: Package name to use as base for config files
+        name: File name to search for within config directories
+        local: Whether to include config files from current directory
     Returns:
-        configparser.ConfigParser: Parsed configuration files
+        Parsed configuration files
     """
     configs = get_configs(pkg, name)
     if local:

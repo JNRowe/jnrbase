@@ -25,9 +25,10 @@ import re
 
 from os import path
 from sys import version_info
+from typing import List
 
 
-def parse_requires(fname):
+def parse_requires(fname: str) -> List[str]:
     """Parse ``pip``-style requirements files.
 
     This is a *very* naïve parser, but very few packages make use of the more
@@ -35,9 +36,9 @@ def parse_requires(fname):
     packages in the wild depend on them.
 
     Args:
-        fname (str): Base file to pass
+        fname: Base file to pass
     Returns:
-        list[str]: Parsed dependencies
+        Parsed dependencies
     """
     deps = []
     with open(fname) as req_file:

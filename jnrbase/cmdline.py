@@ -20,9 +20,11 @@ from contextlib import suppress
 from configparser import NoOptionError, NoSectionError
 from datetime import datetime, timezone
 from inspect import signature
+from io import TextIOBase
 from subprocess import CalledProcessError, run
+from typing import Callable, Optional
 
-from click import (File, argument, echo, group, option, pass_context,
+from click import (Context, File, argument, echo, group, option, pass_context,
                    version_option)
 
 import jnrbase
@@ -34,7 +36,7 @@ from jnrbase import (_version, colourise, config, git, httplib2_certs,
 _, N_ = i18n.setup(jnrbase)
 
 
-def get_default(func, arg):
+def get_default(func: Callable, arg: str) -> str:
     return signature(func).parameters[arg].default
 
 
@@ -52,14 +54,14 @@ def messages():
     pass
 
 
-def text_arg(f):
+def text_arg(f: Callable) -> Callable:
     return argument('text')(f)
 
 
 @messages.command(help=_(colourise.fail.__doc__.splitlines()[0]))
 @text_arg
 @pass_context
-def fail(ctx, text):
+def fail(ctx: Context, text: str):
     colourise.pfail(text)
     ctx.exit(1)
 
@@ -77,7 +79,8 @@ for k in ['info', 'success', 'warn']:
 @argument('package')
 @argument('section')
 @argument('key', required=False)
-def config_(name, local, package, section, key):
+def config_(name: str, local: bool, package: str, section: str,
+            key: Optional[str]):
     cfg = config.read_configs(package, name, local=local)
     if key:
         with suppress(NoOptionError, NoSectionError):
@@ -95,7 +98,7 @@ def config_(name, local, package, section, key):
 @option('-s', '--strict / --no-strict', help=_('Always generate a result.'))
 @option('-d', '--directory', default=get_default(git.find_tag, 'git_dir'),
         help=_('Git repository to operate on.'))
-def find_tag(match, strict, directory):
+def find_tag(match: str, strict: bool, directory: str):
     with suppress(CalledProcessError):
         echo(git.find_tag(match, strict=strict, git_dir=directory))
 
@@ -107,7 +110,7 @@ def certs():
 
 @cli.command('pretty-time', help=_('Format timestamp for human consumption.'))
 @argument('time')
-def pretty_time(time):
+def pretty_time(time: str):
     try:
         dt = iso_8601.parse_datetime(time)
     except ValueError:
@@ -123,7 +126,7 @@ def pretty_time(time):
 
 @cli.command('pip-requires', help=_('Parse pip requirements file.'))
 @argument('name')
-def pip_requires(name):
+def pip_requires(name: str):
     requires = pip_support.parse_requires(name)
     for l in requires:
         echo(l)
@@ -134,7 +137,7 @@ def pip_requires(name):
         help=_('JSON data to generate output with.'))
 @argument('package')
 @argument('tmpl')
-def gen_text(env, package, tmpl):
+def gen_text(env: TextIOBase, package: str, tmpl: str):
     if env:
         env_args = json_datetime.load(env)
     else:
@@ -147,7 +150,7 @@ def gen_text(env, package, tmpl):
 @cli.command(help=_('Time the output of a command'))
 @argument('command')
 @pass_context
-def time(ctx, command):
+def time(ctx: Context, command: str):
     with timer.Timing(verbose=True):
         p = run(command, shell=True)
     ctx.exit(p.returncode)

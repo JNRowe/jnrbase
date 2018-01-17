@@ -37,7 +37,7 @@ PLATFORM_FILES = {
 }
 
 
-def find_certs():
+def find_certs() -> str:
     """Find suitable certificates for ``httplib2``.
 
     Warning:
@@ -50,7 +50,7 @@ def find_certs():
     See also: :pypi:`httplib2`
 
     Returns:
-        str: Path to SSL certificates
+        Path to SSL certificates
     Raises:
         RuntimeError: When no suitable certificates are found
     """

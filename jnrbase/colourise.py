@@ -26,14 +26,14 @@ from click import echo, style
 COLOUR = True
 
 
-def _colourise(text, colour):
+def _colourise(text: str, colour: str) -> str:
     """Colour text, if possible.
 
     Args:
-        text (str): Text to colourise
-        colour (str): Colour to display text in
+        text: Text to colourise
+        colour: Colour to display text in
     Returns:
-        str: Colourised text, if possible
+        Colourised text, if possible
     """
     if COLOUR:
         return style(text, fg=colour, bold=True)
@@ -41,81 +41,81 @@ def _colourise(text, colour):
         return text
 
 
-def fail(text):
+def fail(text: str) -> str:
     """Format a failure message.
 
     Args:
-        text (str): Text to format
+        text: Text to format
     Returns:
-        str: Bright red text, if possible
+        Bright red text, if possible
     """
     return _colourise(text, 'red')
 
 
-def info(text):
+def info(text: str) -> str:
     """Format an informational message.
 
     Args:
-        text (str): Text to format
+        text: Text to format
     Returns:
-        str: Bright blue text, if possible
+        Bright blue text, if possible
     """
     return _colourise(text, 'blue')
 
 
-def success(text):
+def success(text: str) -> str:
     """Format a success message.
 
     Args:
-        text (str): Text to format
+        text: Text to format
     Returns:
-        str: Bright green text, if possible
+        Bright green text, if possible
     """
     return _colourise(text, 'green')
 
 
-def warn(text):
+def warn(text: str) -> str:
     """Format a warning message.
 
     Args:
-        text (str): Text to format
+        text: Text to format
     Returns:
-        str: Bright yellow text, if possible
+        Bright yellow text, if possible
     """
     return _colourise(text, 'yellow')
 
 
-def pfail(text):  # pragma: no cover
+def pfail(text: str) -> None:  # pragma: no cover
     """Pretty print a failure message to ``stdout``.
 
     Args:
-        text (str): Text to print
+        text: Text to print
     """
     echo(fail(text))
 
 
-def pinfo(text):  # pragma: no cover
+def pinfo(text: str) -> None:  # pragma: no cover
     """Pretty print an informational message to ``stdout``.
 
     Args:
-        text (str): Text to print
+        text: Text to print
     """
     echo(info(text))
 
 
-def psuccess(text):  # pragma: no cover
+def psuccess(text: str) -> None:  # pragma: no cover
     """Pretty print a success message to ``stdout``.
 
     Args:
-        text (str): Text to print
+        text: Text to print
     """
     echo(success(text))
 
 
-def pwarn(text):  # pragma: no cover
+def pwarn(text: str) -> None:  # pragma: no cover
     """Pretty print a warning message to ``stdout``.
 
     Args:
-        text (str): Text to print
+        text: Text to print
     """
     echo(warn(text))
