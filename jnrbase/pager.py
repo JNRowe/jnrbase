@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-
 from subprocess import run
 from typing import Optional
 
