@@ -262,7 +262,7 @@ Issue tracker: https://github.com/JNRowe/jnrbase/issues/
 COPYING
 -------
 
-Copyright © 2014-2017  James Rowe.
+Copyright © 2014-2018  James Rowe.
 
 jnrbase is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software

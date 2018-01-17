@@ -65,7 +65,7 @@ nitpicky = True
 
 # Project information {{{
 project = 'jnrbase'
-copyright = '2014-2017  James Rowe'
+copyright = '2014-2018  James Rowe'
 
 version = '{major}.{minor}'.format_map(jnrbase._version.dict)
 release = jnrbase._version.dotted

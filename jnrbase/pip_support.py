@@ -1,6 +1,6 @@
 #
 """pip_support - pip workarounds support."""
-# Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
 #                        Nathan McGregor <nathan.mcgregor@astrium.eads.net>
 #
 # This file is part of jnrbase.
