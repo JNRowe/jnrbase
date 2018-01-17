@@ -117,7 +117,7 @@ def pretty_time(time: str):
         now = datetime.utcnow().replace(tzinfo=timezone.utc)
         try:
             delta = iso_8601.parse_delta(time)
-        except:
+        except ValueError:
             delta = human_time.parse_timedelta(time)
         dt = now - delta
 
