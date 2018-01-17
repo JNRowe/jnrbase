@@ -21,6 +21,7 @@ import json
 
 from contextlib import suppress
 from functools import partial, singledispatch, wraps
+from typing import Any, Dict
 
 from .iso_8601 import (format_datetime, format_delta, parse_datetime,
                        parse_delta)
@@ -30,7 +31,7 @@ encoder = json.JSONEncoder()
 
 
 @singledispatch
-def json_serialise(o):
+def json_serialise(o: Any) -> str:
     """Custom JSON serialiser.
 
     This simply falls through to :meth:`~json.JSONEncoder.default` when there
@@ -39,24 +40,24 @@ def json_serialise(o):
     Args:
         o: Object to encode
     Returns:
-        str: JSON-encoded string
+        JSON-encoded string
     """
     return encoder.default(o)
 
 
 @json_serialise.register(datetime.datetime)
-def datetime_serialise(o):
+def datetime_serialise(o: datetime.datetime) -> str:
     """JSON serialiser for ``datetime`` objects"""
     return format_datetime(o)
 
 
 @json_serialise.register(datetime.timedelta)
-def timedelta_serialise(o):
+def timedelta_serialise(o: datetime.timedelta) -> str:
     """JSON serialiser for ``timedelta`` objects"""
     return format_delta(o)
 
 
-def json_using_iso8601(obj):
+def json_using_iso8601(obj: Dict) -> Dict:
     """Parse ISO-8601 values from JSON databases.
 
     See :class:`json.JSONDecoder`

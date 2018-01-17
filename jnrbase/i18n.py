@@ -19,17 +19,17 @@
 import gettext
 
 from os import path
+from types import ModuleType
+from typing import Callable, Tuple
 
 
-def setup(pkg):
+def setup(pkg: ModuleType) -> Tuple[Callable, Callable]:
     """Configure gettext for given package.
 
     Args:
-        pkg (types.ModuleType): Package to use as location for
-            :program:`gettext` files
+        pkg: Package to use as location for :program:`gettext` files
     Returns:
-        tuple: 2-tuple of :program:`gettext` functions for singular and plural
-            translations
+        :program:`gettext` functions for singular and plural translations
 
     """
     package_locale = path.join(path.dirname(pkg.__file__), 'locale')

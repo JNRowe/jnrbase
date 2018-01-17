@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Any, Hashable
+
 
 class AttrDict(dict):
 
@@ -24,44 +26,44 @@ class AttrDict(dict):
     See also: :obj:`dict`
     """
 
-    def __contains__(self, key):
+    def __contains__(self, key: Hashable) -> bool:
         """Check for item membership.
 
         Args:
-            key (object): Key to test for
+            key: Key to test for
         Returns:
-            bool: ``True``, if item in AttrDict
+            ``True``, if item in AttrDict
         """
         return hasattr(self, key)
 
-    def __getattr__(self, key):
+    def __getattr__(self, key: Hashable):
         """Support item access via dot notation.
 
         Args:
-            key (object): Key to fetch
+            key: Key to fetch
         """
         try:
             return self[key]
         except KeyError:
             raise AttributeError(key)
 
-    def __setattr__(self, key, value):
+    def __setattr__(self, key: Hashable, value: Any) -> None:
         """Support item assignment via dot notation.
 
         Args:
-            key (object): Key to set value for
-            value (object): Value to set key to
+            key: Key to set value for
+            value: Value to set key to
         """
         try:
             self[key] = value
         except Exception as err:
             raise AttributeError(str(err))
 
-    def __delattr__(self, key):
+    def __delattr__(self, key: Hashable) -> None:
         """Support item deletion via dot notation.
 
         Args:
-            key (object): Key to delete
+            key: Key to delete
         """
         try:
             del self[key]

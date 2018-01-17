@@ -34,21 +34,21 @@ class Timing:
         elapsed (datetime.timedelta): Duration of execution
     """
 
-    def __init__(self, *, verbose=False):
+    def __init__(self, *, verbose: bool = False) -> None:
         """Configure the timing Timing context manager.
 
         Args:
-            verbose (bool): Print elapsed time
+            verbose: Print elapsed time
         """
         self.verbose = verbose
         self._start = None
         self.elapsed = None
 
-    def __enter__(self):
+    def __enter__(self) -> 'Timing':
         self._start = datetime.utcnow()
         return self
 
-    def __exit__(self, *args):
+    def __exit__(self, *args) -> None:
         now = datetime.utcnow()
         self.elapsed = now - self._start
         if self.verbose:

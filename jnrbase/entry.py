@@ -16,15 +16,17 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Callable
 
-def entry_point(fun):
+
+def entry_point(fun: Callable) -> Callable:
     """Execute function when module is run directly.
 
     Note:
         This allows fall through for importing modules that use it.
 
     Args:
-        fun (types.FunctionType): Function to run
+        fun: Function to run
     """
     if fun.__module__ == '__main__':
         import sys
