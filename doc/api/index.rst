@@ -11,6 +11,7 @@ dependencies to function.
    :maxdepth: 2
 
    attrdict
+   cmdline
    colourise
    config
    context

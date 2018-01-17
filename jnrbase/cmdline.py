@@ -1,5 +1,5 @@
 #
-"""cli - Command line functionality for jnrbase."""
+"""cmdline - Command line functionality for jnrbase."""
 # Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of jnrbase.
