@@ -60,8 +60,8 @@ def messages():
     pass
 
 
-def text_arg(f: Callable) -> Callable:
-    return argument('text')(f)
+def text_arg(__f: Callable) -> Callable:
+    return argument('text')(__f)
 
 
 @messages.command(help=_(colourise.fail.__doc__.splitlines()[0]))
