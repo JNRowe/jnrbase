@@ -103,7 +103,7 @@ User-visible changes
 
 * New ``safe_hasattr`` to workaround Python 2 oddness
 * ``parse_datetime`` can generate naïve timestamps
-* Python 3.6  is now supported
+* Python 3.6 is now supported
 
 0.3.0 - 2016-12-21
 ------------------
