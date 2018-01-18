@@ -26,7 +26,7 @@ def entry_point(__func: Callable) -> Callable[..., NoReturn]:
         This allows fall through for importing modules that use it.
 
     Args:
-        __func (func): Function to run
+        __func: Function to run
     """
     if __func.__module__ == '__main__':
         import sys
