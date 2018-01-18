@@ -75,10 +75,22 @@ def fail(ctx: Context, text: str):
     ctx.exit(1)
 
 
-for k in ['info', 'success', 'warn']:
-    fn = getattr(colourise, 'p{}'.format(k))
-    help = _(getattr(colourise, k).__doc__.splitlines()[0])
-    messages.command(name=k, help=help)(text_arg(lambda text: fn(text)))
+@messages.command(help=_(colourise.info.__doc__.splitlines()[0]))
+@text_arg
+def info(text: str):
+    colourise.pinfo(text)
+
+
+@messages.command(help=_(colourise.success.__doc__.splitlines()[0]))
+@text_arg
+def success(text: str):
+    colourise.psuccess(text)
+
+
+@messages.command(help=_(colourise.warn.__doc__.splitlines()[0]))
+@text_arg
+def warn(text: str):
+    colourise.pwarn(text)
 
 
 @cli.command(name='config', help=_('Extract or list values from config.'))
