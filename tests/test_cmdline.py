@@ -19,7 +19,7 @@
 from shutil import which
 
 from click.testing import CliRunner
-from pytest import mark, raises
+from pytest import mark
 
 from jnrbase.cmdline import cli
 
