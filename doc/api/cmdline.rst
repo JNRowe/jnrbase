@@ -23,4 +23,11 @@ Support functions
 Examples
 --------
 
-.. Messy to include
+.. code-block:: console
+
+    $ jnrbase --version
+    jnrbase, version 0.9.0
+    $ jnrbase pretty-time 2018-01-18T00:00
+    about six hours ago
+    $ jnrbase config rdial 'run wrappers' mutt
+    -c mutt mail
