@@ -20,8 +20,7 @@ import inspect
 import os
 import sys
 
-from io import TextIOBase
-from typing import Callable, Optional, Union
+from typing import Callable, Optional, TextIO, Union
 
 from functools import wraps
 
@@ -32,7 +31,7 @@ class DebugPrint:
 
     """Verbose print wrapper for debugging."""
 
-    def __init__(self, __fh: TextIOBase) -> None:
+    def __init__(self, __fh: TextIO) -> None:
         """Configure new DebugPrint handler.
 
         Args:

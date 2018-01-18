@@ -1,11 +1,11 @@
 jnrbase - Common utility functionality
 ======================================
 
-|travis| |coveralls| |pypi| |readthedocs|
+|status| |travis| |coveralls| |pypi| |pyvers| |readthedocs| |develop|
 
-``jnrbase`` is a collection of common utility libraries that are used in
-various Open Source projects that I (JNRowe_) work on.  Feel free to use it
-— and perhaps improve it — in your projects!
+``jnrbase`` is a collection of common utility libraries that are used in the
+Python projects that I (JNRowe_) work on.  Feel free to use it — and perhaps
+improve it — in your projects!
 
 ``jnrbase`` is released under the `GPL v3`_ license.
 
@@ -28,8 +28,8 @@ It should work with any version of Python_ 3.5 or newer.  If ``jnrbase``
 doesn’t work with the version of Python you have installed, file an issue_ and
 I’ll endeavour to fix it.
 
-The module has been tested on many UNIX-like systems, including Linux and OS X,
-but it should work fine on other systems too.
+The module has been tested on Linux, and occasionally on OSX, but it should
+work fine on other systems too.
 
 To run the tests you’ll need pytest_.  Once you have pytest_ installed you can
 run the tests with the following commands:
@@ -86,6 +86,16 @@ reproduce the problem, or even better a fix!
 .. |travis| image:: https://img.shields.io/travis/JNRowe/jnrbase/master.png
    :target: https://travis-ci.org/JNRowe/jnrbase
    :alt: Test state on master
+
+.. |develop| image:: https://img.shields.io/github/commits-since/JNRowe/jnrbase/latest.png
+   :target: https://github.com/JNRowe/jnrbase
+   :alt: Recent developments
+
+.. |pyvers| image:: https://img.shields.io/pypi/pyversions/jnrbase.png
+   :alt: Supported Python versions
+
+.. |status| image:: https://img.shields.io/pypi/status/jnrbase.png
+   :alt: Development status
 
 .. |coveralls| image:: https://img.shields.io/coveralls/github/JNRowe/jnrbase/master.png
    :target: https://coveralls.io/repos/JNRowe/jnrbase

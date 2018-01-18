@@ -36,8 +36,14 @@ from jnrbase import (_version, colourise, config, git, httplib2_certs,
 _, N_ = i18n.setup(jnrbase)
 
 
-def get_default(func: Callable, arg: str) -> str:
-    return signature(func).parameters[arg].default
+def get_default(__func: Callable, __arg: str) -> str:
+    """Fetch default value for a function argument
+
+    Args:
+        __func: Function to inspect
+        __arg: Argument to extract default value for
+    """
+    return signature(__func).parameters[__arg].default
 
 
 @group(help=_('Possibly useful cli functionality.'),
@@ -54,8 +60,8 @@ def messages():
     pass
 
 
-def text_arg(f: Callable) -> Callable:
-    return argument('text')(f)
+def text_arg(__f: Callable) -> Callable:
+    return argument('text')(__f)
 
 
 @messages.command(help=_(colourise.fail.__doc__.splitlines()[0]))
@@ -143,8 +149,7 @@ def gen_text(env: TextIOBase, package: str, tmpl: str):
     else:
         env_args = {}
     jinja_env = template.setup(package)
-    tmpl = jinja_env.get_template(tmpl)
-    echo(tmpl.render(**env_args))
+    echo(jinja_env.get_template(tmpl).render(**env_args))
 
 
 @cli.command(help=_('Time the output of a command'))
@@ -166,7 +171,7 @@ for k in ['cache', 'config', 'data']:
                   help=_('Display {} dir honouring XDG basedir.'.format(k)))
     @argument('package')
     @pass_context
-    def func(ctx, package):
+    def func(ctx: Context, package: str):
         echo(getattr(xdg_basedir, 'user_{}'.format(ctx.command.name))(package))
 
 

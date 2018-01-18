@@ -1,9 +1,9 @@
 ``jnrbase``
 ===========
 
-|modref| is a collection of utility libraries that are used in various Open
-Source projects that I (JNRowe_) work on.  Feel free to use it in your
-projects, or perhaps even improve it!
+|modref| is a collection of common utility libraries that are used in the
+Python projects that I (JNRowe_) work on.  Feel free to use it — and perhaps
+improve it — in your projects!
 
 |modref| is released under the `GPL v3`_ license.
 
