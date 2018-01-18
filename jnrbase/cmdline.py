@@ -149,8 +149,7 @@ def gen_text(env: TextIOBase, package: str, tmpl: str):
     else:
         env_args = {}
     jinja_env = template.setup(package)
-    tmpl = jinja_env.get_template(tmpl)
-    echo(tmpl.render(**env_args))
+    echo(jinja_env.get_template(tmpl).render(**env_args))
 
 
 @cli.command(help=_('Time the output of a command'))
