@@ -171,7 +171,7 @@ for k in ['cache', 'config', 'data']:
                   help=_('Display {} dir honouring XDG basedir.'.format(k)))
     @argument('package')
     @pass_context
-    def func(ctx, package):
+    def func(ctx: Context, package: str):
         echo(getattr(xdg_basedir, 'user_{}'.format(ctx.command.name))(package))
 
 
