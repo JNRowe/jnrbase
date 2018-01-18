@@ -22,15 +22,15 @@ import re
 import ciso8601
 
 
-def parse_delta(string: str) -> datetime.timedelta:
+def parse_delta(__string: str) -> datetime.timedelta:
     """Parse ISO-8601 duration string.
 
     Args:
-        string: Duration string to parse
+        __string: Duration string to parse
     Returns:
         Parsed delta object
     """
-    if not string:
+    if not __string:
         return datetime.timedelta(0)
     match = re.fullmatch(r"""
         P
@@ -39,25 +39,25 @@ def parse_delta(string: str) -> datetime.timedelta:
         ((?P<hours>\d{1,2})H)?
         ((?P<minutes>\d{1,2})M)?
         ((?P<seconds>\d{1,2})?((?:\.(?P<microseconds>\d+))?S)?)
-    """, string, re.VERBOSE)
+    """, __string, re.VERBOSE)
     if not match:
-        raise ValueError('Unable to parse delta {!r}'.format(string))
+        raise ValueError('Unable to parse delta {!r}'.format(__string))
     match_dict = {k: int(v) if v else 0 for k, v in match.groupdict().items()}
     return datetime.timedelta(**match_dict)
 
 
-def format_delta(timedelta_: datetime.timedelta) -> str:
+def format_delta(__timedelta: datetime.timedelta) -> str:
     """Format ISO-8601 duration string.
 
     Args:
-        timedelta_: Duration to process
+        __timedelta: Duration to process
     Returns:
         ISO-8601 representation of duration
     """
-    if timedelta_ == datetime.timedelta(0):
+    if __timedelta == datetime.timedelta(0):
         return ''
-    days_s = '{}D'.format(timedelta_.days) if timedelta_.days else ''
-    hours, minutes = divmod(timedelta_.seconds, 3600)
+    days_s = '{}D'.format(__timedelta.days) if __timedelta.days else ''
+    hours, minutes = divmod(__timedelta.seconds, 3600)
     minutes, seconds = divmod(minutes, 60)
     hours_s = '{:02d}H'.format(hours) if hours else ''
     minutes_s = '{:02d}M'.format(minutes) if minutes else ''
@@ -67,31 +67,31 @@ def format_delta(timedelta_: datetime.timedelta) -> str:
                                 hours_s, minutes_s, seconds_s)
 
 
-def parse_datetime(string: str) -> datetime.datetime:
+def parse_datetime(__string: str) -> datetime.datetime:
     """Parse ISO-8601 datetime string.
 
     Args:
-        string: Datetime string to parse
+        __string: Datetime string to parse
     Returns:
         Parsed datetime object
     """
-    if not string:
+    if not __string:
         datetime_ = datetime.datetime.now(datetime.timezone.utc)
     else:
-        datetime_ = ciso8601.parse_datetime(string)
+        datetime_ = ciso8601.parse_datetime(__string)
         if not datetime_:
-            raise ValueError('Unable to parse timestamp {!r}'.format(string))
+            raise ValueError('Unable to parse timestamp {!r}'.format(__string))
     if datetime_.tzinfo is None:
         datetime_ = datetime_.replace(tzinfo=datetime.timezone.utc)
     return datetime_
 
 
-def format_datetime(datetime_: datetime.datetime) -> str:
+def format_datetime(__datetime: datetime.datetime) -> str:
     """Format ISO-8601 datetime string.
 
     Args:
-        datetime_: Datetime to process
+        __datetime: Datetime to process
     Returns:
         ISO-8601 compatible string
     """
-    return datetime_.isoformat().replace('+00:00', 'Z')
+    return __datetime.isoformat().replace('+00:00', 'Z')

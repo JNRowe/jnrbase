@@ -21,15 +21,15 @@ from subprocess import CalledProcessError, check_output
 from .context import chdir
 
 
-def find_tag(matcher: str = 'v[0-9]*', *, strict: bool = True,
-             git_dir: str ='.') -> str:
+def find_tag(__matcher: str = 'v[0-9]*', *, strict: bool = True,
+             git_dir: str = '.') -> str:
     """Find closest tag for a git repository.
 
     Note:
         This defaults to `Semantic Version`_ tag matching.
 
     Args:
-        matcher: Glob-style tag pattern to match
+        __matcher: Glob-style tag pattern to match
         strict: Allow commit-ish, if no tag found
         git_dir: Repository to search
     Returns:
@@ -40,7 +40,7 @@ def find_tag(matcher: str = 'v[0-9]*', *, strict: bool = True,
     command = 'git describe --abbrev=12 --dirty'.split()
     with chdir(git_dir):
         try:
-            stdout = check_output(command + ['--match={}'.format(matcher), ])
+            stdout = check_output(command + ['--match={}'.format(__matcher), ])
         except CalledProcessError:
             if strict:
                 raise

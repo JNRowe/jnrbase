@@ -23,16 +23,16 @@ from types import ModuleType
 from typing import Callable, Tuple
 
 
-def setup(pkg: ModuleType) -> Tuple[Callable, Callable]:
+def setup(__pkg: ModuleType) -> Tuple[Callable, Callable]:
     """Configure gettext for given package.
 
     Args:
-        pkg: Package to use as location for :program:`gettext` files
+        __pkg: Package to use as location for :program:`gettext` files
     Returns:
         :program:`gettext` functions for singular and plural translations
 
     """
-    package_locale = path.join(path.dirname(pkg.__file__), 'locale')
-    gettext.install(pkg.__name__, package_locale)
+    package_locale = path.join(path.dirname(__pkg.__file__), 'locale')
+    gettext.install(__pkg.__name__, package_locale)
 
     return gettext.gettext, gettext.ngettext

@@ -21,7 +21,7 @@ import json
 
 from contextlib import suppress
 from functools import partial, singledispatch, wraps
-from typing import Any, Dict, Union
+from typing import Any, Dict
 
 from .iso_8601 import (format_datetime, format_delta, parse_datetime,
                        parse_delta)
@@ -31,46 +31,46 @@ encoder = json.JSONEncoder()
 
 
 @singledispatch
-def json_serialise(o: Any) -> str:
+def json_serialise(__o: Any) -> str:
     """Custom JSON serialiser.
 
     This simply falls through to :meth:`~json.JSONEncoder.default` when there
     isn't a custom dispatcher register for a type.
 
     Args:
-        o: Object to encode
+        __o: Object to encode
     Returns:
         JSON-encoded string
     """
-    return encoder.default(o)
+    return encoder.default(__o)
 
 
 @json_serialise.register(datetime.datetime)
-def datetime_serialise(o: datetime.datetime) -> str:
+def datetime_serialise(__o: datetime.datetime) -> str:
     """JSON serialiser for ``datetime`` objects"""
-    return format_datetime(o)
+    return format_datetime(__o)
 
 
 @json_serialise.register(datetime.timedelta)
-def timedelta_serialise(o: datetime.timedelta) -> str:
+def timedelta_serialise(__o: datetime.timedelta) -> str:
     """JSON serialiser for ``timedelta`` objects"""
-    return format_delta(o)
+    return format_delta(__o)
 
 
-def json_using_iso8601(obj: Dict) -> Dict:
+def json_using_iso8601(__obj: Dict) -> Dict:
     """Parse ISO-8601 values from JSON databases.
 
     See :class:`json.JSONDecoder`
 
     Args:
-        obj: Object to decode
+        __obj: Object to decode
     """
-    for k, v in obj.items():
+    for k, v in __obj.items():
         with suppress(TypeError, ValueError):
-            obj[k] = parse_datetime(v)
+            __obj[k] = parse_datetime(v)
         with suppress(TypeError, ValueError):
-            obj[k] = parse_delta(v)
-    return obj
+            __obj[k] = parse_delta(v)
+    return __obj
 
 
 dump = wraps(json.dump)(partial(json.dump, indent=4, default=json_serialise))

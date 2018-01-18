@@ -32,22 +32,22 @@ class DebugPrint:
 
     """Verbose print wrapper for debugging."""
 
-    def __init__(self, fh: TextIOBase) -> None:
+    def __init__(self, __fh: TextIOBase) -> None:
         """Configure new DebugPrint handler.
 
         Args:
-            fh: File handle to override
+            __fh: File handle to override
         """
-        self.fh = fh
+        self.fh = __fh
 
-    def write(self, text: str) -> None:
+    def write(self, __text: str) -> None:
         """Write text to the debug stream.
 
         Args:
-            text: Text to write
+            __text: Text to write
         """
-        if text == os.linesep:
-            self.fh.write(text)
+        if __text == os.linesep:
+            self.fh.write(__text)
         else:
             frame = inspect.currentframe()
             if frame is None:
@@ -58,7 +58,7 @@ class DebugPrint:
                 filename = outer.f_code.co_filename.split(os.sep)[-1]
                 lineno = outer.f_lineno
             self.fh.write('[{:>15s}:{:03d}] {}'.format(filename[-15:], lineno,
-                                                       text))
+                                                       __text))
 
     @staticmethod
     def enable() -> None:
@@ -72,11 +72,11 @@ class DebugPrint:
         sys.stdout = _orig_stdout
 
 
-def noisy_wrap(fun: Callable) -> Callable:
+def noisy_wrap(__func: Callable) -> Callable:
     """Decorator to enable DebugPrint for a given function.
 
     Args:
-        fun: Function to wrap
+        __func: Function to wrap
     Returns:
         Wrapped function
 
@@ -84,55 +84,55 @@ def noisy_wrap(fun: Callable) -> Callable:
     def wrapper(*args, **kwargs):
         DebugPrint.enable()
         try:
-            fun(*args, **kwargs)
+            __func(*args, **kwargs)
         finally:
             DebugPrint.disable()
     return wrapper
 
 
-def on_enter(msg: Optional[Union[Callable, str]] = None) -> Callable:
+def on_enter(__msg: Optional[Union[Callable, str]] = None) -> Callable:
     """Decorator to display a message when entering a function.
 
     Args:
-        msg: Message to display
+        __msg: Message to display
     Returns:
         Wrapped function
 
     """
-    def decorator(fun):
-        @wraps(fun)
+    def decorator(__func):
+        @wraps(__func)
         def wrapper(*args, **kwargs):
-            if msg:
-                print(msg)
+            if __msg:
+                print(__msg)
             else:
-                print('Entering {!r}({!r})'.format(fun.__name__, fun))
-            return fun(*args, **kwargs)
+                print('Entering {!r}({!r})'.format(__func.__name__, __func))
+            return __func(*args, **kwargs)
         return wrapper
-    if callable(msg):
-        return on_enter()(msg)
+    if callable(__msg):
+        return on_enter()(__msg)
     return decorator
 
 
-def on_exit(msg: Optional[Union[Callable, str]] = None) -> Callable:
+def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
     """Decorator to display a message when exiting a function.
 
     Args:
-        msg: Message to display
+        __msg: Message to display
     Returns:
         Wrapped function
 
     """
-    def decorator(fun):
-        @wraps(fun)
+    def decorator(__func):
+        @wraps(__func)
         def wrapper(*args, **kwargs):
             try:
-                return fun(*args, **kwargs)
+                return __func(*args, **kwargs)
             finally:
-                if msg:
-                    print(msg)
+                if __msg:
+                    print(__msg)
                 else:
-                    print('Exiting {!r}({!r})'.format(fun.__name__, fun))
+                    print('Exiting {!r}({!r})'.format(__func.__name__, __func))
         return wrapper
-    if callable(msg):
-        return on_exit()(msg)
+    if callable(__msg):
+        return on_exit()(__msg)
     return decorator

@@ -41,81 +41,81 @@ def _colourise(text: str, colour: str) -> str:
         return text
 
 
-def fail(text: str) -> str:
+def fail(__text: str) -> str:
     """Format a failure message.
 
     Args:
-        text: Text to format
+        __text: Text to format
     Returns:
         Bright red text, if possible
     """
-    return _colourise(text, 'red')
+    return _colourise(__text, 'red')
 
 
-def info(text: str) -> str:
+def info(__text: str) -> str:
     """Format an informational message.
 
     Args:
-        text: Text to format
+        __text: Text to format
     Returns:
         Bright blue text, if possible
     """
-    return _colourise(text, 'blue')
+    return _colourise(__text, 'blue')
 
 
-def success(text: str) -> str:
+def success(__text: str) -> str:
     """Format a success message.
 
     Args:
-        text: Text to format
+        __text: Text to format
     Returns:
         Bright green text, if possible
     """
-    return _colourise(text, 'green')
+    return _colourise(__text, 'green')
 
 
-def warn(text: str) -> str:
+def warn(__text: str) -> str:
     """Format a warning message.
 
     Args:
-        text: Text to format
+        __text: Text to format
     Returns:
         Bright yellow text, if possible
     """
-    return _colourise(text, 'yellow')
+    return _colourise(__text, 'yellow')
 
 
-def pfail(text: str) -> None:  # pragma: no cover
+def pfail(__text: str) -> None:  # pragma: no cover
     """Pretty print a failure message to ``stdout``.
 
     Args:
-        text: Text to print
+        __text: Text to print
     """
-    echo(fail(text))
+    echo(fail(__text))
 
 
-def pinfo(text: str) -> None:  # pragma: no cover
+def pinfo(__text: str) -> None:  # pragma: no cover
     """Pretty print an informational message to ``stdout``.
 
     Args:
-        text: Text to print
+        __text: Text to print
     """
-    echo(info(text))
+    echo(info(__text))
 
 
-def psuccess(text: str) -> None:  # pragma: no cover
+def psuccess(__text: str) -> None:  # pragma: no cover
     """Pretty print a success message to ``stdout``.
 
     Args:
-        text: Text to print
+        __text: Text to print
     """
-    echo(success(text))
+    echo(success(__text))
 
 
-def pwarn(text: str) -> None:  # pragma: no cover
+def pwarn(__text: str) -> None:  # pragma: no cover
     """Pretty print a warning message to ``stdout``.
 
     Args:
-        text: Text to print
+        __text: Text to print
     """
-    echo(warn(text))
+    echo(warn(__text))

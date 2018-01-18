@@ -23,18 +23,18 @@ from typing import ContextManager, Dict, Union
 
 
 @contextlib.contextmanager
-def chdir(path: str) -> ContextManager:
+def chdir(__path: str) -> ContextManager:
     """Context handler to temporarily switch directories.
 
     Args:
-        path: Directory to change to
+        __path: Directory to change to
 
     Yields:
         Execution context in ``path``
     """
     old = os.getcwd()
     try:
-        os.chdir(path)
+        os.chdir(__path)
         yield
     finally:
         os.chdir(old)

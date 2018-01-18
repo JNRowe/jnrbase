@@ -20,11 +20,11 @@ import datetime
 import re
 
 
-def human_timestamp(timestamp: datetime.datetime) -> str:
+def human_timestamp(__timestamp: datetime.datetime) -> str:
     """Format a relative time.
 
     Args:
-        timestamp: Event to generate relative timestamp against
+        __timestamp: Event to generate relative timestamp against
     Returns:
         Human readable date and time offset
     """
@@ -41,12 +41,12 @@ def human_timestamp(timestamp: datetime.datetime) -> str:
     ]
     match_names = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second']
 
-    if timestamp.tzinfo is None:
-        timestamp = timestamp.replace(tzinfo=datetime.timezone.utc)
+    if __timestamp.tzinfo is None:
+        __timestamp = __timestamp.replace(tzinfo=datetime.timezone.utc)
 
     now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
 
-    delta = int((now - timestamp).total_seconds())
+    delta = int((now - __timestamp).total_seconds())
     for scale in matches:
         i = delta // scale
         if i:
@@ -69,17 +69,17 @@ def human_timestamp(timestamp: datetime.datetime) -> str:
     return result
 
 
-def parse_timedelta(delta: str) -> datetime.timedelta:
+def parse_timedelta(__delta: str) -> datetime.timedelta:
     """Parse human readable frequency.
 
     Args:
-        delta: Frequency to parse
+        __delta: Frequency to parse
     """
     match = re.fullmatch(r"""
             ^(\d+(?:|\.\d+))  # value, possibly float
             \ *
             ([hdwmy])$  # units
-         """, delta, re.IGNORECASE | re.VERBOSE)
+         """, __delta, re.IGNORECASE | re.VERBOSE)
     if not match:
         raise ValueError('Invalid ‘frequency’ value')
     value, units = match.groups()

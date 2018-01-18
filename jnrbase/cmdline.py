@@ -69,11 +69,11 @@ def fail(ctx: Context, text: str):
 for k in ['info', 'success', 'warn']:
     fn = getattr(colourise, 'p{}'.format(k))
     help = _(getattr(colourise, k).__doc__.splitlines()[0])
-    messages.command(name=k, help=help)(text_arg(fn))
+    messages.command(name=k, help=help)(text_arg(lambda text: fn(text)))
 
 
 @cli.command(name='config', help=_('Extract or list values from config.'))
-@option('-n', '--name', default=get_default(config.read_configs, 'name'),
+@option('-n', '--name', default=get_default(config.read_configs, '__name'),
         help=_('Config file to read from.'))
 @option('-l', '--local / --no-local', help=_('Read local .<package>rc files.'))
 @argument('package')
@@ -93,7 +93,7 @@ def config_(name: str, local: bool, package: str, section: str,
 
 
 @cli.command('find-tag', help=_('Find tag for git repository.'))
-@option('-m', '--match', default=get_default(git.find_tag, 'matcher'),
+@option('-m', '--match', default=get_default(git.find_tag, '__matcher'),
         help=_('Limit the selection of matches with glob.'))
 @option('-s', '--strict / --no-strict', help=_('Always generate a result.'))
 @option('-d', '--directory', default=get_default(git.find_tag, 'git_dir'),
