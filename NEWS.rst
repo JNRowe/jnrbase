@@ -6,6 +6,17 @@ User-visible changes
 .. contents::
    :local:
 
+0.10.0 - 2018-01-18
+-------------------
+
+* This is the last planned release before 1.0.0, `report problems`_ and ask
+  questions *now*
+* Type hints, see :pep:`483`, have been add throughout the library
+* sphinx_autodoc_typehints_ is required to build documentation
+
+.. _report problems: https://github.com/JNRowe/jnrbase/issues
+.. _sphinx_autodoc_typehints: https://pypi.python.org/pypi/sphinx_autodoc_typehints/
+
 0.9.0 - 2017-11-24
 ------------------
 
