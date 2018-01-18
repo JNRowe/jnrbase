@@ -10,39 +10,13 @@ cmdline
 
 .. _click: https://pypi.python.org/pypi/click
 
-Functions
----------
+For information on the command line interface itself, see the :doc:`jnrbase
+manpage <../jnrbase.1>`.
+
+Support functions
+-----------------
 
 .. autofunction:: get_default
-.. autofunction:: cli
-
-Generic functions
-'''''''''''''''''
-
-.. autofunction:: certs
-.. autofunction:: config
-.. autofunction:: find_tag
-.. autofunction:: pip_requires
-.. autofunction:: pretty_time
-.. autofunction:: time
-
-Text formatting
-'''''''''''''''
-
-.. function:: fail
-.. function:: info
-.. function:: success
-.. function:: warn
-
-.. autofunction:: gen_text
-
-XDG basedir functions
-'''''''''''''''''''''
-
-.. function:: dirs
-.. function:: cache
-.. function:: config
-.. function:: data
 
 .. _cmdline-examples:
 
