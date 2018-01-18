@@ -36,9 +36,8 @@ def _colourise(text: str, colour: str) -> str:
         Colourised text, if possible
     """
     if COLOUR:
-        return style(text, fg=colour, bold=True)
-    else:
-        return text
+        text = style(text, fg=colour, bold=True)
+    return text
 
 
 def fail(__text: str) -> str:
