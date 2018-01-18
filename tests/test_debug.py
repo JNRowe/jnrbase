@@ -20,7 +20,7 @@ from operator import add
 
 from pytest import mark, raises
 
-from jnrbase.debug import (DebugPrint, noisy_wrap, on_enter, on_exit, sys)
+from jnrbase.debug import DebugPrint, noisy_wrap, on_enter, on_exit, sys
 
 
 @mark.parametrize('ftype', [

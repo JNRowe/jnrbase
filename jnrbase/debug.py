@@ -20,9 +20,8 @@ import inspect
 import os
 import sys
 
-from typing import Callable, Optional, TextIO, Union
-
 from functools import wraps
+from typing import Callable, Optional, TextIO, Union
 
 _orig_stdout = sys.stdout  # pylint: disable=invalid-name
 

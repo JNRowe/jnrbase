@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from contextlib import suppress
 from configparser import NoOptionError, NoSectionError
+from contextlib import suppress
 from datetime import datetime, timezone
 from inspect import signature
 from io import TextIOBase
@@ -29,7 +29,7 @@ from click import (Context, File, argument, echo, group, option, pass_context,
 
 import jnrbase
 from jnrbase import (_version, colourise, config, git, httplib2_certs,
-                     human_time, json_datetime, i18n, iso_8601, pip_support,
+                     human_time, i18n, iso_8601, json_datetime, pip_support,
                      template, timer, xdg_basedir)
 
 
