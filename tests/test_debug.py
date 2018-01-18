@@ -59,7 +59,7 @@ def test_decorator_with_failure(ftype, capsys):
     assert capsys.readouterr()[0] == 'custom message\n'
 
 
-def test_DebugPrint(capsys):
+def test_DebugPrint(capsys):  # NOQA: N802
     DebugPrint.enable()
     try:
         print('boom')
@@ -70,7 +70,7 @@ def test_DebugPrint(capsys):
         DebugPrint.disable()
 
 
-def test_DebugPrint_no_stack_frame(capsys, monkeypatch):
+def test_DebugPrint_no_stack_frame(capsys, monkeypatch):  # NOQA: N802
     monkeypatch.setattr('jnrbase.debug.inspect.currentframe', lambda: None)
     DebugPrint.enable()
     try:
@@ -80,7 +80,7 @@ def test_DebugPrint_no_stack_frame(capsys, monkeypatch):
         DebugPrint.disable()
 
 
-def test_DebugPrint_double_toggle():
+def test_DebugPrint_double_toggle():  # NOQA: N802
     DebugPrint.enable()
     sys.stdout.first = True
     try:
@@ -92,7 +92,7 @@ def test_DebugPrint_double_toggle():
     DebugPrint.disable()
 
 
-def test_DebugPrint_decorator(capsys):
+def test_DebugPrint_decorator(capsys):  # NOQA: N802
     @noisy_wrap
     def func(x):
         print(hex(x))
