@@ -69,7 +69,7 @@ def parse_requires(__fname: str) -> List[str]:
                     '__builtins__': {},
                     'python_version': '{}.{}'.format(*version_info[:2]),
                 }
-                if not eval(marker, env):
+                if not eval(marker, env):  # pylint: disable=eval-used
                     continue
             deps.append(dep)
     return deps

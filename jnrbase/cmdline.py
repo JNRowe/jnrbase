@@ -46,6 +46,9 @@ def get_default(__func: Callable, __arg: str) -> str:
     return signature(__func).parameters[__arg].default
 
 
+# pylint: disable=missing-docstring
+
+
 @group(help=_('Possibly useful cli functionality.'),
        epilog=_('Please report bugs at '
                 'https://github.com/JNRowe/jnrbase/issues'),

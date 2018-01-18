@@ -20,6 +20,7 @@ from subprocess import run
 from typing import Optional
 
 
+# pylint: disable=redefined-outer-name
 def pager(__text: str, *, pager: Optional[str] = 'less'):
     """Pass output through pager.
 

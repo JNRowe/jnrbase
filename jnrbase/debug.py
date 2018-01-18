@@ -24,7 +24,7 @@ from typing import Callable, Optional, TextIO, Union
 
 from functools import wraps
 
-_orig_stdout = sys.stdout
+_orig_stdout = sys.stdout  # pylint: disable=invalid-name
 
 
 class DebugPrint:
@@ -80,6 +80,7 @@ def noisy_wrap(__func: Callable) -> Callable:
         Wrapped function
 
     """
+    # pylint: disable=missing-docstring
     def wrapper(*args, **kwargs):
         DebugPrint.enable()
         try:
@@ -98,6 +99,7 @@ def on_enter(__msg: Optional[Union[Callable, str]] = None) -> Callable:
         Wrapped function
 
     """
+    # pylint: disable=missing-docstring
     def decorator(__func):
         @wraps(__func)
         def wrapper(*args, **kwargs):
@@ -121,6 +123,7 @@ def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
         Wrapped function
 
     """
+    # pylint: disable=missing-docstring
     def decorator(__func):
         @wraps(__func)
         def wrapper(*args, **kwargs):

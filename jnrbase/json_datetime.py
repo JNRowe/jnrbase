@@ -27,7 +27,7 @@ from .iso_8601 import (format_datetime, format_delta, parse_datetime,
                        parse_delta)
 
 
-encoder = json.JSONEncoder()
+encoder = json.JSONEncoder()  # pylint: disable=invalid-name
 
 
 @singledispatch
@@ -73,6 +73,7 @@ def json_using_iso8601(__obj: Dict) -> Dict:
     return __obj
 
 
+# pylint: disable=invalid-name
 dump = wraps(json.dump)(partial(json.dump, indent=4, default=json_serialise))
 dumps = wraps(json.dumps)(partial(json.dumps, indent=4,
                                   default=json_serialise))
