@@ -108,9 +108,9 @@ def config_(name: str, local: bool, package: str, section: str,
             echo(cfg.get(section, key))
     else:
         with suppress(NoSectionError):
-            for k in cfg.options(section):
-                colourise.pinfo(k)
-                echo('    {}'.format(cfg.get(section, k)))
+            for opt in cfg.options(section):
+                colourise.pinfo(opt)
+                echo('    {}'.format(cfg.get(section, opt)))
 
 
 @cli.command('find-tag', help=_('Find tag for git repository.'))
@@ -130,27 +130,27 @@ def certs():
 
 
 @cli.command('pretty-time', help=_('Format timestamp for human consumption.'))
-@argument('time')
-def pretty_time(time: str):
+@argument('timestamp')
+def pretty_time(timestamp: str):
     try:
-        dt = iso_8601.parse_datetime(time)
+        parsed = iso_8601.parse_datetime(timestamp)
     except ValueError:
         now = datetime.utcnow().replace(tzinfo=timezone.utc)
         try:
-            delta = iso_8601.parse_delta(time)
+            delta = iso_8601.parse_delta(timestamp)
         except ValueError:
-            delta = human_time.parse_timedelta(time)
-        dt = now - delta
+            delta = human_time.parse_timedelta(timestamp)
+        parsed = now - delta
 
-    echo(human_time.human_timestamp(dt))
+    echo(human_time.human_timestamp(parsed))
 
 
 @cli.command('pip-requires', help=_('Parse pip requirements file.'))
 @argument('name')
 def pip_requires(name: str):
     requires = pip_support.parse_requires(name)
-    for l in requires:
-        echo(l)
+    for req in requires:
+        echo(req)
 
 
 @cli.command('gen-text', help=_('Create output from Jinja template.'))
@@ -172,8 +172,8 @@ def gen_text(env: TextIOBase, package: str, tmpl: str):
 @pass_context
 def time(ctx: Context, command: str):
     with timer.Timing(verbose=True):
-        p = run(command, shell=True)
-    ctx.exit(p.returncode)
+        proc = run(command, shell=True)
+    ctx.exit(proc.returncode)
 
 
 @cli.group(help=_('Query package directories'))

@@ -31,13 +31,13 @@ class DebugPrint:
 
     """Verbose print wrapper for debugging."""
 
-    def __init__(self, __fh: TextIO) -> None:
+    def __init__(self, __handle: TextIO) -> None:
         """Configure new DebugPrint handler.
 
         Args:
-            __fh: File handle to override
+            __handle: File handle to override
         """
-        self.fh = __fh
+        self.handle = __handle
 
     def write(self, __text: str) -> None:
         """Write text to the debug stream.
@@ -46,7 +46,7 @@ class DebugPrint:
             __text: Text to write
         """
         if __text == os.linesep:
-            self.fh.write(__text)
+            self.handle.write(__text)
         else:
             frame = inspect.currentframe()
             if frame is None:
@@ -56,8 +56,8 @@ class DebugPrint:
                 outer = frame.f_back
                 filename = outer.f_code.co_filename.split(os.sep)[-1]
                 lineno = outer.f_lineno
-            self.fh.write('[{:>15s}:{:03d}] {}'.format(filename[-15:], lineno,
-                                                       __text))
+            self.handle.write('[{:>15s}:{:03d}] {}'.format(filename[-15:],
+                                                           lineno, __text))
 
     @staticmethod
     def enable() -> None:
