@@ -11,13 +11,17 @@ Functions
 
     Implemented with :func:`functools.singledispatch`.
 
-.. autofunction:: datetime_serialise
+.. The singledispatch decorator breaks autofunction here
 
-    Specialisation of :func:`json_serialise`.
+.. function:: datetime_serialise(__o: datetime.datetime) -> str
 
-.. autofunction:: timedelta_serialise
+    Specialisation of :func:`json_serialise` for :obj:`datetime.datetime`
+    objects.
 
-    Specialisation of :func:`json_serialise`.
+.. function:: timedelta_serialise(__o: datetime.timedelta) -> str
+
+    Specialisation of :func:`json_serialise` for :obj:`datetime.timedelta`
+    objects.
 
 .. autofunction:: json_using_iso8601
 
