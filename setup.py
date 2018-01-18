@@ -72,7 +72,7 @@ pip_support = import_file(metadata['name'], 'pip_support.py')
 extras_require = {}
 for file in glob('extra/requirements-*.txt'):
     suffix = path.splitext(file)[0].split('-')[1]
-    if suffix not in ['doc', 'test']:
+    if suffix not in ['dev', 'doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)
 
 tests_require = pip_support.parse_requires('extra/requirements-test.txt')
