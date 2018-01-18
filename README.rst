@@ -1,7 +1,7 @@
 jnrbase - Common utility functionality
 ======================================
 
-|travis| |coveralls| |pypi| |readthedocs|
+|status| |travis| |coveralls| |pypi| |pyvers| |readthedocs| |develop|
 
 ``jnrbase`` is a collection of common utility libraries that are used in the
 Python projects that I (JNRowe_) work on.  Feel free to use it — and perhaps
@@ -86,6 +86,16 @@ reproduce the problem, or even better a fix!
 .. |travis| image:: https://img.shields.io/travis/JNRowe/jnrbase/master.png
    :target: https://travis-ci.org/JNRowe/jnrbase
    :alt: Test state on master
+
+.. |develop| image:: https://img.shields.io/github/commits-since/JNRowe/jnrbase/latest.png
+   :target: https://github.com/JNRowe/jnrbase
+   :alt: Recent developments
+
+.. |pyvers| image:: https://img.shields.io/pypi/pyversions/jnrbase.png
+   :alt: Supported Python versions
+
+.. |status| image:: https://img.shields.io/pypi/status/jnrbase.png
+   :alt: Development status
 
 .. |coveralls| image:: https://img.shields.io/coveralls/github/JNRowe/jnrbase/master.png
    :target: https://coveralls.io/repos/JNRowe/jnrbase
