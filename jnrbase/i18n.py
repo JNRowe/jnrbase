@@ -23,7 +23,8 @@ from types import ModuleType
 from typing import Callable, Tuple
 
 
-def setup(__pkg: ModuleType) -> Tuple[Callable, Callable]:
+def setup(__pkg: ModuleType) -> Tuple[Callable[[str], str],
+                                      Callable[[str, str, int], str]]:
     """Configure gettext for given package.
 
     Args:
