@@ -36,8 +36,14 @@ from jnrbase import (_version, colourise, config, git, httplib2_certs,
 _, N_ = i18n.setup(jnrbase)
 
 
-def get_default(func: Callable, arg: str) -> str:
-    return signature(func).parameters[arg].default
+def get_default(__func: Callable, __arg: str) -> str:
+    """Fetch default value for a function argument
+
+    Args:
+        __func: Function to inspect
+        __arg: Argument to extract default value for
+    """
+    return signature(__func).parameters[__arg].default
 
 
 @group(help=_('Possibly useful cli functionality.'),
