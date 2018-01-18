@@ -9,7 +9,7 @@ User-visible changes
 0.9.0 - 2017-11-24
 ------------------
 
-* As advertised, ``pager``'s default value for ``$LESS`` hase been removed
+* As advertised, ``pager``'s default value for ``$LESS`` has been removed
 * ``timedelta`` objects are now supported by ``json_datetime``
 * Functionality that may be useful from the command line is now available via
   ``jnrbase`` command
@@ -33,7 +33,7 @@ User-visible changes
   v0.8.0.
 * httplib2_ v0.10, or newer, is required for ``jnrbase[net]``
 * click_ is now required for ``jnrbase[template]``
-* ``jnrbase[template]`` requires html2text_ 2016.5.29 or newer and and Pygments
+* ``jnrbase[template]`` requires html2text_ 2016.5.29 or newer and Pygments
   v2.1 or newer
 * Tests now require pytest-randomly_
 

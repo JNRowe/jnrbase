@@ -3,9 +3,9 @@ jnrbase - Common utility functionality
 
 |travis| |coveralls| |pypi| |readthedocs|
 
-``jnrbase`` is a collection of common utility libraries that are used in
-various Open Source projects that I (JNRowe_) work on.  Feel free to use it
-— and perhaps improve it — in your projects!
+``jnrbase`` is a collection of common utility libraries that are used in the
+Python projects that I (JNRowe_) work on.  Feel free to use it — and perhaps
+improve it — in your projects!
 
 ``jnrbase`` is released under the `GPL v3`_ license.
 
@@ -28,8 +28,8 @@ It should work with any version of Python_ 3.5 or newer.  If ``jnrbase``
 doesn’t work with the version of Python you have installed, file an issue_ and
 I’ll endeavour to fix it.
 
-The module has been tested on many UNIX-like systems, including Linux and OS X,
-but it should work fine on other systems too.
+The module has been tested on Linux, and occasionally on OSX, but it should
+work fine on other systems too.
 
 To run the tests you’ll need pytest_.  Once you have pytest_ installed you can
 run the tests with the following commands:
