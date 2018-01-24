@@ -18,9 +18,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
-from glob import glob
 from importlib.util import module_from_spec, spec_from_file_location
-from os import path
+from pathlib import Path
 from types import ModuleType
 
 from setuptools import setup
@@ -66,12 +65,12 @@ pip_support = import_file('jnrbase', 'pip_support.py')
 # Note: We can't use setuptool’s requirements support as it only a list
 # and doesn’t support pip’s inclusion mechanism
 extras_require = {}
-for file in glob('extra/requirements-*.txt'):
-    suffix = path.splitext(file)[0].split('-')[1]
+for file in Path('extra').glob('requirements-*.txt'):
+    suffix = file.stem.split('-')[1]
     if suffix not in ['dev', 'doc', 'test']:
         extras_require[suffix] = pip_support.parse_requires(file)
 
-tests_require = pip_support.parse_requires('extra/requirements-test.txt')
+tests_require = pip_support.parse_requires(Path('extra/requirements-test.txt'))
 
 setup(
     extras_require=extras_require,

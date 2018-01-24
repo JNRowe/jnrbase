@@ -22,10 +22,11 @@ import os
 import sys
 
 from contextlib import suppress
+from pathlib import Path
 from subprocess import PIPE, CalledProcessError, run
 
-root_dir = os.path.dirname(os.path.dirname(__file__))
-sys.path.insert(0, root_dir)
+root_dir = Path(__file__).parent.parents[2]
+sys.path.insert(0, str(root_dir))
 
 import jnrbase  # NOQA: E402
 

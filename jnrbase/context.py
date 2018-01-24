@@ -20,11 +20,12 @@
 
 import contextlib
 import os
+from pathlib import Path
 from typing import ContextManager, Dict, Union
 
 
 @contextlib.contextmanager
-def chdir(__path: str) -> ContextManager:
+def chdir(__path: Path) -> ContextManager:
     """Context handler to temporarily switch directories.
 
     Args:
@@ -33,12 +34,12 @@ def chdir(__path: str) -> ContextManager:
     Yields:
         Execution context in ``path``
     """
-    old = os.getcwd()
+    old = Path.cwd()
     try:
-        os.chdir(__path)
+        os.chdir(str(__path))
         yield
     finally:
-        os.chdir(old)
+        os.chdir(str(old))
 
 
 @contextlib.contextmanager
