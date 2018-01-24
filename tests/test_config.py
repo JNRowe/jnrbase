@@ -27,20 +27,22 @@ from jnrbase.context import chdir
 
 from .utils import func_attr
 
+exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731
+
 
 @mark.parametrize('local,count', [
     (True, 4),
     (False, 3),
 ])
 def test_config_loading(local, count, monkeypatch, path_exists_force):
-    monkeypatch.setattr('builtins.open', lambda s, encoding: StringIO(''))
+    monkeypatch.setattr('jnrbase.config.Path.open', lambda s: StringIO(''))
     monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
     cfg = config.read_configs('jnrbase', local=local)
     assert len(cfg.configs) == count
     if local:
-        assert '/.jnrbaserc' in cfg.configs[-1]
+        assert '/.jnrbaserc' in str(cfg.configs[-1])
     else:
-        assert '/.jnrbaserc' not in cfg.configs
+        assert '/.jnrbaserc' not in str(cfg.configs)
 
 
 @func_attr('exists_result', False)

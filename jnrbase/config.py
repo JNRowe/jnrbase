@@ -19,7 +19,8 @@
 # SPDX-License-Identifier: GPL-3.0+
 
 from configparser import ConfigParser
-from os import environ, path
+from os import environ
+from pathlib import Path
 
 from .human_time import parse_timedelta
 from .iso_8601 import parse_datetime, parse_delta
@@ -50,8 +51,8 @@ def read_configs(__pkg: str, __name: str = 'config', *,
     """
     configs = get_configs(__pkg, __name)
     if local:
-        localrc = path.abspath('.{}rc'.format(__pkg))
-        if path.exists(localrc):
+        localrc = Path('.{}rc'.format(__pkg)).absolute()
+        if localrc.exists():
             configs.append(localrc)
 
     cfg = ConfigParser(
@@ -60,7 +61,9 @@ def read_configs(__pkg: str, __name: str = 'config', *,
             'humandelta': parse_timedelta,
             'timedelta': parse_delta,
         })
-    cfg.read(configs, 'utf-8')
+    for fname in configs:
+        with fname.open() as f:
+            cfg.read_file(f, 'utf-8')
     cfg.configs = configs
 
     if 'NO_COLOUR' in environ or 'NO_COLOR' in environ:

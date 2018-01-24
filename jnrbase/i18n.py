@@ -19,7 +19,7 @@
 # SPDX-License-Identifier: GPL-3.0+
 
 import gettext
-from os import path
+from pathlib import Path
 from types import ModuleType
 from typing import Callable, Tuple
 
@@ -34,7 +34,7 @@ def setup(__pkg: ModuleType
         :program:`gettext` functions for singular and plural translations
 
     """
-    package_locale = path.join(path.dirname(__pkg.__file__), 'locale')
-    gettext.install(__pkg.__name__, package_locale)
+    package_locale = Path(__pkg.__file__).parent / 'locale'
+    gettext.install(__pkg.__name__, str(package_locale))
 
     return gettext.gettext, gettext.ngettext

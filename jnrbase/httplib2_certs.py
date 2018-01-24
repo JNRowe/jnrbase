@@ -20,7 +20,8 @@
 
 import sys
 import warnings
-from os import getenv, path
+from os import getenv
+from pathlib import Path
 
 import httplib2
 
@@ -31,15 +32,17 @@ ALLOW_FALLBACK = True
 
 #: Default certificate locations for platforms
 PLATFORM_FILES = {
-    'linux':
-    ['/etc/ssl/certs/ca-certificates.crt', '/etc/pki/tls/certs/ca-bundle.crt'],
+    'linux': [
+        Path('/etc/ssl/certs/ca-certificates.crt'),
+        Path('/etc/pki/tls/certs/ca-bundle.crt')
+    ],
     'freebsd': [
-        '/usr/local/share/certs/ca-root-nss.crt',
+        Path('/usr/local/share/certs/ca-root-nss.crt'),
     ],
 }
 
 
-def find_certs() -> str:
+def find_certs() -> Path:
     """Find suitable certificates for ``httplib2``.
 
     Warning:
@@ -56,22 +59,23 @@ def find_certs() -> str:
     Raises:
         RuntimeError: When no suitable certificates are found
     """
-    bundle = path.realpath(path.dirname(httplib2.CA_CERTS))
+    bundle = Path(httplib2.CA_CERTS).parent.absolute()
     # Some distros symlink the bundled path location to the system certs
-    if not bundle.startswith(path.dirname(httplib2.__file__)):
+    if bundle.is_symlink():
         return bundle
     for platform, files in PLATFORM_FILES.items():
         if sys.platform.startswith(platform):
             for cert_file in files:
-                if path.exists(cert_file):
+                if cert_file.exists():
                     return cert_file
     # An apparently common environment setting for macOS users to workaround
     # the lack of “standard” certs installation
-    if path.exists(getenv('CURL_CA_BUNDLE', '')):
-        return getenv('CURL_CA_BUNDLE')
+    curl_bundle = getenv('CURL_CA_BUNDLE')
+    if curl_bundle:
+        return Path(curl_bundle)
     if ALLOW_FALLBACK:
         warnings.warn('No system certs detected, falling back to bundled',
                       RuntimeWarning)
-        return httplib2.CA_CERTS
+        return Path(httplib2.CA_CERTS)
     else:
         raise RuntimeError('No system certs detected!')

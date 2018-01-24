@@ -21,7 +21,8 @@
 # See http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 
 import sys
-from os import getenv, path
+from os import getenv
+from pathlib import Path
 from typing import List
 
 #: Allow macOS directory structure
@@ -34,7 +35,7 @@ __LOCATIONS = {
 }  # type: Dict[str, Tuple[str, str]]
 
 
-def __user_location(__pkg: str, type_) -> str:
+def __user_location(__pkg: str, type_) -> Path:
     """Utility function to look up XDG basedir locations
 
     Args:
@@ -42,16 +43,16 @@ def __user_location(__pkg: str, type_) -> str:
         __type: Location type
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
-        user_dir = '~/Library/{}'.format(__LOCATIONS[type_][0])
+        user_dir = Path('~/Library') / __LOCATIONS[type_][0]
     else:
-        user_dir = getenv(
-            'XDG_{}_HOME'.format(type_.upper()),
-            path.sep.join([getenv('HOME', ''), __LOCATIONS[type_][1]]))
-    return path.expanduser(path.sep.join([user_dir, __pkg]))
+        user_dir = Path(
+            getenv('XDG_{}_HOME'.format(type_.upper()),
+                   Path.home() / __LOCATIONS[type_][1]))
+    return user_dir.expanduser() / __pkg
 
 
 def __xdg_lookup(name):
-    def tmpl(__pkg: str) -> str:
+    def tmpl(__pkg: str) -> Path:
         """Return a {0} location honouring :envvar:`XDG_{1}_HOME`.
 
         .. envvar:: XDG_{1}_HOME
@@ -72,7 +73,7 @@ user_config = __xdg_lookup('config')
 user_data = __xdg_lookup('data')
 
 
-def get_configs(__pkg: str, __name: str = 'config') -> List[str]:
+def get_configs(__pkg: str, __name: str = 'config') -> List[Path]:
     """Return all configs for given package.
 
     Args:
@@ -83,17 +84,17 @@ def get_configs(__pkg: str, __name: str = 'config') -> List[str]:
         user_config(__pkg),
     ]
     dirs.extend(
-        path.expanduser(path.sep.join([d, __pkg]))
+        Path(d).expanduser() / __pkg
         for d in getenv('XDG_CONFIG_DIRS', '/etc/xdg').split(':'))
     configs = []
     for dname in reversed(dirs):
-        test_path = path.join(dname, __name)
-        if path.exists(test_path):
+        test_path = dname / __name
+        if test_path.exists():
             configs.append(test_path)
     return configs
 
 
-def get_data(__pkg: str, __name: str) -> str:
+def get_data(__pkg: str, __name: str) -> Path:
     """Return top-most data file for given package.
 
     Args:
@@ -101,13 +102,13 @@ def get_data(__pkg: str, __name: str) -> str:
         __name: Data file name
     """
     for dname in get_data_dirs(__pkg):
-        test_path = path.join(dname, __name)
-        if path.exists(test_path):
+        test_path = dname / __name
+        if test_path.exists():
             return test_path
     raise FileNotFoundError('No data file {!r} for {!r}'.format(__name, __pkg))
 
 
-def get_data_dirs(__pkg: str) -> List[str]:
+def get_data_dirs(__pkg: str) -> List[Path]:
     """Return all data directories for given package.
 
     Args:
@@ -117,6 +118,6 @@ def get_data_dirs(__pkg: str) -> List[str]:
         user_data(__pkg),
     ]
     dirs.extend(
-        path.expanduser(path.sep.join([d, __pkg])) for d in getenv(
+        Path(d).expanduser() / __pkg for d in getenv(
             'XDG_DATA_DIRS', '/usr/local/share/:/usr/share/').split(':'))
-    return [d for d in dirs if path.isdir(d)]
+    return [d for d in dirs if d.is_dir()]

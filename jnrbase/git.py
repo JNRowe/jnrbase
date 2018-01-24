@@ -18,6 +18,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
+from pathlib import Path
 from subprocess import CalledProcessError, check_output
 
 from .context import chdir
@@ -26,7 +27,7 @@ from .context import chdir
 def find_tag(__matcher: str = 'v[0-9]*',
              *,
              strict: bool = True,
-             git_dir: str = '.') -> str:
+             git_dir: Path = Path('.')) -> str:
     """Find closest tag for a git repository.
 
     Note:

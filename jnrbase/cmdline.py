@@ -23,6 +23,7 @@ from contextlib import suppress
 from datetime import datetime, timezone
 from inspect import signature
 from io import TextIOBase
+from pathlib import Path
 from subprocess import CalledProcessError, run
 from typing import Callable, Optional
 
@@ -119,10 +120,10 @@ def config_(name: str, local: bool, package: str, section: str,
 @option('-s', '--strict / --no-strict', help='Always generate a result.')
 @option('-d',
         '--directory',
+        type=Path,
         default=get_default(git.find_tag, 'git_dir'),
         help='Git repository to operate on.')
-def find_tag(match: str, strict: bool, directory: str):
-    """Find tag for git repository."""
+def find_tag(match: str, strict: bool, directory: Path):
     with suppress(CalledProcessError):
         echo(git.find_tag(match, strict=strict, git_dir=directory))
 
