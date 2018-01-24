@@ -16,12 +16,10 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from os import getenv
 from shutil import which
 
 from pytest import mark
 
-from jnrbase._version import tuple as v_tuple
 from jnrbase.pager import pager
 
 

@@ -21,7 +21,7 @@ from datetime import datetime
 from .human_time import human_timestamp
 
 
-class Timing:
+class Timing:  # pylint: disable=too-few-public-methods
 
     """Timing context manager.
 

@@ -58,18 +58,18 @@ def env(**kwargs: Union[Dict[str, str], None]) -> ContextManager:
         os.environ.clear()
         # This apparent duplication is because putenv doesn’t update
         # os.environ, and os.environ changes aren’t propagated to subprocesses.
-        for k, v in old.items():
-            os.environ[k] = v  # NOQA: B003
-            os.putenv(k, v)
-        for k, v in kwargs.items():
-            if v is None:
-                del os.environ[k]
+        for key, value in old.items():
+            os.environ[key] = value  # NOQA: B003
+            os.putenv(key, value)
+        for key, value in kwargs.items():
+            if value is None:
+                del os.environ[key]
             else:
-                os.environ[k] = v  # NOQA: B003
-                os.putenv(k, v)
+                os.environ[key] = value  # NOQA: B003
+                os.putenv(key, value)
         yield
     finally:
         os.environ.clear()
-        for k, v in old.items():
-            os.environ[k] = v  # NOQA: B003
-            os.putenv(k, v)
+        for key, value in old.items():
+            os.environ[key] = value  # NOQA: B003
+            os.putenv(key, value)

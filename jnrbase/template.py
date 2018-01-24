@@ -69,9 +69,8 @@ def colourise(__text: str, *args, **kwargs) -> str:
         Colourised text, when possible
     """
     if sys.stdout.isatty():
-        return style(__text, *args, **kwargs)
-    else:
-        return __text
+        __text = style(__text, *args, **kwargs)
+    return __text
 
 
 @jinja_filter
@@ -93,9 +92,8 @@ def highlight(__text: str, *, lexer: str = 'diff',
     if sys.stdout.isatty():
         lexer = get_lexer_by_name(lexer)
         formatter = get_formatter_by_name(formatter)
-        return pyg_highlight(__text, lexer, formatter)
-    else:
-        return __text
+        __text = pyg_highlight(__text, lexer, formatter)
+    return __text
 
 
 @jinja_filter

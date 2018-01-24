@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from contextlib import suppress
 from configparser import NoOptionError, NoSectionError
+from contextlib import suppress
 from datetime import datetime, timezone
 from inspect import signature
 from io import TextIOBase
@@ -29,7 +29,7 @@ from click import (Context, File, argument, echo, group, option, pass_context,
 
 import jnrbase
 from jnrbase import (_version, colourise, config, git, httplib2_certs,
-                     human_time, json_datetime, i18n, iso_8601, pip_support,
+                     human_time, i18n, iso_8601, json_datetime, pip_support,
                      template, timer, xdg_basedir)
 
 
@@ -44,6 +44,9 @@ def get_default(__func: Callable, __arg: str) -> str:
         __arg: Argument to extract default value for
     """
     return signature(__func).parameters[__arg].default
+
+
+# pylint: disable=missing-docstring
 
 
 @group(help=_('Possibly useful cli functionality.'),
@@ -72,10 +75,22 @@ def fail(ctx: Context, text: str):
     ctx.exit(1)
 
 
-for k in ['info', 'success', 'warn']:
-    fn = getattr(colourise, 'p{}'.format(k))
-    help = _(getattr(colourise, k).__doc__.splitlines()[0])
-    messages.command(name=k, help=help)(text_arg(lambda text: fn(text)))
+@messages.command(help=_(colourise.info.__doc__.splitlines()[0]))
+@text_arg
+def info(text: str):
+    colourise.pinfo(text)
+
+
+@messages.command(help=_(colourise.success.__doc__.splitlines()[0]))
+@text_arg
+def success(text: str):
+    colourise.psuccess(text)
+
+
+@messages.command(help=_(colourise.warn.__doc__.splitlines()[0]))
+@text_arg
+def warn(text: str):
+    colourise.pwarn(text)
 
 
 @cli.command(name='config', help=_('Extract or list values from config.'))
@@ -93,9 +108,9 @@ def config_(name: str, local: bool, package: str, section: str,
             echo(cfg.get(section, key))
     else:
         with suppress(NoSectionError):
-            for k in cfg.options(section):
-                colourise.pinfo(k)
-                echo('    {}'.format(cfg.get(section, k)))
+            for opt in cfg.options(section):
+                colourise.pinfo(opt)
+                echo('    {}'.format(cfg.get(section, opt)))
 
 
 @cli.command('find-tag', help=_('Find tag for git repository.'))
@@ -115,27 +130,27 @@ def certs():
 
 
 @cli.command('pretty-time', help=_('Format timestamp for human consumption.'))
-@argument('time')
-def pretty_time(time: str):
+@argument('timestamp')
+def pretty_time(timestamp: str):
     try:
-        dt = iso_8601.parse_datetime(time)
+        parsed = iso_8601.parse_datetime(timestamp)
     except ValueError:
         now = datetime.utcnow().replace(tzinfo=timezone.utc)
         try:
-            delta = iso_8601.parse_delta(time)
+            delta = iso_8601.parse_delta(timestamp)
         except ValueError:
-            delta = human_time.parse_timedelta(time)
-        dt = now - delta
+            delta = human_time.parse_timedelta(timestamp)
+        parsed = now - delta
 
-    echo(human_time.human_timestamp(dt))
+    echo(human_time.human_timestamp(parsed))
 
 
 @cli.command('pip-requires', help=_('Parse pip requirements file.'))
 @argument('name')
 def pip_requires(name: str):
     requires = pip_support.parse_requires(name)
-    for l in requires:
-        echo(l)
+    for req in requires:
+        echo(req)
 
 
 @cli.command('gen-text', help=_('Create output from Jinja template.'))
@@ -157,8 +172,8 @@ def gen_text(env: TextIOBase, package: str, tmpl: str):
 @pass_context
 def time(ctx: Context, command: str):
     with timer.Timing(verbose=True):
-        p = run(command, shell=True)
-    ctx.exit(p.returncode)
+        proc = run(command, shell=True)
+    ctx.exit(proc.returncode)
 
 
 @cli.group(help=_('Query package directories'))

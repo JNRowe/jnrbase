@@ -94,8 +94,8 @@ def get_configs(__pkg: str, __name: str = 'config') -> List[str]:
     dirs.extend(path.expanduser(path.sep.join([d, __pkg]))
                 for d in getenv('XDG_CONFIG_DIRS', '/etc/xdg').split(':'))
     configs = []
-    for d in reversed(dirs):
-        test_path = path.join(d, __name)
+    for dname in reversed(dirs):
+        test_path = path.join(dname, __name)
         if path.exists(test_path):
             configs.append(test_path)
     return configs
@@ -112,8 +112,8 @@ def get_data(__pkg: str, __name: str) -> str:
     dirs.extend(path.expanduser(path.sep.join([d, __pkg]))
                 for d in getenv('XDG_DATA_DIRS',
                                 '/usr/local/share/:/usr/share/').split(':'))
-    for d in dirs:
-        test_path = path.join(d, __name)
+    for dname in dirs:
+        test_path = path.join(dname, __name)
         if path.exists(test_path):
             return test_path
     raise FileNotFoundError('No data file {!r} for {!r}'.format(__name, __pkg))
