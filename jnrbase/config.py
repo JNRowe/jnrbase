@@ -60,10 +60,13 @@ def read_configs(__pkg: str, __name: str = 'config', *,
     cfg.read(configs, 'utf-8')
     cfg.configs = configs
 
-    if 'NO_COLOUR' in environ:
+    if 'NO_COLOUR' in environ or 'NO_COLOR' in environ:
         cfg.colour = False
-    elif __pkg in cfg and 'colour' in cfg[__pkg]:
-        cfg.colour = cfg[__pkg].getboolean('colour')
+    elif __pkg in cfg:
+        if 'colour' in cfg[__pkg]:
+            cfg.colour = cfg[__pkg].getboolean('colour')
+        if 'color' in cfg[__pkg]:
+            cfg.colour = cfg[__pkg].getboolean('color')
     else:
         cfg.colour = True
 

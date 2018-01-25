@@ -46,8 +46,9 @@ def test_config_loading_missing_files(path_exists_force):
     assert config.read_configs('jnrbase').configs == []
 
 
-def test_no_colour_from_env(monkeypatch):
-    monkeypatch.setenv('NO_COLOUR', 'set')
+@mark.parametrize('envvar', ['NO_COLOUR', 'NO_COLOR'])
+def test_no_colour_from_env(envvar, monkeypatch):
+    monkeypatch.setenv(envvar, 'set')
     cfg = config.read_configs('jnrbase')
     assert not cfg.colour
 
@@ -58,8 +59,9 @@ def test_colour_default(monkeypatch):
     assert cfg.colour
 
 
-def test_colour_from_config(monkeypatch):
+@mark.parametrize('directory', ['config', 'config2'])
+def test_colour_from_config(directory, monkeypatch):
     monkeypatch.setattr('os.environ', {})
-    with chdir('tests/data/config'):
+    with chdir('tests/data/{}'.format(directory)):
         cfg = config.read_configs('jnrbase', local=True)
     assert not cfg.colour

@@ -52,6 +52,7 @@ Bug reports
 '''''''''''
 
 * Delphine Beauchemin
+* Brandon Cady
 
 Ideas
 '''''
