@@ -1,10 +1,10 @@
-# This is jnrbase version 0.11.0 (2018-07-01)
-# pylint: disable=C0103, C0111, C0121, W0622
+# This is jnrbase version 0.11.1 (2018-07-01)
+# pylint: skip-file
 
-dotted = '0.11.0'
-libtool = '11:20'
-hex = 0x000b00
+dotted = '0.11.1'
+libtool = '11:21'
+hex = 0x000b01
 date = '2018-07-01'
-tuple = (0, 11, 0)
-dict = {'major': 0, 'minor': 11, 'micro': 0}
-web = 'jnrbase/0.11.0'
+tuple = (0, 11, 1)
+dict = {'major': 0, 'minor': 11, 'micro': 1}
+web = 'jnrbase/0.11.1'
