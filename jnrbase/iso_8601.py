@@ -82,8 +82,6 @@ def parse_datetime(__string: str) -> datetime.datetime:
     else:
         # pylint: disable=no-member
         datetime_ = ciso8601.parse_datetime(__string)
-        if not datetime_:
-            raise ValueError('Unable to parse timestamp {!r}'.format(__string))
     if datetime_.tzinfo is None:
         datetime_ = datetime_.replace(tzinfo=datetime.timezone.utc)
     return datetime_
