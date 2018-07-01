@@ -62,6 +62,9 @@ rst_epilog = """
 default_role = 'any'
 
 needs_sphinx = '1.6'
+needs_extensions = {
+    'sphinx-autodoc-typehints': '1.2'
+}
 
 nitpicky = True
 # }}}
