@@ -6,6 +6,13 @@ User-visible changes
 .. contents::
    :local:
 
+0.11.0 - 2018-07-01
+-------------------
+
+* This release is the final release before 1.0.0; shake it and report what
+  falls out!
+* Python 3.7 is now supported
+
 0.10.0 - 2018-01-18
 -------------------
 
