@@ -19,7 +19,7 @@ functionality you require, ranging from none to the following:
 Extra tag     Dependencies
 ============  ====================================
 ``colour``    click_ ≥ 3.0
-``iso_8601``  ciso8601_ ≥ 1.0.1
+``iso_8601``  ciso8601_ ≥ 2.0.1
 ``net``       httplib2_
 ``template``  html2text_, Jinja2_ ≥ 2.9, Pygments_
 ============  ====================================
