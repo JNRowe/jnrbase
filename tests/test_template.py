@@ -1,6 +1,6 @@
 #
 """test_template - Test Jinja template support"""
-# Copyright © 2014-2017  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of jnrbase.
 #
