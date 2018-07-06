@@ -22,7 +22,7 @@ User-visible changes
 * sphinx_autodoc_typehints_ is required to build documentation
 
 .. _report problems: https://github.com/JNRowe/jnrbase/issues
-.. _sphinx_autodoc_typehints: https://pypi.python.org/pypi/sphinx_autodoc_typehints/
+.. _sphinx_autodoc_typehints: https://pypi.org/project/sphinx_autodoc_typehints/
 
 0.9.0 - 2017-11-24
 ------------------
@@ -55,10 +55,10 @@ User-visible changes
   v2.1 or newer
 * Tests now require pytest-randomly_
 
-.. _click: https://pypi.python.org/pypi/click/
-.. _html2text: https://pypi.python.org/pypi/html2text/
-.. _httplib2: https://pypi.python.org/pypi/httplib2/
-.. _pytest-randomly: https://pypi.python.org/pypi/pytest-randomly/
+.. _click: https://pypi.org/project/click/
+.. _html2text: https://pypi.org/project/html2text/
+.. _httplib2: https://pypi.org/project/httplib2/
+.. _pytest-randomly: https://pypi.org/project/pytest-randomly/
 
 0.6.0 - 2017-10-18
 ------------------
@@ -73,8 +73,8 @@ User-visible changes
 * configobj_ is no longer required
 
 .. _configparser: http://docs.python.org/3/library/configparser.html
-.. _pytest: https://pypi.python.org/pypi/pytest/
-.. _configobj: https://pypi.python.org/pypi/configobj
+.. _pytest: https://pypi.org/project/pytest/
+.. _configobj: https://pypi.org/project/configobj/
 
 0.5.0 - 2017-09-24
 ------------------
@@ -103,7 +103,7 @@ User-visible changes
   library’s ``datetime.timezone``
 * Jinja2_ v2.9, or newer, is required for ``jnrbase[template]``
 
-.. _Jinja2: https://pypi.python.org/pypi/Jinja2
+.. _Jinja2: https://pypi.org/project/Jinja2/
 
 0.4.0 - 2017-04-03
 ------------------
@@ -121,7 +121,7 @@ User-visible changes
 * Python 3.5 is now supported
 * Python 2.6 support has been removed… but, if you need it file an issue_
 
-.. _contextlib2: https://pypi.python.org/pypi/contextlib2
+.. _contextlib2: https://pypi.org/project/contextlib2/
 .. _issue: https://github.com/JNRowe/jnrbase/issues
 
 0.2.0 - 2016-12-14

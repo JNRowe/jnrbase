@@ -8,7 +8,7 @@ httplib2_certs
    This module requires httplib2_, which :program:`pip` users can install with
    the ``jnrbase[net]`` requirement.
 
-.. _httplib2: https://pypi.python.org/pypi/httplib2
+.. _httplib2: https://pypi.org/project/httplib2/
 
 Constants
 ---------

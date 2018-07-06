@@ -8,7 +8,7 @@ colourise
    This module requires click_, which :program:`pip` users can install with the
    ``jnrbase[colour]`` requirement.
 
-.. _click: https://pypi.python.org/pypi/click
+.. _click: https://pypi.org/project/click/
 
 Constants
 ---------

@@ -73,15 +73,15 @@ reproduce the problem, or even better a fix!
 
 .. _JNRowe: https://github.com/JNRowe
 .. _GPL v3: http://www.gnu.org/licenses/
-.. _click: https://pypi.python.org/pypi/click
-.. _ciso8601: https://pypi.python.org/pypi/ciso8601
-.. _httplib2: https://pypi.python.org/pypi/httplib2
-.. _html2text: https://pypi.python.org/pypi/html2text
-.. _jinja2: https://pypi.python.org/pypi/jinja2
-.. _pygments: https://pypi.python.org/pypi/pygments
+.. _click: https://pypi.org/project/click/
+.. _ciso8601: https://pypi.org/project/ciso8601/
+.. _httplib2: https://pypi.org/project/httplib2/
+.. _html2text: https://pypi.org/project/html2text/
+.. _jinja2: https://pypi.org/project/jinja2/
+.. _pygments: https://pypi.org/project/pygments/
 .. _Python: http://www.python.org/
 .. _issue: https://github.com/JNRowe/jnrbase/issues
-.. _pytest: https://pypi.python.org/pypi/pytest/
+.. _pytest: https://pypi.org/project/pytest/
 .. _mail: jnrowe@gmail.com
 
 .. |travis| image:: https://img.shields.io/travis/JNRowe/jnrbase/master.png
@@ -103,7 +103,7 @@ reproduce the problem, or even better a fix!
    :alt: Coverage state on master
 
 .. |pypi| image:: https://img.shields.io/pypi/v/jnrbase.png
-   :target: https://pypi.python.org/pypi/jnrbase
+   :target: https://pypi.org/project/jnrbase/
    :alt: Current PyPI release
 
 .. |readthedocs| image:: https://img.shields.io/readthedocs/jnrbase/stable.png

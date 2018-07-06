@@ -19,7 +19,7 @@ Why require ``click`` just for ``jnrbase[colour]``?
 For the majority of uses I have coloured output is only used with command line
 programs, and command line programs that I write will already be using click_.
 
-.. _click: https://pypi.python.org/pypi/click
+.. _click: https://pypi.org/project/click/
 
 Why is there no support for naïve ``datetime`` objects?
 -------------------------------------------------------

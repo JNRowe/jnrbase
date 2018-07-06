@@ -26,5 +26,5 @@ change.  So, consider it fluid for now and if you have questions `feel free to
 ask`_!
 
 .. _pip: http://www.pip-installer.org/
-.. _setuptools: https://pypi.python.org/pypi/setuptools
+.. _setuptools: https://pypi.org/project/setuptools/
 .. _feel free to ask: jnrowe@gmail.com

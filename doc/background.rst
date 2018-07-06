@@ -62,4 +62,4 @@ for specifying dependencies with ``setuptools``, if you also need to support
 that too.
 
 .. _pip: http://www.pip-installer.org/
-.. _setuptools: https://pypi.python.org/pypi/setuptools
+.. _setuptools: https://pypi.org/project/setuptools/
