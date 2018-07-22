@@ -24,7 +24,6 @@
 # support the workflow to some extent…
 
 import re
-
 from os import path
 from sys import version_info
 from typing import List

@@ -19,7 +19,6 @@
 # SPDX-License-Identifier: GPL-3.0+
 
 import gettext
-
 from os import path
 from types import ModuleType
 from typing import Callable, Tuple

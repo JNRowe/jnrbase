@@ -20,14 +20,12 @@
 
 import re
 import sys
-
 from datetime import datetime
 from os import path
 from typing import Callable, Union
 
 import html2text as html2
 import jinja2
-
 from click import style
 from pygments import highlight as pyg_highlight
 from pygments.formatters import get_formatter_by_name

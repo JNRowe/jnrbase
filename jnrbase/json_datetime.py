@@ -20,7 +20,6 @@
 
 import datetime
 import json
-
 from contextlib import suppress
 from functools import partial, singledispatch, wraps
 from typing import Any, Dict
