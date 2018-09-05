@@ -49,10 +49,11 @@ def test_env_override():
 
 
 def test_env_unset():
-    assert getenv('SHELL')
-    with context.env(SHELL=None):
-        assert getenv('SHELL') is None
-    assert getenv('SHELL')
+    with context.env(SHELL='hello'):
+        assert getenv('SHELL') == 'hello'
+        with context.env(SHELL=None):
+            assert getenv('SHELL') is None
+        assert getenv('SHELL') == 'hello'
 
 
 def test_env_subshell_support():
