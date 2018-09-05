@@ -18,10 +18,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
-from typing import Callable, NoReturn
+from typing import Callable
 
 
-def entry_point(__func: Callable) -> Callable[..., NoReturn]:
+def entry_point(__func: Callable) -> Callable:
     """Execute function when module is run directly.
 
     Note:
