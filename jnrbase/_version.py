@@ -1,10 +1,10 @@
-# This is jnrbase version 0.11.1 (2018-07-01)
+# This is jnrbase version 1.0.0 (2018-09-05)
 # pylint: skip-file
 
-dotted = '0.11.1'
-libtool = '11:21'
-hex = 0x000b01
-date = '2018-07-01'
-tuple = (0, 11, 1)
-dict = {'major': 0, 'minor': 11, 'micro': 1}
-web = 'jnrbase/0.11.1'
+dotted = '1.0.0'
+libtool = '10:20'
+hex = 0x010000
+date = '2018-09-05'
+tuple = (1, 0, 0)
+dict = {'major': 1, 'minor': 0, 'micro': 0}
+web = 'jnrbase/1.0.0'

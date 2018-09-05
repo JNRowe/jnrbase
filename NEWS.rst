@@ -6,6 +6,13 @@ User-visible changes
 .. contents::
    :local:
 
+1.0.0 - 2018-09-05
+------------------
+
+* API is now frozen; changes will follow semver_
+
+.. _semver: https://semver.org/
+
 0.11.0 - 2018-07-01
 -------------------
 
