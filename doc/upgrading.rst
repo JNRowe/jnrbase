@@ -26,7 +26,7 @@ with a thumb through the extensive :ref:`”what’s new” documents
 .. note::
 
     Feel free to ask me for advice or help too.  I have enjoyed porting
-    projects to Python 3 over the past ten years [#s1]_ , and this offer is
+    projects to Python 3 over the past ten years [*]_ , and this offer is
     open to people who are not using |modref| too!
 
 Switching to ``ConfigParser`` (0.6.0)
@@ -48,7 +48,7 @@ documentation for the list of supported functions.
 
 .. rubric:: Footnotes
 
-.. [#s1] My earliest `public commit`_ for Python 3 support I can find is in
+.. [*] My earliest `public commit`_ for Python 3 support I can find is in
        ``pyisbn``
 
 .. _NEWS.rst: https://github.com/JNRowe/jnrbase/blob/master/NEWS.rst
