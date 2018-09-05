@@ -57,8 +57,9 @@ def env(**kwargs: Union[Dict[str, str], None]) -> ContextManager:
     old = os.environ.copy()
     try:
         os.environ.clear()
-        # This apparent duplication is because putenv doesn’t update
-        # os.environ, and os.environ changes aren’t propagated to subprocesses.
+        # This apparent duplication is because ``putenv`` doesn’t update
+        # ``os.environ``, and ``os.environ`` changes aren’t propagated to
+        # subprocesses.
         for key, value in old.items():
             os.environ[key] = value  # NOQA: B003
             os.putenv(key, value)

@@ -26,7 +26,7 @@ from typing import Callable, Tuple
 
 def setup(__pkg: ModuleType) -> Tuple[Callable[[str], str],
                                       Callable[[str, str, int], str]]:
-    """Configure gettext for given package.
+    """Configure ``gettext`` for given package.
 
     Args:
         __pkg: Package to use as location for :program:`gettext` files
