@@ -41,206 +41,35 @@ OPTIONS
 COMMANDS
 --------
 
-``certs``
-~~~~~~~~~
+.. click:: jnrbase.cmdline:certs
+   :prog: jnrbase certs
 
-.. program:: jnrbase certs
+.. click:: jnrbase.cmdline:config_
+   :prog: jnrbase config
 
-Find location of system certificates
+.. click:: jnrbase.cmdline:dirs
+   :prog: jnrbase dirs
+   :show-nested:
 
-.. option:: --help
+.. click:: jnrbase.cmdline:find_tag
+   :prog: jnrbase find-tag
 
-    Show help message and exit.
+.. click:: jnrbase.cmdline:gen_text
+   :prog: jnrbase gen-text
 
-``config``
-~~~~~~~~~~
+.. click:: jnrbase.cmdline:messages
+   :prog: jnrbase messages
+   :show-nested:
 
-.. program:: jnrbase config
+.. click:: jnrbase.cmdline:pip_requires
+   :prog: jnrbase pip-requires
 
-Find location of system certificates
+.. click:: jnrbase.cmdline:pretty_time
+   :prog: jnrbase pretty-time
 
-.. option:: -n, --name <filename>
 
-    Config file to read from.
-
-.. option:: -l, --local / --no-local
-
-    Read local :file:`.{package}rc` files.
-
-.. option:: --help
-
-    Show help message and exit.
-
-``dirs``
-~~~~~~~~
-
-.. program:: jnrbase dirs
-
-Extract or list values from config
-
-.. option:: --help
-
-    Show help message and exit.
-
-``dirs cache``
-''''''''''''''
-
-.. program:: jnrbase dirs cache
-
-Display cache dir honouring XDG basedir
-
-.. option:: --help
-
-    Show help message and exit.
-
-``dirs config``
-'''''''''''''''
-
-.. program:: jnrbase dirs config
-
-Display config dir honouring XDG basedir
-
-.. option:: --help
-
-    Show help message and exit.
-
-``dirs data``
-'''''''''''''
-
-.. program:: jnrbase dirs data
-
-Display data dir honouring XDG basedir
-
-
-.. option:: --help
-
-    Show help message and exit.
-
-``find-tag``
-~~~~~~~~~~~~
-
-.. program:: jnrbase find-tag
-
-Find tag for git repository
-
-.. option:: -m, --match <glob>
-
-    Limit the selection of matches with glob.
-
-.. option:: -s, --strict
-
-    Always generate a result.
-
-.. option:: -d, --directory <dir>
-
-    Git repository to operate on.
-
-.. option:: --help
-
-    Show help message and exit.
-
-``gen-text``
-~~~~~~~~~~~~
-
-.. program:: jnrbase gen-text
-
-Create output from Jinja template
-
-.. option:: -e, --env <filename>
-
-    JSON data to generate output with.
-
-.. option:: --help
-
-    Show help message and exit.
-
-``messages``
-~~~~~~~~~~~~
-
-.. program:: jnrbase messages
-
-Format messages for users
-
-.. option:: --help
-
-    Show help message and exit.
-
-``messages fail``
-'''''''''''''''''
-
-.. program:: jnrbase messages fail
-
-Format a failure message
-
-.. option:: --help
-
-    Show help message and exit.
-
-``messages info``
-'''''''''''''''''
-
-.. program:: jnrbase messages info
-
-Format an informational message
-
-.. option:: --help
-
-    Show help message and exit.
-
-``messages success``
-''''''''''''''''''''
-
-.. program:: jnrbase messages success
-
-Format a success message
-
-.. option:: --help
-
-    Show help message and exit.
-
-``messages warn``
-'''''''''''''''''
-
-.. program:: jnrbase messages warn
-
-Format a warning message
-
-.. option:: --help
-
-    Show help message and exit.
-
-``pip-requires``
-~~~~~~~~~~~~~~~~
-
-.. program:: jnrbase pip-requires
-
-Parse pip requirements file
-
-.. option:: --help
-
-    Show help message and exit.
-
-``pretty-time``
-~~~~~~~~~~~~~~~
-
-.. program:: jnrbase pretty-time
-
-Format timestamp for human consumption
-
-.. option:: --help
-
-    Show help message and exit.
-
-``time``
-~~~~~~~~
-
-.. program:: jnrbase time
-
-Time the output of a command
-
-.. option:: --help
-
-    Show help message and exit.
+.. click:: jnrbase.cmdline:time
+   :prog: jnrbase time
 
 BUGS
 ----

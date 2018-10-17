@@ -39,7 +39,7 @@ extensions = \
      for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
                  'napoleon', 'todo', 'viewcode']] \
     + ['sphinxcontrib.{}'.format(ext) for ext in []] \
-    + ['sphinx_autodoc_typehints', ]
+    + ['sphinx_autodoc_typehints', 'sphinx_click.ext']
 
 if not on_rtd:
     # Only activate spelling if it is installed.  It is not required in the
