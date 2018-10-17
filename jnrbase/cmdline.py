@@ -165,7 +165,7 @@ def gen_text(env: TextIOBase, package: str, tmpl: str):
     echo(jinja_env.get_template(tmpl).render(**env_args))
 
 
-@cli.command(help='Time the output of a command')
+@cli.command(help='Time the output of a command.')
 @argument('command')
 @pass_context
 def time(ctx: Context, command: str):
@@ -174,7 +174,7 @@ def time(ctx: Context, command: str):
     ctx.exit(proc.returncode)
 
 
-@cli.group(help='Query package directories')
+@cli.group(help='Query package directories.')
 def dirs():
     pass
 
