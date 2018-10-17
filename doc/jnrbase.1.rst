@@ -255,7 +255,7 @@ Written by `James Rowe <mailto:jnrowe@gmail.com>`__
 RESOURCES
 ---------
 
-Full documentation: http://jnrbase.readthedocs.io/
+Full documentation: https://jnrbase.readthedocs.io/
 
 Issue tracker: https://github.com/JNRowe/jnrbase/issues/
 

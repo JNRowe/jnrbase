@@ -130,7 +130,7 @@ improve test trustworthiness.
 
 .. |reST| replace:: :abbr:`reST (reStructuredText)`
 
-.. _Read the Docs: http://readthedocs.org
+.. _Read the Docs: https://readthedocs.org
 .. _language: http://pygments.org/languages.html
 .. _styles: http://pygments.org/styles.html
 .. _libfaketime: http://www.code-wizards.com/projects/libfaketime/
