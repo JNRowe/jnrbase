@@ -111,7 +111,7 @@ def config_(name: str, local: bool, package: str, section: str,
                 echo('    {}'.format(cfg.get(section, opt)))
 
 
-@cli.command('find-tag', help='Find tag for git repository.')
+@cli.command(help='Find tag for git repository.')
 @option('-m', '--match', default=get_default(git.find_tag, '__matcher'),
         help='Limit the selection of matches with glob.')
 @option('-s', '--strict / --no-strict', help='Always generate a result.')
@@ -127,7 +127,7 @@ def certs():
     echo(httplib2_certs.find_certs())
 
 
-@cli.command('pretty-time', help='Format timestamp for human consumption.')
+@cli.command(help='Format timestamp for human consumption.')
 @argument('timestamp')
 def pretty_time(timestamp: str):
     try:
@@ -143,7 +143,7 @@ def pretty_time(timestamp: str):
     echo(human_time.human_timestamp(parsed))
 
 
-@cli.command('pip-requires', help='Parse pip requirements file.')
+@cli.command(help='Parse pip requirements file.')
 @argument('name')
 def pip_requires(name: str):
     requires = pip_support.parse_requires(name)
@@ -151,7 +151,7 @@ def pip_requires(name: str):
         echo(req)
 
 
-@cli.command('gen-text', help='Create output from Jinja template.')
+@cli.command(help='Create output from Jinja template.')
 @option('-e', '--env', type=File(),
         help='JSON data to generate output with.')
 @argument('package')
