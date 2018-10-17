@@ -37,4 +37,4 @@ def test_messages(type_):
         assert result.exit_code == 1
     else:
         assert result.exit_code == 0
-    assert 'test str' in result.output
+    assert 'test str' in result.stdout
