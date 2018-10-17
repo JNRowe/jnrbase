@@ -131,7 +131,7 @@ graphviz_output_format = 'svg'
 intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
-        'click': 'http://click.pocoo.org/6/',
+        'click': 'https://click.palletsprojects.com/en/7.x/',
         'jinja2': 'http://jinja.pocoo.org/docs/',
         'pygments': 'http://pygments.org/',
         'python': 'http://docs.python.org/3/',
