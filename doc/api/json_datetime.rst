@@ -25,19 +25,19 @@ Functions
 
 .. autofunction:: json_using_iso8601
 
-.. function:: dump(...)
+.. function:: dump(…)
 
     Simple :func:`json.dump` wrapper using :func:`json_serialise`.
 
-.. function:: dumps(...)
+.. function:: dumps(…)
 
     Simple :func:`json.dumps` wrapper using :func:`json_serialise`.
 
-.. function:: load(...)
+.. function:: load(…)
 
     Simple :func:`json.load` wrapper using :func:`json_using_iso8601`.
 
-.. function:: loads(...)
+.. function:: loads(…)
 
     Simple :func:`json.loads` wrapper using :func:`json_using_iso8601`.
 

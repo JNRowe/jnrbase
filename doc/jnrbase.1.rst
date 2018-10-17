@@ -13,7 +13,7 @@ Common utility functionality
 SYNOPSIS
 --------
 
-    jnrbase [option]... <command>
+    jnrbase [option]… <command>
 
 DESCRIPTION
 -----------
