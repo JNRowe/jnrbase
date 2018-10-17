@@ -18,12 +18,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
-from configparser import ConfigParser
 from glob import glob
 from importlib.util import module_from_spec, spec_from_file_location
 from os import path
 from types import ModuleType
-from typing import List
 
 from setuptools import setup
 from setuptools.command.test import test
@@ -61,16 +59,10 @@ def import_file(package: str, fname: str) -> ModuleType:
     return module
 
 
-def make_list(s: str) -> List[str]:
-    return s.strip().splitlines()
+pip_support = import_file('jnrbase', 'pip_support.py')
 
-
-conf = ConfigParser()
-conf.read('setup.cfg')
-metadata = dict(conf['metadata'])
-
-pip_support = import_file(metadata['name'], 'pip_support.py')
-
+# Note: We can't use setuptool’s requirements support as it only a list
+# and doesn’t support pip’s inclusion mechanism
 extras_require = {}
 for file in glob('extra/requirements-*.txt'):
     suffix = path.splitext(file)[0].split('-')[1]
@@ -79,25 +71,8 @@ for file in glob('extra/requirements-*.txt'):
 
 tests_require = pip_support.parse_requires('extra/requirements-test.txt')
 
-metadata = dict(conf['metadata'])
-for k in ['classifiers', 'packages', 'py_modules']:
-    if k in metadata:
-        metadata[k] = make_list(metadata[k])
-
-for k in ['entry_points', 'package_data']:
-    if k in metadata:
-        metadata[k] = eval(metadata[k], {'__builtins__': {}})
-
-with open('README.rst') as readme:
-    metadata['long_description'] = readme.read()
-
-_version = import_file(metadata['name'], '_version.py')
-
 setup(
-    version=_version.dotted,
     extras_require=extras_require,
     tests_require=tests_require,
     cmdclass={'test': PytestTest},
-    zip_safe=False,
-    **metadata,
 )
