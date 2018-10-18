@@ -18,74 +18,72 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
-from unittest import TestCase
-
-from pytest import raises
+from pytest import fixture, raises
 
 from jnrbase.attrdict import AttrDict, ROAttrDict  # NOQA: F401
 
 
-class AttrDictTest(TestCase):
-    def setup_method(self, method):
-        self.ad = globals()[self.__class__.__name__[:-4]](carrots=3, snacks=0)
-
-    def test_base(self):
-        assert isinstance(self.ad, dict)
-
-        assert self.ad['carrots'] == 3
-        assert self.ad['snacks'] == 0
-
-        assert sorted(self.ad.keys()) == ['carrots', 'snacks']
-
-    def test___contains__(self):
-        assert 'carrots' in self.ad
-        assert 'prizes' not in self.ad
-
-    def test___getattr__(self):
-        assert self.ad.carrots == 3
-        assert self.ad.snacks == 0
-
-    def test___setattr__(self):
-        self.ad.carrots, self.ad.snacks = 0, 3
-        assert self.ad.carrots == 0
-        assert self.ad.snacks == 3
-
-    def test___delattr__(self):
-        assert 'carrots' in self.ad
-        del self.ad['carrots']
-        assert 'carrots' not in self.ad
+@fixture()
+def base_obj():
+    return AttrDict(carrots=3, snacks=0)
 
 
-class InvalidKeyTest(TestCase):
-    def setup_method(self, method):
-        self.ad = AttrDict(carrots=3, snacks=0)
+def test_AttrDict_base(base_obj):
+    assert isinstance(base_obj, dict)
 
-    def test_invalid_key_set(self):
-        with raises(AttributeError, match='unhashable'):
-            self.ad.__setattr__({True: False}, None)
+    assert base_obj['carrots'] == 3
+    assert base_obj['snacks'] == 0
 
-    def test_invalid_key_delete(self):
-        with raises(AttributeError, match='unhashable'):
-            self.ad.__delattr__({True: False})
+    assert sorted(base_obj.keys()) == ['carrots', 'snacks']
 
 
-class HasAttrTest(TestCase):
-    def setup_method(self, method):
-        self.ad = AttrDict(carrots=3, snacks=0)
-
-        def raise_error():
-            raise ValueError()
-        self.ad.prop = property(raise_error)
-
-    def test_swallowed_exception(self):
-        assert 'prop' in self.ad
+def test_AttrDict___contains__(base_obj):
+    assert 'carrots' in base_obj
+    assert 'prizes' not in base_obj
 
 
-class ROAttrDictTest(AttrDictTest):
-    def test___setattr__(self):
-        with raises(AttributeError, match='is read-only'):
-            self.ad.carrots = 1
+def test_AttrDict___getattr__(base_obj):
+    assert base_obj.carrots == 3
+    assert base_obj.snacks == 0
 
-    def test___delattr__(self):
-        with raises(AttributeError, match='is read-only'):
-            del self.ad.carrots
+
+def test_AttrDict___setattr__(base_obj):
+    base_obj.carrots, base_obj.snacks = 0, 3
+    assert base_obj.carrots == 0
+    assert base_obj.snacks == 3
+
+
+def test_AttrDict___delattr__(base_obj):
+    assert 'carrots' in base_obj
+    del base_obj['carrots']
+    assert 'carrots' not in base_obj
+
+
+def test_AttrDict_invalid_key_set(base_obj):
+    with raises(AttributeError, match='unhashable'):
+        base_obj.__setattr__({True: False}, None)
+
+
+def test_AttrDict_invalid_key_delete(base_obj):
+    with raises(AttributeError, match='unhashable'):
+        base_obj.__delattr__({True: False})
+
+
+def test_AttrDict_swallowed_exception(base_obj):
+    def raise_error():
+        raise ValueError()
+    base_obj.prop = property(raise_error)
+
+    assert 'prop' in base_obj
+
+
+def test_ROAttrDict___setattr__():
+    obj = ROAttrDict(carrots=3, snacks=0)
+    with raises(AttributeError, match='is read-only'):
+        obj.carrots = 1
+
+
+def test_ROAttrDict___delattr__():
+    obj = ROAttrDict(carrots=3, snacks=0)
+    with raises(AttributeError, match='is read-only'):
+        del obj.carrots

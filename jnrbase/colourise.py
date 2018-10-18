@@ -86,7 +86,7 @@ def warn(__text: str) -> str:
     return _colourise(__text, 'yellow')
 
 
-def pfail(__text: str) -> None:  # pragma: no cover
+def pfail(__text: str) -> None:
     """Pretty print a failure message to ``stdout``.
 
     Args:
@@ -95,7 +95,7 @@ def pfail(__text: str) -> None:  # pragma: no cover
     echo(fail(__text))
 
 
-def pinfo(__text: str) -> None:  # pragma: no cover
+def pinfo(__text: str) -> None:
     """Pretty print an informational message to ``stdout``.
 
     Args:
@@ -104,7 +104,7 @@ def pinfo(__text: str) -> None:  # pragma: no cover
     echo(info(__text))
 
 
-def psuccess(__text: str) -> None:  # pragma: no cover
+def psuccess(__text: str) -> None:
     """Pretty print a success message to ``stdout``.
 
     Args:
@@ -113,7 +113,7 @@ def psuccess(__text: str) -> None:  # pragma: no cover
     echo(success(__text))
 
 
-def pwarn(__text: str) -> None:  # pragma: no cover
+def pwarn(__text: str) -> None:
     """Pretty print a warning message to ``stdout``.
 
     Args:
