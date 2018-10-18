@@ -32,9 +32,9 @@ pytestmark = mark.skipif(not which('git'), reason='Requires git')
 @mark.parametrize('type_', ['fail', 'info', 'success', 'warn'])
 def test_messages(type_):
     runner = CliRunner()
-    result = runner.invoke(cli, ['messages', type_, 'test str'])
+    result = runner.invoke(cli, f'messages {type_} "test str"')
     if type_ == 'fail':
         assert result.exit_code == 1
     else:
         assert result.exit_code == 0
-    assert 'test str' in result.output
+    assert 'test str' in result.stdout
