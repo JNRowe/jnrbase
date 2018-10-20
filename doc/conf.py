@@ -71,7 +71,8 @@ nitpicky = True
 
 # Project information {{{
 project = 'jnrbase'
-copyright = '2014-2018  James Rowe'
+author = 'James Rowe'
+copyright = f'2014-2018  {author}'
 
 version = '{major}.{minor}'.format_map(jnrbase._version.dict)
 release = jnrbase._version.dotted
@@ -94,6 +95,8 @@ with suppress(CalledProcessError):
                stdout=PIPE)
     html_last_updated_fmt = proc.stdout.decode()
 
+html_baseurl = 'https://jnrbase.readthedocs.io/'
+
 html_copy_source = False
 
 html_experimental_html5_writer = True
@@ -107,7 +110,9 @@ man_pages = [
 
 # autodoc extension settings {{{
 autoclass_content = 'both'
-autodoc_default_flags = ['members', ]
+autodoc_default_options = {
+    'members': None,
+}
 # }}}
 
 # coverage extension settings {{{
