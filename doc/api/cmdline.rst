@@ -18,6 +18,8 @@ Support functions
 
 .. autofunction:: get_default
 
+.. autofunction:: text_arg
+
 .. _cmdline-examples:
 
 Examples

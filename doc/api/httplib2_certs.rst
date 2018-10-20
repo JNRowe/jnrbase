@@ -16,7 +16,7 @@ Constants
 .. autodata:: ALLOW_FALLBACK
 
 .. autodata:: PLATFORM_FILES
-   :annotation: = {<sys.platform>: [<file>, ], ...}
+   :annotation: = {<sys.platform>: [<file>, ], …}
 
 Functions
 ---------

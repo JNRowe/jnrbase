@@ -39,7 +39,7 @@ extensions = \
      for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
                  'napoleon', 'todo', 'viewcode']] \
     + ['sphinxcontrib.{}'.format(ext) for ext in []] \
-    + ['sphinx_autodoc_typehints', ]
+    + ['sphinx_autodoc_typehints', 'sphinx_click.ext']
 
 if not on_rtd:
     # Only activate spelling if it is installed.  It is not required in the
@@ -132,9 +132,9 @@ intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
         'click': 'https://click.palletsprojects.com/en/7.x/',
-        'jinja2': 'http://jinja.pocoo.org/docs/',
+        'jinja2': 'http://jinja.pocoo.org/docs/2.10/',
         'pygments': 'http://pygments.org/',
-        'python': 'http://docs.python.org/3/',
+        'python': 'https://docs.python.org/3/',
     }.items()
 }
 # }}}

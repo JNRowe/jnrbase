@@ -16,7 +16,7 @@ Constants
 ---------
 
 .. autodata:: FILTERS
-   :annotation: = {<name>: <filter function>, ...}
+   :annotation: = {<name>: <filter function>, …}
 
 Functions
 ---------
