@@ -61,8 +61,20 @@ def messages():
     pass
 
 
-def text_arg(__f: Callable) -> Callable:
-    return argument('text')(__f)
+def text_arg(__func: Callable) -> Callable:
+    """Add task selection click commands.
+
+    Note:
+        This is only here to reduce duplication in command setup.
+
+    Args:
+        __func: Function to add options to
+
+    Returns:
+        Function with additional options
+
+    """
+    return argument('text')(__func)
 
 
 @messages.command(help=colourise.fail.__doc__.splitlines()[0])
