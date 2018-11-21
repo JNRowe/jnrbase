@@ -37,7 +37,7 @@ from jnrbase import (_version, colourise, config, git, httplib2_certs,
 
 
 def get_default(__func: Callable, __arg: str) -> str:
-    """Fetch default value for a function argument
+    """Fetch default value for a function argument.
 
     Args:
         __func: Function to inspect
