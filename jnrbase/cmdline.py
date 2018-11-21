@@ -48,17 +48,16 @@ def get_default(__func: Callable, __arg: str) -> str:
 # pylint: disable=missing-docstring
 
 
-@group(help='Possibly useful cli functionality.',
-       epilog='Please report bugs at https://github.com/JNRowe/jnrbase/issues',
+@group(epilog='Please report bugs at https://github.com/JNRowe/jnrbase/issues',
        context_settings={'help_option_names': ['-h', '--help']})
 @version_option(_version.dotted)
 def cli():
-    pass
+    """Possibly useful cli functionality."""
 
 
-@cli.group(help='Format messages for users.')
+@cli.group()
 def messages():
-    pass
+    """Format messages for users."""
 
 
 def text_arg(__func: Callable) -> Callable:
@@ -77,33 +76,18 @@ def text_arg(__func: Callable) -> Callable:
     return argument('text')(__func)
 
 
-@messages.command(help=colourise.fail.__doc__.splitlines()[0])
-@text_arg
-@pass_context
-def fail(ctx: Context, text: str):
-    colourise.pfail(text)
-    ctx.exit(1)
+for k in ['fail', 'info', 'success', 'warn']:
+    @messages.command(name=k,
+                      help=getattr(colourise, k).__doc__.splitlines()[0])
+    @text_arg
+    @pass_context
+    def func(ctx: Context, text: str):
+        getattr(colourise, 'p{}'.format(ctx.command.name))(text)
+        if ctx.command.name == 'fail':
+            ctx.exit(1)
 
 
-@messages.command(help=colourise.info.__doc__.splitlines()[0])
-@text_arg
-def info(text: str):
-    colourise.pinfo(text)
-
-
-@messages.command(help=colourise.success.__doc__.splitlines()[0])
-@text_arg
-def success(text: str):
-    colourise.psuccess(text)
-
-
-@messages.command(help=colourise.warn.__doc__.splitlines()[0])
-@text_arg
-def warn(text: str):
-    colourise.pwarn(text)
-
-
-@cli.command(name='config', help='Extract or list values from config.')
+@cli.command(name='config')
 @option('-n', '--name', default=get_default(config.read_configs, '__name'),
         help='Config file to read from.')
 @option('-l', '--local / --no-local', help='Read local .<package>rc files.')
@@ -112,6 +96,7 @@ def warn(text: str):
 @argument('key', required=False)
 def config_(name: str, local: bool, package: str, section: str,
             key: Optional[str]):
+    """Extract or list values from config."""
     cfg = config.read_configs(package, name, local=local)
     if key:
         with suppress(NoOptionError, NoSectionError):
@@ -123,25 +108,28 @@ def config_(name: str, local: bool, package: str, section: str,
                 echo('    {}'.format(cfg.get(section, opt)))
 
 
-@cli.command(help='Find tag for git repository.')
+@cli.command()
 @option('-m', '--match', default=get_default(git.find_tag, '__matcher'),
         help='Limit the selection of matches with glob.')
 @option('-s', '--strict / --no-strict', help='Always generate a result.')
 @option('-d', '--directory', default=get_default(git.find_tag, 'git_dir'),
         help='Git repository to operate on.')
 def find_tag(match: str, strict: bool, directory: str):
+    """Find tag for git repository."""
     with suppress(CalledProcessError):
         echo(git.find_tag(match, strict=strict, git_dir=directory))
 
 
-@cli.command(help='Find location of system certificates.')
+@cli.command()
 def certs():
+    """Find location of system certificates."""
     echo(httplib2_certs.find_certs())
 
 
-@cli.command(help='Format timestamp for human consumption.')
+@cli.command()
 @argument('timestamp')
 def pretty_time(timestamp: str):
+    """Format timestamp for human consumption."""
     try:
         parsed = iso_8601.parse_datetime(timestamp)
     except ValueError:
@@ -155,20 +143,22 @@ def pretty_time(timestamp: str):
     echo(human_time.human_timestamp(parsed))
 
 
-@cli.command(help='Parse pip requirements file.')
+@cli.command()
 @argument('name')
 def pip_requires(name: str):
+    """Parse pip requirements file."""
     requires = pip_support.parse_requires(name)
     for req in requires:
         echo(req)
 
 
-@cli.command(help='Create output from Jinja template.')
+@cli.command()
 @option('-e', '--env', type=File(),
         help='JSON data to generate output with.')
 @argument('package')
 @argument('tmpl')
 def gen_text(env: TextIOBase, package: str, tmpl: str):
+    """Create output from Jinja template."""
     if env:
         env_args = json_datetime.load(env)
     else:
@@ -177,18 +167,19 @@ def gen_text(env: TextIOBase, package: str, tmpl: str):
     echo(jinja_env.get_template(tmpl).render(**env_args))
 
 
-@cli.command(help='Time the output of a command.')
+@cli.command()
 @argument('command')
 @pass_context
 def time(ctx: Context, command: str):
+    """Time the output of a command."""
     with timer.Timing(verbose=True):
         proc = run(command, shell=True)
     ctx.exit(proc.returncode)
 
 
-@cli.group(help='Query package directories.')
+@cli.group()
 def dirs():
-    pass
+    """Query package directories."""
 
 
 for k in ['cache', 'config', 'data']:
