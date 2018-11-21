@@ -76,30 +76,15 @@ def text_arg(__func: Callable) -> Callable:
     return argument('text')(__func)
 
 
-@messages.command(help=colourise.fail.__doc__.splitlines()[0])
-@text_arg
-@pass_context
-def fail(ctx: Context, text: str):
-    colourise.pfail(text)
-    ctx.exit(1)
-
-
-@messages.command(help=colourise.info.__doc__.splitlines()[0])
-@text_arg
-def info(text: str):
-    colourise.pinfo(text)
-
-
-@messages.command(help=colourise.success.__doc__.splitlines()[0])
-@text_arg
-def success(text: str):
-    colourise.psuccess(text)
-
-
-@messages.command(help=colourise.warn.__doc__.splitlines()[0])
-@text_arg
-def warn(text: str):
-    colourise.pwarn(text)
+for k in ['fail', 'info', 'success', 'warn']:
+    @messages.command(name=k,
+                      help=getattr(colourise, k).__doc__.splitlines()[0])
+    @text_arg
+    @pass_context
+    def func(ctx: Context, text: str):
+        getattr(colourise, 'p{}'.format(ctx.command.name))(text)
+        if ctx.command.name == 'fail':
+            ctx.exit(1)
 
 
 @cli.command(name='config')
