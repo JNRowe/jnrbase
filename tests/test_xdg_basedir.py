@@ -90,6 +90,7 @@ def test_get_configs_macos(monkeypatch, path_exists_force):
 
 @exists_result([True, False])
 def test_get_data(monkeypatch, path_exists_force):
+    monkeypatch.setattr('os.path.isdir', lambda _: True)
     monkeypatch.setenv('XDG_DATA_HOME', '~/.xdg/local')
     monkeypatch.setenv('XDG_DATA_DIRS', '/usr/share:test2')
     assert xdg_basedir.get_data('jnrbase', 'photo.jpg') \

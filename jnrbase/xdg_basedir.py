@@ -28,60 +28,48 @@ from typing import List
 #: Allow macOS directory structure
 ALLOW_DARWIN = True  # type: bool
 
-
-def user_cache(__pkg: str) -> str:
-    """Return a cache location honouring :envvar:`XDG_CACHE_HOME`.
-
-    .. envvar:: XDG_CACHE_HOME
-
-        See XDG base directory spec.
-
-    Args:
-        __pkg: Package name
-    """
-    if ALLOW_DARWIN and sys.platform == 'darwin':
-        user_dir = '~/Library/Caches'
-    else:
-        user_dir = getenv('XDG_CACHE_HOME',
-                          path.sep.join([getenv('HOME', ''), '.cache']))
-
-    return path.expanduser(path.sep.join([user_dir, __pkg]))
+__LOCATIONS = {
+    'cache': ('Caches', '.cache'),
+    'config': ('Preferences', '.config'),
+    'data': ('Application Support', '.local/share'),
+}  # type: Dict[str, Tuple[str, str]]
 
 
-def user_config(__pkg: str) -> str:
-    """Return a config location honouring :envvar:`XDG_CONFIG_HOME`.
-
-    .. envvar:: XDG_CONFIG_HOME
-
-        See XDG base directory spec.
+def __user_location(__pkg: str, type_) -> str:
+    """Utility function to look up XDG basedir locations
 
     Args:
         __pkg: Package name
+        __type: Location type
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
-        user_dir = '~/Library/Preferences'
+        user_dir = '~/Library/{}'.format(__LOCATIONS[type_][0])
     else:
-        user_dir = getenv('XDG_CONFIG_HOME',
-                          path.sep.join([getenv('HOME', ''), '.config']))
+        user_dir = getenv('XDG_{}_HOME'.format(type_.upper()),
+                           path.sep.join([getenv('HOME', ''),
+                                          __LOCATIONS[type_][1]]))
     return path.expanduser(path.sep.join([user_dir, __pkg]))
 
 
-def user_data(__pkg: str) -> str:
-    """Return a data location honouring :envvar:`XDG_DATA_HOME`.
+def __xdg_lookup(name):
+    def tmpl(__pkg: str) -> str:
+        """Return a {0} location honouring :envvar:`XDG_{1}_HOME`.
 
-    .. envvar:: XDG_DATA_HOME
+        .. envvar:: XDG_{1}_HOME
 
-        See XDG base directory spec.
+            See XDG base directory spec.
 
-    Args:
-        __pkg: Package name
-    """
-    if ALLOW_DARWIN and sys.platform == 'darwin':
-        user_dir = '~/Library/Application Support'
-    else:
-        user_dir = getenv('XDG_DATA_HOME',
-                          path.sep.join([getenv('HOME', ''), '.local/share']))
-    return path.expanduser(path.sep.join([user_dir, __pkg]))
+        Args:
+            __pkg: Package name
+        """
+        return __user_location(__pkg, name)
+    tmpl.__doc__ = tmpl.__doc__.format(name, name.upper())
+    return tmpl
+
+
+user_cache = __xdg_lookup('cache')
+user_config = __xdg_lookup('config')
+user_data = __xdg_lookup('data')
 
 
 def get_configs(__pkg: str, __name: str = 'config') -> List[str]:
@@ -109,11 +97,7 @@ def get_data(__pkg: str, __name: str) -> str:
         __pkg: Package name
         __name: Data file name
     """
-    dirs = [user_data(__pkg), ]
-    dirs.extend(path.expanduser(path.sep.join([d, __pkg]))
-                for d in getenv('XDG_DATA_DIRS',
-                                '/usr/local/share/:/usr/share/').split(':'))
-    for dname in dirs:
+    for dname in get_data_dirs(__pkg):
         test_path = path.join(dname, __name)
         if path.exists(test_path):
             return test_path
