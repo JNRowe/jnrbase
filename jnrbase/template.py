@@ -36,7 +36,7 @@ from .human_time import human_timestamp
 
 
 #: Collection of custom filters to add to Jinja environment
-FILTERS = {}
+FILTERS = {}  # type: Dict[str, Callable]
 
 
 def jinja_filter(__func: Callable) -> Callable:

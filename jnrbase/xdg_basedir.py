@@ -26,7 +26,7 @@ from typing import List
 
 
 #: Allow macOS directory structure
-ALLOW_DARWIN = True
+ALLOW_DARWIN = True  # type: bool
 
 
 def user_cache(__pkg: str) -> str:
