@@ -87,12 +87,12 @@ def warn(__text: str) -> str:
 
 
 def pfail(__text: str) -> None:
-    """Pretty print a failure message to ``stdout``.
+    """Pretty print a failure message to ``stderr``.
 
     Args:
         __text: Text to print
     """
-    echo(fail(__text))
+    echo(fail(__text), err=True)
 
 
 def pinfo(__text: str) -> None:
@@ -114,9 +114,9 @@ def psuccess(__text: str) -> None:
 
 
 def pwarn(__text: str) -> None:
-    """Pretty print a warning message to ``stdout``.
+    """Pretty print a warning message to ``stderr``.
 
     Args:
         __text: Text to print
     """
-    echo(warn(__text))
+    echo(warn(__text), err=True)
