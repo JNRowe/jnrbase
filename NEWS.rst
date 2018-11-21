@@ -6,6 +6,16 @@ User-visible changes
 .. contents::
    :local:
 
+1.1.0 - 2018-11-21
+------------------
+
+* Click_ 7.0, or newer, is now required for ``[colour]`` extra
+* ``gettext`` support for the command line module has been removed [#]_
+* sphinx_ 1.8 and sphinx-click_ are now required to build docs
+
+.. _sphinx: http://www.sphinx-doc.org/
+.. _sphinx-click: https://pypi.org/project/sphinx-click/
+
 1.0.0 - 2018-09-05
 ------------------
 
@@ -140,3 +150,7 @@ User-visible changes
 ------------------
 
 * Initial release
+
+.. rubric:: Footnotes
+
+.. [#] Co-workers: Use Delphine’s ``retext`` tool as a replacement.
