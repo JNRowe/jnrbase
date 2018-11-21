@@ -18,6 +18,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
+from random import choice
+
+from hypothesis import given
+from hypothesis.strategies import dictionaries, text
 from pytest import fixture, raises
 
 from jnrbase.attrdict import AttrDict, ROAttrDict  # NOQA: F401
@@ -57,6 +61,14 @@ def test_AttrDict___delattr__(base_obj):
     assert 'carrots' in base_obj
     del base_obj['carrots']
     assert 'carrots' not in base_obj
+
+
+@given(dictionaries(text(), text(), dict_class=AttrDict, min_size=1))
+def test_AttrDict___delattr___multi(d):
+    k = choice(list(d))
+    assert k in d
+    del d[k]
+    assert k not in d
 
 
 def test_AttrDict_invalid_key_set(base_obj):

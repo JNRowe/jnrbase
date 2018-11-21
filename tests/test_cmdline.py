@@ -18,9 +18,12 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
+from shlex import quote
 from shutil import which
 
 from click.testing import CliRunner
+from hypothesis import assume, given
+from hypothesis.strategies import text
 from pytest import mark
 
 from jnrbase.cmdline import cli
@@ -29,11 +32,13 @@ pytestmark = mark.skipif(not which('git'), reason='Requires git')
 
 
 @mark.parametrize('type_', ['fail', 'info', 'success', 'warn'])
-def test_messages(type_):
+@given(text())
+def test_messages(type_, text):
+    assume('\r' not in text)
     runner = CliRunner()
-    result = runner.invoke(cli, 'messages {} "test str"'.format(type_))
+    result = runner.invoke(cli, 'messages {} -- {}'.format(type_, quote(text)))
     if type_ == 'fail':
         assert result.exit_code == 1
     else:
         assert result.exit_code == 0
-    assert 'test str' in result.stdout
+    assert text in result.stdout
