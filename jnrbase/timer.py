@@ -46,10 +46,12 @@ class Timing:  # pylint: disable=too-few-public-methods
         self.elapsed = None
 
     def __enter__(self) -> 'Timing':
+        """Enable the timer."""
         self._start = datetime.utcnow()
         return self
 
     def __exit__(self, *args) -> None:
+        """Output elapsed time."""
         now = datetime.utcnow()
         self.elapsed = now - self._start
         if self.verbose:
