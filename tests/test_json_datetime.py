@@ -28,6 +28,7 @@ from jnrbase import json_datetime
 def test_json_no_datetime():
     class Test:
         pass
+
     data = {'test': Test()}
     with raises(TypeError, match='not JSON serializable'):
         json_datetime.dumps(data, indent=None)
@@ -40,16 +41,23 @@ def test_json_datetime():
 
 
 def test_deep_json_datetime():
-    data = {'test': [{'test2': datetime(2014, 2, 3, 18, 12,
-                                        tzinfo=timezone.utc)}, ]}
+    data = {
+        'test': [
+            {
+                'test2': datetime(2014, 2, 3, 18, 12, tzinfo=timezone.utc)
+            },
+        ]
+    }
     assert json_datetime.dumps(data, indent=None) == \
         '{"test": [{"test2": "2014-02-03T18:12:00Z"}]}'
 
 
 def test_json_load_no_custom_dump():
     data = '{"test": "not a datetime", "not a string": 3}'
-    assert json_datetime.loads(data) == {'test': 'not a datetime',
-                                         'not a string': 3}
+    assert json_datetime.loads(data) == {
+        'test': 'not a datetime',
+        'not a string': 3
+    }
 
 
 def test_json_timedelta():
@@ -58,7 +66,13 @@ def test_json_timedelta():
 
 
 def test_deep_json_timedelta():
-    data = {'test': [{'test2': timedelta(hours=3, seconds=4)}, ]}
+    data = {
+        'test': [
+            {
+                'test2': timedelta(hours=3, seconds=4)
+            },
+        ]
+    }
     assert json_datetime.dumps(data, indent=None) == \
         '{"test": [{"test2": "PT03H04S"}]}'
 

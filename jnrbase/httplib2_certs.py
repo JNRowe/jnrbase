@@ -24,7 +24,6 @@ from os import getenv, path
 
 import httplib2
 
-
 #: Allow fallback to bundled httplib2 certs.
 #:
 #: *Packagers*: Patch this to ``False``
@@ -32,9 +31,11 @@ ALLOW_FALLBACK = True
 
 #: Default certificate locations for platforms
 PLATFORM_FILES = {
-    'linux': ['/etc/ssl/certs/ca-certificates.crt',
-              '/etc/pki/tls/certs/ca-bundle.crt'],
-    'freebsd': ['/usr/local/share/certs/ca-root-nss.crt', ],
+    'linux':
+    ['/etc/ssl/certs/ca-certificates.crt', '/etc/pki/tls/certs/ca-bundle.crt'],
+    'freebsd': [
+        '/usr/local/share/certs/ca-root-nss.crt',
+    ],
 }
 
 

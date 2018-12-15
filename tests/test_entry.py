@@ -26,6 +26,7 @@ from jnrbase.entry import entry_point
 def test_entrypoint():
     def f():
         return 42
+
     f.__module__ = '__main__'
     with raises(SystemExit, match='42'):
         entry_point(f)
@@ -35,4 +36,5 @@ def test_fallthrough():
     @entry_point
     def f():
         return 42
+
     assert f() == 42

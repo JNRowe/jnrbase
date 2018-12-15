@@ -23,7 +23,9 @@ from subprocess import CalledProcessError, check_output
 from .context import chdir
 
 
-def find_tag(__matcher: str = 'v[0-9]*', *, strict: bool = True,
+def find_tag(__matcher: str = 'v[0-9]*',
+             *,
+             strict: bool = True,
              git_dir: str = '.') -> str:
     """Find closest tag for a git repository.
 
@@ -42,11 +44,15 @@ def find_tag(__matcher: str = 'v[0-9]*', *, strict: bool = True,
     command = 'git describe --abbrev=12 --dirty'.split()
     with chdir(git_dir):
         try:
-            stdout = check_output(command + ['--match={}'.format(__matcher), ])
+            stdout = check_output(command + [
+                '--match={}'.format(__matcher),
+            ])
         except CalledProcessError:
             if strict:
                 raise
-            stdout = check_output(command + ['--always', ])
+            stdout = check_output(command + [
+                '--always',
+            ])
 
         stdout = stdout.decode('ascii', 'replace')
     return stdout.strip()

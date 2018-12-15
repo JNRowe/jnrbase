@@ -57,7 +57,8 @@ def parse_requires(__fname: str) -> List[str]:
                 dep, marker = [s.strip() for s in dep.split(';')]
                 # Support for other markers will be added when they’re actually
                 # found in the wild
-                match = re.fullmatch(r"""
+                match = re.fullmatch(
+                    r"""
                         (?:python_version)  # Supported markers
                         \s*
                         (?:<=?|==|>=?)  # Supported comparisons

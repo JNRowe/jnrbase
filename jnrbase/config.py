@@ -54,11 +54,12 @@ def read_configs(__pkg: str, __name: str = 'config', *,
         if path.exists(localrc):
             configs.append(localrc)
 
-    cfg = ConfigParser(converters={
-        'datetime': parse_datetime,
-        'humandelta': parse_timedelta,
-        'timedelta': parse_delta,
-    })
+    cfg = ConfigParser(
+        converters={
+            'datetime': parse_datetime,
+            'humandelta': parse_timedelta,
+            'timedelta': parse_delta,
+        })
     cfg.read(configs, 'utf-8')
     cfg.configs = configs
 

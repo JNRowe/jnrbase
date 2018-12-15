@@ -77,7 +77,8 @@ def parse_timedelta(__delta: str) -> datetime.timedelta:
     Args:
         __delta: Frequency to parse
     """
-    match = re.fullmatch(r"""
+    match = re.fullmatch(
+        r"""
             ^(\d+(?:|\.\d+))  # value, possibly float
             \ *
             ([hdwmy])$  # units
