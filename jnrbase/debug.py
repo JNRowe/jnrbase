@@ -28,7 +28,6 @@ _orig_stdout = sys.stdout  # pylint: disable=invalid-name
 
 
 class DebugPrint:
-
     """Verbose print wrapper for debugging."""
 
     def __init__(self, __handle: TextIO) -> None:
@@ -56,8 +55,9 @@ class DebugPrint:
                 outer = frame.f_back
                 filename = outer.f_code.co_filename.split(os.sep)[-1]
                 lineno = outer.f_lineno
-            self.handle.write('[{:>15s}:{:03d}] {}'.format(filename[-15:],
-                                                           lineno, __text))
+            self.handle.write(
+                '[{:>15s}:{:03d}] {}'.format(filename[-15:], lineno, __text)
+            )
 
     @staticmethod
     def enable() -> None:
@@ -80,6 +80,7 @@ def noisy_wrap(__func: Callable) -> Callable:
         Wrapped function
 
     """
+
     # pylint: disable=missing-docstring
     def wrapper(*args, **kwargs):
         DebugPrint.enable()
@@ -87,6 +88,7 @@ def noisy_wrap(__func: Callable) -> Callable:
             __func(*args, **kwargs)
         finally:
             DebugPrint.disable()
+
     return wrapper
 
 
@@ -99,6 +101,7 @@ def on_enter(__msg: Optional[Union[Callable, str]] = None) -> Callable:
         Wrapped function
 
     """
+
     # pylint: disable=missing-docstring
     def decorator(__func):
         @wraps(__func)
@@ -108,7 +111,9 @@ def on_enter(__msg: Optional[Union[Callable, str]] = None) -> Callable:
             else:
                 print('Entering {!r}({!r})'.format(__func.__name__, __func))
             return __func(*args, **kwargs)
+
         return wrapper
+
     if callable(__msg):
         return on_enter()(__msg)
     return decorator
@@ -123,6 +128,7 @@ def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
         Wrapped function
 
     """
+
     # pylint: disable=missing-docstring
     def decorator(__func):
         @wraps(__func)
@@ -134,7 +140,9 @@ def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
                     print(__msg)
                 else:
                     print('Exiting {!r}({!r})'.format(__func.__name__, __func))
+
         return wrapper
+
     if callable(__msg):
         return on_exit()(__msg)
     return decorator

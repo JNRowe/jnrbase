@@ -22,7 +22,6 @@ from typing import Any, Hashable
 
 
 class AttrDict(dict):
-
     """Dictionary with attribute access.
 
     See also: :obj:`dict`
@@ -74,7 +73,6 @@ class AttrDict(dict):
 
 
 class ROAttrDict(AttrDict):
-
     """Read-only dictionary with attribute access.
 
     See also: :obj:`AttrDict`
@@ -87,4 +85,5 @@ class ROAttrDict(AttrDict):
             AttributeError: On modification attempt
         """
         raise AttributeError('{!r} is read-only'.format(self.__class__))
+
     __delattr__ = __delitem__ = __setattr__ = __setitem__

@@ -24,18 +24,37 @@ from pytest import mark, raises
 
 from jnrbase.human_time import human_timestamp, parse_timedelta
 
-
 human_timestamp_examples = [
-    ({'days': 365, }, 'last year'),
-    ({'days': 70, }, 'about two months ago'),
-    ({'days': 30, }, 'last month'),
-    ({'days': 21, }, 'about three weeks ago'),
-    ({'days': 4, }, 'about four days ago'),
-    ({'days': 1, }, 'yesterday'),
-    ({'hours': 5, }, 'about five hours ago'),
-    ({'hours': 1, }, 'about an hour ago'),
-    ({'minutes': 6, }, 'about six minutes ago'),
-    ({'seconds': 12, }, 'about 12 seconds ago'),
+    ({
+        'days': 365,
+    }, 'last year'),
+    ({
+        'days': 70,
+    }, 'about two months ago'),
+    ({
+        'days': 30,
+    }, 'last month'),
+    ({
+        'days': 21,
+    }, 'about three weeks ago'),
+    ({
+        'days': 4,
+    }, 'about four days ago'),
+    ({
+        'days': 1,
+    }, 'yesterday'),
+    ({
+        'hours': 5,
+    }, 'about five hours ago'),
+    ({
+        'hours': 1,
+    }, 'about an hour ago'),
+    ({
+        'minutes': 6,
+    }, 'about six minutes ago'),
+    ({
+        'seconds': 12,
+    }, 'about 12 seconds ago'),
     ({}, 'right now'),
 ]
 
@@ -53,13 +72,15 @@ def test_human_timestamp_naive(delta, result):
     assert human_timestamp(dt) == result
 
 
-@mark.parametrize('string,dt', [
-    ('3h', timedelta(0, 10800)),
-    ('1d', timedelta(1)),
-    ('1 d', timedelta(1)),
-    ('0.5 y', timedelta(182, 43200)),
-    ('0.5 Y', timedelta(182, 43200)),
-])
+@mark.parametrize(
+    'string,dt', [
+        ('3h', timedelta(0, 10800)),
+        ('1d', timedelta(1)),
+        ('1 d', timedelta(1)),
+        ('0.5 y', timedelta(182, 43200)),
+        ('0.5 Y', timedelta(182, 43200)),
+    ]
+)
 def test_parse_timedelta(string, dt):
     assert parse_timedelta(string) == dt
 

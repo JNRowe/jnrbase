@@ -24,7 +24,6 @@ import sys
 from os import getenv, path
 from typing import List
 
-
 #: Allow macOS directory structure
 ALLOW_DARWIN = True  # type: bool
 
@@ -45,9 +44,10 @@ def __user_location(__pkg: str, type_) -> str:
     if ALLOW_DARWIN and sys.platform == 'darwin':
         user_dir = '~/Library/{}'.format(__LOCATIONS[type_][0])
     else:
-        user_dir = getenv('XDG_{}_HOME'.format(type_.upper()),
-                           path.sep.join([getenv('HOME', ''),
-                                          __LOCATIONS[type_][1]]))
+        user_dir = getenv(
+            'XDG_{}_HOME'.format(type_.upper()),
+            path.sep.join([getenv('HOME', ''), __LOCATIONS[type_][1]])
+        )
     return path.expanduser(path.sep.join([user_dir, __pkg]))
 
 
@@ -63,6 +63,7 @@ def __xdg_lookup(name):
             __pkg: Package name
         """
         return __user_location(__pkg, name)
+
     tmpl.__doc__ = tmpl.__doc__.format(name, name.upper())
     return tmpl
 
@@ -79,9 +80,13 @@ def get_configs(__pkg: str, __name: str = 'config') -> List[str]:
         __pkg: Package name
         __name: Configuration file name
     """
-    dirs = [user_config(__pkg), ]
-    dirs.extend(path.expanduser(path.sep.join([d, __pkg]))
-                for d in getenv('XDG_CONFIG_DIRS', '/etc/xdg').split(':'))
+    dirs = [
+        user_config(__pkg),
+    ]
+    dirs.extend(
+        path.expanduser(path.sep.join([d, __pkg]))
+        for d in getenv('XDG_CONFIG_DIRS', '/etc/xdg').split(':')
+    )
     configs = []
     for dname in reversed(dirs):
         test_path = path.join(dname, __name)
@@ -110,8 +115,11 @@ def get_data_dirs(__pkg: str) -> List[str]:
     Args:
         __pkg: Package name
     """
-    dirs = [user_data(__pkg), ]
-    dirs.extend(path.expanduser(path.sep.join([d, __pkg]))
-                for d in getenv('XDG_DATA_DIRS',
-                                '/usr/local/share/:/usr/share/').split(':'))
+    dirs = [
+        user_data(__pkg),
+    ]
+    dirs.extend(
+        path.expanduser(path.sep.join([d, __pkg])) for d in
+        getenv('XDG_DATA_DIRS', '/usr/local/share/:/usr/share/').split(':')
+    )
     return [d for d in dirs if path.isdir(d)]

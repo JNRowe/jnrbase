@@ -1,5 +1,6 @@
 #
 """utils - Utility functions for tests."""
+
 # Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
 #
 # This file is part of jnrbase.
@@ -26,7 +27,9 @@ def func_attr(name, value):
         name (str): Attribute name to set
         value: Value to set attribute to
     """
+
     def decorator(f):
         setattr(f, name, value)
         return f
+
     return decorator

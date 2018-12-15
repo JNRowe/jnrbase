@@ -23,7 +23,6 @@
 
 from click import echo, style
 
-
 #: Global flag to disable *all* colourisation
 COLOUR = True
 

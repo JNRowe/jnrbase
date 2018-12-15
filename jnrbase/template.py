@@ -34,7 +34,6 @@ from pygments.lexers import get_lexer_by_name
 from . import xdg_basedir
 from .human_time import human_timestamp
 
-
 #: Collection of custom filters to add to Jinja environment
 FILTERS = {}  # type: Dict[str, Callable]
 
@@ -74,8 +73,9 @@ def colourise(__text: str, *args, **kwargs) -> str:
 
 
 @jinja_filter
-def highlight(__text: str, *, lexer: str = 'diff',
-              formatter: str = 'terminal') -> str:
+def highlight(
+    __text: str, *, lexer: str = 'diff', formatter: str = 'terminal'
+) -> str:
     """Highlight text highlighted using ``pygments``.
 
     Returns text untouched if colour output is not enabled.
@@ -97,8 +97,9 @@ def highlight(__text: str, *, lexer: str = 'diff',
 
 
 @jinja_filter
-def html2text(__html: str, *, width: int = 80,
-              ascii_replacements: bool = False) -> str:
+def html2text(
+    __html: str, *, width: int = 80, ascii_replacements: bool = False
+) -> str:
     """HTML to plain text renderer.
 
     See also: :pypi:`html2text`
@@ -116,8 +117,14 @@ def html2text(__html: str, *, width: int = 80,
 
 
 @jinja_filter
-def regexp(__string: str, __pattern: str, __repl: Union[Callable, str], *,
-           count: int = 0, flags: int = 0) -> str:
+def regexp(
+    __string: str,
+    __pattern: str,
+    __repl: Union[Callable, str],
+    *,
+    count: int = 0,
+    flags: int = 0
+) -> str:
     """Jinja filter for regexp replacements.
 
     See :func:`re.sub` for documentation.
@@ -150,12 +157,14 @@ def setup(__pkg: str) -> jinja2.Environment:
     Returns:
         Configured Jinja environment
     """
-    dirs = [path.join(d, 'templates')
-            for d in xdg_basedir.get_data_dirs(__pkg)]
+    dirs = [
+        path.join(d, 'templates') for d in xdg_basedir.get_data_dirs(__pkg)
+    ]
 
     env = jinja2.Environment(
         autoescape=jinja2.select_autoescape(['html', 'xml']),
-        loader=jinja2.ChoiceLoader([jinja2.FileSystemLoader(s) for s in dirs]))
+        loader=jinja2.ChoiceLoader([jinja2.FileSystemLoader(s) for s in dirs])
+    )
     env.loader.loaders.append(jinja2.PackageLoader(__pkg, 'templates'))
     env.filters.update(FILTERS)
 

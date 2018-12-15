@@ -60,6 +60,8 @@ def test_env_subshell_support():
     assert getenv('NOT_SET') is None
     with context.env(NOT_SET='hello'):
         # Switch to encoding kwarg when Python 3.5 support is dropped
-        out = run(['printenv', ], stdout=PIPE).stdout.decode()
+        out = run([
+            'printenv',
+        ], stdout=PIPE).stdout.decode()
         assert 'NOT_SET=hello' in out.splitlines()
     assert getenv('NOT_SET') is None

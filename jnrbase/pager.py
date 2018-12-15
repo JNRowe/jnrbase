@@ -34,6 +34,8 @@ def pager(__text: str, *, pager: Optional[str] = 'less'):
         pager: Pager to use
     """
     if pager:
-        run([pager, ], input=__text.encode())
+        run([
+            pager,
+        ], input=__text.encode())
     else:
         print(__text)

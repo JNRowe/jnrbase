@@ -24,7 +24,6 @@ from os import getenv, path
 
 import httplib2
 
-
 #: Allow fallback to bundled httplib2 certs.
 #:
 #: *Packagers*: Patch this to ``False``
@@ -32,8 +31,10 @@ ALLOW_FALLBACK = True
 
 #: Default certificate locations for platforms
 PLATFORM_FILES = {
-    'linux': ['/etc/ssl/certs/ca-certificates.crt',
-              '/etc/pki/tls/certs/ca-bundle.crt'],
+    'linux': [
+        '/etc/ssl/certs/ca-certificates.crt',
+        '/etc/pki/tls/certs/ca-bundle.crt'
+    ],
     'freebsd': ['/usr/local/share/certs/ca-root-nss.crt', ],
 }
 
@@ -69,8 +70,9 @@ def find_certs() -> str:
     if path.exists(getenv('CURL_CA_BUNDLE', '')):
         return getenv('CURL_CA_BUNDLE')
     if ALLOW_FALLBACK:
-        warnings.warn('No system certs detected, falling back to bundled',
-                      RuntimeWarning)
+        warnings.warn(
+            'No system certs detected, falling back to bundled', RuntimeWarning
+        )
         return httplib2.CA_CERTS
     else:
         raise RuntimeError('No system certs detected!')

@@ -25,7 +25,6 @@ from pytest import mark
 
 from jnrbase.cmdline import cli
 
-
 pytestmark = mark.skipif(not which('git'), reason='Requires git')
 
 

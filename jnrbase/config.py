@@ -26,8 +26,9 @@ from .iso_8601 import parse_datetime, parse_delta
 from .xdg_basedir import get_configs
 
 
-def read_configs(__pkg: str, __name: str = 'config', *,
-                 local: bool = True) -> ConfigParser:
+def read_configs(
+    __pkg: str, __name: str = 'config', *, local: bool = True
+) -> ConfigParser:
     """Process configuration file stack.
 
     We export the time parsing functionality of ``jnrbase`` as custom
@@ -54,11 +55,13 @@ def read_configs(__pkg: str, __name: str = 'config', *,
         if path.exists(localrc):
             configs.append(localrc)
 
-    cfg = ConfigParser(converters={
-        'datetime': parse_datetime,
-        'humandelta': parse_timedelta,
-        'timedelta': parse_delta,
-    })
+    cfg = ConfigParser(
+        converters={
+            'datetime': parse_datetime,
+            'humandelta': parse_timedelta,
+            'timedelta': parse_delta,
+        }
+    )
     cfg.read(configs, 'utf-8')
     cfg.configs = configs
 

@@ -34,29 +34,42 @@ def test_filter_decorator():
     @template.jinja_filter
     def test():
         return ''
+
     assert template.FILTERS['test'] == test
 
 
-@mark.parametrize('filter_,args,kwargs,expected', [
-    ('colourise', ('test', 'green'), {}, '\x1b[32mtest\x1b[0m'),
-    ('regexp', ('test', 't', 'T'), {}, 'TesT'),
-    ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
-     'f = \x1b[34mlambda\x1b[39;49;00m: \x1b[36mTrue\x1b[39;49;00m\n'),
-    ('html2text', ('<b>test</b>', ), {}, '**test**'),
-    ('relative_time', (datetime.utcnow() - timedelta(days=1), ), {},
-     'yesterday'),
-])
+@mark.parametrize(
+    'filter_,args,kwargs,expected', [
+        ('colourise', ('test', 'green'), {}, '\x1b[32mtest\x1b[0m'),
+        ('regexp', ('test', 't', 'T'), {}, 'TesT'),
+        (
+            'highlight', ('f = lambda: True', ), {
+                'lexer': 'python'
+            }, 'f = \x1b[34mlambda\x1b[39;49;00m: \x1b[36mTrue\x1b[39;49;00m\n'
+        ),
+        ('html2text', ('<b>test</b>', ), {}, '**test**'),
+        (
+            'relative_time',
+            (datetime.utcnow() - timedelta(days=1), ), {}, 'yesterday'
+        ),
+    ]
+)
 def test_custom_filter(filter_, args, kwargs, expected, monkeypatch):
     monkeypatch.setattr('sys.stdout.isatty', lambda: True)
     env = template.setup('jnrbase')
     assert env.filters[filter_](*args, **kwargs) == expected
 
 
-@mark.parametrize('filter_,args,kwargs,expected', [
-    ('colourise', ('test', 'green'), {}, 'test'),
-    ('highlight', ('f = lambda: True', ), {'lexer': 'python'},
-     'f = lambda: True'),
-])
+@mark.parametrize(
+    'filter_,args,kwargs,expected', [
+        ('colourise', ('test', 'green'), {}, 'test'),
+        (
+            'highlight', ('f = lambda: True', ), {
+                'lexer': 'python'
+            }, 'f = lambda: True'
+        ),
+    ]
+)
 def test_custom_filter_fallthrough(filter_, args, kwargs, expected):
     env = template.setup('jnrbase')
     assert env.filters[filter_](*args, **kwargs) == expected

@@ -29,7 +29,6 @@ from pytest import mark, raises
 
 from jnrbase.git import find_tag
 
-
 pytestmark = mark.skipif(not which('git'), reason='Requires git')
 
 

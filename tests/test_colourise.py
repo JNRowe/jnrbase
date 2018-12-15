@@ -23,12 +23,14 @@ from pytest import mark
 from jnrbase import colourise
 
 
-@mark.parametrize('f,expected', [
-    (colourise.info, '\x1b[34m\x1b[1m'),
-    (colourise.fail, '\x1b[31m\x1b[1m'),
-    (colourise.success, '\x1b[32m\x1b[1m'),
-    (colourise.warn, '\x1b[33m\x1b[1m'),
-])
+@mark.parametrize(
+    'f,expected', [
+        (colourise.info, '\x1b[34m\x1b[1m'),
+        (colourise.fail, '\x1b[31m\x1b[1m'),
+        (colourise.success, '\x1b[32m\x1b[1m'),
+        (colourise.warn, '\x1b[33m\x1b[1m'),
+    ]
+)
 def test_colouriser(f, expected):
     assert expected in f('test')
 

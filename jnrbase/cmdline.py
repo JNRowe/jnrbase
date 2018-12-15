@@ -26,13 +26,15 @@ from io import TextIOBase
 from subprocess import CalledProcessError, run
 from typing import Callable, Optional
 
-from click import (Context, File, argument, echo, group, option, pass_context,
-                   version_option)
+from click import (
+    Context, File, argument, echo, group, option, pass_context, version_option
+)
 
 import jnrbase
-from jnrbase import (_version, colourise, config, git, httplib2_certs,
-                     human_time, iso_8601, json_datetime, pip_support,
-                     template, timer, xdg_basedir)
+from jnrbase import (
+    _version, colourise, config, git, httplib2_certs, human_time, iso_8601,
+    json_datetime, pip_support, template, timer, xdg_basedir
+)
 
 
 def get_default(__func: Callable, __arg: str) -> str:
@@ -48,8 +50,10 @@ def get_default(__func: Callable, __arg: str) -> str:
 # pylint: disable=missing-docstring
 
 
-@group(epilog='Please report bugs at https://github.com/JNRowe/jnrbase/issues',
-       context_settings={'help_option_names': ['-h', '--help']})
+@group(
+    epilog='Please report bugs at https://github.com/JNRowe/jnrbase/issues',
+    context_settings={'help_option_names': ['-h', '--help']}
+)
 @version_option(_version.dotted)
 def cli():
     """Possibly useful cli functionality."""
@@ -77,8 +81,10 @@ def text_arg(__func: Callable) -> Callable:
 
 
 for k in ['fail', 'info', 'success', 'warn']:
-    @messages.command(name=k,
-                      help=getattr(colourise, k).__doc__.splitlines()[0])
+
+    @messages.command(
+        name=k, help=getattr(colourise, k).__doc__.splitlines()[0]
+    )
     @text_arg
     @pass_context
     def func(ctx: Context, text: str):
@@ -88,14 +94,19 @@ for k in ['fail', 'info', 'success', 'warn']:
 
 
 @cli.command(name='config')
-@option('-n', '--name', default=get_default(config.read_configs, '__name'),
-        help='Config file to read from.')
+@option(
+    '-n',
+    '--name',
+    default=get_default(config.read_configs, '__name'),
+    help='Config file to read from.'
+)
 @option('-l', '--local / --no-local', help='Read local .<package>rc files.')
 @argument('package')
 @argument('section')
 @argument('key', required=False)
-def config_(name: str, local: bool, package: str, section: str,
-            key: Optional[str]):
+def config_(
+    name: str, local: bool, package: str, section: str, key: Optional[str]
+):
     """Extract or list values from config."""
     cfg = config.read_configs(package, name, local=local)
     if key:
@@ -109,11 +120,19 @@ def config_(name: str, local: bool, package: str, section: str,
 
 
 @cli.command()
-@option('-m', '--match', default=get_default(git.find_tag, '__matcher'),
-        help='Limit the selection of matches with glob.')
+@option(
+    '-m',
+    '--match',
+    default=get_default(git.find_tag, '__matcher'),
+    help='Limit the selection of matches with glob.'
+)
 @option('-s', '--strict / --no-strict', help='Always generate a result.')
-@option('-d', '--directory', default=get_default(git.find_tag, 'git_dir'),
-        help='Git repository to operate on.')
+@option(
+    '-d',
+    '--directory',
+    default=get_default(git.find_tag, 'git_dir'),
+    help='Git repository to operate on.'
+)
 def find_tag(match: str, strict: bool, directory: str):
     """Find tag for git repository."""
     with suppress(CalledProcessError):
@@ -153,8 +172,7 @@ def pip_requires(name: str):
 
 
 @cli.command()
-@option('-e', '--env', type=File(),
-        help='JSON data to generate output with.')
+@option('-e', '--env', type=File(), help='JSON data to generate output with.')
 @argument('package')
 @argument('tmpl')
 def gen_text(env: TextIOBase, package: str, tmpl: str):
@@ -183,8 +201,10 @@ def dirs():
 
 
 for k in ['cache', 'config', 'data']:
-    @dirs.command(name=k,
-                  help='Display {} dir honouring XDG basedir.'.format(k))
+
+    @dirs.command(
+        name=k, help='Display {} dir honouring XDG basedir.'.format(k)
+    )
     @argument('package')
     @pass_context
     def func(ctx: Context, package: str):

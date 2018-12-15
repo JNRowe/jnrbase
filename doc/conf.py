@@ -62,9 +62,7 @@ rst_epilog = """
 default_role = 'any'
 
 needs_sphinx = '1.6'
-needs_extensions = {
-    'sphinx-autodoc-typehints': '1.2'
-}
+needs_extensions = {'sphinx-autodoc-typehints': '1.2'}
 
 nitpicky = True
 # }}}
@@ -77,7 +75,9 @@ copyright = f'2014-2018  {author}'
 version = '{major}.{minor}'.format_map(jnrbase._version.dict)
 release = jnrbase._version.dotted
 
-modindex_common_prefix = ['jnrbase.', ]
+modindex_common_prefix = [
+    'jnrbase.',
+]
 
 trim_footnote_reference_space = True
 # }}}
@@ -87,11 +87,14 @@ trim_footnote_reference_space = True
 # approximately correct builds on the local system too
 if not on_rtd:
     html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path(), ]
+    html_theme_path = [
+        sphinx_rtd_theme.get_html_theme_path(),
+    ]
 
 with suppress(CalledProcessError):
-    proc = run(['git', 'log', "--pretty=format:'%ad [%h]'", '--date=short',
-                '-n1'],
+    proc = run([
+        'git', 'log', "--pretty=format:'%ad [%h]'", '--date=short', '-n1'
+    ],
                stdout=PIPE)
     html_last_updated_fmt = proc.stdout.decode()
 
@@ -104,7 +107,9 @@ html_experimental_html5_writer = True
 
 # Options for manual page output {{{
 man_pages = [
-    ('jnrbase.1', 'jnrbase', 'jnrbase Documentation', ['James Rowe', ], 1)
+    ('jnrbase.1', 'jnrbase', 'jnrbase Documentation', [
+        'James Rowe',
+    ], 1)
 ]
 # }}}
 

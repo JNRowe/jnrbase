@@ -66,8 +66,9 @@ def human_timestamp(__timestamp: datetime.datetime) -> str:
     elif i == 1 and name == 'hour':
         result = 'about an hour ago'
     else:
-        result = 'about {} {}{} ago'.format(i if i > 10 else numstr[i], name,
-                                            's' if i > 1 else '')
+        result = 'about {} {}{} ago'.format(
+            i if i > 10 else numstr[i], name, 's' if i > 1 else ''
+        )
     return result
 
 
@@ -77,11 +78,13 @@ def parse_timedelta(__delta: str) -> datetime.timedelta:
     Args:
         __delta: Frequency to parse
     """
-    match = re.fullmatch(r"""
+    match = re.fullmatch(
+        r"""
             ^(\d+(?:|\.\d+))  # value, possibly float
             \ *
             ([hdwmy])$  # units
-         """, __delta, re.IGNORECASE | re.VERBOSE)
+         """, __delta, re.IGNORECASE | re.VERBOSE
+    )
     if not match:
         raise ValueError('Invalid ‘frequency’ value')
     value, units = match.groups()
