@@ -20,7 +20,7 @@
 
 from os import getcwd, getenv
 from re import escape
-from subprocess import PIPE, run
+from subprocess import check_output
 
 from pytest import raises
 
@@ -59,7 +59,6 @@ def test_env_unset():
 def test_env_subshell_support():
     assert getenv('NOT_SET') is None
     with context.env(NOT_SET='hello'):
-        # Switch to encoding kwarg when Python 3.5 support is dropped
-        out = run(['printenv', ], stdout=PIPE).stdout.decode()
+        out = check_output(['printenv', ], encoding='utf-8')
         assert 'NOT_SET=hello' in out.splitlines()
     assert getenv('NOT_SET') is None
