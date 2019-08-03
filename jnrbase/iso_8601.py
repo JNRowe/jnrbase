@@ -34,7 +34,8 @@ def parse_delta(__string: str) -> datetime.timedelta:
     """
     if not __string:
         return datetime.timedelta(0)
-    match = re.fullmatch(r"""
+    match = re.fullmatch(
+        r"""
         P
         ((?P<days>\d+)D)?
         T?

@@ -24,7 +24,6 @@ from pytest import mark, raises
 
 from jnrbase.pip_support import parse_requires
 
-
 DATA_DIR = path.join(path.dirname(__file__), 'data', 'pip')
 
 
@@ -49,7 +48,9 @@ def test_abs_include():
 
 
 @mark.parametrize('version,expected', [
-    ((3, 3, 6), ['contextlib2>=0.5.4', ]),
+    ((3, 3, 6), [
+        'contextlib2>=0.5.4',
+    ]),
     ((3, 5, 0), []),
 ])
 def test_parse_markers(version, expected, monkeypatch):

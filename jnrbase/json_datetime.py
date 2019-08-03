@@ -27,7 +27,6 @@ from typing import Any, Dict
 from .iso_8601 import (format_datetime, format_delta, parse_datetime,
                        parse_delta)
 
-
 encoder = json.JSONEncoder()  # pylint: disable=invalid-name
 
 

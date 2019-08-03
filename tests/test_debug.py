@@ -33,6 +33,7 @@ def test_decorator_no_message(ftype, capsys):
     @ftype
     def func(x, y):
         return x + y
+
     assert func(4, 3) == 7
     assert "{}ing 'func'({!r})".format(ftype.__name__[3:].capitalize(),
                                        func.__closure__[0].cell_contents) \
@@ -56,6 +57,7 @@ def test_decorator_with_failure(ftype, capsys):
     @ftype('custom message')
     def func(x, y):
         raise ValueError('boom')
+
     with raises(ValueError):
         func(4, 3)
     assert capsys.readouterr()[0] == 'custom message\n'
@@ -99,6 +101,7 @@ def test_DebugPrint_decorator(capsys):  # NOQA: N802
     def func(x):
         print(hex(x))
         print(x)
+
     func(20)
     out, _ = capsys.readouterr()
     assert 'test_debug.py:' in out

@@ -72,6 +72,7 @@ def test_AttrDict_invalid_key_delete(base_obj):
 def test_AttrDict_swallowed_exception(base_obj):
     def raise_error():
         raise ValueError()
+
     base_obj.prop = property(raise_error)
 
     assert 'prop' in base_obj

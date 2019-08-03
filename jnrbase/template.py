@@ -34,7 +34,6 @@ from pygments.lexers import get_lexer_by_name
 from . import xdg_basedir
 from .human_time import human_timestamp
 
-
 #: Collection of custom filters to add to Jinja environment
 FILTERS = {}  # type: Dict[str, Callable]
 
@@ -97,7 +96,9 @@ def highlight(__text: str, *, lexer: str = 'diff',
 
 
 @jinja_filter
-def html2text(__html: str, *, width: int = 80,
+def html2text(__html: str,
+              *,
+              width: int = 80,
               ascii_replacements: bool = False) -> str:
     """HTML to plain text renderer.
 
@@ -116,8 +117,12 @@ def html2text(__html: str, *, width: int = 80,
 
 
 @jinja_filter
-def regexp(__string: str, __pattern: str, __repl: Union[Callable, str], *,
-           count: int = 0, flags: int = 0) -> str:
+def regexp(__string: str,
+           __pattern: str,
+           __repl: Union[Callable, str],
+           *,
+           count: int = 0,
+           flags: int = 0) -> str:
     """Jinja filter for regexp replacements.
 
     See :func:`re.sub` for documentation.
@@ -150,8 +155,9 @@ def setup(__pkg: str) -> jinja2.Environment:
     Returns:
         Configured Jinja environment
     """
-    dirs = [path.join(d, 'templates')
-            for d in xdg_basedir.get_data_dirs(__pkg)]
+    dirs = [
+        path.join(d, 'templates') for d in xdg_basedir.get_data_dirs(__pkg)
+    ]
 
     env = jinja2.Environment(
         autoescape=jinja2.select_autoescape(['html', 'xml']),

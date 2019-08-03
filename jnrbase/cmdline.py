@@ -77,6 +77,7 @@ def text_arg(__func: Callable) -> Callable:
 
 
 for k in ['fail', 'info', 'success', 'warn']:
+
     @messages.command(name=k,
                       help=getattr(colourise, k).__doc__.splitlines()[0])
     @text_arg
@@ -88,7 +89,9 @@ for k in ['fail', 'info', 'success', 'warn']:
 
 
 @cli.command(name='config')
-@option('-n', '--name', default=get_default(config.read_configs, '__name'),
+@option('-n',
+        '--name',
+        default=get_default(config.read_configs, '__name'),
         help='Config file to read from.')
 @option('-l', '--local / --no-local', help='Read local .<package>rc files.')
 @argument('package')
@@ -109,10 +112,14 @@ def config_(name: str, local: bool, package: str, section: str,
 
 
 @cli.command()
-@option('-m', '--match', default=get_default(git.find_tag, '__matcher'),
+@option('-m',
+        '--match',
+        default=get_default(git.find_tag, '__matcher'),
         help='Limit the selection of matches with glob.')
 @option('-s', '--strict / --no-strict', help='Always generate a result.')
-@option('-d', '--directory', default=get_default(git.find_tag, 'git_dir'),
+@option('-d',
+        '--directory',
+        default=get_default(git.find_tag, 'git_dir'),
         help='Git repository to operate on.')
 def find_tag(match: str, strict: bool, directory: str):
     """Find tag for git repository."""
@@ -153,8 +160,7 @@ def pip_requires(name: str):
 
 
 @cli.command()
-@option('-e', '--env', type=File(),
-        help='JSON data to generate output with.')
+@option('-e', '--env', type=File(), help='JSON data to generate output with.')
 @argument('package')
 @argument('tmpl')
 def gen_text(env: TextIOBase, package: str, tmpl: str):
@@ -183,6 +189,7 @@ def dirs():
 
 
 for k in ['cache', 'config', 'data']:
+
     @dirs.command(name=k,
                   help='Display {} dir honouring XDG basedir.'.format(k))
     @argument('package')

@@ -24,7 +24,6 @@ from jnrbase import httplib2_certs
 
 from .utils import func_attr
 
-
 exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731
 
 
@@ -72,8 +71,8 @@ def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
     '/etc/pki/tls/certs/ca-bundle.crt',
 ])
 def test_distros(file, monkeypatch):
-    monkeypatch.setattr('jnrbase.httplib2_certs.path.exists',
-                        lambda s: s == file)
+    monkeypatch.setattr(
+        'jnrbase.httplib2_certs.path.exists', lambda s: s == file)
     assert httplib2_certs.find_certs() == file
 
 
