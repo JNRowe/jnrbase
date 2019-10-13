@@ -18,17 +18,17 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
-from os import path
+from pathlib import Path
 
 from pytest import mark, raises
 
 from jnrbase.pip_support import parse_requires
 
-DATA_DIR = path.join(path.dirname(__file__), 'data', 'pip')
+DATA_DIR = Path(__file__).parent / 'data' / 'pip'
 
 
 def data_file(fname):
-    return path.join(DATA_DIR, fname)
+    return DATA_DIR / fname
 
 
 def test_empty_parse():

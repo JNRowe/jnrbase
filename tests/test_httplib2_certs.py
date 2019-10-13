@@ -18,6 +18,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0+
 
+from pathlib import Path
+
 from pytest import mark, raises, warns
 
 from jnrbase import httplib2_certs
@@ -29,13 +31,15 @@ exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731
 
 def test_upstream_import(path_exists_force):
     import ca_certs_locater
-    assert ca_certs_locater.get() == '/etc/ssl/certs/ca-certificates.crt'
+    assert ca_certs_locater.get() == Path('/etc/ssl/certs/ca-certificates.crt')
 
 
 def test_unbundled_package_import(monkeypatch):
+    monkeypatch.setattr(
+        'jnrbase.httplib2_certs.Path.is_symlink', lambda p: True)
     monkeypatch.setattr('jnrbase.httplib2_certs.httplib2.CA_CERTS',
-                        '/fixed_by_distributor/certs.crt')
-    assert httplib2_certs.find_certs() == '/fixed_by_distributor'
+                        Path('/fixed_by_distributor/certs.crt'))
+    assert httplib2_certs.find_certs() == Path('/fixed_by_distributor')
 
 
 @exists_result(False)
@@ -55,7 +59,7 @@ def test_bundled_fail(monkeypatch, path_exists_force):
 def test_freebsd_paths(monkeypatch, path_exists_force):
     monkeypatch.setattr('sys.platform', 'freebsd')
     assert httplib2_certs.find_certs() \
-        == '/usr/local/share/certs/ca-root-nss.crt'
+        == Path('/usr/local/share/certs/ca-root-nss.crt')
 
 
 @exists_result(False)
@@ -67,16 +71,18 @@ def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
 
 
 @mark.parametrize('file', [
-    '/etc/ssl/certs/ca-certificates.crt',
-    '/etc/pki/tls/certs/ca-bundle.crt',
+    Path('/etc/ssl/certs/ca-certificates.crt'),
+    Path('/etc/pki/tls/certs/ca-bundle.crt'),
 ])
 def test_distros(file, monkeypatch):
     monkeypatch.setattr(
-        'jnrbase.httplib2_certs.path.exists', lambda s: s == file)
+        'jnrbase.httplib2_certs.Path.exists', lambda p: p == file)
     assert httplib2_certs.find_certs() == file
 
 
 def test_curl_bundle(monkeypatch):
-    monkeypatch.setattr('os.path.exists', lambda s: s == 'silly_platform_user')
+    monkeypatch.setattr('jnrbase.httplib2_certs.Path.exists',
+                        lambda s: s == 'silly_platform_user')
+    monkeypatch.setattr('jnrbase.httplib2_certs.Path.exists', lambda p: False)
     monkeypatch.setenv('CURL_CA_BUNDLE', 'silly_platform_user')
-    assert httplib2_certs.find_certs() == 'silly_platform_user'
+    assert httplib2_certs.find_certs() == Path('silly_platform_user')

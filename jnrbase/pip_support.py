@@ -24,12 +24,12 @@
 # support the workflow to some extent…
 
 import re
-from os import path
+from pathlib import Path
 from sys import version_info
 from typing import List
 
 
-def parse_requires(__fname: str) -> List[str]:
+def parse_requires(__fname: Path) -> List[str]:
     """Parse ``pip``-style requirements files.
 
     This is a *very* naïve parser, but very few packages make use of the more
@@ -42,7 +42,7 @@ def parse_requires(__fname: str) -> List[str]:
         Parsed dependencies
     """
     deps = []
-    with open(__fname) as req_file:
+    with __fname.open() as req_file:
         entries = [s.split('#')[0].strip() for s in req_file.readlines()]
         for dep in entries:
             if not dep:
@@ -50,7 +50,9 @@ def parse_requires(__fname: str) -> List[str]:
             elif dep.startswith('-r '):
                 include = dep.split()[1]
                 if '/' not in include:
-                    include = path.join(path.dirname(__fname), include)
+                    include = __fname.parent / include
+                else:
+                    include = Path(include)
                 deps.extend(parse_requires(include))
                 continue
             elif ';' in dep:
