@@ -22,6 +22,7 @@ from pathlib import Path
 
 from pytest import mark, raises, warns
 
+from jnrbase._version import tuple as vtuple
 from jnrbase import httplib2_certs
 
 from .utils import func_attr
@@ -46,7 +47,7 @@ def test_unbundled_package_import(monkeypatch):
 def test_bundled(path_exists_force):
     with warns(RuntimeWarning) as record:
         httplib2_certs.find_certs()
-    assert 'falling back' in record[0].message.args[0]
+    assert 'falling back' in record[1].message.args[0]
 
 
 @exists_result(False)
@@ -86,3 +87,7 @@ def test_curl_bundle(monkeypatch):
     monkeypatch.setattr('jnrbase.httplib2_certs.Path.exists', lambda p: False)
     monkeypatch.setenv('CURL_CA_BUNDLE', 'silly_platform_user')
     assert httplib2_certs.find_certs() == Path('silly_platform_user')
+
+
+def test_removed():
+    assert vtuple < (1, 3), 'httplib2 support should have been removed!'
