@@ -29,6 +29,12 @@ from sys import version_info
 from typing import List
 
 
+__eval_env = {
+    '__builtins__': {},
+    'python_version': '{}.{}'.format(*version_info[:2]),
+}
+
+
 def parse_requires(__fname: Path) -> List[str]:
     """Parse ``pip``-style requirements files.
 
@@ -69,11 +75,7 @@ def parse_requires(__fname: Path) -> List[str]:
                     """, marker, re.VERBOSE)
                 if not match:
                     raise ValueError('Invalid marker {!r}'.format(marker))
-                env = {
-                    '__builtins__': {},
-                    'python_version': '{}.{}'.format(*version_info[:2]),
-                }
-                if not eval(marker, env):  # pylint: disable=eval-used
+                if not eval(marker, __eval_env):  # pylint: disable=eval-used
                     continue
             deps.append(dep)
     return deps

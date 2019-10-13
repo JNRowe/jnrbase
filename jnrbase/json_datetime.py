@@ -47,13 +47,13 @@ def json_serialise(__o: Any) -> str:
 
 @json_serialise.register(datetime.datetime)
 def datetime_serialise(__o: datetime.datetime) -> str:
-    """JSON serialiser for ``datetime`` objects"""
+    """JSON serialiser for ``datetime`` objects."""
     return format_datetime(__o)
 
 
 @json_serialise.register(datetime.timedelta)
 def timedelta_serialise(__o: datetime.timedelta) -> str:
-    """JSON serialiser for ``timedelta`` objects"""
+    """JSON serialiser for ``timedelta`` objects."""
     return format_delta(__o)
 
 

@@ -22,7 +22,7 @@ from pathlib import Path
 
 from pytest import mark, raises
 
-from jnrbase.pip_support import parse_requires
+from jnrbase.pip_support import __eval_env, parse_requires
 
 DATA_DIR = Path(__file__).parent / 'data' / 'pip'
 
@@ -48,13 +48,11 @@ def test_abs_include():
 
 
 @mark.parametrize('version,expected', [
-    ((3, 3, 6), [
-        'contextlib2>=0.5.4',
-    ]),
-    ((3, 5, 0), []),
+    ('3.3', ['contextlib2>=0.5.4', ]),
+    ('3.5', []),
 ])
 def test_parse_markers(version, expected, monkeypatch):
-    monkeypatch.setattr('jnrbase.pip_support.version_info', version)
+    monkeypatch.setitem(__eval_env, 'python_version', version)
     assert parse_requires(data_file('markers.txt')) == expected
 
 
