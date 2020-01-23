@@ -30,7 +30,6 @@ from typing import Callable, Optional
 from click import (Context, File, argument, echo, group, option, pass_context,
                    version_option)
 
-import jnrbase
 from jnrbase import (_version, colourise, config, git, httplib2_certs,
                      human_time, iso_8601, json_datetime, pip_support,
                      template, timer, xdg_basedir)
