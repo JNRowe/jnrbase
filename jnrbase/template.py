@@ -22,7 +22,7 @@ import re
 import sys
 from datetime import datetime
 from os import path
-from typing import Callable, Union
+from typing import Callable, Dict, Union
 
 import html2text as html2
 import jinja2
@@ -35,7 +35,7 @@ from . import xdg_basedir
 from .human_time import human_timestamp
 
 #: Collection of custom filters to add to Jinja environment
-FILTERS = {}  # type: Dict[str, Callable]
+FILTERS: Dict[str, Callable] = {}
 
 
 def jinja_filter(__func: Callable) -> Callable:
