@@ -2,6 +2,8 @@
 """git - Utilities for git support."""
 # Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
 #
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
 # This file is part of jnrbase.
 #
 # jnrbase is free software: you can redistribute it and/or modify it under the
@@ -15,8 +17,6 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
-#
-# SPDX-License-Identifier: GPL-3.0+
 
 from pathlib import Path
 from subprocess import CalledProcessError, check_output

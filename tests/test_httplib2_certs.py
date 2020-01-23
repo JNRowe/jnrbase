@@ -1,6 +1,8 @@
 #
 """test_httplib2_certs - Test cert locating functions"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2019  James Rowe <jnrowe@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
 #
 # This file is part of jnrbase.
 #
@@ -15,8 +17,6 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
-#
-# SPDX-License-Identifier: GPL-3.0+
 
 from pathlib import Path
 

@@ -3,6 +3,8 @@
 # Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
 #                        Nathan McGregor <nathan.mcgregor@astrium.eads.net>
 #
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
 # This file is part of jnrbase.
 #
 # jnrbase is free software: you can redistribute it and/or modify it under the
@@ -16,8 +18,6 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
-#
-# SPDX-License-Identifier: GPL-3.0+
 
 # pip, both as a tool and a package manager, are not available on many of the
 # systems I use.  However, lots of Python users like to use it so we’ll need to
