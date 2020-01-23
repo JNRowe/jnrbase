@@ -6,6 +6,13 @@ User-visible changes
 .. contents::
    :local:
 
+1.2.0 - 2020-01-23
+------------------
+
+* ``httplib2`` certificate handling is deprecated, as it has become untenable
+  to support the various ``httplib2`` releases
+* Python 3.5 is no longer supported
+
 1.1.0 - 2018-11-21
 ------------------
 

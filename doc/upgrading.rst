@@ -46,6 +46,17 @@ A significant improvement that has been made is adding the time parsers from
 returned by ``read_configs``.  See the :func:`~jnrbase.config.read_configs`
 documentation for the list of supported functions.
 
+``httplib2`` cert handling removal (1.2.0)
+------------------------------------------
+
+It has become untenable to support ``httplib2`` certificate setup, and I can no
+no longer recommend ``httplib2``.  There are various alternatives, all with
+equally *odd* support for working system certificates.  It is unclear what
+upgrade path one should recommend for users who need stable and repeatable
+certificate handling.
+
+See :issue:`30` for more information.
+
 .. rubric:: Footnotes
 
 .. [*] My earliest `public commit`_ for Python 3 support I can find is in
