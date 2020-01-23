@@ -1,2 +1,2 @@
 deprecation>=2.0.6
-httplib2>=0.10,<0.12
+httplib2>=0.10,<0.17
