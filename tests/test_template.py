@@ -43,7 +43,7 @@ def test_filter_decorator():
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {
         'lexer': 'python'
-    }, 'f = \x1b[34mlambda\x1b[39;49;00m: \x1b[36mTrue\x1b[39;49;00m\n'),
+    }, 'f = \x1b[34mlambda\x1b[39;49;00m: \x1b[34mTrue\x1b[39;49;00m\n'),
     ('html2text', ('<b>test</b>', ), {}, '**test**'),
     ('relative_time',
      (datetime.utcnow() - timedelta(days=1), ), {}, 'yesterday'),
