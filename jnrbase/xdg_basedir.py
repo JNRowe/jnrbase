@@ -23,16 +23,16 @@
 import sys
 from os import getenv
 from pathlib import Path
-from typing import List
+from typing import Dict, List, Tuple
 
 #: Allow macOS directory structure
-ALLOW_DARWIN = True  # type: bool
+ALLOW_DARWIN: bool = True
 
-__LOCATIONS = {
+__LOCATIONS: Dict[str, Tuple[str, str]] = {
     'cache': ('Caches', '.cache'),
     'config': ('Preferences', '.config'),
     'data': ('Application Support', '.local/share'),
-}  # type: Dict[str, Tuple[str, str]]
+}
 
 
 def __user_location(__pkg: str, type_) -> Path:

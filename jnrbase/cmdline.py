@@ -30,7 +30,6 @@ from typing import Callable, Optional
 from click import (Context, File, argument, echo, group, option, pass_context,
                    version_option)
 
-import jnrbase
 from jnrbase import (_version, colourise, config, git, httplib2_certs,
                      human_time, iso_8601, json_datetime, pip_support,
                      template, timer, xdg_basedir)
@@ -191,7 +190,7 @@ def dirs():
 
 for k in ['cache', 'config', 'data']:
 
-    @dirs.command(name=k,
+    @dirs.command(name=k,  # NOQA: F811 - shadowing is fine because of ``name``
                   help='Display {} dir honouring XDG basedir.'.format(k))
     @argument('package')
     @pass_context

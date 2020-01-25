@@ -1,18 +1,18 @@
 build:
-    image: latest
+  image: latest
 
 formats:
-    - epub
+  - epub
 
 python:
-    extra_requirements:
-        - cli
-        - colour
-        - iso_8601
-        - net
-        - template
-    pip_install: true
-    version: 3
+  extra_requirements:
+    - cli
+    - colour
+    - iso_8601
+    - net
+    - template
+  pip_install: true
+  version: 3
 
 requirements_file:
-    extra/requirements-doc.txt
+  extra/requirements-doc.txt
