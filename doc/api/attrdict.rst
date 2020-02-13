@@ -36,3 +36,7 @@ Examples
     Traceback (most recent call last):
       ...
     AttributeError: <class 'jnrbase.attrdict.ROAttrDict'> is read-only
+
+.. spelling::
+
+    attrdict

@@ -1,5 +1,5 @@
 #
-"""iso_8601 - ISO-8601 support."""
+"""iso_8601 - |ISO|-8601 support."""
 # Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
@@ -25,7 +25,7 @@ import ciso8601
 
 
 def parse_delta(__string: str) -> datetime.timedelta:
-    """Parse ISO-8601 duration string.
+    """Parse |ISO|-8601 duration string.
 
     Args:
         __string: Duration string to parse
@@ -50,12 +50,12 @@ def parse_delta(__string: str) -> datetime.timedelta:
 
 
 def format_delta(__timedelta: datetime.timedelta) -> str:
-    """Format ISO-8601 duration string.
+    """Format |ISO|-8601 duration string.
 
     Args:
         __timedelta: Duration to process
     Returns:
-        ISO-8601 representation of duration
+        |ISO|-8601 representation of duration
     """
     if __timedelta == datetime.timedelta(0):
         return ''
@@ -71,7 +71,7 @@ def format_delta(__timedelta: datetime.timedelta) -> str:
 
 
 def parse_datetime(__string: str) -> datetime.datetime:
-    """Parse ISO-8601 datetime string.
+    """Parse |ISO|-8601 datetime string.
 
     Args:
         __string: Datetime string to parse
@@ -89,11 +89,11 @@ def parse_datetime(__string: str) -> datetime.datetime:
 
 
 def format_datetime(__datetime: datetime.datetime) -> str:
-    """Format ISO-8601 datetime string.
+    """Format |ISO|-8601 datetime string.
 
     Args:
         __datetime: Datetime to process
     Returns:
-        ISO-8601 compatible string
+        |ISO|-8601 compatible string
     """
     return __datetime.isoformat().replace('+00:00', 'Z')

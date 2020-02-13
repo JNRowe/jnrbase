@@ -37,3 +37,7 @@ Examples
 
     >>> find_certs()
     '/etc/ssl/certs/ca-certificates.crt'
+
+.. spelling::
+
+    httplib

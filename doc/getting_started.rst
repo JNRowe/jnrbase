@@ -25,3 +25,8 @@ Basic usage
 * :ref:`template <template-examples>`
 * :ref:`timer <timer-examples>`
 * :ref:`xdg_basedir <xdg_basedir-examples>`
+
+.. spelling::
+
+    Todo
+    rdeps

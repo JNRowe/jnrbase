@@ -53,8 +53,6 @@ if not on_rtd:
     else:
         extensions.append('sphinxcontrib.spelling')
 
-master_doc = 'index'
-
 rst_epilog = """
 .. |PyPI| replace:: :abbr:`PyPI (Python Package Index)`
 .. |modref| replace:: :mod:`jnrbase`
@@ -62,8 +60,7 @@ rst_epilog = """
 
 default_role = 'any'
 
-needs_sphinx = '1.6'
-needs_extensions = {'sphinx-autodoc-typehints': '1.2'}
+needs_sphinx = '2.0'
 
 nitpicky = True
 # }}}
@@ -75,6 +72,10 @@ copyright = f'2014-2018  {author}'
 
 version = '{major}.{minor}'.format_map(jnrbase._version.dict)
 release = jnrbase._version.dotted
+
+rst_prolog = """
+.. |ISO| replace:: :abbr:`ISO (International Organization for Standardization)`
+"""
 
 modindex_common_prefix = [
     'jnrbase.',
@@ -94,15 +95,13 @@ if not on_rtd:
 
 with suppress(CalledProcessError):
     proc = run(
-        ['git', 'log', "--pretty=format:'%ad [%h]'", '--date=short', '-n1'],
+        ['git', 'log', '--pretty=format:%ad [%h]', '--date=short', '-n1'],
         stdout=PIPE)
     html_last_updated_fmt = proc.stdout.decode()
 
 html_baseurl = 'https://jnrbase.readthedocs.io/'
 
 html_copy_source = False
-
-html_experimental_html5_writer = True
 # }}}
 
 # Options for manual page output {{{
@@ -140,8 +139,8 @@ intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
         'click': 'https://click.palletsprojects.com/en/7.x/',
-        'jinja': 'http://jinja.pocoo.org/docs/2.10/',
-        'pygments': 'http://pygments.org/',
+        'jinja': 'https://jinja.palletsprojects.com/en/2.10.x/',
+        'pygments': 'https://pygments.org/',
         'python': 'https://docs.python.org/3/',
     }.items()
 }
@@ -152,8 +151,11 @@ napoleon_numpy_docstring = False
 # }}}
 
 # spelling extension settings {{{
+spelling_ignore_acronyms = False
 spelling_lang = 'en_GB'
 spelling_word_list_filename = 'wordlist.txt'
+spelling_ignore_python_builtins = False
+spelling_ignore_importable_modules = False
 # }}}
 
 # todo extension settings {{{

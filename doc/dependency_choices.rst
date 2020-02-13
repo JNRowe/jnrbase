@@ -40,7 +40,7 @@ a good call.
 
 .. literalinclude:: ../extra/requirements-iso_8601.txt
 
-:pypi:`ciso8601` is an extremely fast parser for ISO-8601 compatible dates and
+:pypi:`ciso8601` is an extremely fast parser for |ISO|-8601 compatible dates and
 datetimes.  It is *hundreds* of times faster than many alternatives, and
 *thousands* of times faster than some.
 
@@ -134,3 +134,14 @@ improve test trustworthiness.
 .. _language: http://pygments.org/languages.html
 .. _styles: http://pygments.org/styles.html
 .. _libfaketime: http://www.code-wizards.com/projects/libfaketime/
+
+.. spelling::
+
+    aren
+    brainer
+    datetimes
+    doesn
+    isn
+    lexers
+    testsuite
+    ve

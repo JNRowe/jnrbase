@@ -161,3 +161,9 @@ User-visible changes
 .. rubric:: Footnotes
 
 .. [#] Co-workers: Use Delphine’s ``retext`` tool as a replacement.
+
+.. spelling::
+
+    Pygments
+    config
+    datetimes

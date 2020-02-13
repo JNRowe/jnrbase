@@ -26,6 +26,7 @@ Contents
    jnrbase.1
    upgrading
    dependency_choices
+   future
    NEWS
    api/index
    todo

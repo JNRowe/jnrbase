@@ -104,3 +104,16 @@ A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 jnrbase.  If not, see <http://www.gnu.org/licenses/>.
+
+.. spelling::
+
+    Config
+    Jinja
+    XDG
+    basedir
+    config
+    dir
+    dirs
+    isn
+    jnrbase
+    rc

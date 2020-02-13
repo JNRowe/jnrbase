@@ -47,3 +47,12 @@ Examples
     '/home/jay/.local/share/git_certs/github.com.pem'
     >>> get_data('awesome', 'icons/awesome.svg')
     '/usr/share/awesome/icons/awesome.svg'
+
+.. spelling::
+
+    XDG
+    basedir
+    config
+    configs
+    macOS
+    xdg

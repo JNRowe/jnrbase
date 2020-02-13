@@ -27,3 +27,7 @@ Examples
     >>> with patch.dict('os.environ', {'NO_COLOUR': 'true'}):
     ...     cfg = read_configs('jnrbase')
     >>> assert not cfg.colour
+
+.. spelling::
+
+    config
