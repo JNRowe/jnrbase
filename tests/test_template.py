@@ -19,6 +19,7 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime, timedelta
+from typing import Dict, Tuple
 
 from pytest import mark
 
@@ -48,7 +49,8 @@ def test_filter_decorator():
     ('relative_time',
      (datetime.utcnow() - timedelta(days=1), ), {}, 'yesterday'),
 ])
-def test_custom_filter(filter_, args, kwargs, expected, monkeypatch):
+def test_custom_filter(filter_: str, args: Tuple, kwargs: Dict, expected: str,
+                       monkeypatch):
     monkeypatch.setattr('sys.stdout.isatty', lambda: True)
     env = template.setup('jnrbase')
     assert env.filters[filter_](*args, **kwargs) == expected
@@ -60,6 +62,7 @@ def test_custom_filter(filter_, args, kwargs, expected, monkeypatch):
         'lexer': 'python'
     }, 'f = lambda: True'),
 ])
-def test_custom_filter_fallthrough(filter_, args, kwargs, expected):
+def test_custom_filter_fallthrough(filter_: str, args: Tuple, kwargs: Dict,
+                                   expected: str):
     env = template.setup('jnrbase')
     assert env.filters[filter_](*args, **kwargs) == expected

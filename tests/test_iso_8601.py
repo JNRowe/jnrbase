@@ -33,7 +33,7 @@ from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
     ('2011-05-04T09:15:00', datetime(2011, 5, 4, 9, 15, tzinfo=timezone.utc)),
     ('', None),
 ])
-def test_parse_datetime(string, expected):
+def test_parse_datetime(string: str, expected: datetime):
     if expected is None:
         with Timeline().freeze():
             now = datetime.now(timezone.utc)
@@ -46,7 +46,7 @@ def test_parse_datetime(string, expected):
     (datetime(2011, 5, 4, 8, 0, tzinfo=timezone.utc), '2011-05-04T08:00:00Z'),
     (datetime(2011, 5, 4, 9, 15, tzinfo=timezone.utc), '2011-05-04T09:15:00Z'),
 ])
-def test_format_datetime(dt, expected):
+def test_format_datetime(dt: datetime, expected: str):
     assert format_datetime(dt) == expected
 
 
@@ -62,7 +62,7 @@ def test_format_datetime(dt, expected):
     ('P3DT04H', timedelta(days=3, hours=4)),
     ('P3D', timedelta(days=3)),
 ])
-def test_parse_duration(string, expected):
+def test_parse_duration(string: str, expected: timedelta):
     assert parse_delta(string) == expected
 
 
@@ -78,7 +78,7 @@ def test_parse_duration(string, expected):
     (timedelta(minutes=30), 'PT30M'),
     (timedelta(hours=4, seconds=21), 'PT04H21S'),
 ])
-def test_format_duration(delta, expected):
+def test_format_duration(delta: timedelta, expected: str):
     assert format_delta(delta) == expected
 
 

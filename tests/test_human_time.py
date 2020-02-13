@@ -19,6 +19,7 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime, timedelta, timezone
+from typing import Dict
 
 from pytest import mark, raises
 
@@ -60,14 +61,14 @@ human_timestamp_examples = [
 
 
 @mark.parametrize('delta, result', human_timestamp_examples)
-def test_human_timestamp(delta, result):
+def test_human_timestamp(delta: Dict[str, int], result: str):
     now = datetime.utcnow().replace(tzinfo=timezone.utc)
     dt = now - timedelta(**delta)
     assert human_timestamp(dt) == result
 
 
 @mark.parametrize('delta, result', human_timestamp_examples)
-def test_human_timestamp_naive(delta, result):
+def test_human_timestamp_naive(delta: Dict[str, int], result: str):
     dt = datetime.utcnow() - timedelta(**delta)
     assert human_timestamp(dt) == result
 
@@ -79,7 +80,7 @@ def test_human_timestamp_naive(delta, result):
     ('0.5 y', timedelta(182, 43200)),
     ('0.5 Y', timedelta(182, 43200)),
 ])
-def test_parse_timedelta(string, dt):
+def test_parse_timedelta(string: str, dt: timedelta):
     assert parse_timedelta(string) == dt
 
 

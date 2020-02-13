@@ -33,7 +33,7 @@ pytestmark = mark.skipif(not which('git'), reason='Requires git')
 
 @mark.parametrize('type_', ['fail', 'info', 'success', 'warn'])
 @given(text())
-def test_messages(type_, text):
+def test_messages(type_: str, text: str):
     assume('\r' not in text)
     runner = CliRunner()
     result = runner.invoke(cli, 'messages {} -- {}'.format(type_, quote(text)))

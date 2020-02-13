@@ -18,6 +18,8 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Callable
+
 from pytest import mark
 
 from jnrbase import colourise
@@ -29,7 +31,7 @@ from jnrbase import colourise
     (colourise.success, '\x1b[32m\x1b[1m'),
     (colourise.warn, '\x1b[33m\x1b[1m'),
 ])
-def test_colouriser(f, expected):
+def test_colouriser(f: Callable, expected: str):
     assert expected in f('test')
 
 

@@ -19,6 +19,7 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 from pathlib import Path
+from typing import List
 
 from pytest import mark, raises
 
@@ -27,7 +28,7 @@ from jnrbase.pip_support import __eval_env, parse_requires
 DATA_DIR = Path(__file__).parent / 'data' / 'pip'
 
 
-def data_file(fname):
+def data_file(fname: str) -> Path:
     return DATA_DIR / fname
 
 
@@ -53,7 +54,7 @@ def test_abs_include():
     ]),
     ('3.5', []),
 ])
-def test_parse_markers(version, expected, monkeypatch):
+def test_parse_markers(version: str, expected: List[str], monkeypatch):
     monkeypatch.setitem(__eval_env, 'python_version', version)
     assert parse_requires(data_file('markers.txt')) == expected
 

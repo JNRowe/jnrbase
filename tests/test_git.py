@@ -33,7 +33,7 @@ pytestmark = mark.skipif(not which('git'), reason='Requires git')
 
 
 @contextmanager
-def tarball_data(tar_name):
+def tarball_data(tar_name: str):
     """Extract a tarball for test usage
 
     This fixture extracts a tarball, and returns the path to the extracted

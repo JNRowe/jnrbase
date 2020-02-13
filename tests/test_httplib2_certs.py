@@ -75,7 +75,7 @@ def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
     Path('/etc/ssl/certs/ca-certificates.crt'),
     Path('/etc/pki/tls/certs/ca-bundle.crt'),
 ])
-def test_distros(file, monkeypatch):
+def test_distros(file: Path, monkeypatch):
     monkeypatch.setattr('jnrbase.httplib2_certs.Path.exists',
                         lambda p: p == file)
     assert httplib2_certs.find_certs() == file
