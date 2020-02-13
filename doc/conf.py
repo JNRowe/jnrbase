@@ -140,8 +140,8 @@ intersphinx_mapping = {
     k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
     for k, v in {
         'click': 'https://click.palletsprojects.com/en/7.x/',
-        'jinja': 'http://jinja.pocoo.org/docs/2.10/',
-        'pygments': 'http://pygments.org/',
+        'jinja': 'https://jinja.palletsprojects.com/en/2.10.x/',
+        'pygments': 'https://pygments.org/',
         'python': 'https://docs.python.org/3/',
     }.items()
 }
