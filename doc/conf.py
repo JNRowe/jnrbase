@@ -73,6 +73,10 @@ copyright = f'2014-2018  {author}'
 version = '{major}.{minor}'.format_map(jnrbase._version.dict)
 release = jnrbase._version.dotted
 
+rst_prolog = """
+.. |ISO| replace:: :abbr:`ISO (International Organization for Standardization)`
+"""
+
 modindex_common_prefix = [
     'jnrbase.',
 ]

@@ -58,7 +58,7 @@ def timedelta_serialise(__o: datetime.timedelta) -> str:
 
 
 def json_using_iso8601(__obj: Dict) -> Dict:
-    """Parse ISO-8601 values from JSON databases.
+    """Parse |ISO|-8601 values from JSON databases.
 
     See :class:`json.JSONDecoder`
 
