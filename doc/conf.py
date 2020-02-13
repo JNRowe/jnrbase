@@ -53,8 +53,6 @@ if not on_rtd:
     else:
         extensions.append('sphinxcontrib.spelling')
 
-master_doc = 'index'
-
 rst_epilog = """
 .. |PyPI| replace:: :abbr:`PyPI (Python Package Index)`
 .. |modref| replace:: :mod:`jnrbase`
@@ -62,8 +60,7 @@ rst_epilog = """
 
 default_role = 'any'
 
-needs_sphinx = '1.6'
-needs_extensions = {'sphinx-autodoc-typehints': '1.2'}
+needs_sphinx = '2.0'
 
 nitpicky = True
 # }}}
@@ -101,8 +98,6 @@ with suppress(CalledProcessError):
 html_baseurl = 'https://jnrbase.readthedocs.io/'
 
 html_copy_source = False
-
-html_experimental_html5_writer = True
 # }}}
 
 # Options for manual page output {{{
