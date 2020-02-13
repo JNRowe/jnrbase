@@ -38,8 +38,6 @@ def tarball_data(tar_name: str):
 
     This fixture extracts a tarball, and returns the path to the extracted
     files.
-
-    :see: `tar_name`
     """
     data_dir = path.join(path.dirname(__file__), 'data', 'git')
     with open_tar(path.join(data_dir, tar_name + '.tar'), 'r:') as tar:
