@@ -1,6 +1,6 @@
 #
 """httplib2_certs - httplib2 system certs finder."""
-# Copyright © 2014-2019  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #

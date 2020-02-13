@@ -1,6 +1,6 @@
 #
 """test_json_datetime - Test JSON datetime functions"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #

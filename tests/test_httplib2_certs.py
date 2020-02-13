@@ -1,6 +1,6 @@
 #
 """test_httplib2_certs - Test cert locating functions"""
-# Copyright © 2014-2019  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #

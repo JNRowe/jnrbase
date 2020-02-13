@@ -1,6 +1,6 @@
 #
 """test_iso_8601 - Test ISO-8601 handling functions"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #

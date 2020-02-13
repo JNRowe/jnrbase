@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 """setup.py - Setuptools tasks and config for jnrbase."""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #

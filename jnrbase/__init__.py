@@ -5,7 +5,7 @@ This is a collection of common utility libraries that are used in various Open
 Source projects that I (JNRowe) work on.  Feel free to use it, and especially
 improve it, in your projects!
 """
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #

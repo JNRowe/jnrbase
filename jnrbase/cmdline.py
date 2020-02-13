@@ -1,6 +1,6 @@
 #
 """cmdline - Command line functionality for jnrbase."""
-# Copyright © 2017-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2017-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
