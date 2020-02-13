@@ -3,6 +3,7 @@
 Config
 Datetime
 Jinja
+KT
 Pygments
 Todo
 aren
@@ -15,6 +16,8 @@ configs
 couldn
 datetime
 datetimes
+dir
+dirs
 doesn
 faq
 hasn
@@ -22,17 +25,20 @@ httplib
 ish
 isn
 iso
+james
 jnrbase
 json
 lexer
 lexers
 macOS
+rc
 rdep
 rdeps
 regexp
 rst
 serialiser
 testsuite
+tty
 ve
 wasn
 xdg
