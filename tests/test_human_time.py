@@ -59,20 +59,20 @@ human_timestamp_examples = [
 ]
 
 
-@mark.parametrize('delta,result', human_timestamp_examples)
+@mark.parametrize('delta, result', human_timestamp_examples)
 def test_human_timestamp(delta, result):
     now = datetime.utcnow().replace(tzinfo=timezone.utc)
     dt = now - timedelta(**delta)
     assert human_timestamp(dt) == result
 
 
-@mark.parametrize('delta,result', human_timestamp_examples)
+@mark.parametrize('delta, result', human_timestamp_examples)
 def test_human_timestamp_naive(delta, result):
     dt = datetime.utcnow() - timedelta(**delta)
     assert human_timestamp(dt) == result
 
 
-@mark.parametrize('string,dt', [
+@mark.parametrize('string, dt', [
     ('3h', timedelta(0, 10800)),
     ('1d', timedelta(1)),
     ('1 d', timedelta(1)),

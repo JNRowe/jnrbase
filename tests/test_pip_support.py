@@ -47,7 +47,7 @@ def test_abs_include():
     assert parse_requires(data_file('base_abs.txt')) == ['httplib2', 'lxml']
 
 
-@mark.parametrize('version,expected', [
+@mark.parametrize('version, expected', [
     ('3.3', [
         'contextlib2>=0.5.4',
     ]),

@@ -38,7 +38,7 @@ def test_filter_decorator():
     assert template.FILTERS['test'] == test
 
 
-@mark.parametrize('filter_,args,kwargs,expected', [
+@mark.parametrize('filter_, args, kwargs, expected', [
     ('colourise', ('test', 'green'), {}, '\x1b[32mtest\x1b[0m'),
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {
@@ -54,7 +54,7 @@ def test_custom_filter(filter_, args, kwargs, expected, monkeypatch):
     assert env.filters[filter_](*args, **kwargs) == expected
 
 
-@mark.parametrize('filter_,args,kwargs,expected', [
+@mark.parametrize('filter_, args, kwargs, expected', [
     ('colourise', ('test', 'green'), {}, 'test'),
     ('highlight', ('f = lambda: True', ), {
         'lexer': 'python'

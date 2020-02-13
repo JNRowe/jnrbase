@@ -30,7 +30,7 @@ from .utils import func_attr
 exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731
 
 
-@mark.parametrize('local,count', [
+@mark.parametrize('local, count', [
     (True, 4),
     (False, 3),
 ])
