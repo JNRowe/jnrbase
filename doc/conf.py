@@ -152,8 +152,11 @@ napoleon_numpy_docstring = False
 # }}}
 
 # spelling extension settings {{{
+spelling_ignore_acronyms = False
 spelling_lang = 'en_GB'
 spelling_word_list_filename = 'wordlist.txt'
+spelling_ignore_python_builtins = False
+spelling_ignore_importable_modules = False
 # }}}
 
 # todo extension settings {{{
