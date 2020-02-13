@@ -1,6 +1,6 @@
 #
 """httplib2_certs - httplib2 system certs finder."""
-# Copyright © 2014-2019  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -43,7 +43,8 @@ PLATFORM_FILES = {
 }
 
 
-@deprecated(deprecated_in='1.2', removed_in='1.3',
+@deprecated(deprecated_in='1.2',
+            removed_in='1.3',
             details='httplib2 support is being removed')
 def find_certs() -> Path:
     """Find suitable certificates for ``httplib2``.

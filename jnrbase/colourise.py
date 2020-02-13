@@ -1,6 +1,6 @@
 #
 """colourise - Output colourisation support."""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #

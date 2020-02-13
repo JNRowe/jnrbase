@@ -1,6 +1,6 @@
 #
 """conf - Sphinx configuration information."""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -68,7 +68,7 @@ nitpicky = True
 # Project information {{{
 project = 'jnrbase'
 author = 'James Rowe'
-copyright = f'2014-2018  {author}'
+copyright = f'2014-2020  {author}'
 
 version = '{major}.{minor}'.format_map(jnrbase._version.dict)
 release = jnrbase._version.dotted

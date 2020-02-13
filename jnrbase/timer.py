@@ -1,6 +1,6 @@
 #
 """timer - Function timing support."""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -34,7 +34,6 @@ class Timing:  # pylint: disable=too-few-public-methods
         verbose (bool): Print elapsed time
         elapsed (datetime.timedelta): Duration of execution
     """
-
     def __init__(self, *, verbose: bool = False) -> None:
         """Configure the timing Timing context manager.
 

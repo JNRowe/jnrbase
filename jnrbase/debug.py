@@ -1,6 +1,6 @@
 #
 """debug - Miscellaneous debugging support."""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -29,7 +29,6 @@ _orig_stdout = sys.stdout  # pylint: disable=invalid-name
 
 class DebugPrint:
     """Verbose print wrapper for debugging."""
-
     def __init__(self, __handle: TextIO) -> None:
         """Configure new DebugPrint handler.
 

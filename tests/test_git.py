@@ -1,6 +1,6 @@
 #
 """test_git - Test git repository support"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -33,19 +33,17 @@ pytestmark = mark.skipif(not which('git'), reason='Requires git')
 
 
 @contextmanager
-def tarball_data(tar_name):
+def tarball_data(tar_name: str):
     """Extract a tarball for test usage
 
     This fixture extracts a tarball, and returns the path to the extracted
     files.
-
-    :see: `tar_name`
     """
     data_dir = path.join(path.dirname(__file__), 'data', 'git')
     with open_tar(path.join(data_dir, tar_name + '.tar'), 'r:') as tar:
         with TemporaryDirectory() as temp_dir:
             tar.extractall(temp_dir)
-            yield str(path.join(temp_dir, tar_name))
+            yield path.join(temp_dir, tar_name)
 
 
 def test_empty_repo():

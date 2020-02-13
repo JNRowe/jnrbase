@@ -1,6 +1,6 @@
 #
 """test_colourise - Test colourisation functions"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -18,18 +18,20 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Callable
+
 from pytest import mark
 
 from jnrbase import colourise
 
 
-@mark.parametrize('f,expected', [
+@mark.parametrize('f, expected', [
     (colourise.info, '\x1b[34m\x1b[1m'),
     (colourise.fail, '\x1b[31m\x1b[1m'),
     (colourise.success, '\x1b[32m\x1b[1m'),
     (colourise.warn, '\x1b[33m\x1b[1m'),
 ])
-def test_colouriser(f, expected):
+def test_colouriser(f: Callable, expected: str):
     assert expected in f('test')
 
 

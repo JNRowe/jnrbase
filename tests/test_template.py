@@ -1,6 +1,6 @@
 #
 """test_template - Test Jinja template support"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -19,6 +19,7 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime, timedelta
+from typing import Dict, Tuple
 
 from pytest import mark
 
@@ -38,7 +39,7 @@ def test_filter_decorator():
     assert template.FILTERS['test'] == test
 
 
-@mark.parametrize('filter_,args,kwargs,expected', [
+@mark.parametrize('filter_, args, kwargs, expected', [
     ('colourise', ('test', 'green'), {}, '\x1b[32mtest\x1b[0m'),
     ('regexp', ('test', 't', 'T'), {}, 'TesT'),
     ('highlight', ('f = lambda: True', ), {
@@ -48,18 +49,20 @@ def test_filter_decorator():
     ('relative_time',
      (datetime.utcnow() - timedelta(days=1), ), {}, 'yesterday'),
 ])
-def test_custom_filter(filter_, args, kwargs, expected, monkeypatch):
+def test_custom_filter(filter_: str, args: Tuple, kwargs: Dict, expected: str,
+                       monkeypatch):
     monkeypatch.setattr('sys.stdout.isatty', lambda: True)
     env = template.setup('jnrbase')
     assert env.filters[filter_](*args, **kwargs) == expected
 
 
-@mark.parametrize('filter_,args,kwargs,expected', [
+@mark.parametrize('filter_, args, kwargs, expected', [
     ('colourise', ('test', 'green'), {}, 'test'),
     ('highlight', ('f = lambda: True', ), {
         'lexer': 'python'
     }, 'f = lambda: True'),
 ])
-def test_custom_filter_fallthrough(filter_, args, kwargs, expected):
+def test_custom_filter_fallthrough(filter_: str, args: Tuple, kwargs: Dict,
+                                   expected: str):
     env = template.setup('jnrbase')
     assert env.filters[filter_](*args, **kwargs) == expected

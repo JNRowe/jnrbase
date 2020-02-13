@@ -1,6 +1,6 @@
 #
 """test_debug - Test debug support"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -19,6 +19,7 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 from operator import add
+from typing import Callable
 
 from pytest import mark, raises
 
@@ -29,7 +30,7 @@ from jnrbase.debug import DebugPrint, noisy_wrap, on_enter, on_exit, sys
     on_enter,
     on_exit,
 ])
-def test_decorator_no_message(ftype, capsys):
+def test_decorator_no_message(ftype: Callable, capsys):
     @ftype
     def func(x, y):
         return x + y
@@ -44,7 +45,7 @@ def test_decorator_no_message(ftype, capsys):
     on_enter,
     on_exit,
 ])
-def test_decorator_with_message(ftype, capsys):
+def test_decorator_with_message(ftype: Callable, capsys):
     assert ftype('custom message')(add)(4, 3) == 7
     assert 'custom message' in capsys.readouterr()[0]
 
@@ -53,7 +54,7 @@ def test_decorator_with_message(ftype, capsys):
     on_enter,
     on_exit,
 ])
-def test_decorator_with_failure(ftype, capsys):
+def test_decorator_with_failure(ftype: Callable, capsys):
     @ftype('custom message')
     def func(x, y):
         raise ValueError('boom')

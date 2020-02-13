@@ -1,6 +1,6 @@
 #
 """test_cmdline - Test command line functionality support"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -33,7 +33,7 @@ pytestmark = mark.skipif(not which('git'), reason='Requires git')
 
 @mark.parametrize('type_', ['fail', 'info', 'success', 'warn'])
 @given(text())
-def test_messages(type_, text):
+def test_messages(type_: str, text: str):
     assume('\r' not in text)
     runner = CliRunner()
     result = runner.invoke(cli, 'messages {} -- {}'.format(type_, quote(text)))

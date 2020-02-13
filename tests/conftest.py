@@ -1,6 +1,6 @@
 #
 """conftest - Configuration for tests."""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -37,8 +37,8 @@ def path_exists_force(request, monkeypatch):
     """
     result = getattr(request.function, 'exists_result', True)
     if isinstance(result, list):
-        monkeypatch.setattr('.'.join([_get_module(request), 'Path',
-                                      'exists']), lambda p: result.pop())
+        monkeypatch.setattr('.'.join([_get_module(request), 'Path', 'exists']),
+                            lambda p: result.pop())
     else:
-        monkeypatch.setattr('.'.join([_get_module(request), 'Path',
-                                      'exists']), lambda p: result)
+        monkeypatch.setattr('.'.join([_get_module(request), 'Path', 'exists']),
+                            lambda p: result)

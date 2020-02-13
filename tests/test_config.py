@@ -1,6 +1,6 @@
 #
 """test_config - Test configuration support"""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -30,11 +30,12 @@ from .utils import func_attr
 exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731
 
 
-@mark.parametrize('local,count', [
+@mark.parametrize('local, count', [
     (True, 4),
     (False, 3),
 ])
-def test_config_loading(local, count, monkeypatch, path_exists_force):
+def test_config_loading(local: bool, count: int, monkeypatch,
+                        path_exists_force):
     monkeypatch.setattr('jnrbase.config.Path.open', lambda s: StringIO(''))
     monkeypatch.setenv('XDG_CONFIG_DIRS', 'test1:test2')
     cfg = config.read_configs('jnrbase', local=local)
@@ -51,7 +52,7 @@ def test_config_loading_missing_files(path_exists_force):
 
 
 @mark.parametrize('envvar', ['NO_COLOUR', 'NO_COLOR'])
-def test_no_colour_from_env(envvar, monkeypatch):
+def test_no_colour_from_env(envvar: str, monkeypatch):
     monkeypatch.setenv(envvar, 'set')
     cfg = config.read_configs('jnrbase')
     assert not cfg.colour
@@ -64,7 +65,7 @@ def test_colour_default(monkeypatch):
 
 
 @mark.parametrize('directory', ['config', 'config2'])
-def test_colour_from_config(directory, monkeypatch):
+def test_colour_from_config(directory: str, monkeypatch):
     monkeypatch.setattr('os.environ', {})
     with chdir('tests/data/{}'.format(directory)):
         cfg = config.read_configs('jnrbase', local=True)

@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 """setup.py - Setuptools tasks and config for jnrbase."""
-# Copyright © 2014-2018  James Rowe <jnrowe@gmail.com>
+# Copyright © 2014-2020  James Rowe <jnrowe@gmail.com>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
@@ -62,7 +62,7 @@ def import_file(package: str, fname: str) -> ModuleType:
 
 pip_support = import_file('jnrbase', 'pip_support.py')
 
-# Note: We can't use setuptool’s requirements support as it only a list
+# Note: We can't use setuptool’s requirements support as it only a list value,
 # and doesn’t support pip’s inclusion mechanism
 extras_require = {}
 for file in Path('extra').glob('requirements-*.txt'):
@@ -72,8 +72,9 @@ for file in Path('extra').glob('requirements-*.txt'):
 
 tests_require = pip_support.parse_requires(Path('extra/requirements-test.txt'))
 
-setup(
-    extras_require=extras_require,
-    tests_require=tests_require,
-    cmdclass={'test': PytestTest},
-)
+if __name__ == '__main__':
+    setup(
+        extras_require=extras_require,
+        tests_require=tests_require,
+        cmdclass={'test': PytestTest},
+    )

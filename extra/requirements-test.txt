@@ -1,7 +1,7 @@
 -r requirements.txt
 hiro>=0.1.7
-# hiro explicitly requires mock, and not Python 3’s unittest.mock
 hypothesis>=4.14.0
+# hiro explicitly requires mock, and not Python 3’s unittest.mock
 mock>=0.7.1
 pytest>=4.0
 pytest-cov>=1.8
