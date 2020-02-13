@@ -26,7 +26,6 @@ class AttrDict(dict):
 
     See also: :obj:`dict`
     """
-
     def __contains__(self, __key: Hashable) -> bool:
         """Check for item membership.
 
@@ -77,7 +76,6 @@ class ROAttrDict(AttrDict):
 
     See also: :obj:`AttrDict`
     """
-
     def __setitem__(self, *args):
         """Handle attempt to modify read-only dictionary.
 

@@ -43,7 +43,8 @@ PLATFORM_FILES = {
 }
 
 
-@deprecated(deprecated_in='1.2', removed_in='1.3',
+@deprecated(deprecated_in='1.2',
+            removed_in='1.3',
             details='httplib2 support is being removed')
 def find_certs() -> Path:
     """Find suitable certificates for ``httplib2``.

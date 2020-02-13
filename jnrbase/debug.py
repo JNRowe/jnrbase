@@ -29,7 +29,6 @@ _orig_stdout = sys.stdout  # pylint: disable=invalid-name
 
 class DebugPrint:
     """Verbose print wrapper for debugging."""
-
     def __init__(self, __handle: TextIO) -> None:
         """Configure new DebugPrint handler.
 

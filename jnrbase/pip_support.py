@@ -28,7 +28,6 @@ from pathlib import Path
 from sys import version_info
 from typing import List
 
-
 __eval_env = {
     '__builtins__': {},
     'python_version': '{}.{}'.format(*version_info[:2]),

@@ -34,7 +34,6 @@ class Timing:  # pylint: disable=too-few-public-methods
         verbose (bool): Print elapsed time
         elapsed (datetime.timedelta): Duration of execution
     """
-
     def __init__(self, *, verbose: bool = False) -> None:
         """Configure the timing Timing context manager.
 

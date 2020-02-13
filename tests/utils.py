@@ -26,7 +26,6 @@ def func_attr(name, value):
         name (str): Attribute name to set
         value: Value to set attribute to
     """
-
     def decorator(f):
         setattr(f, name, value)
         return f

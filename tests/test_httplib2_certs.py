@@ -36,8 +36,8 @@ def test_upstream_import(path_exists_force):
 
 
 def test_unbundled_package_import(monkeypatch):
-    monkeypatch.setattr(
-        'jnrbase.httplib2_certs.Path.is_symlink', lambda p: True)
+    monkeypatch.setattr('jnrbase.httplib2_certs.Path.is_symlink',
+                        lambda p: True)
     monkeypatch.setattr('jnrbase.httplib2_certs.httplib2.CA_CERTS',
                         Path('/fixed_by_distributor/certs.crt'))
     assert httplib2_certs.find_certs() == Path('/fixed_by_distributor')
@@ -76,8 +76,8 @@ def test_freebsd_no_installed_certs(monkeypatch, path_exists_force):
     Path('/etc/pki/tls/certs/ca-bundle.crt'),
 ])
 def test_distros(file, monkeypatch):
-    monkeypatch.setattr(
-        'jnrbase.httplib2_certs.Path.exists', lambda p: p == file)
+    monkeypatch.setattr('jnrbase.httplib2_certs.Path.exists',
+                        lambda p: p == file)
     assert httplib2_certs.find_certs() == file
 
 

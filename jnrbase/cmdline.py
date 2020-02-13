@@ -53,8 +53,6 @@ def get_default(__func: Callable, __arg: str) -> str:
 @version_option(_version.dotted)
 def cli():
     """Possibly useful cli functionality."""
-
-
 @cli.group()
 def messages():
     """Format messages for users."""
@@ -190,8 +188,9 @@ def dirs():
 
 for k in ['cache', 'config', 'data']:
 
-    @dirs.command(name=k,  # NOQA: F811 - shadowing is fine because of ``name``
-                  help='Display {} dir honouring XDG basedir.'.format(k))
+    @dirs.command(
+        name=k,  # NOQA: F811 - shadowing is fine because of ``name``
+        help='Display {} dir honouring XDG basedir.'.format(k))
     @argument('package')
     @pass_context
     def func(ctx: Context, package: str):

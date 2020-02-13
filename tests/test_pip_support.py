@@ -48,7 +48,9 @@ def test_abs_include():
 
 
 @mark.parametrize('version,expected', [
-    ('3.3', ['contextlib2>=0.5.4', ]),
+    ('3.3', [
+        'contextlib2>=0.5.4',
+    ]),
     ('3.5', []),
 ])
 def test_parse_markers(version, expected, monkeypatch):
