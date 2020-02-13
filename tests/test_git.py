@@ -45,7 +45,7 @@ def tarball_data(tar_name: str):
     with open_tar(path.join(data_dir, tar_name + '.tar'), 'r:') as tar:
         with TemporaryDirectory() as temp_dir:
             tar.extractall(temp_dir)
-            yield str(path.join(temp_dir, tar_name))
+            yield path.join(temp_dir, tar_name)
 
 
 def test_empty_repo():
