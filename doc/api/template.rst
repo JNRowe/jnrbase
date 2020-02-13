@@ -46,3 +46,11 @@ Examples
     'heLLo'
     >>> regexp('hello', 'l', 'L')
     'heLLo'
+
+.. spelling::
+
+    Jinja
+    jinja
+    lexer
+    regexp
+    tty

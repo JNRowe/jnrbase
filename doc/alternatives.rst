@@ -13,3 +13,9 @@ out people who are already familiar with one of the entries below.
 .. todo::
 
    Transfer text from #338916
+
+.. spelling::
+
+    Todo
+    isn
+    todo

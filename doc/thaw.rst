@@ -28,3 +28,9 @@ ask`_!
 .. _pip: http://www.pip-installer.org/
 .. _setuptools: https://pypi.org/project/setuptools/
 .. _feel free to ask: jnrowe@gmail.com
+
+.. spelling::
+
+    Todo
+    couldn
+    hasn

@@ -33,3 +33,7 @@ Examples
     about six hours ago
     $ jnrbase config rdial 'run wrappers' mutt
     -c mutt mail
+
+.. spelling::
+
+    cmdline

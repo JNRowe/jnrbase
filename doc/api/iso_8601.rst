@@ -48,3 +48,9 @@ Examples
     datetime.datetime(2016, 12, 1, 13, 2, 26, tzinfo=datetime.timezone.utc)
     >>> format_datetime(parse_datetime(timestamp)) == timestamp
     True
+
+.. spelling::
+
+    Datetime
+    iso
+    datetime

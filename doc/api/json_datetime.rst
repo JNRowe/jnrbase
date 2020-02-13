@@ -59,3 +59,10 @@ Examples
     '{"test": "2016-11-30T18:35:00Z"}'
     >>> loads(dumps(data, indent=None)) == data
     True
+
+.. spelling::
+
+    KT
+    datetime
+    json
+    serialiser

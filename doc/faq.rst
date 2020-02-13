@@ -31,3 +31,8 @@ to have to relearn it in the future.
 Note that it is entirely reasonable to convert :obj:`~datetime.datetime` objects
 to naïve format for internal usage, in fact I do so myself for the significant
 speed boost it can provide when processing *heaps* of objects.
+
+.. spelling::
+
+    Todo
+    rdep

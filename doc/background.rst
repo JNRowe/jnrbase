@@ -63,3 +63,7 @@ that too.
 
 .. _pip: http://www.pip-installer.org/
 .. _setuptools: https://pypi.org/project/setuptools/
+
+.. spelling::
+
+    wasn
