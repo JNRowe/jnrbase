@@ -64,30 +64,6 @@ datetimes.  It is *hundreds* of times faster than many alternatives, and
 I really can’t recommend it enough, especially as it will force you to use
 standardised timestamps in your applications.
 
-``net``
--------
-
-.. literalinclude:: ../extra/requirements-net.txt
-
-The use of :pypi:`httplib2` is a difficult choice to make.  A few years ago
-there was no real competition at all, but…
-
-A large chunk of the Python community appears to have coalesced around
-``requests`` in recent years, but it isn’t suited to the environments I work
-in.  The way it bundles packages means that nearly every system I use piles
-patches on top of it to work around problems, if they bother to support it at
-all.
-
-With the missing packages and randomly patched source, it is a complete
-nightmare to debug.  And with that, simply not an option.
-
-.. note::
-
-    ``httplib2`` isn’t immune to this, since 0.7.0 the :pypi:`socks` package is
-    bundled.  However, the functionality isn’t used all that often and the
-    removal patches are all small, simple and *most importantly* uniform across
-    systems.
-
 ``template``
 ------------
 

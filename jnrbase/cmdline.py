@@ -30,9 +30,8 @@ from typing import Callable, Optional
 from click import (Context, File, argument, echo, group, option, pass_context,
                    version_option)
 
-from jnrbase import (_version, colourise, config, git, httplib2_certs,
-                     human_time, iso_8601, json_datetime, pip_support,
-                     template, timer, xdg_basedir)
+from jnrbase import (_version, colourise, config, git, human_time, iso_8601,
+                     json_datetime, pip_support, template, timer, xdg_basedir)
 
 
 def get_default(__func: Callable, __arg: str) -> str:
@@ -123,12 +122,6 @@ def config_(name: str, local: bool, package: str, section: str,
 def find_tag(match: str, strict: bool, directory: Path):
     with suppress(CalledProcessError):
         echo(git.find_tag(match, strict=strict, git_dir=directory))
-
-
-@cli.command()
-def certs():
-    """Find location of system certificates."""
-    echo(httplib2_certs.find_certs())
 
 
 @cli.command()

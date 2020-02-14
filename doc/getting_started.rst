@@ -15,7 +15,6 @@ Basic usage
 * :ref:`debug <debug-examples>`
 * :ref:`entry <entry-examples>`
 * :ref:`git <git-examples>`
-* :ref:`httplib2_certs <httplib2_certs-examples>`
 * :ref:`human_time <human_time-examples>`
 * :ref:`i18n <i18n-examples>`
 * :ref:`iso_8601 <iso_8601-examples>`

@@ -6,6 +6,11 @@ User-visible changes
 .. contents::
    :local:
 
+1.3.0 - 2020-02-14
+------------------
+
+* ``httplib2`` certificate support is gone, pin to ``<=1.3.0`` if you need it
+
 1.2.0 - 2020-01-23
 ------------------
 
