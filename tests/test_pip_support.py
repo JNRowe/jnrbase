@@ -19,7 +19,7 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 from pathlib import Path
-from typing import List
+from typing import Iterable
 
 from pytest import mark, raises
 
@@ -54,7 +54,7 @@ def test_abs_include():
     ]),
     ('3.5', []),
 ])
-def test_parse_markers(version: str, expected: List[str], monkeypatch):
+def test_parse_markers(version: str, expected: Iterable[str], monkeypatch):
     monkeypatch.setitem(__eval_env, 'python_version', version)
     assert parse_requires(data_file('markers.txt')) == expected
 
