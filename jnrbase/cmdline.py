@@ -190,8 +190,8 @@ def dirs():
 
 for k in ['cache', 'config', 'data']:
 
-    @dirs.command(
-        name=k,  # NOQA: F811 - shadowing is fine because of ``name``
+    @dirs.command(  # NOQA: F811 - shadowing is fine because of ``name``
+        name=k,
         help='Display {} dir honouring XDG basedir.'.format(k))
     @argument('package')
     @pass_context
