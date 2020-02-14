@@ -53,6 +53,8 @@ def get_default(__func: Callable, __arg: str) -> str:
 @version_option(_version.dotted)
 def cli():
     """Possibly useful cli functionality."""
+
+
 @cli.group()
 def messages():
     """Format messages for users."""
