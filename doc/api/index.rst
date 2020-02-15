@@ -18,7 +18,6 @@ dependencies to function.
    debug
    entry
    git
-   httplib2_certs
    human_time
    i18n
    iso_8601

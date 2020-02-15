@@ -41,9 +41,6 @@ OPTIONS
 COMMANDS
 --------
 
-.. click:: jnrbase.cmdline:certs
-   :prog: jnrbase certs
-
 .. click:: jnrbase.cmdline:config_
    :prog: jnrbase config
 

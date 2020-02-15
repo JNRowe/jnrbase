@@ -20,7 +20,6 @@ Extra tag     Dependencies
 ============  ====================================
 ``colour``    click_ ≥ 7.0
 ``iso_8601``  ciso8601_ ≥ 2.0.1
-``net``       httplib2_
 ``template``  html2text_, Jinja2_ ≥ 2.9, Pygments_
 ============  ====================================
 
@@ -75,7 +74,6 @@ reproduce the problem, or even better a fix!
 .. _GPL v3: http://www.gnu.org/licenses/
 .. _click: https://pypi.org/project/click/
 .. _ciso8601: https://pypi.org/project/ciso8601/
-.. _httplib2: https://pypi.org/project/httplib2/
 .. _html2text: https://pypi.org/project/html2text/
 .. _jinja2: https://pypi.org/project/jinja2/
 .. _pygments: https://pypi.org/project/pygments/
