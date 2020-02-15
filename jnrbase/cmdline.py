@@ -154,7 +154,7 @@ def pretty_time(timestamp: str) -> None:
 @argument('name')
 def pip_requires(name: str) -> None:
     """Parse pip requirements file."""
-    requires = pip_support.parse_requires(name)
+    requires = pip_support.parse_requires(Path(name))
     for req in requires:
         echo(req)
 

@@ -16,10 +16,12 @@ Examples
 
 .. testsetup::
 
+    from pathlib import Path
+
     from jnrbase.pip_support import parse_requires
 
 .. doctest::
    :options: +ELLIPSIS
 
-    >>> parse_requires('extra/requirements-test.txt')
+    >>> parse_requires(Path('extra/requirements-test.txt'))
     ['click>=7.0', ..., 'pytest-randomly>=1.2']
