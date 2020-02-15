@@ -25,7 +25,7 @@ from inspect import signature
 from io import TextIOBase
 from pathlib import Path
 from subprocess import CalledProcessError, run
-from typing import Callable, NoReturn, Optional
+from typing import Callable, Optional
 
 from click import (Context, File, argument, echo, group, option, pass_context,
                    version_option)
@@ -81,7 +81,7 @@ for k in ['fail', 'info', 'success', 'warn']:
                       help=getattr(colourise, k).__doc__.splitlines()[0])
     @text_arg
     @pass_context
-    def func(ctx: Context, text: str) -> Optional[NoReturn]:
+    def func(ctx: Context, text: str):
         getattr(colourise, 'p{}'.format(ctx.command.name))(text)
         if ctx.command.name == 'fail':
             ctx.exit(1)

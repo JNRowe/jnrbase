@@ -18,11 +18,11 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Callable, NoReturn, Union
+from typing import Callable, Optional
 
 
-def entry_point(__func: Callable[[None], int]
-                ) -> Union[NoReturn, Callable[[None], int]]:
+def entry_point(
+        __func: Callable[[None], int]) -> Optional[Callable[[None], int]]:
     """Execute function when module is run directly.
 
     Note:
