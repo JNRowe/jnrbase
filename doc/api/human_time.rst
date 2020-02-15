@@ -33,6 +33,6 @@ Examples
     'about four hours ago'
 
     >>> parse_timedelta('3d')
-    datetime.timedelta(3)
+    datetime.timedelta(days=3)
     >>> parse_timedelta('1y')
-    datetime.timedelta(365)
+    datetime.timedelta(days=365)

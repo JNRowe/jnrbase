@@ -40,7 +40,7 @@ Examples
 
     >>> delta = 'PT02H07M43S'
     >>> parse_delta(delta)
-    datetime.timedelta(0, 7663)
+    datetime.timedelta(seconds=7663)
     >>> format_delta(parse_delta(delta)) == delta
     True
     >>> timestamp = '2016-12-01T13:02:26Z'
