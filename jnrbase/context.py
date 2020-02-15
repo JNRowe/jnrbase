@@ -21,7 +21,7 @@
 import contextlib
 import os
 from pathlib import Path
-from typing import ContextManager, Dict, Union
+from typing import ContextManager
 
 
 @contextlib.contextmanager
@@ -43,7 +43,7 @@ def chdir(__path: Path) -> ContextManager:
 
 
 @contextlib.contextmanager
-def env(**kwargs: Union[Dict[str, str], None]) -> ContextManager:
+def env(**kwargs: str) -> ContextManager:
     """Context handler to temporarily alter environment.
 
     If you supply a value of ``None``, then the associated key will be deleted
