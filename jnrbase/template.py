@@ -38,7 +38,7 @@ from .human_time import human_timestamp
 FILTERS: Dict[str, Callable] = {}
 
 
-def jinja_filter(__func: Callable) -> Callable:
+def jinja_filter(__func: Callable[..., str]) -> Callable[..., str]:
     """Simple decorator to add a new filter to Jinja environment.
 
     See also: :obj:`FILTERS`

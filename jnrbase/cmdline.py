@@ -25,7 +25,7 @@ from inspect import signature
 from io import TextIOBase
 from pathlib import Path
 from subprocess import CalledProcessError, run
-from typing import Callable, Optional
+from typing import Callable, NoReturn, Optional
 
 from click import (Context, File, argument, echo, group, option, pass_context,
                    version_option)
@@ -51,12 +51,12 @@ def get_default(__func: Callable, __arg: str) -> str:
 @group(epilog='Please report bugs at https://github.com/JNRowe/jnrbase/issues',
        context_settings={'help_option_names': ['-h', '--help']})
 @version_option(_version.dotted)
-def cli():
+def cli() -> None:
     """Possibly useful cli functionality."""
 
 
 @cli.group()
-def messages():
+def messages() -> None:
     """Format messages for users."""
 
 
@@ -82,7 +82,7 @@ for k in ['fail', 'info', 'success', 'warn']:
                       help=getattr(colourise, k).__doc__.splitlines()[0])
     @text_arg
     @pass_context
-    def func(ctx: Context, text: str):
+    def func(ctx: Context, text: str) -> Optional[NoReturn]:
         getattr(colourise, 'p{}'.format(ctx.command.name))(text)
         if ctx.command.name == 'fail':
             ctx.exit(1)
@@ -98,7 +98,7 @@ for k in ['fail', 'info', 'success', 'warn']:
 @argument('section')
 @argument('key', required=False)
 def config_(name: str, local: bool, package: str, section: str,
-            key: Optional[str]):
+            key: Optional[str]) -> None:
     """Extract or list values from config."""
     cfg = config.read_configs(package, name, local=local)
     if key:
@@ -122,20 +122,20 @@ def config_(name: str, local: bool, package: str, section: str,
         type=Path,
         default=get_default(git.find_tag, 'git_dir'),
         help='Git repository to operate on.')
-def find_tag(match: str, strict: bool, directory: Path):
+def find_tag(match: str, strict: bool, directory: Path) -> None:
     with suppress(CalledProcessError):
         echo(git.find_tag(match, strict=strict, git_dir=directory))
 
 
 @cli.command()
-def certs():
+def certs() -> None:
     """Find location of system certificates."""
     echo(httplib2_certs.find_certs())
 
 
 @cli.command()
 @argument('timestamp')
-def pretty_time(timestamp: str):
+def pretty_time(timestamp: str) -> None:
     """Format timestamp for human consumption."""
     try:
         parsed = iso_8601.parse_datetime(timestamp)
@@ -152,7 +152,7 @@ def pretty_time(timestamp: str):
 
 @cli.command()
 @argument('name')
-def pip_requires(name: str):
+def pip_requires(name: str) -> None:
     """Parse pip requirements file."""
     requires = pip_support.parse_requires(name)
     for req in requires:
@@ -163,7 +163,7 @@ def pip_requires(name: str):
 @option('-e', '--env', type=File(), help='JSON data to generate output with.')
 @argument('package')
 @argument('tmpl')
-def gen_text(env: TextIOBase, package: str, tmpl: str):
+def gen_text(env: TextIOBase, package: str, tmpl: str) -> None:
     """Create output from Jinja template."""
     if env:
         env_args = json_datetime.load(env)
@@ -176,7 +176,7 @@ def gen_text(env: TextIOBase, package: str, tmpl: str):
 @cli.command()
 @argument('command')
 @pass_context
-def time(ctx: Context, command: str):
+def time(ctx: Context, command: str) -> None:
     """Time the output of a command."""
     with timer.Timing(verbose=True):
         proc = run(command, shell=True)
@@ -184,7 +184,7 @@ def time(ctx: Context, command: str):
 
 
 @cli.group()
-def dirs():
+def dirs() -> None:
     """Query package directories."""
 
 
@@ -195,7 +195,7 @@ for k in ['cache', 'config', 'data']:
         help='Display {} dir honouring XDG basedir.'.format(k))
     @argument('package')
     @pass_context
-    def func(ctx: Context, package: str):
+    def func(ctx: Context, package: str) -> None:
         echo(getattr(xdg_basedir, 'user_{}'.format(ctx.command.name))(package))
 
 

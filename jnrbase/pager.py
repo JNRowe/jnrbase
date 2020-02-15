@@ -23,7 +23,7 @@ from typing import Optional
 
 
 # pylint: disable=redefined-outer-name
-def pager(__text: str, *, pager: Optional[str] = 'less'):
+def pager(__text: str, *, pager: Optional[str] = 'less') -> None:
     """Pass output through pager.
 
     See :manpage:`less(1)`, if you wish to configure the default pager.  For
