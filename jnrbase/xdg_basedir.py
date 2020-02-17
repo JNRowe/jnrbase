@@ -35,7 +35,7 @@ __LOCATIONS: Dict[str, Tuple[str, str]] = {
 }
 
 
-def __user_location(__pkg: str, type_) -> Path:
+def __user_location(__pkg: str, __type) -> Path:
     """Utility function to look up XDG basedir locations
 
     Args:
@@ -43,11 +43,11 @@ def __user_location(__pkg: str, type_) -> Path:
         __type: Location type
     """
     if ALLOW_DARWIN and sys.platform == 'darwin':
-        user_dir = Path('~/Library') / __LOCATIONS[type_][0]
+        user_dir = Path('~/Library') / __LOCATIONS[__type][0]
     else:
         user_dir = Path(
-            getenv('XDG_{}_HOME'.format(type_.upper()),
-                   Path.home() / __LOCATIONS[type_][1]))
+            getenv('XDG_{}_HOME'.format(__type.upper()),
+                   Path.home() / __LOCATIONS[__type][1]))
     return user_dir.expanduser() / __pkg
 
 
