@@ -44,7 +44,7 @@ def parse_delta(__string: str) -> datetime.timedelta:
         ((?P<seconds>\d{1,2})?((?:\.(?P<microseconds>\d+))?S)?)
     """, __string, re.VERBOSE)
     if not match:
-        raise ValueError('Unable to parse delta {!r}'.format(__string))
+        raise ValueError(f'Unable to parse delta {__string!r}')
     match_dict = {k: int(v) if v else 0 for k, v in match.groupdict().items()}
     return datetime.timedelta(**match_dict)
 
@@ -59,15 +59,20 @@ def format_delta(__timedelta: datetime.timedelta) -> str:
     """
     if __timedelta == datetime.timedelta(0):
         return ''
-    days_s = '{}D'.format(__timedelta.days) if __timedelta.days else ''
+    result = ['P', ]
+    if __timedelta.days:
+        result.append(f'{__timedelta.days}D')
     hours, minutes = divmod(__timedelta.seconds, 3600)
     minutes, seconds = divmod(minutes, 60)
-    hours_s = '{:02d}H'.format(hours) if hours else ''
-    minutes_s = '{:02d}M'.format(minutes) if minutes else ''
-    seconds_s = '{:02d}S'.format(seconds) if seconds else ''
-    return 'P{}{}{}{}{}'.format(days_s,
-                                'T' if hours or minutes or seconds else '',
-                                hours_s, minutes_s, seconds_s)
+    if hours or minutes or seconds:
+        result.append('T')
+    if hours:
+        result.append(f'{hours:02d}H')
+    if minutes:
+        result.append(f'{minutes:02d}M')
+    if seconds:
+        result.append(f'{seconds:02d}S')
+    return ''.join(result)
 
 
 def parse_datetime(__string: str) -> datetime.datetime:

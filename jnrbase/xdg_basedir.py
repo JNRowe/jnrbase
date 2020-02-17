@@ -46,7 +46,7 @@ def __user_location(__pkg: str, __type) -> Path:
         user_dir = Path('~/Library') / __LOCATIONS[__type][0]
     else:
         user_dir = Path(
-            getenv('XDG_{}_HOME'.format(__type.upper()),
+            getenv(f'XDG_{__type.upper()}_HOME',
                    Path.home() / __LOCATIONS[__type][1]))
     return user_dir.expanduser() / __pkg
 
@@ -105,7 +105,7 @@ def get_data(__pkg: str, __name: str) -> Path:
         test_path = dname / __name
         if test_path.exists():
             return test_path
-    raise FileNotFoundError('No data file {!r} for {!r}'.format(__name, __pkg))
+    raise FileNotFoundError(f'No data file {__name!r} for {__pkg!r}')
 
 
 def get_data_dirs(__pkg: str) -> List[Path]:

@@ -36,10 +36,10 @@ if not on_rtd:
 
 # General configuration {{{
 extensions = \
-    ['sphinx.ext.{}'.format(ext)
+    [f'sphinx.ext.{ext}'
      for ext in ['autodoc', 'coverage', 'doctest', 'extlinks', 'intersphinx',
                  'napoleon', 'todo', 'viewcode']] \
-    + ['sphinxcontrib.{}'.format(ext) for ext in []] \
+    + [f'sphinxcontrib.{ext}' for ext in []] \
     + ['sphinx_autodoc_typehints', 'sphinx_click.ext']
 
 if not on_rtd:
@@ -122,10 +122,10 @@ coverage_write_headline = False
 # }}}
 
 # extlinks extension settings {{{
-github_base = 'https://github.com/JNRowe/{}/'.format(project)
+github_base = f'https://github.com/JNRowe/{project}/'
 extlinks = {
-    'issue': ('{}issues/%s'.format(github_base), 'issue #'),
-    'pr': ('{}pull/%s'.format(github_base), 'pull request #'),
+    'issue': (f'{github_base}issues/%s', 'issue #'),
+    'pr': (f'{github_base}pull/%s', 'pull request #'),
     'pypi': ('https://pypi.org/project/%s/', ''),
 }
 # }}}
@@ -136,7 +136,7 @@ graphviz_output_format = 'svg'
 
 # intersphinx extension settings {{{
 intersphinx_mapping = {
-    k: (v, os.getenv('SPHINX_{}_OBJECTS'.format(k.upper())))
+    k: (v, os.getenv(f'SPHINX_{k.upper()}_OBJECTS'))
     for k, v in {
         'click': 'https://click.palletsprojects.com/en/7.x/',
         'jinja': 'https://jinja.palletsprojects.com/en/2.10.x/',

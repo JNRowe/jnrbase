@@ -36,7 +36,7 @@ pytestmark = mark.skipif(not which('git'), reason='Requires git')
 def test_messages(type_: str, text: str):
     assume('\r' not in text)
     runner = CliRunner()
-    result = runner.invoke(cli, 'messages {} -- {}'.format(type_, quote(text)))
+    result = runner.invoke(cli, f'messages {type_} -- {quote(text)}')
     if type_ == 'fail':
         assert result.exit_code == 1
     else:

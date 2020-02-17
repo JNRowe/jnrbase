@@ -54,7 +54,7 @@ def import_file(package: str, fname: str) -> ModuleType:
         Imported module
     """
     mod_name = fname.rstrip('.py')
-    spec = spec_from_file_location(mod_name, '{}/{}'.format(package, fname))
+    spec = spec_from_file_location(mod_name, f'{package}/{fname}')
     module = module_from_spec(spec)
     spec.loader.exec_module(module)
     return module

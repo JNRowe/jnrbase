@@ -54,4 +54,4 @@ class Timing:  # pylint: disable=too-few-public-methods
         now = datetime.utcnow()
         self.elapsed = now - self._start
         if self.verbose:
-            print('Started {}'.format(human_timestamp(self._start)))
+            print(f'Started {human_timestamp(self._start)}')

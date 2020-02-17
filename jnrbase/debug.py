@@ -107,7 +107,7 @@ def on_enter(__msg: Optional[Union[Callable, str]] = None) -> Callable:
             if __msg:
                 print(__msg)
             else:
-                print('Entering {!r}({!r})'.format(__func.__name__, __func))
+                print(f'Entering {__func.__name__!r}({__func!r})')
             return __func(*args, **kwargs)
 
         return wrapper
@@ -137,7 +137,7 @@ def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
                 if __msg:
                     print(__msg)
                 else:
-                    print('Exiting {!r}({!r})'.format(__func.__name__, __func))
+                    print(f'Exiting {__func.__name__!r}({__func!r})')
 
         return wrapper
 

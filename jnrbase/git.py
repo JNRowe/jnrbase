@@ -46,7 +46,7 @@ def find_tag(__matcher: str = 'v[0-9]*',
     with chdir(git_dir):
         try:
             stdout = check_output(command + [
-                '--match={}'.format(__matcher),
+                f'--match={__matcher}',
             ])
         except CalledProcessError:
             if strict:

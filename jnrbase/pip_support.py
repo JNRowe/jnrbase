@@ -30,7 +30,7 @@ from typing import List
 
 __eval_env = {
     '__builtins__': {},
-    'python_version': '{}.{}'.format(*version_info[:2]),
+    'python_version': '{0.major}.{0.minor}'.format(version_info)
 }
 
 
@@ -73,7 +73,7 @@ def parse_requires(__fname: Path) -> List[str]:
                         (?P<quote>(?:'|"))(?:[\d\.]+)(?P=quote)  # Test
                     """, marker, re.VERBOSE)
                 if not match:
-                    raise ValueError('Invalid marker {!r}'.format(marker))
+                    raise ValueError(f'Invalid marker {marker!r}')
                 if not eval(marker, __eval_env):  # pylint: disable=eval-used
                     continue
             deps.append(dep)

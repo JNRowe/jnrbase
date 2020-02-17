@@ -82,6 +82,6 @@ class ROAttrDict(AttrDict):
         Raises:
             AttributeError: On modification attempt
         """
-        raise AttributeError('{!r} is read-only'.format(self.__class__))
+        raise AttributeError(f'{self.__class__!r} is read-only')
 
     __delattr__ = __delitem__ = __setattr__ = __setitem__

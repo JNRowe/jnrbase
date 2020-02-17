@@ -82,7 +82,7 @@ for k in ['fail', 'info', 'success', 'warn']:
     @text_arg
     @pass_context
     def func(ctx: Context, text: str):
-        getattr(colourise, 'p{}'.format(ctx.command.name))(text)
+        getattr(colourise, f'p{ctx.command.name}')(text)
         if ctx.command.name == 'fail':
             ctx.exit(1)
 
@@ -107,7 +107,7 @@ def config_(name: str, local: bool, package: str, section: str,
         with suppress(NoSectionError):
             for opt in cfg.options(section):
                 colourise.pinfo(opt)
-                echo('    {}'.format(cfg.get(section, opt)))
+                echo(f'    {cfg.get(section, opt)}')
 
 
 @cli.command()
@@ -185,11 +185,11 @@ for k in ['cache', 'config', 'data']:
 
     @dirs.command(  # NOQA: F811 - shadowing is fine because of ``name``
         name=k,
-        help='Display {} dir honouring XDG basedir.'.format(k))
+        help=f'Display {k} dir honouring XDG basedir.')
     @argument('package')
     @pass_context
     def func(ctx: Context, package: str) -> None:
-        echo(getattr(xdg_basedir, 'user_{}'.format(ctx.command.name))(package))
+        echo(getattr(xdg_basedir, f'user_{ctx.command.name}')(package))
 
 
 if __name__ == '__main__':

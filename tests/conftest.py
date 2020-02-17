@@ -23,7 +23,7 @@ from pytest import fixture
 
 def _get_module(request):
     modbase = request.module.__name__.replace('tests.test_', '')
-    return 'jnrbase.{}'.format(modbase)
+    return f'jnrbase.{modbase}'
 
 
 @fixture

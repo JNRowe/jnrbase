@@ -67,6 +67,6 @@ def test_colour_default(monkeypatch):
 @mark.parametrize('directory', ['config', 'config2'])
 def test_colour_from_config(directory: str, monkeypatch):
     monkeypatch.setattr('os.environ', {})
-    with chdir('tests/data/{}'.format(directory)):
+    with chdir(f'tests/data/{directory}'):
         cfg = config.read_configs('jnrbase', local=True)
     assert not cfg.colour

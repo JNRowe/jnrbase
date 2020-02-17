@@ -60,7 +60,7 @@ def human_timestamp(__timestamp: datetime.datetime) -> str:
     if i == 0:
         result = 'right now'
     elif i == 1 and name in ('year', 'month', 'week'):
-        result = 'last {}'.format(name)
+        result = f'last {name}'
     elif i == 1 and name == 'day':
         result = 'yesterday'
     elif i == 1 and name == 'hour':
