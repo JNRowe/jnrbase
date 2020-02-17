@@ -66,12 +66,9 @@ def format_delta(__timedelta: datetime.timedelta) -> str:
     minutes, seconds = divmod(minutes, 60)
     if hours or minutes or seconds:
         result.append('T')
-    if hours:
-        result.append(f'{hours:02d}H')
-    if minutes:
-        result.append(f'{minutes:02d}M')
-    if seconds:
-        result.append(f'{seconds:02d}S')
+    for k, v in zip('HMS', [hours, minutes, seconds]):
+        if v:
+            result.append(f'{v:02d}{k}')
     return ''.join(result)
 
 
