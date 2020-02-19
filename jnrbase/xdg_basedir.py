@@ -35,7 +35,7 @@ __LOCATIONS: Dict[str, Tuple[str, str]] = {
 }
 
 
-def __user_location(__pkg: str, __type) -> Path:
+def __user_location(__pkg: str, __type) -> Path:  # NOQA: N802
     """Utility function to look up XDG basedir locations
 
     Args:
@@ -51,7 +51,7 @@ def __user_location(__pkg: str, __type) -> Path:
     return user_dir.expanduser() / __pkg
 
 
-def __xdg_lookup(name):
+def __xdg_lookup(name):  # NOQA: N802
     def tmpl(__pkg: str) -> Path:
         """Return a {0} location honouring :envvar:`XDG_{1}_HOME`.
 
