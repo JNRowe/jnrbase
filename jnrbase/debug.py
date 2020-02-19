@@ -23,7 +23,7 @@ import os
 import sys
 from functools import wraps
 from io import TextIOWrapper
-from typing import Callable, Optional, TextIO, Union
+from typing import Callable, Optional, TextIO, Union, cast
 
 _orig_stdout = sys.stdout  # pylint: disable=invalid-name
 
@@ -91,43 +91,16 @@ def noisy_wrap(__func: Callable) -> Callable:
     return wrapper
 
 
-def on_enter(__msg: Optional[Union[Callable, str]] = None) -> Callable:
-    """Decorator to display a message when entering a function.
+def __debug_decorator(__type: str, __msg: str) -> Callable:
+    """Utility function to generate debug decorators.
 
     Args:
+        __type: Decorator type for output
         __msg: Message to display
     Returns:
         Wrapped function
 
     """
-
-    # pylint: disable=missing-docstring
-    def decorator(__func):
-        @wraps(__func)
-        def wrapper(*args, **kwargs):
-            if __msg:
-                print(__msg)
-            else:
-                print(f'Entering {__func.__name__!r}({__func!r})')
-            return __func(*args, **kwargs)
-
-        return wrapper
-
-    if callable(__msg):
-        return on_enter()(__msg)
-    return decorator
-
-
-def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
-    """Decorator to display a message when exiting a function.
-
-    Args:
-        __msg: Message to display
-    Returns:
-        Wrapped function
-
-    """
-
     # pylint: disable=missing-docstring
     def decorator(__func):
         @wraps(__func)
@@ -138,10 +111,38 @@ def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
                 if __msg:
                     print(__msg)
                 else:
-                    print(f'Exiting {__func.__name__!r}({__func!r})')
-
+                    print(f'{__type}ing {__func.__name__!r}({__func!r})')
         return wrapper
+    return decorator
 
+
+def on_enter(__msg: Optional[Union[Callable, str]] = None) -> Callable:
+    """Decorator to display a message when entering a function.
+
+    See also: :func:`__debug_decorator`
+
+    Args:
+        __msg: Message to display
+    Returns:
+        Wrapped function
+
+    """
+    if callable(__msg):
+        return on_enter()(__msg)
+    return __debug_decorator('Enter', cast(str, __msg))
+
+
+def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
+    """Decorator to display a message when exiting a function.
+
+    See also: :func:`__debug_decorator`
+
+    Args:
+        __msg: Message to display
+    Returns:
+        Wrapped function
+
+    """
     if callable(__msg):
         return on_exit()(__msg)
-    return decorator
+    return __debug_decorator('Exit', cast(str, __msg))
