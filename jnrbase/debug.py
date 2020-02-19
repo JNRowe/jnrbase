@@ -22,12 +22,13 @@ import inspect
 import os
 import sys
 from functools import wraps
+from io import TextIOWrapper
 from typing import Callable, Optional, TextIO, Union
 
 _orig_stdout = sys.stdout  # pylint: disable=invalid-name
 
 
-class DebugPrint:
+class DebugPrint(TextIOWrapper):
     """Verbose print wrapper for debugging."""
     def __init__(self, __handle: TextIO) -> None:
         """Configure new DebugPrint handler.
@@ -37,15 +38,13 @@ class DebugPrint:
         """
         self.handle = __handle
 
-    def write(self, __text: str) -> None:
+    def write(self, __text: str) -> int:
         """Write text to the debug stream.
 
         Args:
             __text: Text to write
         """
-        if __text == os.linesep:
-            self.handle.write(__text)
-        else:
+        if __text != os.linesep:
             frame = inspect.currentframe()
             if frame is None:
                 filename = 'unknown'
@@ -54,8 +53,10 @@ class DebugPrint:
                 outer = frame.f_back
                 filename = outer.f_code.co_filename.split(os.sep)[-1]
                 lineno = outer.f_lineno
-            self.handle.write('[{:>15s}:{:03d}] {}'.format(
-                filename[-15:], lineno, __text))
+            __text = '[{:>15s}:{:03d}] {}'.format(
+                filename[-15:], lineno, __text)
+        self.handle.write(__text)
+        return len(__text)
 
     @staticmethod
     def enable() -> None:
