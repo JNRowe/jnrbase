@@ -8,4 +8,4 @@ flake8-import-order>=0.18
 flake8-string-format>=0.2
 pep8-naming>=0.9
 pydocstyle>=5.0
-pytest-html>=1.14
+pytest-html>=2.0
