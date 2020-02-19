@@ -19,11 +19,11 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 from random import choice
+from typing import Dict
 
 from hypothesis import given
 from hypothesis.strategies import dictionaries, text
 from pytest import fixture, raises
-from typing import Dict
 
 from jnrbase.attrdict import AttrDict, ROAttrDict  # NOQA: F401
 

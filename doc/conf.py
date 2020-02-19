@@ -20,10 +20,9 @@
 
 import os
 import sys
-
 from contextlib import suppress
 from pathlib import Path
-from subprocess import PIPE, CalledProcessError, run
+from subprocess import CalledProcessError, PIPE, run
 
 root_dir = Path(__file__).parent.parents[2]
 sys.path.insert(0, str(root_dir))
