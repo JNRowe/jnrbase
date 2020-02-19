@@ -7,5 +7,5 @@ flake8-comprehensions>=1.4
 flake8-import-order>=0.16
 flake8-string-format>=0.2
 pep8-naming>=0.9
-pep257
+pydocstyle>=5.0
 pytest-html>=1.14
