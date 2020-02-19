@@ -84,9 +84,7 @@ def parse_datetime(__string: str) -> datetime.datetime:
         datetime_ = datetime.datetime.now(datetime.timezone.utc)
     else:
         # pylint: disable=no-member
-        datetime_ = ciso8601.parse_datetime(__string)
-    if datetime_.tzinfo is None:
-        datetime_ = datetime_.replace(tzinfo=datetime.timezone.utc)
+        datetime_ = ciso8601.parse_rfc3339(__string)
     return datetime_
 
 

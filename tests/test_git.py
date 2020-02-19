@@ -27,6 +27,7 @@ from tempfile import TemporaryDirectory
 
 from pytest import mark, raises
 
+from jnrbase.context import chdir
 from jnrbase.git import find_tag
 
 pytestmark = mark.skipif(not which('git'), reason='Requires git')
@@ -44,6 +45,12 @@ def tarball_data(tar_name: str):
         with TemporaryDirectory() as temp_dir:
             tar.extractall(temp_dir)
             yield path.join(temp_dir, tar_name)
+
+
+def test_current_dir():
+    with tarball_data('semver') as tree:
+        with chdir(tree):
+            assert find_tag() == 'v2.3.4'
 
 
 def test_empty_repo():

@@ -20,6 +20,7 @@
 
 from pathlib import Path
 from subprocess import CalledProcessError, check_output
+from typing import Optional
 
 from .context import chdir
 
@@ -27,7 +28,7 @@ from .context import chdir
 def find_tag(__matcher: str = 'v[0-9]*',
              *,
              strict: bool = True,
-             git_dir: Path = Path('.')) -> str:
+             git_dir: Optional[Path] = None) -> str:
     """Find closest tag for a git repository.
 
     Note:
@@ -42,6 +43,8 @@ def find_tag(__matcher: str = 'v[0-9]*',
 
     .. _Semantic Version: http://semver.org/
     """
+    if not git_dir:
+        git_dir = Path('.')
     command = 'git describe --abbrev=12 --dirty'.split()
     with chdir(git_dir):
         try:

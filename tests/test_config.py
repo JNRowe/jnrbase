@@ -24,7 +24,6 @@ from pytest import mark
 
 from jnrbase import config
 from jnrbase.context import chdir
-
 from .utils import func_attr
 
 exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731

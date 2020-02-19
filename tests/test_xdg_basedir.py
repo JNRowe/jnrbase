@@ -23,7 +23,6 @@ from pathlib import Path
 from pytest import raises
 
 from jnrbase import xdg_basedir
-
 from .utils import func_attr
 
 exists_result = lambda x: func_attr('exists_result', x)  # NOQA: E731

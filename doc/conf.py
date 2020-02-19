@@ -20,10 +20,9 @@
 
 import os
 import sys
-
 from contextlib import suppress
 from pathlib import Path
-from subprocess import PIPE, CalledProcessError, run
+from subprocess import CalledProcessError, PIPE, run
 
 root_dir = Path(__file__).parent.parents[2]
 sys.path.insert(0, str(root_dir))
@@ -43,6 +42,9 @@ extensions = \
     + ['sphinx_autodoc_typehints', 'sphinx_click.ext']
 
 if not on_rtd:
+    # Showing document build durations is only valuable when writing, so we’ll
+    # only enable it locally
+    extensions.append('sphinx.ext.duration')
     # Only activate spelling if it is installed.  It is not required in the
     # general case and we don’t have the granularity to describe this in a
     # clean way
@@ -60,7 +62,7 @@ rst_epilog = """
 
 default_role = 'any'
 
-needs_sphinx = '2.0'
+needs_sphinx = '2.4'
 
 nitpicky = True
 # }}}

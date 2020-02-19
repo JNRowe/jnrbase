@@ -19,11 +19,11 @@
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
 from random import choice
+from typing import Dict
 
 from hypothesis import given
 from hypothesis.strategies import dictionaries, text
 from pytest import fixture, raises
-from typing import Dict
 
 from jnrbase.attrdict import AttrDict, ROAttrDict  # NOQA: F401
 
@@ -33,7 +33,7 @@ def base_obj() -> AttrDict:
     return AttrDict(carrots=3, snacks=0)
 
 
-def test_AttrDict_base(base_obj: AttrDict):
+def test_AttrDict_base(base_obj: AttrDict):  # NOQA: N802
     assert isinstance(base_obj, dict)
 
     assert base_obj['carrots'] == 3
@@ -42,47 +42,47 @@ def test_AttrDict_base(base_obj: AttrDict):
     assert sorted(base_obj.keys()) == ['carrots', 'snacks']
 
 
-def test_AttrDict___contains__(base_obj: AttrDict):
+def test_AttrDict___contains__(base_obj: AttrDict):  # NOQA: N802
     assert 'carrots' in base_obj
     assert 'prizes' not in base_obj
 
 
-def test_AttrDict___getattr__(base_obj: AttrDict):
+def test_AttrDict___getattr__(base_obj: AttrDict):  # NOQA: N802
     assert base_obj.carrots == 3
     assert base_obj.snacks == 0
 
 
-def test_AttrDict___setattr__(base_obj: AttrDict):
+def test_AttrDict___setattr__(base_obj: AttrDict):  # NOQA: N802
     base_obj.carrots, base_obj.snacks = 0, 3
     assert base_obj.carrots == 0
     assert base_obj.snacks == 3
 
 
-def test_AttrDict___delattr__(base_obj: AttrDict):
+def test_AttrDict___delattr__(base_obj: AttrDict):  # NOQA: N802
     assert 'carrots' in base_obj
     del base_obj['carrots']
     assert 'carrots' not in base_obj
 
 
 @given(dictionaries(text(), text(), dict_class=AttrDict, min_size=1))
-def test_AttrDict___delattr___multi(d: Dict[str, str]):
+def test_AttrDict___delattr___multi(d: Dict[str, str]):  # NOQA: N802
     k = choice(list(d))
     assert k in d
     del d[k]
     assert k not in d
 
 
-def test_AttrDict_invalid_key_set(base_obj: AttrDict):
+def test_AttrDict_invalid_key_set(base_obj: AttrDict):  # NOQA: N802
     with raises(AttributeError, match='unhashable'):
         base_obj.__setattr__({True: False}, None)
 
 
-def test_AttrDict_invalid_key_delete(base_obj: AttrDict):
+def test_AttrDict_invalid_key_delete(base_obj: AttrDict):  # NOQA: N802
     with raises(AttributeError, match='unhashable'):
         base_obj.__delattr__({True: False})
 
 
-def test_AttrDict_swallowed_exception(base_obj: AttrDict):
+def test_AttrDict_swallowed_exception(base_obj: AttrDict):  # NOQA: N802
     def raise_error():
         raise ValueError()
 
@@ -91,13 +91,13 @@ def test_AttrDict_swallowed_exception(base_obj: AttrDict):
     assert 'prop' in base_obj
 
 
-def test_ROAttrDict___setattr__():
+def test_ROAttrDict___setattr__():  # NOQA: N802
     obj = ROAttrDict(carrots=3, snacks=0)
     with raises(AttributeError, match='is read-only'):
         obj.carrots = 1
 
 
-def test_ROAttrDict___delattr__():
+def test_ROAttrDict___delattr__():  # NOQA: N802
     obj = ROAttrDict(carrots=3, snacks=0)
     with raises(AttributeError, match='is read-only'):
         del obj.carrots
