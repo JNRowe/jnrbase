@@ -30,7 +30,6 @@ from jnrbase.iso_8601 import (format_datetime, format_delta, parse_datetime,
 @mark.parametrize('string, expected', [
     ('2011-05-04T08:00:00Z', datetime(2011, 5, 4, 8, 0, tzinfo=timezone.utc)),
     ('2011-05-04T09:15:00Z', datetime(2011, 5, 4, 9, 15, tzinfo=timezone.utc)),
-    ('2011-05-04T09:15:00', datetime(2011, 5, 4, 9, 15, tzinfo=timezone.utc)),
     ('', None),
 ])
 def test_parse_datetime(string: str, expected: datetime):
