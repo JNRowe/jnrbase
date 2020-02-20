@@ -18,8 +18,9 @@
 # You should have received a copy of the GNU General Public License along with
 # jnrbase.  If not, see <http://www.gnu.org/licenses/>.
 
+from inspect import signature
 from random import choice
-from typing import Dict
+from typing import Dict, Union
 
 from hypothesis import given
 from hypothesis.strategies import dictionaries, text
@@ -29,8 +30,9 @@ from jnrbase.attrdict import AttrDict, ROAttrDict  # NOQA: F401
 
 
 @fixture()
-def base_obj() -> AttrDict:
-    return AttrDict(carrots=3, snacks=0)
+def base_obj(request) -> Union[AttrDict, ROAttrDict]:
+    type_ = signature(request.function).parameters['base_obj'].annotation
+    return type_(carrots=3, snacks=0)
 
 
 def test_AttrDict_base(base_obj: AttrDict):  # NOQA: N802
@@ -91,13 +93,11 @@ def test_AttrDict_swallowed_exception(base_obj: AttrDict):  # NOQA: N802
     assert 'prop' in base_obj
 
 
-def test_ROAttrDict___setattr__():  # NOQA: N802
-    obj = ROAttrDict(carrots=3, snacks=0)
+def test_ROAttrDict___setattr__(base_obj: ROAttrDict):  # NOQA: N802
     with raises(AttributeError, match='is read-only'):
-        obj.carrots = 1
+        base_obj.carrots = 1
 
 
-def test_ROAttrDict___delattr__():  # NOQA: N802
-    obj = ROAttrDict(carrots=3, snacks=0)
+def test_ROAttrDict___delattr__(base_obj: ROAttrDict):  # NOQA: N802
     with raises(AttributeError, match='is read-only'):
-        del obj.carrots
+        del base_obj.carrots
