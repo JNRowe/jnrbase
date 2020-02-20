@@ -26,7 +26,7 @@ from jnrbase.pager import pager
 
 
 @mark.skipif(not which('cat'), reason='Requires cat')
-def test_pager(monkeypatch, capfd):
+def test_pager(capfd):
     pager('paging through cat', pager='cat')
     assert capfd.readouterr()[0] == 'paging through cat'
 
