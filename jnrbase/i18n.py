@@ -32,7 +32,6 @@ def setup(__pkg: ModuleType
         __pkg: Package to use as location for :program:`gettext` files
     Returns:
         :program:`gettext` functions for singular and plural translations
-
     """
     package_locale = Path(__pkg.__file__).parent / 'locale'
     gettext.install(__pkg.__name__, str(package_locale))

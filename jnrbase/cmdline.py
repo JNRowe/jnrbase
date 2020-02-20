@@ -70,7 +70,6 @@ def text_arg(__func: Callable) -> Callable:
 
     Returns:
         Function with additional options
-
     """
     return argument('text')(__func)
 

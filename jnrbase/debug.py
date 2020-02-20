@@ -77,7 +77,6 @@ def noisy_wrap(__func: Callable) -> Callable:
         __func: Function to wrap
     Returns:
         Wrapped function
-
     """
 
     # pylint: disable=missing-docstring
@@ -99,7 +98,6 @@ def __debug_decorator(__type: str, __msg: str) -> Callable:
         __msg: Message to display
     Returns:
         Wrapped function
-
     """
     # pylint: disable=missing-docstring
     def decorator(__func):
@@ -125,7 +123,6 @@ def on_enter(__msg: Optional[Union[Callable, str]] = None) -> Callable:
         __msg: Message to display
     Returns:
         Wrapped function
-
     """
     if callable(__msg):
         return on_enter()(__msg)
@@ -141,7 +138,6 @@ def on_exit(__msg: Optional[Union[Callable, str]] = None) -> Callable:
         __msg: Message to display
     Returns:
         Wrapped function
-
     """
     if callable(__msg):
         return on_exit()(__msg)

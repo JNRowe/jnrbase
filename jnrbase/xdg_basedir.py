@@ -36,7 +36,7 @@ __LOCATIONS: Dict[str, Tuple[str, str]] = {
 
 
 def __user_location(__pkg: str, __type) -> Path:  # NOQA: N802
-    """Utility function to look up XDG basedir locations
+    """Utility function to look up XDG basedir locations.
 
     Args:
         __pkg: Package name
