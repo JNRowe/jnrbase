@@ -10,6 +10,10 @@ User-visible changes
 ------------------
 
 * ``httplib2`` certificate support is gone, pin to ``<=1.3.0`` if you need it
+* Python 3.8 is now supported
+* pypy3_ is provisionally supported, report any bugs you find!
+
+.. _pypy3: https://www.pypy.org/
 
 1.2.0 - 2020-01-23
 ------------------
