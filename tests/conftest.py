@@ -32,8 +32,8 @@ def path_exists_force(request, monkeypatch):
 
     This fixture returns ``True`` by default, but a custom value can be
     specified by setting the ``exists_result`` attribute on a test function.
-    If the ``exists_result`` attribute is a list it returns items in LIFO order
-    on each call.
+    If the ``exists_result`` attribute is a list it returns items in
+    :abbr:`LIFO (Last In First Out)` order on each call.
     """
     result = getattr(request.function, 'exists_result', True)
     if isinstance(result, list):
