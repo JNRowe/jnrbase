@@ -37,8 +37,8 @@ def path_exists_force(request, monkeypatch):
     """
     result = getattr(request.function, 'exists_result', True)
     if isinstance(result, list):
-        monkeypatch.setattr('.'.join([_get_module(request), 'Path', 'exists']),
-                            lambda p: result.pop())
+        func = lambda _: result.pop()  # NOQA: E731
     else:
-        monkeypatch.setattr('.'.join([_get_module(request), 'Path', 'exists']),
-                            lambda p: result)
+        func = lambda _: result  # NOQA: E731
+    monkeypatch.setattr('.'.join([_get_module(request), 'Path', 'exists']),
+                        func)
