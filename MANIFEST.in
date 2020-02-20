@@ -14,6 +14,7 @@ include tests/data/config/.jnrbaserc
 include tests/*.py
 
 recursive-include .github *.rst
+recursive-include .github/workflows *.yml
 recursive-include doc *.rst
 recursive-include tests/data *.tar
 recursive-include tests/data/pip *.txt
