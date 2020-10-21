@@ -19,7 +19,7 @@
     <bug-database rdf:resource="https://github.com/JNRowe/jnrbase/issues" />
     <repository>
         <GitRepository>
-            <location rdf:resource="git://github.com/JNRowe/jnrbase.git" />
+            <location rdf:resource="https://github.com/JNRowe/jnrbase.git" />
             <browse rdf:resource="https://github.com/JNRowe/jnrbase" />
         </GitRepository>
     </repository>
