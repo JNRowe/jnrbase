@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-3.0-or-later
+
 .. module:: jnrbase.config
    :synopsis: Configuration loading support
 

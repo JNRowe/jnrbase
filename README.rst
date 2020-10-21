@@ -107,3 +107,5 @@ reproduce the problem, or even better a fix!
 .. |readthedocs| image:: https://img.shields.io/readthedocs/jnrbase/stable.png
    :target: https://jnrbase.readthedocs.io/
    :alt: Documentation
+
+.. SPDX-License-Identifier: GPL-3.0-or-later

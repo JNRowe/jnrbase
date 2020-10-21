@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-3.0-or-later
+
 .. module:: jnrbase.timer
    :synopsis: Function timing support
 

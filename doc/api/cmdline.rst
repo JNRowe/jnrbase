@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-3.0-or-later
+
 .. module:: jnrbase.cmdline
    :synopsis: Command line functionality for jnrbase
 

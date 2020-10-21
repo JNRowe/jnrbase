@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-3.0-or-later
+
 :Author: James Rowe <jnrowe@gmail.com>
 :Date: 2017-11-24
 :Copyright: GPL v3
