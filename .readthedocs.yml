@@ -1,18 +1,14 @@
-build:
-  image: latest
-
-formats:
-  - epub
-
+version: 2
 python:
-  extra_requirements:
-    - cli
-    - colour
-    - iso_8601
-    - net
-    - template
-  pip_install: true
-  version: 3
-
-requirements_file:
-  extra/requirements-doc.txt
+  install:
+   - requirements: extra/requirements-doc.txt
+   - method: pip
+     path: .
+     extra_requirements:
+       - cli
+       - colour
+       - iso_8601
+       - template
+sphinx:
+  configuration: docs/conf.py
+  fail_on_warning: true
