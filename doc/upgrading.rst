@@ -51,7 +51,7 @@ documentation for the list of supported functions.
 ``httplib2`` cert handling removal (1.2.0)
 ------------------------------------------
 
-It has become untenable to support ``httplib2`` certificate setup, and I can no
+It has become untenable to support ``httplib2`` certificate setup, and I can
 no longer recommend ``httplib2``.  There are various alternatives, all with
 equally *odd* support for working system certificates.  It is unclear what
 upgrade path one should recommend for users who need stable and repeatable
