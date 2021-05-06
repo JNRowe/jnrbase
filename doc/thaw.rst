@@ -19,7 +19,7 @@ The future
 ----------
 
 As of 2017-10-25, branches already exist for all my public projects.  |modref|
-support hasn’t been merged to ``master`` on all of them yet, but it is just
+support hasn’t been merged to ``main`` on all of them yet, but it is just
 a matter of time.
 
 Should the functionality show itself to be useful, or should I feel the need to

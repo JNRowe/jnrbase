@@ -64,6 +64,6 @@ See :issue:`30` for more information.
 .. [*] My earliest `public commit`_ for Python 3 support I can find is in
        ``pyisbn``
 
-.. _NEWS.rst: https://github.com/JNRowe/jnrbase/blob/master/NEWS.rst
+.. _NEWS.rst: https://github.com/JNRowe/jnrbase/blob/main/NEWS.rst
 .. _pip: https://pip.pypa.io/
 .. _public commit: https://github.com/JNRowe/pyisbn/commit/d63b2b884c862f9ee5fb24359376f7f363da22a5

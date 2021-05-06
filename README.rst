@@ -95,9 +95,9 @@ reproduce the problem, or even better a fix!
 .. |status| image:: https://img.shields.io/pypi/status/jnrbase.png
    :alt: Development status
 
-.. |coveralls| image:: https://img.shields.io/coveralls/github/JNRowe/jnrbase/master.png
+.. |coveralls| image:: https://img.shields.io/coveralls/github/JNRowe/jnrbase/main.png
    :target: https://coveralls.io/repos/JNRowe/jnrbase
-   :alt: Coverage state on master
+   :alt: Coverage state on main
 
 .. |pypi| image:: https://img.shields.io/pypi/v/jnrbase.png
    :target: https://pypi.org/project/jnrbase/
