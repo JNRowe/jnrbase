@@ -1,7 +1,7 @@
 jnrbase - Common utility functionality
 ======================================
 
-|status| |travis| |coveralls| |pypi| |pyvers| |readthedocs| |develop|
+|status| |actions| |coveralls| |pypi| |pyvers| |readthedocs| |develop|
 
 ``jnrbase`` is a collection of common utility libraries that are used in the
 Python projects that I (JNRowe_) work on.  Feel free to use it — and perhaps
@@ -82,9 +82,8 @@ reproduce the problem, or even better a fix!
 .. _pytest: https://pypi.org/project/pytest/
 .. _mail: jnrowe@gmail.com
 
-.. |travis| image:: https://img.shields.io/travis/JNRowe/jnrbase/master.png
-   :target: https://travis-ci.org/JNRowe/jnrbase
-   :alt: Test state on master
+.. |actions| image:: https://img.shields.io/github/workflow/status/JNRowe/jnrbase/Test%20with%20pytest
+   :alt: Test state on main
 
 .. |develop| image:: https://img.shields.io/github/commits-since/JNRowe/jnrbase/latest.png
    :target: https://github.com/JNRowe/jnrbase
