@@ -4,127 +4,160 @@
 
 ### BLAME_IGNORE_TAG: Generated from master {{{
 
-#[QA] Process with docformatter
+# [Tr] Update references to main branch
+4f7b9d18eba80a90dac1fb98590c35dd1f650612
+
+# [QA] Switch to GitHub actions
+11b05dc8a3e626a68e8ce1badebe0f306ce21aee
+
+# [Tr] Drop deprecated --strict argument to pytest
+bae75462c114c88c981bd2601f86874edc7e459e
+
+# [QA] Add config for git blame's --ignore-revs-file option
+3924006e1c296619ed96258ea3f83eabdc88cb92
+
+# [Tr] Minor grammar fixes
+c9a23aa8b0d31f7e4fa69040fabbf78e975ccae6
+
+# [Tr] Use HTTPS for git repository location
+19cf7344be85e6a9953161c4f2aae816a8236d73
+
+# [QA] Include SPDX headers in doc files
+952ed0056fcadd9a4bfc5212f0a5ac2ddcdf7a76
+
+# [QA] Sync manifest data
+6337948e4ddb2a977dd7888ae689dfd753e2e4ea
+
+# [Tr] Drop unused fixtures in tests
+32e888d9516ec458e2ba5686798dff947bf44dd9
+
+# [QA] Parametrise ROAttrDict tests
+a3f699d4658e1b0a1364d56d4bff26966b9f6600
+
+# [QA] Reduce duplication in path_exists_force
+ad03c781bf2fcd070601afb54ad1c44020ab2204
+
+# [QA] Process with docformatter
 d4a73e6bf8d22ed249e8929e808472bc76d66b1f
 
-#[QA] Use __ prefix for positional-only arguments
+# [QA] Use __ prefix for positional-only arguments
 931462ff27a505edeadd05f0367fbcff146674eb
 
-#[QA] Don't use NoReturn types
+# [QA] Don't use NoReturn types
 482e33be0c2e966d7e17851bde4955fffccdce80
 
-#[QA] Update doctests for newer Python output
+# [QA] Update doctests for newer Python output
 9349b3401bb15c347b4db2d1f6cc54bbed05cfa2
 
-#[QA] Increase typing coverage in cmdline
+# [QA] Increase typing coverage in cmdline
 b0ba6a318fb43f2559bfd5524df71efeb9bab40f
 
-#[QA] Fix NOQA placement
+# [QA] Fix NOQA placement
 4ad2a97e1a39ed06275553202fa23e929cd9e754
 
-#[QA] Add typing to tests
+# [QA] Add typing to tests
 348170c6400b6c7b5e4a87b7546e052d1030d5f6
 
-#[Tr] Whitespace fixes in pytest parametrize calls
+# [Tr] Whitespace fixes in pytest parametrize calls
 5b3d0ce755243f243bbbec59af80cd56b9d9aaca
 
-#[QA] Reformat with yapf
+# [QA] Reformat with yapf
 e3d1d8355f54ca28be38e948fd885d8a492a58cd
 
-#[Tr] Inline typing information
+# [Tr] Inline typing information
 34e86cef268510f5442ed9e02b6fc70cac80daf5
 
-#[QA] Update tests to match pygments 2.5 output changes
+# [QA] Update tests to match pygments 2.5 output changes
 b9f51ee5a32c24896d7a5eca7cbffa4bd2d01d90
 
-#[QA] Reformat with yapf
+# [QA] Reformat with yapf
 d1ae9b8cdcc7e322aa7e8c602637fad4baf26a63
 
-#[QA] [Tr] Add missing typo info
+# [QA] [Tr] Add missing typo info
 92bb2adc70f872b6e8a00c44336276f5a51e57fa
 
-#[Tr] Drop unnecessary ‘no cover’ markers
+# [Tr] Drop unnecessary ‘no cover’ markers
 6bb778e9ea7ac2a41af042349ebf497c5fe7c50a
 
-#[Tr] Add missing ‘.’ to command help output
+# [Tr] Add missing ‘.’ to command help output
 ce9b68ff9481b8177494c01088214783c39afe24
 
-#[QA] Bump copyright years
+# [QA] Bump copyright years
 a4cfe59339985fb104289ef1e8749590175ed733
 
-#[QA] Use more descriptive variable names
+# [QA] Use more descriptive variable names
 642100c6dbba304e58935ae75713d47da1fb03c0
 
-#[Tr] Drop unused imports
+# [Tr] Drop unused imports
 efa0528f1b97167371466cf3038bb57b94efcc0b
 
-#[Tr] Whitespace fix
+# [Tr] Whitespace fix
 3b5cfa305796d63a79e67e4649f49e00ee15d391
 
-#[QA] Use flake8-bugbear
+# [QA] Use flake8-bugbear
 2c50e197e599a91c6a67a1bd1346c0b9721fe1f9
 
-#[QA] Bump copyright years
+# [QA] Bump copyright years
 1b530aba7338ce8475cf0f7c8aac32a1dde376cd
 
-#[QA] PEP-257 requires a trailing dot on docstrings
+# [QA] PEP-257 requires a trailing dot on docstrings
 e7059829b38a1fed4085fbde25ae16588d022a8b
 
-#[Tr] Minor import order style fixes
+# [Tr] Minor import order style fixes
 7ff48467cd13b28a9d8723fd2e8dbbacf2f6a332
 
-#[Tr] Remove now useless u prefix on strings
+# [Tr] Remove now useless u prefix on strings
 b79a2820694f1ebb36e47e77cd34402cf589aa48
 
-#[QA] Fix broken Sphinx doctests
+# [QA] Fix broken Sphinx doctests
 c8f4a779776c8630e196d88e31400b639f4d3b43
 
-#[Tr] Minor trivial style fixes
+# [Tr] Minor trivial style fixes
 44e7d175472ab9b683e9a47d77ebef71d590ee22
 
-#[Tr] Drop empty parenthesis on class declarations
+# [Tr] Drop empty parenthesis on class declarations
 3e566e493c97e4f7eeaf277ac289f84714065617
 
-#[QA] Bump copyright years
+# [QA] Bump copyright years
 4931d539b951ddad330af7ef999db8b13e7c193d
 
-#[QA] Improve import statement compliance with PEP-8
+# [QA] Improve import statement compliance with PEP-8
 94248207f3c6f580534afcda9d9e1f9894710bd2
 
-#[QA] Only ignore specified messages with flake8
+# [QA] Only ignore specified messages with flake8
 2458ffb56376282db95f44238bd8df70e8694716
 
-#[QA] Prefer '' for string quotes
+# [QA] Prefer '' for string quotes
 d99c394f6b921c8c5914e714af457aa2ab9176fa
 
-#[QA] Don't use 'is' with expect
+# [QA] Don't use 'is' with expect
 059d8ee8ce4b8ab1c0283fd6a9ab158f049b8ca5
 
-#[Tr] Drop now redundant encoding specifiers
+# [Tr] Drop now redundant encoding specifiers
 9ab844865ff1836d812ffd169f4e7dd109886211
 
-#[Tr] Update pylint directives
+# [Tr] Update pylint directives
 6a21379c05af049072be205b1c997ca8632f4529
 
-#[Tr] Use raw strings for RegExps
+# [Tr] Use raw strings for RegExps
 9941639a9f52e266da07075b8e4260fcdc15d95a
 
-#[Tr] Don't shadow built in functions
+# [Tr] Don't shadow built in functions
 84cd9ad6bbe9063ef63a2a8d5b5acdaf1470b29f
 
-#[QA] Fix doctests
+# [QA] Fix doctests
 68df1ecbbf43a80bf9bcc99311df125648d26c02
 
-#[QA] Minor flake8 fixes
+# [QA] Minor flake8 fixes
 30e7f394f9846cb8499ff66e62d3db1d653de8bd
 
-#[Tr] Update Pygments output test results
+# [Tr] Update Pygments output test results
 712f2d1401ace59102d496f77775abc4691017ac
 
-#[QA] Improve compliance with PEP-8 and -257
+# [QA] Improve compliance with PEP-8 and -257
 d320676cd9a452fdc169b1dc22250643ab8e2c08
 
-#[QA] Remove trailing blank line in docstrings
+# [QA] Remove trailing blank line in docstrings
 16f28ee7a38a2fb40a70418f5ad84f48b423fc4c
 
 ### BLAME_IGNORE_TAG: Generated from master }}}
