@@ -1,5 +1,5 @@
 -r requirements.txt
-hiro>=0.5
+hiro>=1.1.1
 hypothesis>=5.5
 # hiro explicitly requires mock, and not Python 3’s unittest.mock
 mock>=2.0
