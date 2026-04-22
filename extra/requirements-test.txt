@@ -3,6 +3,6 @@ hiro>=0.5
 hypothesis>=5.5
 # hiro explicitly requires mock, and not Python 3’s unittest.mock
 mock>=2.0
-pytest>=5.3
+pytest>=9.0.3
 pytest-cov>=2.8
 pytest-randomly>=3.2
