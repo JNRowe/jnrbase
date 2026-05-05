@@ -6,6 +6,6 @@ flake8-comprehensions>=3.17.0
 flake8-copyright>=0.2
 flake8-import-order>=0.19.2
 flake8-string-format>=0.3
-pep8-naming>=0.9
+pep8-naming>=0.15.1
 pydocstyle>=5.0
 pytest-html>=4.2.0
