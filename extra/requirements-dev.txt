@@ -1,5 +1,5 @@
 -r requirements-test.txt
-flake8>=3.7
+flake8>=7.3.0
 flake8-bugbear>=25.11.29
 flake8-chart>=0.1.5
 flake8-comprehensions>=3.17.0
