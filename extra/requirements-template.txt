@@ -1,4 +1,4 @@
 click>=8.4.2
 html2text>=2025.4.15
 Jinja2>=3.1.6
-Pygments>=2.20.0
+Pygments>=2.21.0
