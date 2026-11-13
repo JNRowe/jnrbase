@@ -5,4 +5,4 @@ hypothesis>=6.170.14
 mock>=5.2.0
 pytest>=9.2.0
 pytest-cov>=7.1.0
-pytest-randomly>=5.0.0
+pytest-randomly>=5.1.0
